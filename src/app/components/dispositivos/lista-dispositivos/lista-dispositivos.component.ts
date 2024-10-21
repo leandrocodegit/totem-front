@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MqttService, IMqttMessage } from 'ngx-mqtt';
-import { MQTT_SERVICE_OPTIONS, MqttModule } from 'ngx-mqtt';
-import { MQTTModule } from '../../MQTT.module';
+import { MQTTModule } from '../../../MQTT.module';
 
 @Component({
   selector: 'app-lista-dispositivos',

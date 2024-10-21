@@ -1,0 +1,55 @@
+<mat-card class="w-100">
+  <mat-card-content>
+
+    <div class="box-botoes-direta">
+      <div style="max-width: 400px;flex: 1;">
+        <mat-form-field appearance="outline">
+          <input type="text" matInput placeholder="Pesquisar usuário">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      <button (click)="adicionarUsuario()" mat-raised-button mat-button type="button" color="primary">
+        <i-feather name="plus" class="feather-base" style="margin-right: 10px;"> </i-feather>
+        Novo usuário</button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Grupo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of this.data.datas.content">
+            <td><img [src]="urlAvatar(user.avatar)" width="35" height="35" class="rounded-circle"></td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.cellphone}}</td>
+            <td>
+              <span class="badge badge-{{user.status ? 'success' : 'danger'}} rounded-pill">
+                {{user.status ? 'Ativo' : 'Inativo'}}</span>
+            </td>
+            <td>{{user.grupo}}</td>
+            <td *ngIf="isAutorizado">
+              <i-feather (click)="editarUsuario(user)" name="edit" class="feather-base" style="margin-right: 10px;">
+              </i-feather>
+              <i-feather (click)="bloquearUsuario(user)" [name]="user.status ? 'lock' : 'unlock'" class="feather-base"
+                style="margin-right: 10px;">
+              </i-feather>
+              <i-feather (click)="removerUsuario(user)" name="trash-2" class="feather-base" style="margin-right: 10px;">
+              </i-feather>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-paginator #paginator [length]="data.datas.totalElements" [pageSize]="data.datas.size"
+        [showFirstLastButtons]="true" aria-label="Select page">
+      </mat-paginator>
+    </div>

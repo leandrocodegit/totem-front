@@ -1,0 +1,22 @@
+<div class="box-token">
+  <div class="cronomentro">
+    <span class="material-symbols-outlined">
+      verified_user
+    </span>
+    <span style="color: #9f9d95;">{{ formatTime(timeRemaining) }}</span>
+  </div>
+  <p>Insira o codigo de validação enviado para</p>
+  <p>{{email}}</p>
+  <div class="codigo">
+    <form [formGroup]="formGroup">
+    <input class="campo-padrao" formControlName="token" required maxlength="6" #token [style.border-color]="isValid('token') ? 'green' : 'red'" type="text">
+
+    </form>
+  </div>
+  <div class="acoes">
+    <button (click)="reset()" [disabled]="timeRemaining > 0" mat-raised-button class="me-8 mb-8"
+      type="submit">Reenviar codigo</button>
+    <button [disabled]="!formGroup.valid" (click)="validar(token.value)" mat-raised-button class="me-8 mb-8" color="primary" type="submit">Validar</button>
+  </div>
+  <span *ngIf="isError" class="text-danger">Falha ao validar token</span>
+</div>

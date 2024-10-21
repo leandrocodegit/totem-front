@@ -1,0 +1,11 @@
+<div class="box-login">
+  <div class="box-login-form">
+    <img src="/assets/images/avatar.png" width="70">
+      <input [(ngModel)]="email" class="campo-padrao" matInput type="text" placeholder="Entre com seu login">
+      <input [(ngModel)]="password" class="campo-padrao" matInput type="password" placeholder="Senha">
+      <span style="width: 92%; padding: 2px 5px 20px;color: #00a6cf;">Recuperar senha</span>
+    <button mat-raised-button class="me-8 mb-8" color="primary" (click)="login()" type="submit">Entrar</button>
+    <mat-spinner class="custom-spinner" *ngIf="isLoad"></mat-spinner>
+    <span *ngIf="isError" class="text-danger">Falha no login</span>
+  </div>
+</div>
