@@ -54,10 +54,10 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.avatar);
 
-    if(localStorage.getItem('user.nome'))
+  /*   if(localStorage.getItem('user.nome'))
       this.nome = localStorage.getItem('user.nome')!;
     if(localStorage.getItem('user.avatar'))
-      this.avatar = localStorage.getItem('user.avatar')!;
+      this.avatar = localStorage.getItem('user.avatar')!; */
   }
 
   logout(){

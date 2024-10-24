@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { rxStompServiceFactory } from '../../../../rx-stomp-service-factory';
-import { WebSocketService } from '../../../broker/websocket.service';
+import { WebSocketService2 } from '../../../broker/websocket2.service';
 
 @Component({
   selector: 'app-lista-dispositivos',
@@ -9,36 +8,24 @@ import { WebSocketService } from '../../../broker/websocket.service';
 
   ],
   providers: [
-    {
-      provide: WebSocketService,
-      useFactory: rxStompServiceFactory,
-      deps: [],
-    },
+    WebSocketService2
   ],
   templateUrl: './lista-dispositivos.component.html',
   styleUrl: './lista-dispositivos.component.scss'
 })
 export class ListaDispositivosComponent {
 
-  constructor(private websocketService: WebSocketService) {}
+  constructor(private websocketService: WebSocketService2) {}
 
   ngOnInit() {
 
-    this.websocketService.stompClient.subscribe('/topic/messages', (message) => {
-      if (message.body) {
-        console.log('Mensagem recebida: ' + message.body);
-        // Aqui você pode processar a mensagem recebida
-      }
-    });
+
 
   }
 
   conectar() {
-    console.log("Conectando..");
-    this.websocketService.stompClient.publish({
-      destination: '/topic/messages',
-      body: 'teste',
-    });
+    this.websocketService.connect()
+
 
 
   }

@@ -1,6 +1,5 @@
-import { RxStompConfig } from '@stomp/rx-stomp';
 
-export const myRxStompConfig: RxStompConfig = {
+export const myRxStompConfig: any = {
   brokerURL: 'ws://localhost:8000/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwaXp6dXJnLWFwaSIsImlhdCI6MTcyOTc5MTA5MywiZXhwIjoxNzI5ODA1NDkzLCJzdWIiOiJhZG1pbiJ9.oqDkujjyam1l8HY2b6McsL-ohwB-Hx95XrbbIsJdrMU',
   //brokerURL: 'ws://localhost:9001',
   connectHeaders: {
