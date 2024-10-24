@@ -6,8 +6,8 @@ import { Role } from './model/constantes/role.enum';
 
 export const routes: Routes = [
   {
-    path: '', component: SidebarComponent, canActivate: [AuthGuard], data: { roles: [Role.admin, Role.user] },
-
+ //   path: '', component: SidebarComponent, canActivate: [AuthGuard], data: { roles: [Role.admin, Role.user] },
+ path: '', component: SidebarComponent,
     children: [
       {
         path: 'dispositivos', component: ListaDispositivosComponent,

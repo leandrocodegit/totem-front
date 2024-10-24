@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { __await } from 'tslib';
 import { Observable } from 'rxjs';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { environment } from '../../../../environments/environment.prod';
 import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
 import { Role } from '../../../model/constantes/role.enum';
@@ -21,12 +20,12 @@ export class AuthService {
     private router: Router) { }
 
   public login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(environment.urlBff + '/admin/login', JSON.stringify(
+    return this.http.post<any>('environment.urlBff '+ '/admin/login', JSON.stringify(
       {
         email: email,
         password: password
-      }),
-      environment.headers)
+      })
+      )
   }
 
   refreshToken(): Observable<any> {
@@ -42,7 +41,7 @@ export class AuthService {
         "Content-Type": "application/x-www-form-urlencoded"
       })
     }
-    return this.http.post(`${environment.urlBff}/admin/token/refresh`, body, headers);
+    return this.http.post(`${'environment.urlBff'}/admin/token/refresh`, body, headers);
   }
 
   setTokens(data: any) {
@@ -62,7 +61,7 @@ export class AuthService {
         "X-token-Header": localStorage.getItem("token.sms")!
       })
     }
-    return this.http.get<User>(environment.urlBff + '/admin/validate-token/sms-token/' + smsToken, headers)
+    return this.http.get<User>('environment.urlBff' + '/admin/validate-token/sms-token/' + smsToken, headers)
   }
 
   public enviarToken(): Observable<User> {
@@ -70,7 +69,7 @@ export class AuthService {
     if (localStorage.getItem('user.id')) {
       userId = localStorage.getItem('user.id')!;
     }
-    return this.http.get<User>(environment.urlBff + `/token/send-token/id/${userId}/resend/true`)
+    return this.http.get<User>('environment.urlBff' + `/token/send-token/id/${userId}/resend/true`)
   }
 
   public isLoggedIn() {

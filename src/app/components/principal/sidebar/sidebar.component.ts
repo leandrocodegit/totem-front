@@ -5,14 +5,12 @@ import { map, shareReplay } from 'rxjs/operators';
 import { IconsModule } from '../../../IconsModule';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { DemoFlexyModule } from '../../../demo-flexy-module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../auth/services/auth.service';
-import { environment } from '../../../../environments/environment.prod';
 
 interface sidebarMenu {
   link: string;
@@ -41,7 +39,7 @@ export class SidebarComponent implements OnInit {
   protected search: boolean = false;
   protected nome?: string;
   protected avatar?: string;
-  protected host = environment.urlBff;
+  protected host = 'environment.urlBff';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -67,7 +65,7 @@ export class SidebarComponent implements OnInit {
   }
 
   urlAvatar(){
-    return `${environment.urlBff}image/id/${this.avatar}`
+    return `${'environment.urlBff'}image/id/${this.avatar}`
   }
 
   routerActive: string = "activelink";

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 import { default as _rollupMoment, Moment } from 'moment';
 import * as _moment from 'moment';
- 
+
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
@@ -29,7 +28,7 @@ export const MY_FORMATS = {
     FeatherModule,
   ],
   providers: [
-    provideMomentDateAdapter(MY_FORMATS),
+  //  provideMomentDateAdapter(MY_FORMATS),
   ]
 })
 export class IconsModule { }
