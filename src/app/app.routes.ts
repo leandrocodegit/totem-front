@@ -3,8 +3,11 @@ import { SidebarComponent } from './components/principal/sidebar/sidebar.compone
 import { ListaDispositivosComponent } from './components/dispositivos/lista-dispositivos/lista-dispositivos.component';
 import { AuthGuard } from './components/auth/services/auth.guard';
 import { Role } from './model/constantes/role.enum';
+import { LoginComponent } from './components/auth/views/login/login.component';
+import { PainelConfiguracoesComponent } from './components/dispositivos/painel-configuracoes/painel-configuracoes.component';
 
 export const routes: Routes = [
+  {path: '', component: PainelConfiguracoesComponent},
   {
  //   path: '', component: SidebarComponent, canActivate: [AuthGuard], data: { roles: [Role.admin, Role.user] },
  path: '', component: SidebarComponent,
@@ -18,5 +21,6 @@ export const routes: Routes = [
       },
     ]
   },
+  {path: 'login', component: LoginComponent}
 
 ];

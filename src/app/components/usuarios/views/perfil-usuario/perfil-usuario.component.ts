@@ -28,7 +28,7 @@ import { UserService } from '../../services/user.service';
 export class PerfilUsuarioComponent implements OnInit {
 
   protected user?: User;
-  protected host = environment.urlBff;
+  protected host = environment.urlApi;
 
   constructor(
     public authService: AuthService,

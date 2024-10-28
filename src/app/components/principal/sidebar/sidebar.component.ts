@@ -39,7 +39,7 @@ export class SidebarComponent implements OnInit {
   protected search: boolean = false;
   protected nome?: string;
   protected avatar?: string;
-  protected host = 'environment.urlBff';
+  protected host = 'environment';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -62,10 +62,6 @@ export class SidebarComponent implements OnInit {
 
   logout(){
     this.authService.logout()
-  }
-
-  urlAvatar(){
-    return `${'environment.urlBff'}image/id/${this.avatar}`
   }
 
   routerActive: string = "activelink";

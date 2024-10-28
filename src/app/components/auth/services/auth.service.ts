@@ -6,6 +6,7 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
 import { Role } from '../../../model/constantes/role.enum';
+import { environment } from '../../../../environments/environment.prod';
 
 
 
@@ -20,56 +21,27 @@ export class AuthService {
     private router: Router) { }
 
   public login(email: string, password: string): Observable<any> {
-    return this.http.post<any>('environment.urlBff '+ '/admin/login', JSON.stringify(
+    return this.http.post<any>(environment.urlApi + '/auth/login', JSON.stringify(
       {
         email: email,
         password: password
-      })
+      }),environment.headers
       )
   }
 
   refreshToken(): Observable<any> {
     const refreshToken = localStorage.getItem('token.refresh');
-
-    const body = new HttpParams()
-      .set('client_id', 'web-app')
-      .set('grant_type', 'refresh_token')
-      .set('refresh_token', refreshToken! || '');
-
-    var headers = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/x-www-form-urlencoded"
-      })
-    }
-    return this.http.post(`${'environment.urlBff'}/admin/token/refresh`, body, headers);
+    return this.http.get(`${environment.urlApi}/auth/refresh?token=${refreshToken}`);
   }
 
   setTokens(data: any) {
-    localStorage.setItem("token.acess", data.access_token);
+    localStorage.setItem("token.access", data.access_token);
     localStorage.setItem("token.refresh", data.refresh_token);
+    localStorage.setItem("token.socket", data.socket_token);
   }
 
   get accessToken(): string | null {
     return localStorage.getItem("token.acess");
-  }
-
-  public validarToken(smsToken: string): Observable<User> {
-    var headers = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "X-auth-Header": "USER",
-        "X-token-Header": localStorage.getItem("token.sms")!
-      })
-    }
-    return this.http.get<User>('environment.urlBff' + '/admin/validate-token/sms-token/' + smsToken, headers)
-  }
-
-  public enviarToken(): Observable<User> {
-    var userId: string = '';
-    if (localStorage.getItem('user.id')) {
-      userId = localStorage.getItem('user.id')!;
-    }
-    return this.http.get<User>('environment.urlBff' + `/token/send-token/id/${userId}/resend/true`)
   }
 
   public isLoggedIn() {

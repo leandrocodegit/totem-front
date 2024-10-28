@@ -24,7 +24,10 @@ export class ListaDispositivosComponent {
   }
 
   conectar() {
-    this.websocketService.connect()
+
+
+    this.websocketService.connect();
+    this.websocketService.publicar("{}")
 
 
 

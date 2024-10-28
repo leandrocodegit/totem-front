@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoadComponent } from '../../../util/load/load.component';
 import { UserService } from '../../../usuarios/services/user.service';
 
 @Component({
@@ -24,8 +23,7 @@ import { UserService } from '../../../usuarios/services/user.service';
     IconsModule,
     MatButtonModule,
     NgIf,
-    MatProgressSpinnerModule,
-    LoadComponent
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService
@@ -35,8 +33,8 @@ import { UserService } from '../../../usuarios/services/user.service';
 })
 export class LoginComponent {
 
-  protected email = 'lpoliveira.ti@gmail.com';
-  protected password = 'Senha@123';
+  protected email = 'admin';
+  protected password = 'admin';
   protected isError = false;
   protected isLoad = false;
 
@@ -52,21 +50,13 @@ export class LoginComponent {
     this.isError = false;
 
     this.authService.login(this.email, this.password).subscribe((response: any) => {
-
-      localStorage.setItem("token.sms", response.data.body.data.token);
-
+      this.authService.setTokens(response);
       this.isError = false;
-
       this.isLoad = false;
-      this.router.navigate([`/validar-token`]);
-
-
+      this.router.navigate([`/dispositivos`]);
     }, fail => {
       this.isError = true;
       this.isLoad = false;
-    })
-
-
+    });
   }
-
 }

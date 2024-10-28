@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const accessToken = this.authService.accessToken;
 
-    if (req.url.includes('/admin/token/refresh') || req.url.includes('/avatar/file/upload')) {
+    if (req.url.includes('/auth/refresh') || req.url.includes('/auth/login')) {
       return next.handle(req);
     }
 

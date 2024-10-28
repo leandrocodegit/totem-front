@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Client, Message } from '@stomp/stompjs';
+import { environment } from '../../environments/environment.prod';
+import { AuthService } from '../components/auth/services/auth.service';
+import { response } from 'express';
 
 
 @Injectable({
@@ -7,27 +10,47 @@ import { Client, Message } from '@stomp/stompjs';
 })
 export class WebSocketService2 {
 
-  brokerURL = 'ws://localhost:8000/ws?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwaXp6dXJnLWFwaSIsImlhdCI6MTcyOTc5MTA5MywiZXhwIjoxNzI5ODA1NDkzLCJzdWIiOiJhZG1pbiJ9.oqDkujjyam1l8HY2b6McsL-ohwB-Hx95XrbbIsJdrMU';
-  stompClient!: any ;
+
   private client!: Client;
 
-  constructor() {
+  constructor(private authService: AuthService) {
 
-    const client = new Client({
-      brokerURL: this.brokerURL,
+    this.client = new Client({
+      brokerURL: this.getUrlBroker(),
       onConnect: () => {
-        client.subscribe('/topic', message =>
+        this.client.subscribe('/topic/messages', message =>
           console.log(`Received: ${message.body}`)
         );
         console.log('Conectado');
 
-
-
+      },
+      onDisconnect: () => {
+        console.log('Desconectou');
+        authService.refreshToken().subscribe(response => {
+          authService.setTokens(response);
+          this.client.brokerURL = this.getUrlBroker();
+        })
+      },
+      onWebSocketError: () => {
+        authService.refreshToken().subscribe(response => {
+          authService.setTokens(response);
+          this.client.brokerURL = this.getUrlBroker();
+          this.client.activate();
+        }, fail => {
+          if(fail.error && fail.error.status &&  fail.error.status == 403)
+            this.client.deactivate();
+        })
       },
     });
 
-    client.activate();
+    this.client.activate();
 
+
+
+  }
+
+  getUrlBroker(){
+    return environment.urlWebSocket + '?token=' + localStorage.getItem('token.socket');
   }
 
   connect() {
@@ -35,11 +58,18 @@ export class WebSocketService2 {
 
 
     if(this.client && this.client.connected){
-      this.client.publish({ destination: '/topic', body: 'First Message' });
+      console.log("Enviado");
+
+     // this.client.publish({ destination: 'app/device', body: '{}' });
     }
 
 
 
+  }
+
+  publicar(mensagem: string){
+    console.log("Publicado");
+    this.client.publish({ destination: '/app/device', body: mensagem });
   }
 
   disconnect() {

@@ -94,7 +94,7 @@ export class ListaUsuariosComponent {
   urlAvatar(avatar: string){
     if(!avatar)
       return 'assets/images/avatar.png'
-    return `${environment.urlBff}image/id/${avatar}`
+    return `${environment.urlApi}image/id/${avatar}`
   }
 }
 
