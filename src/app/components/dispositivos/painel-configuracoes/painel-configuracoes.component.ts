@@ -101,25 +101,32 @@ export class PainelConfiguracoesComponent implements OnInit {
   onSliderChange() {
 
     var obejto = {
-      efeito: this.configuracao.efeito,
-      mac: 'EC:62:60:55:99:FC',
-      leds: this.configuracao.leds,
-      faixa: this.configuracao.faixa,
-      cor: [
-        this.configuracao.primaria.red,
-        this.configuracao.primaria.green,
-        this.configuracao.primaria.blue,
-        this.configuracao.secundaria.red,
-        this.configuracao.secundaria.green,
-        this.configuracao.secundaria.blue
-      ],
-      correcao: [
-        this.configuracao.correcao.red,
-        this.configuracao.correcao.green,
-        this.configuracao.correcao.blue
-      ],
-      velocidade: this.configuracao.velocidade,
-      intensidade: this.configuracao.intensidade
+      configuracao: {
+        efeito: this.configuracao.efeito,
+        mac: 'EC:62:60:55:99:FC',
+        leds: this.configuracao.leds,
+        faixa: this.configuracao.faixa,
+        cor: [
+          this.configuracao.primaria.red,
+          this.configuracao.primaria.green,
+          this.configuracao.primaria.blue,
+          this.configuracao.secundaria.red,
+          this.configuracao.secundaria.green,
+          this.configuracao.secundaria.blue
+        ],
+        correcao: [
+          this.configuracao.correcao.red,
+          this.configuracao.correcao.green,
+          this.configuracao.correcao.blue
+        ],
+        velocidade: this.configuracao.velocidade,
+        intensidade: this.configuracao.intensidade
+      },
+      devices: [
+        "EC:62:60:55:99:FC",
+        "C8:2E:18:25:C5:DC",
+        "C4:DE:E2:5B:7B:1C"
+      ]
     }
     console.log(obejto);
 
