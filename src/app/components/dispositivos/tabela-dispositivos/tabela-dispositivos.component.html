@@ -1,0 +1,88 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10px;"></th>
+            <th>Nome</th>
+            <th>Mac</th>
+            <th>Status</th>
+            <th>Conexão</th>
+            <th>IP</th>
+            <th>Memoria</th>
+            <th>Efeito</th>
+            <th>Comando</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="width: 10px;">
+                <i-feather name="cpu" class="feather-base" style="margin-right: 10px;color: red;"></i-feather>
+            </td>
+            <td>ESP32</td>
+            <td>00-15-5d-bf-e6-bc</td>
+            <td>
+                @if(status){
+                <span class="badge badge-info rounded-pill">Ativo</span>
+                }@else{
+                <span class="badge badge-danger rounded-pill">Inativo</span>
+                }
+            </td>
+            <td>
+                @if(status){
+                <span class="badge badge-success rounded-pill">Online</span>
+                }@else{
+                <span class="badge badge-danger rounded-pill">Offline</span>
+                }
+            </td>
+            <td>192.168.10.10</td>
+            <td>0</td>
+            <td>Colorido</td>
+            <td>Enviar</td>
+            <td>
+                <i-feather name="edit" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+                <i-feather name="settings" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+                <i-feather name="refresh-ccw" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+                <i-feather name="power" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 10px;">
+                <i-feather name="cpu" class="feather-base" style="margin-right: 10px;color: rgb(200, 255, 0);"> </i-feather>
+            </td>
+            <td>ESP32</td>
+            <td>01-00-5e-00-00-16</td>
+            <td>
+                @if(status){
+                <span class="badge badge-info rounded-pill">Ativo</span>
+                }@else{
+                <span class="badge badge-danger rounded-pill">Inativo</span>
+                }
+            </td>
+            <td>
+                @if(status){
+                <span class="badge badge-success rounded-pill">Online</span>
+                }@else{
+                <span class="badge badge-danger rounded-pill">Offline</span>
+                }
+            </td>
+            <td>192.168.10.10</td>
+            <td>0</td>
+            <td>Enviar</td>
+            <td>Colorido</td>
+            <td>
+                <i-feather name="edit" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+                <i-feather name="settings" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+                <i-feather name="refresh-ccw" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+                <i-feather name="power" class="feather-base" style="margin-right: 10px;">
+                </i-feather>
+            </td>
+        </tr>
+    </tbody>
+</table>
