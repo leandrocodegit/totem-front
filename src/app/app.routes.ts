@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { SidebarComponent } from './components/principal/sidebar/sidebar.component';
 import { ListaDispositivosComponent } from './components/dispositivos/lista-dispositivos/lista-dispositivos.component';
-import { AuthGuard } from './components/auth/services/auth.guard';
-import { Role } from './model/constantes/role.enum';
 import { LoginComponent } from './components/auth/views/login/login.component';
 import { PainelConfiguracoesComponent } from './components/dispositivos/painel-configuracoes/painel-configuracoes.component';
+import { UsuariosComponent } from './components/usuarios/views/usuarios.component';
+import { ListaUsuariosComponent } from './components/usuarios/views/lista-usuarios/lista-usuarios.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {path: '', component: PainelConfiguracoesComponent},
@@ -19,8 +20,19 @@ export const routes: Routes = [
           { path: "lista", component: ListaDispositivosComponent },
         ]
       },
+      {
+        path: "users", component: UsuariosComponent,
+        children: [
+          { path: '', redirectTo: 'lista', pathMatch: 'full' },
+          { path: "lista", component: ListaUsuariosComponent },
+        ]
+      },
+      {
+        path: "dashboard", component: DashboardComponent
+      },
     ]
   },
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+
 
 ];

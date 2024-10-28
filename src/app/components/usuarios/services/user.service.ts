@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment.prod';
 export class UserService {
 
   constructor(
-    private http: HttpClient
+    private readonly http: HttpClient
   ) { }
 
   public getUser(email: string): Observable<User> {

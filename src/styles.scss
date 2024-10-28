@@ -3,3 +3,9 @@ body {
   color: #303030;
   letter-spacing: 0.1rem;
 }
+
+.box-botoes-direta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

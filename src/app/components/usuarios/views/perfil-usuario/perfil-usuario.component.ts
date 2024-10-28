@@ -32,8 +32,8 @@ export class PerfilUsuarioComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private userService: UserService,
-    private dialog: MatDialog
+    private readonly userService: UserService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

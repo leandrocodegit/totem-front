@@ -39,8 +39,7 @@ export class SidebarComponent implements OnInit {
   protected search: boolean = false;
   protected nome?: string;
   protected avatar?: string;
-  protected host = 'environment';
-
+ 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -68,12 +67,12 @@ export class SidebarComponent implements OnInit {
 
   sidebarMenu: sidebarMenu[] = [
     {
-      link: "/painel/dashboard",
+      link: "/dashboard",
       icon: "layout",
       menu: "Dashboard",
     },
     {
-      link: "/painel/users",
+      link: "/users",
       icon: "users",
       menu: "Usuários",
     },
@@ -83,9 +82,9 @@ export class SidebarComponent implements OnInit {
           menu: "Formulários",
         }, */
     {
-      link: "/painel/documentos",
-      icon: "file-text",
-      menu: "Documentos",
+      link: "/dispositivos",
+      icon: "cpu",
+      menu: "Dispositivos",
     },
     {
       link: "/painel/modelos",

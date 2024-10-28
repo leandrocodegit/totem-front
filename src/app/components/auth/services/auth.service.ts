@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { __await } from 'tslib';
 import { Observable } from 'rxjs';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { Role } from '../../../model/constantes/role.enum';
 import { environment } from '../../../../environments/environment.prod';
@@ -17,8 +16,8 @@ import { environment } from '../../../../environments/environment.prod';
 export class AuthService {
 
   constructor(
-    private http: HttpClient,
-    private router: Router) { }
+    private readonly http: HttpClient,
+    private readonly router: Router) { }
 
   public login(email: string, password: string): Observable<any> {
     return this.http.post<any>(environment.urlApi + '/auth/login', JSON.stringify(
@@ -48,8 +47,8 @@ export class AuthService {
     try {
       const jwt = this.decodePayloadJWT(true);
 
-      var expire: number = Number.parseInt(jwt.exp + "000");
-      var now: number = new Date().getTime();
+      let expire: number = Number.parseInt(jwt.exp + "000");
+      let now: number = new Date().getTime();
 
       const expirado = (expire <= now);
       if (expirado) {

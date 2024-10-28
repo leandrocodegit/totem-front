@@ -1,18 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { TituloComponent } from '../../../util/titulo/titulo.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { default as _rollupMoment, Moment } from 'moment';
 import * as _moment from 'moment';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Usuario } from '../../../../model/usuario.model';
-import { User } from '../../../auth/models/user.model';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -39,7 +35,7 @@ export const MY_FORMATS = {
     MatInputModule
   ],
   providers: [
-    provideMomentDateAdapter(MY_FORMATS),
+    //provideMomentDateAdapter(MY_FORMATS),
   ],
   templateUrl: './cadastro-usuario.component.html',
   styleUrl: './cadastro-usuario.component.scss'
@@ -51,9 +47,9 @@ export class CadastroUsuarioComponent {
   protected user!: any;
 
   constructor(
-    private _router: Router,
+    private readonly _router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<CadastroUsuarioComponent>) {
+    private readonly dialogRef: MatDialogRef<CadastroUsuarioComponent>) {
     if (data)
       this.user = data;
     else {
