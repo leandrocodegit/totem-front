@@ -1,70 +1,80 @@
 <mat-card class="w-100">
-    <mat-card-content>
-        <div class="box-dashboard mt-5">
-            <div class="box-dashboard-item" style="margin-left: 17px;margin-bottom: 20px;">
-                <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px"
-                    fill="#ff7800">
-                    <path
-                        d="M130.5-238.5v-49q0-25.64 13.02-42.43 13.03-16.79 35.95-27.67 48.03-22.9 94.78-37.15T394-409q73 0 119.5 14.25t95.21 37.16q22.79 11.09 35.79 27.81t13 42.28v49h-527Zm606.5 0V-287q0-31.5-11.2-58.73-11.19-27.23-30.3-46.77 21.5 6.5 42.47 15.4 20.97 8.89 43.53 19.6 22 11 35.25 29.66T830-287v48.5h-93Zm-343-273q-43.79 0-74.39-30.61Q289-572.71 289-616.5t30.61-74.39q30.6-30.61 74.39-30.61t74.39 30.61Q499-660.29 499-616.5t-30.61 74.39Q437.79-511.5 394-511.5Zm249-105.31q0 43.39-30.61 74.1Q581.79-512 538-512q.5 0 1.26.16.75.15 1.24.34 18.34-21.95 27.92-48.91 9.58-26.96 9.58-56.46 0-29.16-10.5-55.39-10.5-26.24-27-49.74-.5 0-1 .25t-1.5.25q43.79 0 74.39 30.75Q643-660 643-616.81ZM156-264h476v-23.37q0-15.32-7.5-26.22Q617-324.5 596-336q-42.06-23-89.3-35.25-47.25-12.25-112.48-12.25-65.4 0-112.81 12.25T192-336q-21.5 11.5-28.75 22.5t-7.25 26v23.5Zm237.94-273q33.06 0 56.31-23.19t23.25-56.25q0-33.06-23.19-56.31T394.06-696q-33.06 0-56.31 23.19t-23.25 56.25q0 33.06 23.19 56.31T393.94-537Zm.06 273Zm0-352.5Z" />
-                </svg>
-                <div class="box-dashboard-item-label">
-                    <label>Usuários</label>
-                    <h4>0</h4>
-                </div>
-            </div>
-            <div class="box-dashboard-item">
-                <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px"
-                    fill="#00d9ff">
-                    <path
-                        d="M415-415v-130h130v130H415Zm25.5-25.5h79v-79h-79v79Zm-52.5 239V-256h-74.5q-24.44 0-40.97-16.53Q256-289.06 256-313.5V-388h-54.5v-25.5H256v-133h-54.5V-572H256v-74.5q0-24.44 16.53-40.97Q289.06-704 313.5-704H388v-54.5h25.5v54.5h133v-54.5H572v54.5h74.5q24.44 0 40.97 16.53Q704-670.94 704-646.5v74.5h54.5v25.5H704v133h54.5v25.5H704v74.5q0 24.44-16.53 40.97Q670.94-256 646.5-256H572v54.5h-25.5V-256h-133v54.5H388Zm258.5-80q12 0 22-10t10-22v-333q0-12-10-22t-22-10h-333q-12 0-22 10t-10 22v333q0 12 10 22t22 10h333ZM480-480Z" />
-                </svg>
-                <div class="box-dashboard-item-label">
-                    <label>Dispositivos</label>
-                    <h4>0</h4>
-                </div>
-            </div>
-            <div class="box-dashboard-item">
-                <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px"
-                    fill="#00ffb3">
-                    <path
-                        d="M261.5-216.5q-68.55 0-116.53-47.72Q97-311.94 97-381q0-64.83 46.75-114.92Q190.5-546 257.5-545.5q8.82-84.89 72.61-141.45Q393.9-743.5 480-743.5q93.66 0 158.83 65.5Q704-612.5 704-519.5v53.5h32q53-1 90 35.45t37 89.05q0 52.46-36.12 88.73Q790.75-216.5 738-216.5H261.5Zm0-25.5h476.41q41.69 0 70.64-28.84 28.95-28.84 28.95-70.6 0-41.75-28.82-70.49-28.82-28.73-70.55-28.73H678.5v-78.66q0-82.44-58.04-140.56Q562.43-718 480.09-718q-82.35 0-140.39 58.06-58.05 58.06-58.05 140.44h-20.02q-57.63 0-98.38 40.5-40.75 40.5-40.75 98.25t40.75 98.25Q204-242 261.5-242ZM480-480Z" />
-                </svg>
-                <div class="box-dashboard-item-label">
-                    <label>Conexão</label>
-                    <h4>0/<span style="color: red;">0</span></h4>
-                </div>
-            </div>
+  <mat-card-content>
+    <div class="box-dashboard mt-5">
+      <div class="box-dashboard-item" style="margin-left: 17px;margin-bottom: 20px;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px" fill="#ff7800">
+          <path
+            d="M130.5-238.5v-49q0-25.64 13.02-42.43 13.03-16.79 35.95-27.67 48.03-22.9 94.78-37.15T394-409q73 0 119.5 14.25t95.21 37.16q22.79 11.09 35.79 27.81t13 42.28v49h-527Zm606.5 0V-287q0-31.5-11.2-58.73-11.19-27.23-30.3-46.77 21.5 6.5 42.47 15.4 20.97 8.89 43.53 19.6 22 11 35.25 29.66T830-287v48.5h-93Zm-343-273q-43.79 0-74.39-30.61Q289-572.71 289-616.5t30.61-74.39q30.6-30.61 74.39-30.61t74.39 30.61Q499-660.29 499-616.5t-30.61 74.39Q437.79-511.5 394-511.5Zm249-105.31q0 43.39-30.61 74.1Q581.79-512 538-512q.5 0 1.26.16.75.15 1.24.34 18.34-21.95 27.92-48.91 9.58-26.96 9.58-56.46 0-29.16-10.5-55.39-10.5-26.24-27-49.74-.5 0-1 .25t-1.5.25q43.79 0 74.39 30.75Q643-660 643-616.81ZM156-264h476v-23.37q0-15.32-7.5-26.22Q617-324.5 596-336q-42.06-23-89.3-35.25-47.25-12.25-112.48-12.25-65.4 0-112.81 12.25T192-336q-21.5 11.5-28.75 22.5t-7.25 26v23.5Zm237.94-273q33.06 0 56.31-23.19t23.25-56.25q0-33.06-23.19-56.31T394.06-696q-33.06 0-56.31 23.19t-23.25 56.25q0 33.06 23.19 56.31T393.94-537Zm.06 273Zm0-352.5Z" />
+        </svg>
+        <div class="box-dashboard-item-label">
+          <label>Usuários</label>
+          <h4>0</h4>
         </div>
-
-        <div class="box-chat">
-            <div class="card" style="width: 40%;">
-                <p-timeline [value]="events" styleClass="customized-timeline">
-                    <ng-template pTemplate="marker" let-event>
-                        <span 
-                            class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" 
-                            [style]="{ 'background-color': event.color }">
-                                <i [class]="event.icon"></i>
-                        </span>
-                    </ng-template>
-                    <ng-template pTemplate="content" let-event>
-                        <p-card [header]="event.status" [subheader]="event.date">
-                            <img 
-                                *ngIf="event.image" 
-                                [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
-                                [alt]="event.name"
-                                width="200" 
-                                class="shadow-2" />
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
-                                neque quas!
-                            </p> 
-                        </p-card>
-                    </ng-template>
-                </p-timeline>
-            </div>
+      </div>
+      <div class="box-dashboard-item">
+        <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px" fill="#00d9ff">
+          <path
+            d="M415-415v-130h130v130H415Zm25.5-25.5h79v-79h-79v79Zm-52.5 239V-256h-74.5q-24.44 0-40.97-16.53Q256-289.06 256-313.5V-388h-54.5v-25.5H256v-133h-54.5V-572H256v-74.5q0-24.44 16.53-40.97Q289.06-704 313.5-704H388v-54.5h25.5v54.5h133v-54.5H572v54.5h74.5q24.44 0 40.97 16.53Q704-670.94 704-646.5v74.5h54.5v25.5H704v133h54.5v25.5H704v74.5q0 24.44-16.53 40.97Q670.94-256 646.5-256H572v54.5h-25.5V-256h-133v54.5H388Zm258.5-80q12 0 22-10t10-22v-333q0-12-10-22t-22-10h-333q-12 0-22 10t-10 22v333q0 12 10 22t22 10h333ZM480-480Z" />
+        </svg>
+        <div class="box-dashboard-item-label">
+          <label>Dispositivos</label>
+          <h4>0</h4>
         </div>
+      </div>
+      <div class="box-dashboard-item">
+        <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px" fill="#00ffb3">
+          <path
+            d="M261.5-216.5q-68.55 0-116.53-47.72Q97-311.94 97-381q0-64.83 46.75-114.92Q190.5-546 257.5-545.5q8.82-84.89 72.61-141.45Q393.9-743.5 480-743.5q93.66 0 158.83 65.5Q704-612.5 704-519.5v53.5h32q53-1 90 35.45t37 89.05q0 52.46-36.12 88.73Q790.75-216.5 738-216.5H261.5Zm0-25.5h476.41q41.69 0 70.64-28.84 28.95-28.84 28.95-70.6 0-41.75-28.82-70.49-28.82-28.73-70.55-28.73H678.5v-78.66q0-82.44-58.04-140.56Q562.43-718 480.09-718q-82.35 0-140.39 58.06-58.05 58.06-58.05 140.44h-20.02q-57.63 0-98.38 40.5-40.75 40.5-40.75 98.25t40.75 98.25Q204-242 261.5-242ZM480-480Z" />
+        </svg>
+        <div class="box-dashboard-item-label">
+          <label>Conexão</label>
+          <h4>0/<span style="color: red;">0</span></h4>
+        </div>
+      </div>
+    </div>
 
-        <!--         <div style="display: flex;">
+    <div class="box-chat">
+      <div style="width: 70%;">
+        <div style="display: flex;justify-content: space-between;margin: 0 30px;">
+          <div style="width: 50%;margin-right: 10px;">
+            <p class="titulo">
+              <i-feather name="cpu" class="feather-base" style="margin-right: 10px;color: rgb(197, 197, 197);"></i-feather>
+              Conexões</p>
+            <p-chart type="pie" [data]="conexoes" [options]="options" />
+          </div>
+          <div style="width: 50%;">
+            <p class="titulo">
+              <i-feather name="grid" class="feather-base" style="margin-right: 10px;color: rgb(197, 197, 197);"></i-feather>
+              Cores</p>
+            <p-chart type="pie" [data]="cores" [options]="options" />
+          </div>
+        </div>
+      </div>
+      <div style="width: 30%;">
+        <p class="titulo">
+          <i-feather name="info" class="feather-base" style="margin-right: 10px;color: rgb(197, 197, 197);"></i-feather>
+          Ultimos eventos</p>
+        <p-timeline [value]="events" styleClass="customized-timeline">
+          <ng-template pTemplate="marker" let-event>
+            <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+              [style]="{ 'background-color': event.color, 'width': '25px', 'height': '25px' }">
+              <i [class]="event.icon" style="font-size: 11px; line-height: 2;"></i>
+            </span>
+          </ng-template>
+          <ng-template pTemplate="content" let-event>
+            <div style="margin-left: 15px;">
+              <p class="comando-nome" style="margin: 0;">
+                Comando enviado
+              </p>
+              <p class="comando-data">28/10/204 10:00:28</p>
+              <p class="comando-autor">Leandro Pereira</p>
+            </div>
+          </ng-template>
+        </p-timeline>
+      </div>
+    </div>
+
+    <!--         <div style="display: flex;">
             <div style="width: 25%;">
                 <p-chart type="pie" [data]="ativos" [options]="options" />
             </div>
@@ -75,5 +85,5 @@
                 <p-chart type="pie" [data]="cores" [options]="options" />
             </div>
         </div> -->
-    </mat-card-content>
+  </mat-card-content>
 </mat-card>

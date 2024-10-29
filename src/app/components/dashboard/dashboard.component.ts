@@ -10,14 +10,14 @@ import { NgFor, NgIf } from '@angular/common';
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-    imports: [  
+    imports: [
         ChartModule,
         MatCardModule,
         IconsModule,
         TimelineModule,
         MatCardModule,
         CardModule,
-        NgIf, NgFor 
+        NgIf, NgFor
     ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss'
@@ -30,40 +30,31 @@ export class DashboardComponent {
     events: EventItem[] = [];
     options: any;
 
+
     ngOnInit() {
 
         this.events = [
-            { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
-            { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-            { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-            { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
+            { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-check', color: '#30d7dd', image: 'game-controller.jpg' },
+            { status: 'Processing', date: '15/10/2020 14:00', icon: 'pi pi-check', color: '#30d7dd' },
+            { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-check', color: '#30d7dd' },
+            { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#30d7dd' }
         ];
-  
+
         this.conexoes = {
-            labels: ['Online', 'Offline'],
+            labels: [],
             datasets: [
                 {
                     data: [540, 325],
-                    backgroundColor: ['#23ffa6', '#fd1957'],
+                    backgroundColor: ['#ffd3d3', '#d3ffe7'],
                     hoverBackgroundColor: ['#23ffa6b6', '#fd1957b6'],
                 }
             ]
         };
 
 
-        this.ativos = {
-            labels: ['Ativos', 'Inativos', 'Não associados'],
-            datasets: [
-                {
-                    data: [540, 325, 255],
-                    backgroundColor: ['#339fff', '#23ffa6', '#bfbfbf'],
-                    hoverBackgroundColor: ['#339fffb6', '#23ffa6b6', '#bfbfbfb6'],
-                }
-            ]
-        };
 
         this.cores = {
-            labels: ['Cores'],
+            labels: [],
             datasets: [
                 {
                     data: [540, 325, 255],
