@@ -30,6 +30,19 @@ export class DashboardComponent {
     events: EventItem[] = [];
     options: any;
 
+    data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+          {
+              label: 'My First dataset',
+              data: [65, 59, 80, 81, 56, 55, 40]
+          },
+          {
+              label: 'My Second dataset',
+              data: [28, 48, 40, 19, 86, 27, 90]
+          }
+      ],
+  };
 
     ngOnInit() {
 
@@ -41,15 +54,16 @@ export class DashboardComponent {
         ];
 
         this.conexoes = {
-            labels: [],
+            labels: ['',''],
             datasets: [
                 {
                     data: [540, 325],
-                    backgroundColor: ['#ffd3d3', '#d3ffe7'],
+                    backgroundColor: ['#28d1dd', '#fba58c'],
                     hoverBackgroundColor: ['#23ffa6b6', '#fd1957b6'],
                 }
             ]
         };
+
 
 
 
@@ -68,7 +82,7 @@ export class DashboardComponent {
             plugins: {
                 legend: {
                     labels: {
-                        usePointStyle: true,
+                        usePointStyle: false,
                         color: "red"
                     }
                 }
@@ -84,3 +98,4 @@ interface EventItem {
     color?: string;
     image?: string;
 }
+
