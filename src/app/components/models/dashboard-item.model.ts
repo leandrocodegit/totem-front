@@ -1,6 +1,7 @@
 
 
 export interface DashboardItem {
-  id: string;
-  quantidade: number; 
+  label: string[];
+  quantidade: number[]; 
+
 }

@@ -1,10 +1,11 @@
 import { DashboardItem } from "./dashboard-item.model";
+import { Dispositivo } from "./dispositivo.model";
 import { Log } from "./log.model";
 
 
 export interface Dashboard {
-  usuarios: DashboardItem;
+  usuarios: number;  
+  dispositivos: Dispositivo[];  
   cores: DashboardItem;
-  conexoes: DashboardItem;
   logs: Log[];
 }

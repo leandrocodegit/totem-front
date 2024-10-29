@@ -7,6 +7,8 @@ import { jwtDecode } from 'jwt-decode';
 import { Role } from '../../../model/constantes/role.enum';
 import { environment } from '../../../../environments/environment.prod';
 import { Dispositivo } from '../../models/dispositivo.model';
+import { Log } from '../../models/log.model';
+import { Dashboard } from '../../models/dashboard.model';
 
 
 
@@ -19,15 +21,12 @@ export class DashboardService {
   constructor(
     private readonly http: HttpClient) { }
 
-  public listaTodosDispositivos(): Observable<Dispositivo> {
-    return this.http.get<any>(`${environment.urlApi}/dipositivo`, environment.headers)
+  public listaLogs(): Observable<Log[]> {
+    return this.http.get<Log[]>(`${environment.urlApi}/log`, environment.headers)
   }
 
-  public listaTodosDispositivosPorStatus(status: string): Observable<Dispositivo> {
-    return this.http.get<any>(`${environment.urlApi}/dipositivo/status/${status}`, environment.headers)
+  public recuperarDashboard(): Observable<Dashboard> {
+    return this.http.get<any>(`${environment.urlApi}/dashboard`, environment.headers)
   }
 
-  public listaTodosDispositivosPorMac(mac: string): Observable<Dispositivo> {
-    return this.http.get<any>(`${environment.urlApi}/dipositivo/${mac}`, environment.headers)
-  }
 }

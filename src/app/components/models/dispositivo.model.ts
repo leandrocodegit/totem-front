@@ -7,5 +7,6 @@ export interface Dispositivo {
   ip: string;
   memoria: number;
   status: boolean;
+  conexao: string;
   configuracao: Configuracao
 }
