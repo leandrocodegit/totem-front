@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../auth/services/auth.service';
-import { User } from '../../../auth/models/user.model';
+import { User } from '../../../models/user.model';
 
 
 const ELEMENT_DATA: User[] = [];

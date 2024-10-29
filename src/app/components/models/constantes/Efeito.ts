@@ -1,0 +1,9 @@
+export enum Efeito {
+    COLORIDO = 'COLORIDO',
+    BATIDA = 'BATIDA',
+    CONTADOR = 'CONTADOR',
+    CILONIO = 'CILONIO',
+    GIROFLEX = 'GIROFLEX',
+    GIRATORIO = 'GIRATORIO',
+    SINALIZADOR = 'SINALIZADOR'
+}

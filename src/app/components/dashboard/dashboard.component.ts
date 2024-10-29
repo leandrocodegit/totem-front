@@ -54,7 +54,7 @@ export class DashboardComponent {
         ];
 
         this.conexoes = {
-            labels: ['',''],
+            labels: [],
             datasets: [
                 {
                     data: [540, 325],
@@ -65,6 +65,16 @@ export class DashboardComponent {
         };
 
 
+        this.ativos = {
+            labels: [],
+            datasets: [
+                {
+                    data: [540, 325, 30],
+                    backgroundColor: ['#28d1dd', '#fba58c', '#cdcdcd'],
+                    hoverBackgroundColor: ['#23ffa6b6', '#fd1957b6', '#cdcdcdb6'],
+                }
+            ]
+        };
 
 
         this.cores = {

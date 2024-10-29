@@ -1,21 +1,51 @@
+.box-painel {
+  width: 100%;  
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.box-painel-tem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  margin-right: 20px;
+}
+
+.cores {
+  width: 70%;
+  background: white;
+  padding: 0 40px;
+  border: solid #e5e5e5 thin;
+  border-radius: 17px; 
+  flex: 1;
+  margin-right: 20px;
+}
+
+.ultimos-eventos {
+  width: 100%; 
+}
+
 .box-dashboard {
+  width: 70%;
   display: flex;
   flex-direction: row;
-  flex-basis: 200px;
+  flex-grow: 1;
   margin-bottom: 20px;
-
 }
 
 .box-dashboard-item {
   display: flex;
   align-items: center;
   width: 270px;
-  height: 120px;
+  height: 160px;
   padding: 0 10px;
   margin: 2px;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
   background: white;
+  flex-grow: 1;
 }
 
 h4 {

@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { IconsModule } from '../../../../IconsModule';
 import { AuthService } from '../../../auth/services/auth.service';
-import { User } from '../../../auth/models/user.model';
+import { User } from '../../../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
 import { MatChipsModule } from '@angular/material/chips';
