@@ -1,18 +1,18 @@
 <mat-card class="w-100">
     <mat-card-content>
         <h4 class="mb-32">Lista de dispositivos</h4>
-        <mat-tab-group mat-stretch-tabs="false" animationDuration="0">
+        <mat-tab-group mat-stretch-tabs="false" animationDuration="0" (selectedTabChange)="onTabChange($event)">
             <mat-tab label="Ativos">
-                <app-tabela-dispositivos [status]="true"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [dispositivos]="dispositivos"></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Inativos">
-                <app-tabela-dispositivos [status]="false"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [dispositivos]="dispositivosInativos"></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Offline">
-                <app-tabela-dispositivos [status]="false"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [dispositivos]="dispositivosOffline"></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Não assossiado">
-                <app-tabela-dispositivos [status]="false"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [dispositivos]="dispositivos"></app-tabela-dispositivos>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

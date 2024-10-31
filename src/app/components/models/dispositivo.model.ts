@@ -1,4 +1,5 @@
 import { Configuracao } from "./configuracao.model";
+import { Comando } from "./constantes/comando";
 
 
 export interface Dispositivo {
@@ -6,7 +7,8 @@ export interface Dispositivo {
   nome: string;
   ip: string;
   memoria: number;
-  status: boolean;
+  ativo: boolean;
   conexao: string;
   configuracao: Configuracao
+  comando: Comando
 }

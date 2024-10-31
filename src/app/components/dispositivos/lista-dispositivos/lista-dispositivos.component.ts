@@ -3,8 +3,11 @@ import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { IconsModule } from '../../../IconsModule';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { TabelaDispositivosComponent } from '../tabela-dispositivos/tabela-dispositivos.component';
+import { DispositivoService } from '../services/dispositivo.service';
+import { Dispositivo } from '../../models/dispositivo.model';
+import { response } from 'express';
 
 
 @Component({
@@ -25,12 +28,29 @@ import { TabelaDispositivosComponent } from '../tabela-dispositivos/tabela-dispo
 })
 export class ListaDispositivosComponent {
 
-  constructor(private websocketService: WebSocketService2) {}
+  protected dispositivos: Dispositivo[] = [];
+  protected dispositivosOffline: Dispositivo[] = [];
+  protected dispositivosInativos: Dispositivo[] = [];
+  protected dispositivosnAssociados: Dispositivo[] = [];
+
+  constructor(private websocketService: WebSocketService2,
+    private readonly dispositivoService: DispositivoService
+  ) {}
 
   ngOnInit() {
 
+    this.dispositivoService.listaTodosDispositivosAtivo(true).subscribe(response => this.dispositivos = response);
 
+  }
 
+  onTabChange(event: MatTabChangeEvent) {
+    if(event.index == 0){
+      this.dispositivoService.listaTodosDispositivosAtivo(true).subscribe(response => this.dispositivos = response);
+    }else if(event.index == 1){
+      this.dispositivoService.listaTodosDispositivosAtivo(false).subscribe(response => this.dispositivosInativos = response);
+    }else if(event.index == 2){
+      this.dispositivoService.listaTodosDispositivosOffline().subscribe(response => this.dispositivosOffline = response);
+    }
   }
 
   conectar() {

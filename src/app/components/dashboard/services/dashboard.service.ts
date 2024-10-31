@@ -26,7 +26,7 @@ export class DashboardService {
   }
 
   public recuperarDashboard(): Observable<Dashboard> {
-    return this.http.get<any>(`${environment.urlApi}/dashboard`, environment.headers)
+    return this.http.get<Dashboard>(`${environment.urlApi}/dashboard`, environment.headers)
   }
 
 }

@@ -1,0 +1,150 @@
+<div *ngIf="configuracao" class="painel-configuracao">
+  <div class="box-configuracao" style="width: 97%;">
+    <mat-form-field appearance="outline">
+      <mat-label>Efeito</mat-label>
+      <mat-select (selectionChange)="onSliderChange()" [(ngModel)]="configuracao.efeito">
+        <mat-option value="COLORIDO">Colorido</mat-option>
+        <mat-option value="BATIDA">Batida</mat-option>
+        <mat-option value="CONTADOR">Contador</mat-option>
+        <mat-option value="GIROFLEX">Giroflex</mat-option>
+        <mat-option value="GIRATORIO">Giratorio</mat-option>
+        <mat-option value="CILONIO">Cilônio</mat-option>
+        <mat-option value="SINALIZADOR">Sinalizador</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div style="display: flex;">
+    <div class="box-configuracao">
+      <div style="padding: 10px 0;">
+        <div class="color-picker-container">
+          <input type="color" id="colorPicker" (change)="changeCorPrimaria()" [(ngModel)]="primaria">
+          <span class="placeholder-text">Cor primária</span>
+        </div>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #ff002b;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.cor[0]">
+        </mat-slider>
+        <b>{{configuracao.cor[0]}}</b>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #00c900;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.cor[1]">
+        </mat-slider>
+        <b>{{configuracao.cor[1]}}</b>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #003cff;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.cor[2]">
+        </mat-slider>
+        <b>{{configuracao.cor[2]}}</b>
+      </div>
+    </div>
+    <div class="box-configuracao">
+      <div style="padding: 10px 0;">
+        <div class="color-picker-container">
+          <input type="color" id="colorPicker" (change)="changeCorSecundaria()" [(ngModel)]="secundaria">
+          <span class="placeholder-text">Cor secundária</span>
+        </div>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #ff002b;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.cor[3]">
+        </mat-slider>
+        <b>{{configuracao.cor[3]}}</b>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #00c900;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.cor[4]">
+        </mat-slider>
+        <b>{{configuracao.cor[4]}}</b>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #003cff;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.cor[5]">
+        </mat-slider>
+        <b>{{configuracao.cor[5]}}</b>
+      </div>
+    </div>
+  </div>
+
+
+  <div style="display: flex;margin: 20px 0;">
+    <div class="box-configuracao">
+      <h6>Correção de cor</h6>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #ff002b;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.correcao[0]">
+        </mat-slider>
+        <b>{{configuracao.correcao[0]}}</b>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #00c900;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.correcao[1]">
+        </mat-slider>
+        <b>{{configuracao.correcao[1]}}</b>
+      </div>
+      <div class="box-configuracao-item">
+        <span class="material-symbols-outlined cor" style="color: #003cff;">radio_button_checked</span>
+        <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
+          <input matSliderThumb [(ngModel)]="configuracao.correcao[2]">
+        </mat-slider>
+        <b>{{configuracao.correcao[2]}}</b>
+      </div>
+    </div>
+
+    <div class="box-configuracao">
+      <div class="box-configuracao">
+        <h6>Intensidade</h6>
+        <div class="box-configuracao-item">
+          <span class="material-symbols-outlined cor">light_mode</span>
+          <mat-slider [max]="255" [step]="5" (change)="onSliderChange()">
+            <input matSliderThumb [(ngModel)]="configuracao.intensidade"> </mat-slider>
+          <b>{{configuracao.intensidade}}</b>
+        </div>
+      </div>
+
+      <div class="box-configuracao">
+        <h6>Velocidade</h6>
+        <div class="box-configuracao-item">
+          <span class="material-symbols-outlined cor">speed</span>
+          <mat-slider [max]="255" [step]="5" (change)="onSliderChange()">
+            <input matSliderThumb [(ngModel)]="configuracao.velocidade"> </mat-slider>
+          <b>{{configuracao.velocidade}}</b>
+        </div>
+      </div>
+      <div class="box-configuracao">
+        <h6>Quantidade leds</h6>
+        <div class="box-configuracao-item">
+          <span class="material-symbols-outlined cor">lightbulb</span>
+          <mat-slider [max]="100" [step]="1" [min]="getMinimo()" (change)="onSliderChange()">
+            <input matSliderThumb [(ngModel)]="configuracao.leds"> </mat-slider>
+          <b>{{configuracao.leds}}</b>
+        </div>
+      </div>
+      <div class="box-configuracao">
+        <h6>Faixa de leds</h6>
+        <div class="box-configuracao-item">
+          <span class="material-symbols-outlined cor">mitre</span>
+          <mat-slider [max]="255" [step]="1" [min]="2" (change)="onSliderChange()">
+            <input matSliderThumb [(ngModel)]="configuracao.faixa"> </mat-slider>
+          <b>{{configuracao.faixa}}</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="botoes">
+    <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
+    <button mat-raised-button class="me-8 mb-8" color="accent" (click)="salvar()" type="submit">Salvar
+      configurações</button>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th style="width: 10px;"></th>
@@ -14,73 +14,38 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr *ngFor="let device of dispositivos">
             <td style="width: 10px;">
-                <i-feather name="cpu" class="feather-base" style="margin-right: 10px;color: red;"></i-feather>
+                <i-feather name="cpu" [style.color]="device.configuracao.primaria" class="feather-base" style="margin-right: 10px;"></i-feather>
             </td>
-            <td>ESP32</td>
-            <td>00-15-5d-bf-e6-bc</td>
+            <td>{{device.nome}}</td>
+            <td>{{device.mac}}</td>
             <td>
-                @if(status){
+                @if(device.ativo){
                 <span class="badge badge-info rounded-pill">Ativo</span>
                 }@else{
                 <span class="badge badge-danger rounded-pill">Inativo</span>
                 }
             </td>
             <td>
-                @if(status){
+                @if(device.conexao == 'Online'){
                 <span class="badge badge-success rounded-pill">Online</span>
                 }@else{
                 <span class="badge badge-danger rounded-pill">Offline</span>
                 }
             </td>
-            <td>192.168.10.10</td>
-            <td>0</td>
-            <td>Colorido</td>
-            <td>Enviar</td>
+            <td>{{device.ip}}</td>
+            <td>{{device.memoria > 0 ? (device.memoria / 1000).toFixed(0) : 0}}K</td>
+            <td>{{getTradutor(undefined, device.configuracao.efeito)}}</td>
+            <td>{{getTradutor(device.comando)}}</td>
             <td>
-                <i-feather name="edit" class="feather-base" style="margin-right: 10px;">
+                <i-feather name="edit" class="feather-base">
                 </i-feather>
-                <i-feather name="settings" class="feather-base" style="margin-right: 10px;">
+                <i-feather (click)="configurar(device)" name="settings" class="feather-base">
                 </i-feather>
-                <i-feather name="refresh-ccw" class="feather-base" style="margin-right: 10px;">
+                <i-feather (click)="sincronizar(device)" name="refresh-ccw" class="feather-base">
                 </i-feather>
-                <i-feather name="power" class="feather-base" style="margin-right: 10px;">
-                </i-feather>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 10px;">
-                <i-feather name="cpu" class="feather-base" style="margin-right: 10px;color: rgb(200, 255, 0);"> </i-feather>
-            </td>
-            <td>ESP32</td>
-            <td>01-00-5e-00-00-16</td>
-            <td>
-                @if(status){
-                <span class="badge badge-info rounded-pill">Ativo</span>
-                }@else{
-                <span class="badge badge-danger rounded-pill">Inativo</span>
-                }
-            </td>
-            <td>
-                @if(status){
-                <span class="badge badge-success rounded-pill">Online</span>
-                }@else{
-                <span class="badge badge-danger rounded-pill">Offline</span>
-                }
-            </td>
-            <td>192.168.10.10</td>
-            <td>0</td>
-            <td>Enviar</td>
-            <td>Colorido</td>
-            <td>
-                <i-feather name="edit" class="feather-base" style="margin-right: 10px;">
-                </i-feather>
-                <i-feather name="settings" class="feather-base" style="margin-right: 10px;">
-                </i-feather>
-                <i-feather name="refresh-ccw" class="feather-base" style="margin-right: 10px;">
-                </i-feather>
-                <i-feather name="power" class="feather-base" style="margin-right: 10px;">
+                <i-feather (click)="mudarStatus(device)" name="power" class="feather-base" [style.color]="device.ativo ? 'blue' : 'red'">
                 </i-feather>
             </td>
         </tr>

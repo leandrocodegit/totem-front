@@ -40,7 +40,10 @@ export class AuthService {
   }
 
   get accessToken(): string | null {
-    return localStorage.getItem("token.acess");
+    if(typeof window !== 'undefined'){
+      return localStorage.getItem("token.access");
+    }
+    return 'token'
   }
 
   public isLoggedIn() {

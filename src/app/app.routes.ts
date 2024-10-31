@@ -6,6 +6,7 @@ import { PainelConfiguracoesComponent } from './components/dispositivos/painel-c
 import { UsuariosComponent } from './components/usuarios/views/usuarios.component';
 import { ListaUsuariosComponent } from './components/usuarios/views/lista-usuarios/lista-usuarios.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PainelDipositivosComponent } from './components/dispositivos/painel-dipositivos/painel-dipositivos.component';
 
 export const routes: Routes = [
   {path: '', component: PainelConfiguracoesComponent},
@@ -14,10 +15,11 @@ export const routes: Routes = [
  path: '', component: SidebarComponent,
     children: [
       {
-        path: 'dispositivos', component: ListaDispositivosComponent,
+        path: 'dispositivos', component: PainelDipositivosComponent,
         children: [
           { path: '', redirectTo: 'lista', pathMatch: 'full' },
           { path: "lista", component: ListaDispositivosComponent },
+          { path: "configuracoes/:mac", component: PainelConfiguracoesComponent },
         ]
       },
       {

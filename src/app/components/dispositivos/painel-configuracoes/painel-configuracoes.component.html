@@ -1,107 +1,16 @@
-<div class="box-configuracao">
-
-
-  <mat-form-field appearance="outline">
-    <mat-label>Efeito</mat-label>
-    <mat-select (selectionChange)="onSliderChange()" [(ngModel)]="configuracao.efeito">
-      <mat-option value="COLORIDO">Colorido</mat-option>
-      <mat-option value="BATIDA">Batida</mat-option>
-      <mat-option value="CONTADOR">Contador</mat-option>
-      <mat-option value="GIROFLEX">Giroflex</mat-option>
-      <mat-option value="GIRATORIO">Giratorio</mat-option>
-      <mat-option value="CILONIO">Cilônio</mat-option>
-      <mat-option value="SINALIZADOR">Sinalizador</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <h3>Cor primária</h3>
-  <div style="padding: 10px 0;">
-    <input type="color" (change)="changeCorPrimaria()" [(ngModel)]="primaria" style="width: 100%;height: 50px;border: none;">
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: red;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.primaria.red">
-    </mat-slider>
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: #00ff00;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.primaria.green">
-    </mat-slider>
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: #0000ff;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.primaria.blue">
-    </mat-slider>
-  </div>
-</div>
-
-<div class="box-configuracao">
-  <h3>Cor secundária</h3>
-  <div style="padding: 10px 0;">
-    <input type="color" (change)="changeCorSecundaria()" [(ngModel)]="secundaria" style="width: 100%;height: 50px;border: none;">
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: red;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.secundaria.red">
-    </mat-slider>
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: #00ff00;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.secundaria.green">
-    </mat-slider>
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: #0000ff;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.secundaria.blue">
-    </mat-slider>
-  </div>
-</div>
-
-<div class="box-configuracao">
-  <h3>Correção de cor</h3>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: red;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.correcao.red">
-    </mat-slider>
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: #00ff00;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.correcao.green">
-    </mat-slider>
-  </div>
-  <div class="box-configuracao-item">
-    <span class="cor" style="background: #0000ff;"></span>
-    <mat-slider [max]="255" [step]="1" (change)="onSliderChange()">
-      <input matSliderThumb [(ngModel)]="configuracao.correcao.blue">
-    </mat-slider>
-  </div>
-</div>
-
-<div class="box-configuracao">
-  <h3>Intensidade</h3>
-  <mat-slider [max]="255" [step]="5" (change)="onSliderChange()">
-    <input matSliderThumb [(ngModel)]="configuracao.intensidade"> </mat-slider>
-</div>
-
-<div class="box-configuracao">
-  <h3>Velocidade</h3>
-  <mat-slider [max]="255" [step]="5" (change)="onSliderChange()">
-    <input matSliderThumb [(ngModel)]="configuracao.velocidade"> </mat-slider>
-</div>
-<div class="box-configuracao">
-  <h3>Quantidade leds</h3>
-  <mat-slider [max]="100" [step]="1" [min]="getMinimo()" (change)="onSliderChange()">
-    <input matSliderThumb [(ngModel)]="configuracao.leds"> </mat-slider>
-</div>
-<div class="box-configuracao">
-  <h3>Faixa de leds</h3>
-  <mat-slider [max]="255" [step]="1" [min]="2" (change)="onSliderChange()">
-    <input matSliderThumb [(ngModel)]="configuracao.faixa"> </mat-slider>
-</div>
+<mat-card class="w-100">
+  <mat-card-content>
+    <h4 class="mb-32">Configurações gerais</h4>
+    <mat-tab-group mat-stretch-tabs="false" animationDuration="0">
+      <mat-tab label="Ajuste cores e efeitos">
+        <app-paramentros-cores></app-paramentros-cores>
+      </mat-tab>
+      <mat-tab label="Lista de configurações">
+      </mat-tab>
+      <mat-tab label="Agendas">
+      </mat-tab>
+      <mat-tab label="Logs">
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

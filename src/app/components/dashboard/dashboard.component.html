@@ -1,73 +1,117 @@
+@if(dashboard){
 <div class="box-painel">
-    <div class="box-dashboard">
-        <div class="box-dashboard-item" style="margin-bottom: 20px;">
-            <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px" fill="#ff7800">
-                <path
-                    d="M130.5-238.5v-49q0-25.64 13.02-42.43 13.03-16.79 35.95-27.67 48.03-22.9 94.78-37.15T394-409q73 0 119.5 14.25t95.21 37.16q22.79 11.09 35.79 27.81t13 42.28v49h-527Zm606.5 0V-287q0-31.5-11.2-58.73-11.19-27.23-30.3-46.77 21.5 6.5 42.47 15.4 20.97 8.89 43.53 19.6 22 11 35.25 29.66T830-287v48.5h-93Zm-343-273q-43.79 0-74.39-30.61Q289-572.71 289-616.5t30.61-74.39q30.6-30.61 74.39-30.61t74.39 30.61Q499-660.29 499-616.5t-30.61 74.39Q437.79-511.5 394-511.5Zm249-105.31q0 43.39-30.61 74.1Q581.79-512 538-512q.5 0 1.26.16.75.15 1.24.34 18.34-21.95 27.92-48.91 9.58-26.96 9.58-56.46 0-29.16-10.5-55.39-10.5-26.24-27-49.74-.5 0-1 .25t-1.5.25q43.79 0 74.39 30.75Q643-660 643-616.81ZM156-264h476v-23.37q0-15.32-7.5-26.22Q617-324.5 596-336q-42.06-23-89.3-35.25-47.25-12.25-112.48-12.25-65.4 0-112.81 12.25T192-336q-21.5 11.5-28.75 22.5t-7.25 26v23.5Zm237.94-273q33.06 0 56.31-23.19t23.25-56.25q0-33.06-23.19-56.31T394.06-696q-33.06 0-56.31 23.19t-23.25 56.25q0 33.06 23.19 56.31T393.94-537Zm.06 273Zm0-352.5Z" />
-            </svg>
-            <div class="box-dashboard-item-label">
-                <label>Usuários</label>
-                <h4>{{dashboard.usuarios}}</h4>
-            </div>
+  <div class="box-painel-item" style="width: 70%;margin-right: 50px;">
+    <div class="menu-dashboard" style="display: flex;flex-direction: column;">
+      <div class="box-dashboard">
+        <div class="box-dashboard-item">
+          <svg xmlns="http://www.w3.org/2000/svg" height="75px" viewBox="0 -910 960 960" width="75px" fill="#ff7800">
+            <path
+              d="M130.5-238.5v-49q0-25.64 13.02-42.43 13.03-16.79 35.95-27.67 48.03-22.9 94.78-37.15T394-409q73 0 119.5 14.25t95.21 37.16q22.79 11.09 35.79 27.81t13 42.28v49h-527Zm606.5 0V-287q0-31.5-11.2-58.73-11.19-27.23-30.3-46.77 21.5 6.5 42.47 15.4 20.97 8.89 43.53 19.6 22 11 35.25 29.66T830-287v48.5h-93Zm-343-273q-43.79 0-74.39-30.61Q289-572.71 289-616.5t30.61-74.39q30.6-30.61 74.39-30.61t74.39 30.61Q499-660.29 499-616.5t-30.61 74.39Q437.79-511.5 394-511.5Zm249-105.31q0 43.39-30.61 74.1Q581.79-512 538-512q.5 0 1.26.16.75.15 1.24.34 18.34-21.95 27.92-48.91 9.58-26.96 9.58-56.46 0-29.16-10.5-55.39-10.5-26.24-27-49.74-.5 0-1 .25t-1.5.25q43.79 0 74.39 30.75Q643-660 643-616.81ZM156-264h476v-23.37q0-15.32-7.5-26.22Q617-324.5 596-336q-42.06-23-89.3-35.25-47.25-12.25-112.48-12.25-65.4 0-112.81 12.25T192-336q-21.5 11.5-28.75 22.5t-7.25 26v23.5Zm237.94-273q33.06 0 56.31-23.19t23.25-56.25q0-33.06-23.19-56.31T394.06-696q-33.06 0-56.31 23.19t-23.25 56.25q0 33.06 23.19 56.31T393.94-537Zm.06 273Zm0-352.5Z" />
+          </svg>
+          <div class="box-dashboard-item-label">
+            <label>Usuários</label>
+            <h4>{{dashboard.usuarios}}</h4>
+          </div>
         </div>
         <div class="box-dashboard-item">
-            <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px" fill="#00d9ff">
-                <path
-                    d="M415-415v-130h130v130H415Zm25.5-25.5h79v-79h-79v79Zm-52.5 239V-256h-74.5q-24.44 0-40.97-16.53Q256-289.06 256-313.5V-388h-54.5v-25.5H256v-133h-54.5V-572H256v-74.5q0-24.44 16.53-40.97Q289.06-704 313.5-704H388v-54.5h25.5v54.5h133v-54.5H572v54.5h74.5q24.44 0 40.97 16.53Q704-670.94 704-646.5v74.5h54.5v25.5H704v133h54.5v25.5H704v74.5q0 24.44-16.53 40.97Q670.94-256 646.5-256H572v54.5h-25.5V-256h-133v54.5H388Zm258.5-80q12 0 22-10t10-22v-333q0-12-10-22t-22-10h-333q-12 0-22 10t-10 22v333q0 12 10 22t22 10h333ZM480-480Z" />
-            </svg>
-            <div class="box-dashboard-item-label">
-                <label>Dispositivos</label>
-                <h4>{{dashboard.dispositivos.length}}</h4>
-            </div>
+          <svg xmlns="http://www.w3.org/2000/svg" height="75px" viewBox="0 -910 960 960" width="75px" fill="#00d9ff">
+            <path
+              d="M415-415v-130h130v130H415Zm25.5-25.5h79v-79h-79v79Zm-52.5 239V-256h-74.5q-24.44 0-40.97-16.53Q256-289.06 256-313.5V-388h-54.5v-25.5H256v-133h-54.5V-572H256v-74.5q0-24.44 16.53-40.97Q289.06-704 313.5-704H388v-54.5h25.5v54.5h133v-54.5H572v54.5h74.5q24.44 0 40.97 16.53Q704-670.94 704-646.5v74.5h54.5v25.5H704v133h54.5v25.5H704v74.5q0 24.44-16.53 40.97Q670.94-256 646.5-256H572v54.5h-25.5V-256h-133v54.5H388Zm258.5-80q12 0 22-10t10-22v-333q0-12-10-22t-22-10h-333q-12 0-22 10t-10 22v333q0 12 10 22t22 10h333ZM480-480Z" />
+          </svg>
+          <div class="box-dashboard-item-label">
+            <label>Dispositivos</label>
+            <h4>{{dashboard.dispositivos.length}}</h4>
+          </div>
         </div>
         <div class="box-dashboard-item">
-            <svg xmlns="http://www.w3.org/2000/svg" height="55px" viewBox="0 -910 960 960" width="55px" fill="#00ffb3">
-                <path
-                    d="M261.5-216.5q-68.55 0-116.53-47.72Q97-311.94 97-381q0-64.83 46.75-114.92Q190.5-546 257.5-545.5q8.82-84.89 72.61-141.45Q393.9-743.5 480-743.5q93.66 0 158.83 65.5Q704-612.5 704-519.5v53.5h32q53-1 90 35.45t37 89.05q0 52.46-36.12 88.73Q790.75-216.5 738-216.5H261.5Zm0-25.5h476.41q41.69 0 70.64-28.84 28.95-28.84 28.95-70.6 0-41.75-28.82-70.49-28.82-28.73-70.55-28.73H678.5v-78.66q0-82.44-58.04-140.56Q562.43-718 480.09-718q-82.35 0-140.39 58.06-58.05 58.06-58.05 140.44h-20.02q-57.63 0-98.38 40.5-40.75 40.5-40.75 98.25t40.75 98.25Q204-242 261.5-242ZM480-480Z" />
-            </svg>
-            <div class="box-dashboard-item-label">
-                <label>Conexão</label>
-                <h4>{{getQuantidadeConexao('Online')}}/<span style="color: red;">{{getQuantidadeConexao('Offline')}}</span></h4>
-            </div>
+          <svg xmlns="http://www.w3.org/2000/svg" height="75px" viewBox="0 -910 960 960" width="75px" fill="#00ffb3">
+            <path
+              d="M261.5-216.5q-68.55 0-116.53-47.72Q97-311.94 97-381q0-64.83 46.75-114.92Q190.5-546 257.5-545.5q8.82-84.89 72.61-141.45Q393.9-743.5 480-743.5q93.66 0 158.83 65.5Q704-612.5 704-519.5v53.5h32q53-1 90 35.45t37 89.05q0 52.46-36.12 88.73Q790.75-216.5 738-216.5H261.5Zm0-25.5h476.41q41.69 0 70.64-28.84 28.95-28.84 28.95-70.6 0-41.75-28.82-70.49-28.82-28.73-70.55-28.73H678.5v-78.66q0-82.44-58.04-140.56Q562.43-718 480.09-718q-82.35 0-140.39 58.06-58.05 58.06-58.05 140.44h-20.02q-57.63 0-98.38 40.5-40.75 40.5-40.75 98.25t40.75 98.25Q204-242 261.5-242ZM480-480Z" />
+          </svg>
+          <div class="box-dashboard-item-label">
+            <label>Conexão</label>
+            <h4>{{getQuantidadeConexao('Online')}}/<span style="color: red;">{{getQuantidadeConexao('Offline')}}</span>
+            </h4>
+          </div>
         </div>
+      </div>
+      <div class="cores" style="width: 100%;padding: 40px;margin-top: 30px;">
+        <div class="box-painel-item"
+          style="height: 100%;width: 100%;display: flex;box-sizing: border-box;padding: 50px 0;margin: auto;justify-content: space-between;">
+          <div style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
+            <p
+              style="text-align: center;margin: 0;background: #2de09b;border-radius: 10px;color: #ffffff;font-size: 14px;">
+              Conexões</p>
+            <p-chart responsive="false" type="doughnut" width="100%" [data]="conexoes" />
+          </div>
+          <div style="width: 30%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
+          </div>
+          <div
+            style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;flex-grow: 1;">
+            <p
+              style="text-align: center;margin: 0;background: #7a18a8;border-radius: 10px;color: #ffffff;font-size: 14px;">
+              Cores</p>
+            <p-chart responsive="false" type="doughnut" width="100%" [data]="cores" />
+          </div>
+        </div>
+        <p-chart type="line" height="100%" [data]="coresBar" [options]="options" />
+      </div>
     </div>
-    <div style="display: flex;justify-content: space-between;align-items: start;width: 26%;margin-left: 20px;">
-        <p-chart type="pie" [data]="getData(dashboard.conexoes)" style="margin: auto;width: 50px;flex-grow: 1;" />
-        <p-chart type="pie" [data]="getData(dashboard.cores)" style="margin: auto;width: 50px;flex-grow: 1;" />
+  </div>
+
+  <div class="box-painel-item" style="width:  30%;">
+    <div class="box-dashboard-item" style="width: 100%;">
+      <svg xmlns="http://www.w3.org/2000/svg" height="75px" viewBox="0 -960 900 960" width="75px" fill="#ffc300">
+        <path
+          d="M247.5-232v-17.5H273V-533q0-80.5 53.11-140T459-742v-44.06q0-9.07 5.76-15 5.77-5.94 15-5.94 9.24 0 15.24 5.94 6 5.93 6 15V-742q80 9.5 133.25 69t53.25 140v283.5H713v17.5H247.5Zm232.11 98q-21.11 0-35.86-15.02Q429-164.05 429-185h102q0 21.5-15.14 36.25T479.61-134Z" />
+      </svg>
+      <div class="box-dashboard-item-label">
+        <label>Ultimos eventos</label>
+        <h4>{{dashboard.logs.length}}</h4>
+      </div>
     </div>
+    <div style="max-height: 600px;overflow-x: auto;margin-top: 30px;margin-left: 10px;">
+      <p-timeline [value]="dashboard.logs" styleClass="customized-timeline">
+        <ng-template pTemplate="marker" let-log>
+          @if(log.comando == 'NENHUM_DEVICE'){
+          <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+            [style]="{ 'background-color': '#fbb057', 'width': '26px', 'height': '25px' }">
+            <i class="pi pi-times" style="font-size: 12px; line-height: 2;margin-left: 3px;"></i>
+          </span>
+          }
+          @else if(log.comando == 'ENVIAR') {
+          <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+            [style]="{ 'background-color': '#d2d2d2', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
+            <i class="pi pi-sync" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
+          </span>
+          }@else if(log.comando == 'SISTEMA') {
+          <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+            [style]="{ 'background-color': '#69e2ae', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
+            <i class="pi pi-server" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
+          </span>
+          }@else {
+          <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+            [style]="{ 'background-color': '#30d7dd', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
+            <i class="pi pi-check" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
+          </span>
+          }
+        </ng-template>
+        <ng-template pTemplate="content" let-log>
+          <div style="margin-left: 15px;">
+            <p class="comando-nome" style="margin: 0;font-size: 13px;font-weight: 500;">
+              {{log.descricao}}
+            </p>
+            <p class="comando-data"> {{log.data}}</p>
+            <p class="comando-autor"> {{log.usuario}}</p>
+          </div>
+        </ng-template>
+      </p-timeline>
+    </div>
+  </div>
 </div>
 
-<div class="box-painel">
-    <div class="cores" style="width: 70%;">
-        <h5 style="margin: 10px;text-align: center;">Cores</h5>
-        <p-chart type="bar" [data]="getData(dashboard.cores)" [options]="options" />
-    </div>
-    <div class="ultimos-eventos" style="width: 26%;">
-        <p class="titulo">
-            <i-feather name="info" class="feather-base"
-                style="margin-right: 10px;color: rgb(197, 197, 197);"></i-feather>
-            Ultimos eventos
-        </p>
-        <p-timeline [value]="events" styleClass="customized-timeline">
-            <ng-template pTemplate="marker" let-event>
-                <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
-                    [style]="{ 'background-color': event.color, 'width': '25px', 'height': '25px' }">
-                    <i [class]="event.icon" style="font-size: 11px; line-height: 2;"></i>
-                </span>
-            </ng-template>
-            <ng-template pTemplate="content" let-event>
-                <div style="margin-left: 15px;">
-                    <p class="comando-nome" style="margin: 0;">
-                        Comando enviado
-                    </p>
-                    <p class="comando-data">28/10/204 10:00:28</p>
-                    <p class="comando-autor">Leandro Pereira</p>
-                </div>
-            </ng-template>
-        </p-timeline>
-    </div>
-</div>
 
+}
 
 <!--         <div style="display: flex;">
             <div style="width: 25%;">

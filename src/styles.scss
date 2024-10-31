@@ -18,3 +18,19 @@ body {
   margin-left: 15px !important;
 }
 
+.chart-container {
+  width: 100%;
+  max-width: 600px; /* exemplo de largura máxima */
+  height: 400px; /* defina a altura desejada */
+  overflow: hidden; /* evita que o conteúdo exceda os limites */
+}
+
+/* opcionalmente, defina estilos específicos para o p-chart */
+.chart-container p-chart {
+  width: 100%;
+  height: 100%;
+}
+
+.botoes button {
+  margin: 0 3px;
+}

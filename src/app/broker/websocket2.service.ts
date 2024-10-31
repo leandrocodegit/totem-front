@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Client, Message } from '@stomp/stompjs';
 import { environment } from '../../environments/environment.prod';
 import { AuthService } from '../components/auth/services/auth.service';
@@ -10,6 +10,7 @@ import { response } from 'express';
 })
 export class WebSocketService2 {
 
+  public dashboardEmit = new EventEmitter;
 
   private client!: Client;
 
@@ -18,8 +19,8 @@ export class WebSocketService2 {
     this.client = new Client({
       brokerURL: this.getUrlBroker(),
       onConnect: () => {
-        this.client.subscribe('/topic/messages', message =>
-          console.log(`Received: ${message.body}`)
+        this.client.subscribe('/topic/dashboard', message =>
+          this.dashboardEmit.emit(message.body)
         );
         console.log('Conectado');
 
