@@ -3,6 +3,7 @@ import { Comando } from "./constantes/comando";
 
 
 export interface Dispositivo {
+  selecionado: boolean;
   mac: string;
   nome: string;
   ip: string;
@@ -10,5 +11,6 @@ export interface Dispositivo {
   ativo: boolean;
   conexao: string;
   configuracao: Configuracao
+  configuracoes: Configuracao[]
   comando: Comando
 }

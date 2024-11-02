@@ -1,0 +1,61 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <div style="max-width: 100%;padding: 15px 15px 0;">
+      <div style="display: flex;justify-content: space-between;">
+        <div style="flex: 1;">
+          <mat-form-field class="w-100 fs-16" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput required [(ngModel)]="agenda.nome" type="text" placeholder="Nome">
+          </mat-form-field>
+          <div style="display: flex;">
+            <mat-form-field appearance="outline">
+              <mat-label>Configuração</mat-label>
+              <mat-select required [(ngModel)]="agenda.configuracao.id">
+                @for (value of configuracoes; track $index) {
+                <mat-option [value]="value.id">{{value.nome}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <button (click)="novaConfiguracao()" mat-raised-button class="mb-8 me-8" color="primary"
+              style="height: 55px;margin: 0px 0px 5px 9px;">
+              <i-feather name="plus" class="feather-base">
+              </i-feather>
+            </button>
+          </div>
+        </div>
+        <div style="margin-left: 30px;width: 170px;">
+        <mat-form-field appearance="outline">
+          <mat-label>Selecione um periodo</mat-label>
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+            <input [(ngModel)]="agenda.inicio" matStartDate formControlName="start" placeholder="Início">
+            <input [(ngModel)]="agenda.termino" matEndDate formControlName="end" placeholder="Fim">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          @if (range.controls.start.hasError('matStartDateInvalid')) {
+          <mat-error>Data inicio invalida</mat-error>
+          }
+          @if (range.controls.end.hasError('matEndDateInvalid')) {
+          <mat-error>Data fim invalida</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+      <div style="width: 100%;display: flex;">
+        <p-checkbox [(ngModel)]="agenda.ativo" label="Agenda ativa" [binary]="true" [style]="{'margin': '0 10px 0 0'}"/>
+        <p-checkbox [(ngModel)]="agenda.todos" label="Enviar para todos"  [style]="{'margin': '0 10px'}" [binary]="true" />
+      </div>
+    </div>
+    <app-tabela-dispositivos (selecionarEmit)="adicionarDispositivo($event)" [checkEmit]="true" [agenda]="agenda"
+      [exibirAcoes]="false"></app-tabela-dispositivos>
+    <div class="botoes">
+      <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
+      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(true)" type="submit">Salvar e remover
+        conflitos</button>
+      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(false)" type="submit">Salvar</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

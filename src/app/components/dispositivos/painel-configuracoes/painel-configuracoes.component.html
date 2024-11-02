@@ -1,16 +1,19 @@
 <mat-card class="w-100">
   <mat-card-content>
     <h4 class="mb-32">Configurações gerais</h4>
-    <mat-tab-group mat-stretch-tabs="false" animationDuration="0">
+    <mat-tab-group mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect" (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Ajuste cores e efeitos">
-        <app-paramentros-cores></app-paramentros-cores>
+        <app-paramentros-cores *ngIf="dispositivo" [exibeSincronizar]="true" [dispositivo]="dispositivo"></app-paramentros-cores>
       </mat-tab>
       <mat-tab label="Lista de configurações">
+        <app-lista-configuracoes-dispositivo [dispositivo]="dispositivo"></app-lista-configuracoes-dispositivo>
       </mat-tab>
       <mat-tab label="Agendas">
+        <app-lista-agenda-dispositivo></app-lista-agenda-dispositivo>
       </mat-tab>
       <mat-tab label="Logs">
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>
 </mat-card>
+

@@ -1,0 +1,55 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <div style="display: flex;justify-content: space-between;">
+      <h3>Agendas relacionadas</h3>
+      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="editar(undefined)" type="submit">Adicionar agenda</button>
+    </div>
+    <div class="table-responsive-sm">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th style="width: 20px;">Ativo</th>
+          <th>Nome</th>
+          <th>Período</th>
+          <th>Dispositivos</th>
+          <th>Status</th>
+          <th>Efeito</th>
+          <th>Cor</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agenda of agendas">
+          <td style="width: 20px;">
+            <p-checkbox disabled [(ngModel)]="agenda.ativo" [binary]="true" />
+          </td>
+          <td>{{agenda.nome}}</td>
+          <td>{{isSameDayAndMonth(agenda) ? (agenda.inicio | date: 'dd/MM') : ((agenda.inicio | date: 'dd/MM') + ' à ' + (agenda.termino | date: 'dd/MM'))}}</td>
+          <td>{{agenda.todos ? 'Todos' : agenda.dispositivos.length}}</td>
+          <td>{{agenda.status}}</td>
+          <td>{{getTradutor(agenda.configuracao?.efeito)}}</td>
+          <td>
+            <span class="material-symbols-outlined"
+              [style.color]="agenda.configuracao?.primaria">radio_button_checked</span>
+          </td>
+          <td>
+            <i-feather (click)="editar(agenda)" name="edit" class="feather-base">
+            </i-feather>
+            <i-feather (click)="remover(agenda)" name="trash" class="feather-base">
+            </i-feather>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <mat-paginator #paginator
+    class="demo-paginator"
+    (page)="handlePageEvent($event)"
+    [length]="page?.length"
+    [pageSize]="page?.pageSize"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="[15,20,50]"
+    [pageIndex]="page?.pageIndex"></mat-paginator>
+  </mat-card-content>
+</mat-card>
+

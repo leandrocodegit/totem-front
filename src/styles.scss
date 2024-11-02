@@ -4,25 +4,36 @@ body {
   letter-spacing: 0.1rem;
 }
 
+.botoes {
+  float: right;
+}
+
+.botoes button{
+  min-width: 150px;
+}
+
 .box-botoes-direta {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.p-timeline-event-opposite{
+.p-timeline-event-opposite {
   display: none;
 }
 
-.p-card .p-component{
+.p-card .p-component {
   margin-left: 15px !important;
 }
 
 .chart-container {
   width: 100%;
-  max-width: 600px; /* exemplo de largura máxima */
-  height: 400px; /* defina a altura desejada */
-  overflow: hidden; /* evita que o conteúdo exceda os limites */
+  max-width: 600px;
+  /* exemplo de largura máxima */
+  height: 400px;
+  /* defina a altura desejada */
+  overflow: hidden;
+  /* evita que o conteúdo exceda os limites */
 }
 
 /* opcionalmente, defina estilos específicos para o p-chart */
@@ -33,4 +44,34 @@ body {
 
 .botoes button {
   margin: 0 3px;
+}
+
+.box-dialog {
+  min-width: 800px !important;
+  max-height: 800px;
+  overflow-x: auto;
+}
+
+.p-toast-message-text {
+  padding: 0 10px !important;
+  font-size: 13px !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
+  width: 25px;
+  text-align: center;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup-close-button{
+  display: none;
+}
+
+.leaflet-popup-content {
+  margin: 13px 24px -17px 25px !important;
 }

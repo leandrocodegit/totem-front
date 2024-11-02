@@ -14,13 +14,12 @@
   }
 
   .sidebar-menu {
-    padding: 13px 16px;
-    border-radius: 25px;
+    padding: 13px 14px;
     font-size: 15px;
 
     &.activelink {
-      background-color: #b49f9f !important;
-      color: $white !important;
+      border-left: solid #fb9678 5px;
+      border-right: solid #fb9678 5px;
     }
   }
 

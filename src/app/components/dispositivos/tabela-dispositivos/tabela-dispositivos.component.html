@@ -1,53 +1,55 @@
 <table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th style="width: 10px;"></th>
-            <th>Nome</th>
-            <th>Mac</th>
-            <th>Status</th>
-            <th>Conexão</th>
-            <th>IP</th>
-            <th>Memoria</th>
-            <th>Efeito</th>
-            <th>Comando</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let device of dispositivos">
-            <td style="width: 10px;">
-                <i-feather name="cpu" [style.color]="device.configuracao.primaria" class="feather-base" style="margin-right: 10px;"></i-feather>
-            </td>
-            <td>{{device.nome}}</td>
-            <td>{{device.mac}}</td>
-            <td>
-                @if(device.ativo){
-                <span class="badge badge-info rounded-pill">Ativo</span>
-                }@else{
-                <span class="badge badge-danger rounded-pill">Inativo</span>
-                }
-            </td>
-            <td>
-                @if(device.conexao == 'Online'){
-                <span class="badge badge-success rounded-pill">Online</span>
-                }@else{
-                <span class="badge badge-danger rounded-pill">Offline</span>
-                }
-            </td>
-            <td>{{device.ip}}</td>
-            <td>{{device.memoria > 0 ? (device.memoria / 1000).toFixed(0) : 0}}K</td>
-            <td>{{getTradutor(undefined, device.configuracao.efeito)}}</td>
-            <td>{{getTradutor(device.comando)}}</td>
-            <td>
-                <i-feather name="edit" class="feather-base">
-                </i-feather>
-                <i-feather (click)="configurar(device)" name="settings" class="feather-base">
-                </i-feather>
-                <i-feather (click)="sincronizar(device)" name="refresh-ccw" class="feather-base">
-                </i-feather>
-                <i-feather (click)="mudarStatus(device)" name="power" class="feather-base" [style.color]="device.ativo ? 'blue' : 'red'">
-                </i-feather>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th *ngIf="!checkEmit" style="width: 10px;"></th>
+      <th *ngIf="checkEmit" style="width: 10px;"></th>
+      <th>Nome</th>
+      <th>Mac</th>
+      <th>Status</th>
+      <th>Conexão</th>
+      <th *ngIf="!checkEmit">IP</th>
+      <th *ngIf="!checkEmit">Memoria</th>
+      <th *ngIf="!checkEmit">Efeito</th>
+      <th *ngIf="!checkEmit">Comando</th>
+      <th *ngIf="exibirAcoes"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let device of dispositivos">
+      <td *ngIf="!checkEmit" style="width: 10px;">
+        <i-feather (click)="sincronizar(device, true)" name="cpu" [style.color]="device.configuracao ? device.configuracao.primaria : 'black'"
+          class="feather-base" style="margin-right: 10px;"></i-feather>
+      </td>
+      <td *ngIf="checkEmit" style="width: 20px;">
+        <p-checkbox (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
+      </td>
+      <td>{{device.nome}}</td>
+      <td>{{device.mac}}</td>
+      <td>
+        @if(device.ativo){
+        <span class="badge badge-info rounded-pill">Ativo</span>
+        }@else{
+        <span class="badge badge-danger rounded-pill">Inativo</span>
+        }
+      </td>
+      <td>
+        @if(device.conexao == 'Online'){
+        <span class="badge badge-success rounded-pill">Online</span>
+        }@else{
+        <span class="badge badge-danger rounded-pill">Offline</span>
+        }
+      </td>
+      <td *ngIf="!checkEmit">{{device.ip}}</td>
+      <td *ngIf="!checkEmit">{{device.memoria > 0 ? (device.memoria / 1000).toFixed(0) : 0}}K</td>
+      <td *ngIf="!checkEmit">{{getTradutor(undefined, device.configuracao)}}</td>
+      <td *ngIf="!checkEmit">{{getTradutor(device.comando)}}</td>
+      <td *ngIf="exibirAcoes">
+        <i-feather (click)="editar(device)" name="edit" class="feather-base"></i-feather>
+        <i-feather (click)="configurar(device)" name="settings" class="feather-base"></i-feather>
+        <i-feather (click)="sincronizar(device, false)" name="refresh-ccw" class="feather-base"></i-feather>
+        <i-feather (click)="mudarStatus(device)" name="power" class="feather-base"
+          [style.color]="device.ativo ? 'blue' : 'black'"> </i-feather>
+      </td>
+    </tr>
+  </tbody>
 </table>

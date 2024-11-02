@@ -4,13 +4,16 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { IconsModule } from '../../../IconsModule';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../auth/services/auth.service';
+import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
+import { CardMapaComponent } from '../card-mapa/card-mapa.component';
+import { CardItensComponent } from '../card-itens/card-itens.component';
 
 interface sidebarMenu {
   link: string;
@@ -30,6 +33,8 @@ interface sidebarMenu {
     MatSidenavModule,
     MatRippleModule,
     MatButtonModule,
+    CardMapaComponent,
+    CardItensComponent
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
@@ -39,7 +44,8 @@ export class SidebarComponent implements OnInit {
   protected search: boolean = false;
   protected nome?: string;
   protected avatar?: string;
- 
+  protected padding = "20px";
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -48,19 +54,37 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService) { }
+    private readonly dispositivoService: DispositivoService,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    dispositivoService.ajutarPadding.subscribe(data => {
+      if(data){
+        this.padding = '20px';
+      }else{
+        this.padding = '0';
+      }
+      console.log("PADDING", data);
+
+    })
+  }
 
   ngOnInit(): void {
-    console.log(this.avatar);
 
-  /*   if(localStorage.getItem('user.nome'))
-      this.nome = localStorage.getItem('user.nome')!;
-    if(localStorage.getItem('user.avatar'))
-      this.avatar = localStorage.getItem('user.avatar')!; */
+    if(this.router.url.includes('/mapa')){
+
+    }
   }
 
   logout(){
     this.authService.logout()
+  }
+
+  sincronizar(){
+    this.dispositivoService.sincronizarTudo().subscribe(() => {
+    }, fail => {
+      console.log('Falaha ao sincronizar');
+    });
   }
 
   routerActive: string = "activelink";
@@ -87,10 +111,22 @@ export class SidebarComponent implements OnInit {
       menu: "Dispositivos",
     },
     {
-      link: "/painel/modelos",
-      icon: "layers",
-      menu: "Modelos",
+      link: "/agendas",
+      icon: "calendar",
+      menu: "Agendas",
     },
+
+    {
+      link: "/configuracoes",
+      icon: "target",
+      menu: "Configurações",
+    },
+    {
+      link: "/mapa",
+      icon: "map",
+      menu: "Mapa",
+    },
+
     /*{
       link: "/menu",
       icon: "lock",

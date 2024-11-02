@@ -1,8 +1,18 @@
 <div *ngIf="configuracao" class="painel-configuracao">
+
   <div class="box-configuracao" style="width: 97%;">
+    <div *ngIf="exibeSincronizar" style="margin: 00px 0;">
+      <mat-checkbox [(ngModel)]="enviarConfiguracao" color="primary" class="d-block mb-16">Habilitar tem real</mat-checkbox>
+    </div>
+    <div style="max-width: 50%;">
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput required [(ngModel)]="configuracao.nome" type="text" placeholder="Nome">
+      </mat-form-field>
+    </div>
     <mat-form-field appearance="outline">
       <mat-label>Efeito</mat-label>
-      <mat-select (selectionChange)="onSliderChange()" [(ngModel)]="configuracao.efeito">
+      <mat-select required (selectionChange)="onSliderChange()" [(ngModel)]="configuracao.efeito">
         <mat-option value="COLORIDO">Colorido</mat-option>
         <mat-option value="BATIDA">Batida</mat-option>
         <mat-option value="CONTADOR">Contador</mat-option>
@@ -18,7 +28,7 @@
     <div class="box-configuracao">
       <div style="padding: 10px 0;">
         <div class="color-picker-container">
-          <input type="color" id="colorPicker" (change)="changeCorPrimaria()" [(ngModel)]="primaria">
+          <input type="color" id="colorPicker" (change)="changeCorPrimaria()" [(ngModel)]="configuracao.primaria">
           <span class="placeholder-text">Cor primária</span>
         </div>
       </div>
@@ -47,7 +57,7 @@
     <div class="box-configuracao">
       <div style="padding: 10px 0;">
         <div class="color-picker-container">
-          <input type="color" id="colorPicker" (change)="changeCorSecundaria()" [(ngModel)]="secundaria">
+          <input type="color" id="colorPicker" (change)="changeCorSecundaria()" [(ngModel)]="configuracao.secundaria">
           <span class="placeholder-text">Cor secundária</span>
         </div>
       </div>
@@ -142,9 +152,11 @@
       </div>
     </div>
   </div>
-  <div class="botoes">
+  <div *ngIf="exibirBotoes" class="botoes">
     <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
-    <button mat-raised-button class="me-8 mb-8" color="accent" (click)="salvar()" type="submit">Salvar
+    <button mat-raised-button class="me-8 mb-8" color="accent" (click)="duplicar()" type="submit">Duplicar
+      configurações</button>
+    <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar
       configurações</button>
   </div>
 </div>

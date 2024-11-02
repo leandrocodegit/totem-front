@@ -26,6 +26,6 @@ export const appConfig: ApplicationConfig = {
       multi: true
     },
     { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }
-  ]
+  ],
 };
 

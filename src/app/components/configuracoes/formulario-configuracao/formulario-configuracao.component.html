@@ -1,0 +1,9 @@
+<mat-card class="w-100" style="min-width: 70%;">
+  <mat-card-content>
+    <app-paramentros-cores [exibirBotoes]="false" [configuracao]="configuracao"></app-paramentros-cores>
+    <div class="botoes">
+      <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
+      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
+    </div>
+  </mat-card-content>
+</mat-card>

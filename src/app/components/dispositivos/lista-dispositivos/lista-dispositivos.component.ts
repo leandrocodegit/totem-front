@@ -7,8 +7,11 @@ import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { TabelaDispositivosComponent } from '../tabela-dispositivos/tabela-dispositivos.component';
 import { DispositivoService } from '../services/dispositivo.service';
 import { Dispositivo } from '../../models/dispositivo.model';
-import { response } from 'express';
-
+import { Filtro } from '../../models/constantes/filtro';
+import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { CustomPaginator } from '../../../util/CustomPaginator';
+import { PAGE_INIT } from '../../models/constantes/PageUtil';
+import { Page } from '../../models/Page';
 
 @Component({
   selector: 'app-lista-dispositivos',
@@ -18,9 +21,13 @@ import { response } from 'express';
     MatTabsModule,
     MatButtonModule,
     MatCardModule,
-    TabelaDispositivosComponent
+    TabelaDispositivosComponent,
+    MatPaginatorModule
   ],
   providers: [
+    {
+      provide: MatPaginatorIntl, useClass: CustomPaginator
+    },
     WebSocketService2
   ],
   templateUrl: './lista-dispositivos.component.html',
@@ -32,37 +39,69 @@ export class ListaDispositivosComponent {
   protected dispositivosOffline: Dispositivo[] = [];
   protected dispositivosInativos: Dispositivo[] = [];
   protected dispositivosnAssociados: Dispositivo[] = [];
+  protected page?: PageEvent;
+  protected indexTab = 0;
 
   constructor(private websocketService: WebSocketService2,
     private readonly dispositivoService: DispositivoService
-  ) {}
+  ) { }
 
   ngOnInit() {
-
-    this.dispositivoService.listaTodosDispositivosAtivo(true).subscribe(response => this.dispositivos = response);
-
+    this.carregarLista(PAGE_INIT);
   }
 
   onTabChange(event: MatTabChangeEvent) {
-    if(event.index == 0){
-      this.dispositivoService.listaTodosDispositivosAtivo(true).subscribe(response => this.dispositivos = response);
-    }else if(event.index == 1){
-      this.dispositivoService.listaTodosDispositivosAtivo(false).subscribe(response => this.dispositivosInativos = response);
-    }else if(event.index == 2){
-      this.dispositivoService.listaTodosDispositivosOffline().subscribe(response => this.dispositivosOffline = response);
+    this.indexTab = event.index;
+    this.carregarLista(this.page);
+  }
+
+  carregarLista(page?: PageEvent){
+    if (this.indexTab == 0) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, page).subscribe(response => {
+        this.dispositivos = response.content;
+        this.initPage(response);
+      });
+    } else if (this.indexTab == 1) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.INATIVO,page).subscribe(response => {
+        this.dispositivosInativos = response.content;
+        this.initPage(response);
+      });
+    } else if (this.indexTab == 2) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.OFFLINE, page).subscribe(response => {
+        this.dispositivosOffline = response.content;
+        this.initPage(response);
+      });
+    } else if (this.indexTab == 3) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.NAO_CONFIGURADO, page).subscribe(response => {
+        this.dispositivosnAssociados = response.content;
+        this.initPage(response);
+      });
     }
   }
 
-  conectar() {
+  private initPage(response: Page<Dispositivo>){
+    console.log("Init");
 
-
-    this.websocketService.connect();
-    this.websocketService.publicar("{}")
-
-
-
+    this.page = {
+      pageIndex: response.pageable.pageNumber,
+      length: response.totalElements,
+      previousPageIndex: 0,
+      pageSize: response.size
+    }
   }
 
+  sincronizar() {
+    this.dispositivoService.sincronizar(this.dispositivos.map(device => device.mac), false).subscribe(() => {
+
+    }, fail => {
+      console.log('Falha ao sincronizar');
+
+    })
+  }
+
+  handlePageEvent(page: PageEvent) {
+    this.carregarLista(page);
+  }
 
 
 }

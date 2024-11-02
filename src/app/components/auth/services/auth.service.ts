@@ -29,6 +29,8 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
+    console.log('Refreah');
+
     const refreshToken = localStorage.getItem('token.refresh');
     return this.http.get(`${environment.urlApi}/auth/refresh?token=${refreshToken}`);
   }

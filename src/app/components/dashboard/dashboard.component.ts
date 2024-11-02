@@ -117,8 +117,7 @@ export class DashboardComponent {
       datasets: [
         {
           data: [this.getQuantidadeConexao('Online'), this.getQuantidadeConexao('Offline')],
-          backgroundColor: ['#2de09b', '#fba58c'],
-          hoverBackgroundColor: ['#23ffa6b6', '#fd1957b6'],
+          backgroundColor: ['#2de09b', '#ff8181']
         }
       ]
     };

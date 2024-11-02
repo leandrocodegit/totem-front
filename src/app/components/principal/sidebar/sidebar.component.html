@@ -23,6 +23,12 @@
                 class="ps-4">{{ sidenav.menu }}</span>
             </a>
           </li>
+          <li class="list-group mb-2" style="margin-top: 40px;">
+            <a (click)="sincronizar()" matRipple [matRippleColor]="'#f7f8f443'" class="sidebar-menu w-100 d-flex align-items-center" style="border-radius: 25px;background: #00a6cf; color:white; cursor: pointer;">
+              <i-feather name="refresh-ccw" class="feather-base" style="margin-right: 10px;"> </i-feather> <span
+                class="ps-4">Sincronizar</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -36,9 +42,6 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <i-feather name="menu" class="text-light-muted feather-base mt-n3"></i-feather>
-      </button>
-      <button mat-icon-button class="ms-4 me-4" (click)="search=!search">
-        <i-feather name="search" class="mt-n3 text-light-muted feather-base text-dark"></i-feather>
       </button>
       <div class="ms-auto">
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center"
@@ -63,10 +66,8 @@
       </div>
     </mat-toolbar>
     <!-- Content -->
-    <div class="body-wrapper">
-      <div class="page-wrapper">
+    <div class="body-wrapper" [style.padding]="padding">
         <router-outlet></router-outlet>
-      </div>
     </div>
 
   </mat-sidenav-content>

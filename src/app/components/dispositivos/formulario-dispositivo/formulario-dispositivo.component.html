@@ -1,0 +1,13 @@
+
+    <div style="width: 400px;padding: 30px;">
+        <mat-form-field class="w-100 fs-16" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input matInput required [(ngModel)]="dispositivo.nome" type="text" placeholder="Nome">
+        </mat-form-field>
+      <div class="botoes">
+        <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
+        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
+      </div>
+    </div>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />
