@@ -110,11 +110,18 @@ export class FormularioAgendaComponent implements OnInit {
 
   salvar(removerConflitos: boolean) {
     if (this.agenda.id == '') {
+
+      if(!this.agenda.termino && this.agenda.inicio){
+        this.agenda.termino = this.agenda.inicio;
+      }
       this.agendaService.criarAgenda(this.agenda).subscribe(() => {
       }, fail => {
         console.log('Falha ao salvar');
       });
     } else {
+      if(!this.agenda.termino && this.agenda.inicio){
+        this.agenda.termino = this.agenda.inicio;
+      }
       this.agendaService.alterarAgenda(this.agenda, removerConflitos).subscribe(() => {
         this.messageService.add({
           severity: 'success',

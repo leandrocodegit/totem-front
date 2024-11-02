@@ -3,6 +3,7 @@ import { Client, Message } from '@stomp/stompjs';
 import { environment } from '../../environments/environment.prod';
 import { AuthService } from '../components/auth/services/auth.service';
 import { response } from 'express';
+import { Dispositivo } from '../components/models/dispositivo.model';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ import { response } from 'express';
 export class WebSocketService2 {
 
   public dashboardEmit = new EventEmitter;
+  public dispositivosEmit = new EventEmitter;
 
   private client!: Client;
 
@@ -21,6 +23,11 @@ export class WebSocketService2 {
       onConnect: () => {
         this.client.subscribe('/topic/dashboard', message =>
           this.dashboardEmit.emit(message.body)
+        );
+        this.client.subscribe('/topic/dispositivos', message => {
+          console.log("Message", message);
+          this.dispositivosEmit.emit(JSON.parse(message.body) as Dispositivo [])
+        }
         );
         console.log('Conectado');
 
@@ -38,7 +45,7 @@ export class WebSocketService2 {
           this.client.brokerURL = this.getUrlBroker();
           this.client.activate();
         }, fail => {
-          if(fail.error && fail.error.status &&  fail.error.status == 403)
+          if (fail.error && fail.error.status && fail.error.status == 403)
             this.client.deactivate();
         })
       },
@@ -50,7 +57,7 @@ export class WebSocketService2 {
 
   }
 
-  getUrlBroker(){
+  getUrlBroker() {
     return environment.urlWebSocket + '?token=' + localStorage.getItem('token.socket');
   }
 
@@ -58,17 +65,17 @@ export class WebSocketService2 {
 
 
 
-    if(this.client && this.client.connected){
+    if (this.client && this.client.connected) {
       console.log("Enviado");
 
-     // this.client.publish({ destination: 'app/device', body: '{}' });
+      // this.client.publish({ destination: 'app/device', body: '{}' });
     }
 
 
 
   }
 
-  publicar(mensagem: string){
+  publicar(mensagem: string) {
     console.log("Publicado");
     this.client.publish({ destination: '/app/device', body: mensagem });
   }

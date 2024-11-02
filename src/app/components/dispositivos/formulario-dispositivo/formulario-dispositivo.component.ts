@@ -9,10 +9,12 @@ import { TabelaDispositivosComponent } from '../../dispositivos/tabela-dispositi
 import { MatCardModule } from '@angular/material/card';
 import { ParamentrosCoresComponent } from '../../dispositivos/paramentros-cores/paramentros-cores.component';
 import { Dispositivo } from '../../models/dispositivo.model';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { DispositivoService } from '../services/dispositivo.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { IconsModule } from '../../../IconsModule';
+import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -24,9 +26,11 @@ import { MessageService } from 'primeng/api';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    ToastModule
+    ToastModule,
+    IconsModule,
+    MatDialogModule
   ],
-  providers:[
+  providers: [
     MessageService
   ],
   templateUrl: './formulario-dispositivo.component.html',
@@ -40,11 +44,24 @@ export class FormularioDispositivoComponent {
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
     private dialogRef: MatDialogRef<FormularioDispositivoComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     if (data) {
       this.dispositivo = JSON.parse(JSON.stringify(data));
     }
+
+    dispositivoService.mapaEdit.subscribe(data => {
+      if (data) {
+        console.log("Latitude 1", this.dispositivo.latitude);
+        if (data.lat && data.lng) {
+          this.dispositivo.latitude = data.lat;
+          this.dispositivo.longitude = data.lng;
+        }
+        console.log("Latitude 2", this.dispositivo.latitude);
+
+      }
+    })
   }
 
   fechar() {
@@ -58,12 +75,27 @@ export class FormularioDispositivoComponent {
         summary: 'Alteração',
         detail: 'Dispositivo salvo'
       });
-    }, fail =>{
+    }, fail => {
       this.messageService.add({
         severity: 'error',
         summary: 'Falha',
         detail: 'Erro ao salvar dispositivo!'
       });
+    });
+  }
+
+  selecionarCordenadas() {
+    let retorno = this.dialog.open(CardMapaCordenadasComponent, {
+      panelClass: 'no-overflow'
+    })
+
+    retorno.afterClosed().subscribe(data => {
+      if (data) {
+        this.dispositivo.latitude = data.lat;
+        this.dispositivo.longitude = data.lng;
+        console.log(data);
+
+      }
     });
   }
 }

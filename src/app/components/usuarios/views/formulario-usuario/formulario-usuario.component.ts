@@ -4,24 +4,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { default as _rollupMoment, Moment } from 'moment';
-import * as _moment from 'moment';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserService } from '../../services/user.service';
+import { MatSelectModule } from '@angular/material/select';
+import { Role } from '../../../../model/constantes/role.enum';
+import { User } from '../../../models/user.model';
 
-const moment = _rollupMoment || _moment;
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+
 @Component({
   selector: 'app-formulario-usuario',
   standalone: true,
@@ -30,12 +20,11 @@ export const MY_FORMATS = {
     ReactiveFormsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [
-//    provideMomentDateAdapter(MY_FORMATS),
   ],
   templateUrl: './formulario-usuario.component.html',
   styleUrl: './formulario-usuario.component.scss'
@@ -43,25 +32,18 @@ export const MY_FORMATS = {
 export class FormularioUsuarioComponent {
 
   protected checked = true;
-  protected date = new FormControl(moment());
-  protected user!: any;
+  protected user!: User;
+  protected role: Role = Role.ADMIN;
 
   constructor(
     private readonly _router: Router,
+    private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private readonly dialogRef: MatDialogRef<FormularioUsuarioComponent>) {
     if (data)
       this.user = data;
     else {
-      this.user = {
-        id: '',
-        firstName: 'teste',
-        lastName: '',
-        email: 'teste',
-        status: true,
-        cellphone: 'teste',
-        dtBirthday: new Date
-      }
+      this.user = new User
     }
   }
 
@@ -72,17 +54,11 @@ export class FormularioUsuarioComponent {
   }
 
   salvar() {
-    this.dialogRef.close(this.user);
+    this.user.roles = [this.role]
+    this.userService.criarUsuario(this.user).subscribe();
+    this.dialogRef.close();
   }
 
-  setMonthAndYear(normalizedMonthAndYear: any, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.date.value ?? moment();
-    ctrlValue.day(normalizedMonthAndYear.day());
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
 }
 
 

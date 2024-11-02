@@ -12,6 +12,10 @@ import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/materi
 import { CustomPaginator } from '../../../util/CustomPaginator';
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
 import { Page } from '../../models/Page';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lista-dispositivos',
@@ -22,7 +26,10 @@ import { Page } from '../../models/Page';
     MatButtonModule,
     MatCardModule,
     TabelaDispositivosComponent,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
   ],
   providers: [
     {
@@ -41,10 +48,26 @@ export class ListaDispositivosComponent {
   protected dispositivosnAssociados: Dispositivo[] = [];
   protected page?: PageEvent;
   protected indexTab = 0;
+  protected nomeFind = new Subject<any>();
 
   constructor(private websocketService: WebSocketService2,
     private readonly dispositivoService: DispositivoService
-  ) { }
+  ) {
+    this.nomeFind.pipe(
+      debounceTime(500),
+      distinctUntilChanged())
+      .subscribe(value => {
+        console.log(value);
+        if (value != undefined && value.length > 2){
+          this.dispositivoService.pesquisarDispositivo(value, PAGE_INIT).subscribe(response => {
+            this.dispositivos = response.content;
+            this.initPage(response);
+          });
+        }else{
+          this.carregarLista(PAGE_INIT);
+        }
+      });
+  }
 
   ngOnInit() {
     this.carregarLista(PAGE_INIT);

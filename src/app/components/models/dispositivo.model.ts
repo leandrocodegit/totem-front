@@ -10,6 +10,8 @@ export interface Dispositivo {
   memoria: number;
   ativo: boolean;
   conexao: string;
+  latitude: number;
+  longitude: number;
   configuracao: Configuracao
   configuracoes: Configuracao[]
   comando: Comando

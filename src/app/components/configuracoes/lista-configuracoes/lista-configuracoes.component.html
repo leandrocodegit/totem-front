@@ -17,7 +17,7 @@
   <tbody>
     <tr *ngFor="let conf of configuracoes">
       <td *ngIf="!modoAll" style="width: 10px;">
-        <mat-radio-button (change)="definirConfiguracao(conf)" class="example-radio-button"
+        <mat-radio-button (change)="definirConfiguracao(conf)" class="example-radio-button" color="primary"
           [checked]="conf.id == idSelecionado" [value]="conf.id"></mat-radio-button>
       </td>
       <td>{{conf.nome}}</td>

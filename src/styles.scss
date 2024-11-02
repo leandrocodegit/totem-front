@@ -75,3 +75,11 @@ body {
 .leaflet-popup-content {
   margin: 13px 24px -17px 25px !important;
 }
+
+.no-overflow .mdc-dialog__surface{
+  overflow: hidden !important;
+}
+
+tr td {
+  vertical-align: middle;
+}

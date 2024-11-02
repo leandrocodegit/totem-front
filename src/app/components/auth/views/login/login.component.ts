@@ -33,7 +33,7 @@ import { UserService } from '../../../usuarios/services/user.service';
 })
 export class LoginComponent {
 
-  protected email = 'admin';
+  protected email = 'admin@gmail.com';
   protected password = 'admin';
   protected isError = false;
   protected isLoad = false;
@@ -53,7 +53,7 @@ export class LoginComponent {
       this.authService.setTokens(response);
       this.isError = false;
       this.isLoad = false;
-      this.router.navigate([`/dispositivos`]);
+      this.router.navigate([`/dashboard`]);
     }, fail => {
       this.isError = true;
       this.isLoad = false;

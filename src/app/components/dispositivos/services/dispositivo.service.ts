@@ -23,12 +23,17 @@ export class DispositivoService {
   public deviceEdit!: Dispositivo;
   public configuracaoEdit!: Configuracao;
   public ajutarPadding = new EventEmitter;
+  public mapaEdit = new EventEmitter;
 
   constructor(
     private readonly http: HttpClient) { }
 
   public alterarNomeDicpositivo(dispositivo: Dispositivo): Observable<any> {
     return this.http.patch<any>(`${environment.urlApi}/dispositivo`, dispositivo, environment.headers)
+  }
+
+  public pesquisarDispositivo(pesquisa: string, page?: PageEvent): Observable<Page<Dispositivo>> {
+    return this.http.get<Page<Dispositivo>>(`${environment.urlApi}/dispositivo/pesquisar/${pesquisa}?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
   }
 
   public buscarDicpositivo(mac: string): Observable<Dispositivo> {
@@ -41,6 +46,10 @@ export class DispositivoService {
 
   public listaTodosDispositivosFiltro(filtro: Filtro, page?: PageEvent): Observable<Page<Dispositivo>> {
     return this.http.get<Page<Dispositivo>>(`${environment.urlApi}/dispositivo/filtro/${filtro}?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
+  }
+
+  public listaTodosDispositivosFiltroNaoPaginado(filtro: Filtro): Observable<Dispositivo[]> {
+    return this.http.get<Dispositivo[]>(`${environment.urlApi}/dispositivo/filtro/${filtro}?unpaged=${true}`, environment.headers)
   }
 
   public mudarStatus(mac: string): Observable<any> {

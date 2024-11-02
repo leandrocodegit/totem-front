@@ -5,9 +5,11 @@ import { Log } from "./log.model";
 
 
 export interface Dashboard {
-  usuarios: number;
+  usuariosAtivos: number;
+  usuariosInativos: number;
   dispositivos: Dispositivo[];
   cores: DashboardItem[];
+  agendas: DashboardItem[];
   logs: Log[];
   logsConexao: Logconexao[];
 }

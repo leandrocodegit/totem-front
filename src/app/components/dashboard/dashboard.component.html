@@ -10,7 +10,7 @@
           </svg>
           <div class="box-dashboard-item-label">
             <label>Usuários</label>
-            <h4>{{dashboard.usuarios}}</h4>
+            <h4>{{dashboard.usuariosAtivos}}/{{dashboard.usuariosInativos}}</h4>
           </div>
         </div>
         <div class="box-dashboard-item">
@@ -35,22 +35,33 @@
           </div>
         </div>
       </div>
-      <div class="cores" style="width: 100%;padding: 40px;margin-top: 30px;">
+      <div class="cores" style="width: 100%;padding: 40px;margin: 30px;">
         <div class="box-painel-item"
           style="height: 100%;width: 100%;display: flex;box-sizing: border-box;padding: 50px 0;margin: auto;justify-content: space-between;">
           <div style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
-            <p
-              style="text-align: center;margin: 0;background: #2de09b;border-radius: 10px;color: #ffffff;font-size: 14px;">
-              Conexões</p>
+            <p class="titulo-chart">
+              <i-feather name="rss" class="feather-base" [style]="{'float': 'left', 'margin-left': '15px', 'color': '#5ea7bd'}"></i-feather>
+              Conexões({{getQuantidadeConexao('Online') + '/' + getQuantidadeConexao('Offline')}})</p>
             <p-chart responsive="false" type="doughnut" width="100%" [data]="conexoes" />
           </div>
-          <div style="width: 30%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
+          <div style="width: 20%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
+
           </div>
           <div
+          style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;flex-grow: 1;">
+          <p class="titulo-chart">
+          <i-feather name="calendar" class="feather-base" [style]="{'float': 'left', 'margin-left': '15px', 'color': '#5ea7bd'}"></i-feather>
+            Agendas hoje({{dashboard.agendas.length}})</p>
+          <p-chart responsive="false" type="doughnut" width="100%" [data]="agendas" />
+        </div>
+        <div style="width: 20%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
+
+        </div>
+          <div
             style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;flex-grow: 1;">
-            <p
-              style="text-align: center;margin: 0;background: #7a18a8;border-radius: 10px;color: #ffffff;font-size: 14px;">
-              Cores</p>
+            <p class="titulo-chart">
+            <i-feather name="calendar" class="feather-base" [style]="{'float': 'left', 'margin-left': '15px', 'color': '#5ea7bd'}"></i-feather>
+              Dispositivos({{dashboard.dispositivos.length}})</p>
             <p-chart responsive="false" type="doughnut" width="100%" [data]="cores" />
           </div>
         </div>

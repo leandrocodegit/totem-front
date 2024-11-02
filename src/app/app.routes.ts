@@ -16,7 +16,7 @@ import { CardConfiguracoesComponent } from './components/configuracoes/lista-con
 import { ContentMapaComponent } from './components/mapa/content-mapa/content-mapa.component';
 
 export const routes: Routes = [
-  { path: '', component: PainelConfiguracoesComponent },
+  { path: '', component: DashboardComponent },
   {
     //   path: '', component: SidebarComponent, canActivate: [AuthGuard], data: { roles: [Role.admin, Role.user] },
     path: '', component: SidebarComponent,
@@ -49,6 +49,7 @@ export const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  { path: '**',  redirectTo: 'dashboard', pathMatch: 'full' },
 
 
 ];

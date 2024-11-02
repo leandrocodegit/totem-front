@@ -23,7 +23,8 @@ import { Comando } from '../models/constantes/comando';
     TimelineModule,
     MatCardModule,
     CardModule,
-    NgIf, NgFor
+    NgIf, NgFor,
+    IconsModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -33,6 +34,7 @@ export class DashboardComponent {
   dashboard!: Dashboard;
   conexoes: any;
   cores: any;
+  agendas: any;
   coresBar: any;
   events: EventItem[] = [];
   options: any;
@@ -41,15 +43,15 @@ export class DashboardComponent {
     private readonly dashboardService: DashboardService,
     private readonly webSocketService: WebSocketService2) {
 
-      webSocketService.dashboardEmit.subscribe(response => {
-        if(response){
-          try {
-            this.dashboard = JSON.parse(response);
-            this.initDashboard();
-          } catch (error) {}
-        }
-      })
-    }
+    webSocketService.dashboardEmit.subscribe(response => {
+      if (response) {
+        try {
+          this.dashboard = JSON.parse(response);
+          this.initDashboard();
+        } catch (error) { }
+      }
+    })
+  }
 
   ngOnInit() {
     this.dashboardService.recuperarDashboard().subscribe(response => {
@@ -61,33 +63,33 @@ export class DashboardComponent {
       maintainAspectRatio: false,
       aspectRatio: 0.6,
       plugins: {
-          legend: {
-              labels: {
-                  color: 'green'
-              }
+        legend: {
+          labels: {
+            color: 'green'
           }
+        }
       },
       scales: {
-          x: {
-              ticks: {
-                  color: 'red'
-              },
-              grid: {
-                  color: 'red',
-                  drawBorder: false
-              }
+        x: {
+          ticks: {
+            color: 'red'
           },
-          y: {
-              ticks: {
-                  color: 'red'
-              },
-              grid: {
-                  color: 'red',
-                  drawBorder: false
-              }
+          grid: {
+            color: 'red',
+            drawBorder: false
           }
+        },
+        y: {
+          ticks: {
+            color: 'red'
+          },
+          grid: {
+            color: 'red',
+            drawBorder: false
+          }
+        }
       }
-  };
+    };
 
 
     this.options = {
@@ -111,13 +113,23 @@ export class DashboardComponent {
     };
   }
 
-  initDashboard(){
+  initDashboard() {
     this.conexoes = {
       labels: [],
       datasets: [
         {
           data: [this.getQuantidadeConexao('Online'), this.getQuantidadeConexao('Offline')],
           backgroundColor: ['#2de09b', '#ff8181']
+        }
+      ]
+    };
+
+    this.agendas = {
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: []
         }
       ]
     };
@@ -149,56 +161,72 @@ export class DashboardComponent {
     this.coresBar = {
       labels: [this.dashboard.logsConexao.map(log => log.hora + "h")],
       datasets: []
-  };
+    };
 
-  this.coresBar = {
-    labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00",
-                "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
-                "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
-    datasets: [
-      {
-        label: 'Online',
-        data: [],
-        fill: false,
-        borderColor: '#057b05',
-        tension: 0.4
-    },
-    {
-        label: 'Offline',
-        data: [],
-        fill: false,
-        borderColor: 'red',
-        tension: 0.4
+    this.coresBar = {
+      labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00",
+        "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00",
+        "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+      datasets: [
+        {
+          label: 'Online',
+          data: [],
+          fill: false,
+          borderColor: '#057b05',
+          tension: 0.4
+        },
+        {
+          label: 'Offline',
+          data: [],
+          fill: false,
+          borderColor: 'red',
+          tension: 0.4
+        }
+      ]
+    };
+
+
+    for (let index = 0; index < 24; index++) {
+      if (this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)) {
+        this.coresBar.datasets[0].data.push(this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)?.quantidade)
+      }
+      else {
+        this.coresBar.datasets[0].data.push(0)
+      }
     }
-    ]
-};
 
-console.log(this.coresBar);
+    for (let index = 0; index < 24; index++) {
+      if (this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)) {
+        this.coresBar.datasets[1].data.push(0)
+      }
+      else {
+        this.coresBar.datasets[1].data.push(0)
+      }
+    }
 
+    if (this.dashboard.cores.length) {
+      this.dashboard.cores.forEach(cor => {
+        this.cores.datasets[0].data.push(cor.quantidade);
+        this.cores.datasets[0].backgroundColor.push(cor.item);
+      })
+    } else {
+      this.cores.datasets[0].data.push(1);
+      this.cores.datasets[0].backgroundColor.push('#f0f0f0');
+    }
 
+    if (this.dashboard.agendas.length) {
+      console.log('tem');
 
-for (let index = 0; index < 24; index++) {
-  if(this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)){
-    this.coresBar.datasets[0].data.push(this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)?.quantidade)
-  }
-else{
-  this.coresBar.datasets[0].data.push(0)
-}
-}
+      this.dashboard.agendas.forEach(agenda => {
+        this.agendas.datasets[0].data.push(agenda.quantidade);
+        this.agendas.datasets[0].backgroundColor.push(agenda.item);
+      })
+    } else {
+      this.agendas.datasets[0].data.push(1);
+      this.agendas.datasets[0].backgroundColor.push('#f0f0f0');
+      console.log(this.agendas);
 
-for (let index = 0; index < 24; index++) {
-  if(this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)){
-    this.coresBar.datasets[1].data.push(0)
-  }
-else{
-  this.coresBar.datasets[1].data.push(0)
-}
-}
-
-    this.dashboard.cores.forEach(cor => {
-      this.cores.datasets[0].data.push(cor.quantidade);
-      this.cores.datasets[0].backgroundColor.push(cor.item);
-    })
+    }
   }
 
   getQuantidadeConexao(conexao: string) {

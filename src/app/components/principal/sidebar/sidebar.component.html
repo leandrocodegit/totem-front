@@ -38,7 +38,7 @@
   <mat-sidenav-content>
 
     <!-- Header -->
-    <mat-toolbar class="header ps-24 pe-24">
+    <mat-toolbar *ngIf="padding != '0'" class="header ps-24 pe-24">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <i-feather name="menu" class="text-light-muted feather-base mt-n3"></i-feather>
