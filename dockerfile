@@ -1,15 +1,13 @@
-# Partindo de uma imagem do Nginx para servir o conteúdo
+FROM node:18 as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build --prod
+
 FROM nginx:1.17.1-alpine
 
-# Definindo o diretório de trabalho no contêiner
-WORKDIR /usr/share/nginx/html
+COPY --from=build /app/dist/totem-front-end/browser /usr/share/nginx/html/
+COPY --from=build /app/dist/totem-front-end/server /usr/share/nginx/html/
 
-# Copia a pasta dist gerada localmente para o contêiner
-COPY ./dist/totem-front/browser /usr/share/nginx/html/
-COPY ./dist/totem-front/server /usr/share/nginx/html/
-
-# Expõe a porta 80 para o servidor Nginx
 EXPOSE 80
-
-# Comando padrão para iniciar o Nginx
-CMD ["nginx", "-g", "daemon off;"]
