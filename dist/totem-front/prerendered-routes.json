@@ -1,0 +1,14 @@
+{
+  "routes": [
+    "/",
+    "/agendas",
+    "/configuracoes",
+    "/dashboard",
+    "/dispositivos",
+    "/dispositivos/lista",
+    "/login",
+    "/mapa",
+    "/users",
+    "/users/lista"
+  ]
+}
