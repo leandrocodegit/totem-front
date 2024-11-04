@@ -70,7 +70,7 @@ export class ContentMapaComponent implements OnDestroy {
           this.carregarDispositivos(response);
         });
       }
-      this.centralizar(this.cordenadas, 13)
+
     }
     this.dispositivoService.ajutarPadding.emit();
     this.addCenterButton();
@@ -89,6 +89,13 @@ export class ContentMapaComponent implements OnDestroy {
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {
     console.log("Atualizando mapa");
+
+    if(!dispositivos.length){
+      this.centralizar({
+        lat: -23.548789385634088,
+        lng: -46.63357944308231
+      }, 13)
+    }
     this.removerMarcadores();
     if (!this.mapaEdit) {
       console.log("Devices", dispositivos);
