@@ -20,6 +20,7 @@
             "outputPath": "dist/totem-front",
             "index": "src/index.html",
             "browser": "src/main.ts",
+
             "polyfills": [
               "zone.js"
             ],
@@ -28,6 +29,7 @@
            "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/.htaccess",
               {
                 "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/",
