@@ -5,14 +5,17 @@ import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { Router } from '@angular/router';
+import * as Leaflet from 'leaflet';
+
 @Component({
   selector: 'app-content-mapa',
+  standalone: true,
   templateUrl: './content-mapa.component.html',
   styleUrls: ['./content-mapa.component.scss']
 })
-export class ContentMapaComponent implements OnDestroy {
+export class ContentMapaComponent1 implements OnDestroy {
 
-  protected Leaflet: any;
+  //protected Leaflet: any;
   protected url = "";
   @Input() cordenadas = {
     lat: -23.548789385634088,
@@ -55,11 +58,11 @@ export class ContentMapaComponent implements OnDestroy {
     })
   }
 
-  async ngAfterViewInit() {
+/*   async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.Leaflet = await import('leaflet');
-      this.mapa = this.Leaflet.map('map').setView(this.cordenadas, 13);
-      this.Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
+      await import('leaflet');
+      this.mapa = Leaflet.map('map').setView(this.cordenadas, 13);
+      Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
         maxZoom: 19,
       }).addTo(this.mapa);
       if (!this.url.includes('/mapa')) {
@@ -70,15 +73,14 @@ export class ContentMapaComponent implements OnDestroy {
           this.carregarDispositivos(response);
         });
       }
-      this.centralizar(this.cordenadas, 13)
     }
     this.dispositivoService.ajutarPadding.emit();
     this.addCenterButton();
-  }
+  } */
 
   private adicionarMarcadorEdicao() {
     this.removerMarcadores();
-    let marker = new this.Leaflet.Marker(this.cordenadas, this.gerarIcon()).addTo(this.mapa);
+    let marker = new Leaflet.Marker(this.cordenadas, this.gerarIcon()).addTo(this.mapa);
     this.markers.push(marker);
     marker.on('drag', (event: any) => {
       this.dispositivoService.mapaEdit.emit(event.target.getLatLng());
@@ -91,11 +93,9 @@ export class ContentMapaComponent implements OnDestroy {
     console.log("Atualizando mapa");
     this.removerMarcadores();
     if (!this.mapaEdit) {
-      console.log("Devices", dispositivos);
-
       dispositivos.forEach(device => {
         if (device.latitude && device.longitude)
-            this.add(device)
+          this.add(device)
       });
       if (dispositivos.length) {
         this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)
@@ -107,10 +107,10 @@ export class ContentMapaComponent implements OnDestroy {
   }
 
   addCenterButton() {
-    const centerButton = this.Leaflet.control({ position: 'topright' });
+    //const centerButton = Leaflet.control({ position: 'topright' });
 
-    centerButton.onAdd = () => {
-      const button = this.Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+/*     centerButton.onAdd = () => {
+      const button = Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
       button.innerHTML = '🔄 Centralizar';
       button.style.backgroundColor = 'white';
       button.style.width = '100px';
@@ -123,16 +123,13 @@ export class ContentMapaComponent implements OnDestroy {
       return button;
     };
 
-    centerButton.addTo(this.mapa);
+    centerButton.addTo(this.mapa); */
   }
 
 
 
   add(dispositivo: Dispositivo) {
-
-    console.log("Add", dispositivo);
-
-    let circulo = this.Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
+    let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
       weight: 2,
       color: dispositivo.configuracao.primaria + 'cc',
       fillColor: dispositivo.configuracao.primaria + 'dc',
@@ -167,7 +164,7 @@ export class ContentMapaComponent implements OnDestroy {
     if (window.innerWidth <= 600)
       wh = 80
 
-    var icon = this.Leaflet.icon({
+    var icon = Leaflet.icon({
       iconUrl: 'assets/images/pin.png',
       iconSize: [wh, wh]
     });
@@ -188,14 +185,14 @@ export class ContentMapaComponent implements OnDestroy {
     if (localStorage.getItem("mapa") != null) {
       //  this.mapa.removeLayer(this.mapa.tileLayer);
       if (localStorage.getItem("mapa") == "open") {
-        this.Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
+        Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
           attribution: '© Google',
           maxZoom: 21,
         },).addTo(this.mapa)
         localStorage.setItem("mapa", "google")
       }
       else if (localStorage.getItem("mapa") == "google") {
-        this.Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
+        Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
           attribution: '© <a target="_top" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a target="_top" rel="noopener" href="https://carto.com/attribution">CARTO</a>',
           maxZoom: 19,
         },).addTo(this.mapa);
@@ -223,21 +220,21 @@ export class ContentMapaComponent implements OnDestroy {
 
 
     if (localStorage.getItem("mapa") != null && localStorage.getItem("mapa") == "google") {
-      this.Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
+      Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
         attribution: '© Google',
         maxZoom: 21,
       },).addTo(this.mapa)
       this.mapa.setMaxZoom(21)
     }
     else if (localStorage.getItem("mapa") == null || localStorage.getItem("mapa") == "open") {
-      this.Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
+      Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
         attribution: '© <a target="_top" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a target="_top" rel="noopener" href="https://carto.com/attribution">CARTO</a>',
         maxZoom: 18,
       },).addTo(this.mapa);
       this.mapa.setMaxZoom(18)
     }
 
-    this.Leaflet.control.zoom({ position: 'topright' }).addTo(this.mapa);
+    Leaflet.control.zoom({ position: 'topright' }).addTo(this.mapa);
 
   }
 

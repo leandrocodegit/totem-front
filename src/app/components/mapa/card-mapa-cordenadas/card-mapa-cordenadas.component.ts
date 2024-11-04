@@ -4,12 +4,13 @@ import { IconsModule } from '../../../IconsModule';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { LeafletModule } from '../../../LeafletModule';
 
 @Component({
   selector: 'app-card-mapa-cordenadas',
   standalone: true,
   imports: [
-    ContentMapaComponent,
+    LeafletModule,
     IconsModule,
     MatButtonModule,
     MatDialogModule
