@@ -4,12 +4,12 @@ import { ContentMapaComponent } from './components/mapa/content-mapa/content-map
 
 @NgModule({
   declarations:[
-    ContentMapaComponent
+    //ContentMapaComponent
    ],
   imports: [ 
    ],
   exports: [
-    ContentMapaComponent
+    //ContentMapaComponent
   ]
 })
 export class LeafletModule { }

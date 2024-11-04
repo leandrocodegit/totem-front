@@ -1,16 +1,14 @@
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
 import { IconsModule } from '../../../IconsModule';
-import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { LeafletModule } from '../../../LeafletModule';
 
 @Component({
   selector: 'app-card-mapa-cordenadas',
   standalone: true,
   imports: [
-    LeafletModule,
+    ContentMapaComponent,
     IconsModule,
     MatButtonModule,
     MatDialogModule
