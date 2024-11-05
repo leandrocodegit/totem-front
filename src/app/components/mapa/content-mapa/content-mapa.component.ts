@@ -20,35 +20,22 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     lat: -23.548789385634088,
     lng: -46.63357944308231
   }
+  @Input() edicao = false;
 
   private markers: any[] = [];
-  private mapa: any;
-  protected mapaEdit = false;
+  private mapa: any; 
 
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly websocketService: WebSocketService2,
-    private readonly router: Router,
-    private activeRoute: ActivatedRoute,
+    private readonly activeRoute: ActivatedRoute,
+
     @Inject(PLATFORM_ID) private readonly platformId: any) {
     if (isPlatformBrowser(this.platformId)) {
       // this.L = Leaflet;
     }
 
-    this.url = router.url;
-
-    dispositivoService.mapaEdit.subscribe(data => {
-      if (data) {
-        if (data.lat && data.lng) {
-          //this.cordenadas = data;
-          //this.adicionarMarcadorEdicao();
-          // this.centralizar(this.cordenadas, 15);
-        }
-
-      }
-    })
-
-
+ 
     websocketService.dispositivosEmit.subscribe(data => {
       if (data) {
         this.carregarDispositivos(data);
@@ -60,11 +47,16 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activeRoute.params?.subscribe(params => {
-      if (params['edit'] != undefined) {
-         console.log(params['edit']);         
+      if (params['latitude'] != undefined) {
+         this.cordenadas = {
+          lat: params['latitude'],
+          lng: params['longitude']
+         } 
+         console.log("Cordenadas:", this.cordenadas);
+                 
       }
     })
-  }
+  } 
 
    ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -72,8 +64,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
         maxZoom: 19,
       }).addTo(this.mapa);
-      if (!this.url.includes('/mapa')) {
-        this.mapaEdit = true
+      if (this.edicao) { 
         this.adicionarMarcadorEdicao();
       } else {
         this.dispositivoService.listaTodosDispositivosFiltroNaoPaginado(Filtro.CORDENADAS).subscribe(response => {
@@ -102,7 +93,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
     console.log("Atualizando mapa");
     this.removerMarcadores();
-    if (!this.mapaEdit) {
+    if (!this.edicao) {
       dispositivos.forEach(device => {
         if (device.latitude && device.longitude)
           this.add(device)
@@ -117,9 +108,9 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
 
   addCenterButton() {
-    //const centerButton = Leaflet.control({ position: 'topright' });
+   /*  const centerButton = Leaflet.control({ position: 'topright' });
 
-/*     centerButton.onAdd = () => {
+     centerButton.onAdd = () => {
       const button = Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
       button.innerHTML = '🔄 Centralizar';
       button.style.backgroundColor = 'white';
@@ -133,7 +124,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       return button;
     };
 
-    centerButton.addTo(this.mapa); */
+    centerButton.addTo(this.mapa);  */
   }
 
 
@@ -261,7 +252,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dispositivoService.ajutarPadding.emit(true);
-    this.mapaEdit = false;
+    this.edicao = false;
   }
 
 

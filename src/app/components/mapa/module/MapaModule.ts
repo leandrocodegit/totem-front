@@ -5,13 +5,11 @@ import { LeafletModuleStand } from './LeafletModule';
 
 @NgModule({
   declarations:[  
-    CardMapaCordenadasComponent
-   ],
+    ],
   imports: [ 
-        LeafletModuleStand    
-   ],
+    ],
   exports: [ 
-    CardMapaCordenadasComponent
+     
   ]
 })
 export class MapaModule { }

@@ -59,10 +59,10 @@ export class SidebarComponent implements OnInit {
     private router: Router
   ) {
     dispositivoService.ajutarPadding.subscribe(data => {
-      if(data){
-        this.padding = '20px';
-      }else{
+      if(router.url.includes('/mapa')){
         this.padding = '0';
+      }else{
+        this.padding = '20px';
       }
       console.log("PADDING", data);
 
