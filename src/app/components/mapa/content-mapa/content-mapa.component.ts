@@ -5,8 +5,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { Router } from '@angular/router';
-import  'leaflet/dist/leaflet'
-import * as Leaflet from 'leaflet';
+//import  'leaflet/dist/leaflet'
+//import * as Leaflet from 'leaflet';
+import 'leaflet'; 
+
+const Leaflet = window['L'];
 
 @Component({
   selector: 'app-content-mapa',
@@ -30,8 +33,8 @@ export class ContentMapaComponent implements OnDestroy {
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly websocketService: WebSocketService2,
-    private router: Router,
-    @Inject(PLATFORM_ID) private platformId: any) {
+    private readonly router: Router,
+    @Inject(PLATFORM_ID) private readonly platformId: any) {
     if (isPlatformBrowser(this.platformId)) {
       // this.L = Leaflet;
     }
