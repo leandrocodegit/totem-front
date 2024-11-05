@@ -5,6 +5,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { Router } from '@angular/router';
+import  'leaflet/dist/leaflet'
+import * as Leaflet from 'leaflet';
 
 @Component({
   selector: 'app-content-mapa',
@@ -12,11 +14,9 @@ import { Router } from '@angular/router';
   templateUrl: './content-mapa.component.html',
   styleUrls: ['./content-mapa.component.scss']
 })
-export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ContentMapaComponent implements OnDestroy {
 
-  protected Leaflet: any;
-  protected init: boolean = false;
-
+  //protected Leaflet: any;
   protected url = "";
   @Input() cordenadas = {
     lat: -23.548789385634088,
@@ -59,16 +59,11 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-
-  ngOnInit(): void {
-    this.init = false;
-  }
-
-  async ngAfterViewInit() {
+/*   async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      this.Leaflet = await import('leaflet');
-      this.mapa = this.Leaflet.map('map').setView(this.cordenadas, 13);
-      this.Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
+      await import('leaflet');
+      this.mapa = Leaflet.map('map').setView(this.cordenadas, 13);
+      Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
         maxZoom: 19,
       }).addTo(this.mapa);
       if (!this.url.includes('/mapa')) {
@@ -79,61 +74,44 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
           this.carregarDispositivos(response);
         });
       }
-      this.init = true;
-      console.log("this.init mapa", this.mapa);
-      
-      this.dispositivoService.ajutarPadding.emit();
-      this.addCenterButton();
     }
-   
-  }
+    this.dispositivoService.ajutarPadding.emit();
+    this.addCenterButton();
+  } */
 
   private adicionarMarcadorEdicao() {
-    if (this.init) {
-      this.removerMarcadores();
-      let marker = new this.Leaflet.Marker(this.cordenadas).addTo(this.mapa);
-      this.markers.push(marker);
-      marker.on('drag', (event: any) => {
-        this.dispositivoService.mapaEdit.emit(event.target.getLatLng());
-      });
-      marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
-    }
+    this.removerMarcadores();
+    let marker = new Leaflet.Marker(this.cordenadas, this.gerarIcon()).addTo(this.mapa);
+    this.markers.push(marker);
+    marker.on('drag', (event: any) => {
+      this.dispositivoService.mapaEdit.emit(event.target.getLatLng());
+    });
+    marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
   }
 
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {
     console.log("Atualizando mapa");
-    if (this.init) {
-      if (!dispositivos.length) {
-        this.centralizar({
-          lat: -23.548789385634088,
-          lng: -46.63357944308231
-        }, 13)
+    this.removerMarcadores();
+    if (!this.mapaEdit) {
+      dispositivos.forEach(device => {
+        if (device.latitude && device.longitude)
+          this.add(device)
+      });
+      if (dispositivos.length) {
+        this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)
+        this.cordenadas = { lat: dispositivos[0].latitude, lng: dispositivos[0].longitude };
       }
-      this.removerMarcadores();
-      if (!this.mapaEdit) {
-        console.log("Devices", dispositivos);
-
-        dispositivos.forEach(device => {
-          if (device.latitude && device.longitude)
-            this.add(device)
-        });
-        if (dispositivos.length) {
-          this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)
-          this.cordenadas = { lat: dispositivos[0].latitude, lng: dispositivos[0].longitude };
-        }
-      } else {
-        this.dispositivoService.mapaEdit.emit(true)
-      }
+    } else {
+      this.dispositivoService.mapaEdit.emit(true)
     }
   }
 
   addCenterButton() {
-    if (this.init) {
-    const centerButton = this.Leaflet.control({ position: 'topright' });
+    //const centerButton = Leaflet.control({ position: 'topright' });
 
-    centerButton.onAdd = () => {
-      const button = this.Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+/*     centerButton.onAdd = () => {
+      const button = Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
       button.innerHTML = '🔄 Centralizar';
       button.style.backgroundColor = 'white';
       button.style.width = '100px';
@@ -146,17 +124,13 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
       return button;
     };
 
-    centerButton.addTo(this.mapa);
-  }
+    centerButton.addTo(this.mapa); */
   }
 
 
 
   add(dispositivo: Dispositivo) {
-
-    console.log("Add", dispositivo);
-    if (this.init) {
-    let circulo = this.Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
+    let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
       weight: 2,
       color: dispositivo.configuracao.primaria + 'cc',
       fillColor: dispositivo.configuracao.primaria + 'dc',
@@ -170,11 +144,9 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
     circulo.bindPopup(`
         <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.configuracao.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
         `, { autoClose: false, closeOnClick: false, autoPan: false }).openPopup();
-    }
   }
 
   removerMarcadores() {
-    if (this.init) {
     console.log("Markers", this.markers);
 
     this.markers.forEach(marker => {
@@ -182,23 +154,9 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
     })
     this.markers = [];
   }
-  }
 
   centralizar(localizacao: { lat: number, lng: number }, zoom: number) {
-    if (this.init) {
-      this.mapa.setView(localizacao, zoom, { animate: true, duration: 3 });
-    }
-  }
-
-  private setIconDefault() {
-    if (this.init) {
-      delete this.Leaflet.Icon.Default.prototype._getIconUrl;
-      this.Leaflet.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'assets/images/pin.png',
-        iconUrl: 'assets/images/pin.png',
-        shadowUrl: 'assets/images/pin.png'
-      });
-    }
+    this.mapa.setView(localizacao, zoom, { animate: true, duration: 3 });
   }
 
   private gerarIcon(): any {
@@ -207,7 +165,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
     if (window.innerWidth <= 600)
       wh = 80
 
-    var icon = this.Leaflet.icon({
+    var icon = Leaflet.icon({
       iconUrl: 'assets/images/pin.png',
       iconSize: [wh, wh]
     });
@@ -228,14 +186,14 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
     if (localStorage.getItem("mapa") != null) {
       //  this.mapa.removeLayer(this.mapa.tileLayer);
       if (localStorage.getItem("mapa") == "open") {
-        this.Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
+        Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
           attribution: '© Google',
           maxZoom: 21,
         },).addTo(this.mapa)
         localStorage.setItem("mapa", "google")
       }
       else if (localStorage.getItem("mapa") == "google") {
-        this.Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
+        Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
           attribution: '© <a target="_top" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a target="_top" rel="noopener" href="https://carto.com/attribution">CARTO</a>',
           maxZoom: 19,
         },).addTo(this.mapa);
@@ -263,21 +221,21 @@ export class ContentMapaComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
     if (localStorage.getItem("mapa") != null && localStorage.getItem("mapa") == "google") {
-      this.Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
+      Leaflet.tileLayer("https://mt3.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga", {
         attribution: '© Google',
         maxZoom: 21,
       },).addTo(this.mapa)
       this.mapa.setMaxZoom(21)
     }
     else if (localStorage.getItem("mapa") == null || localStorage.getItem("mapa") == "open") {
-      this.Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
+      Leaflet.tileLayer("https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png", {
         attribution: '© <a target="_top" rel="noopener" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a target="_top" rel="noopener" href="https://carto.com/attribution">CARTO</a>',
         maxZoom: 18,
       },).addTo(this.mapa);
       this.mapa.setMaxZoom(18)
     }
 
-    this.Leaflet.control.zoom({ position: 'topright' }).addTo(this.mapa);
+    Leaflet.control.zoom({ position: 'topright' }).addTo(this.mapa);
 
   }
 
