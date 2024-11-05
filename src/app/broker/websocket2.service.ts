@@ -14,11 +14,11 @@ export class WebSocketService2 {
   public dashboardEmit = new EventEmitter;
   public dispositivosEmit = new EventEmitter;
 
-  private client!: Client;
+  private readonly client!: Client;
 
-  constructor(private authService: AuthService) {
-
-    this.client = new Client({
+  constructor(private readonly authService: AuthService) {
+    if (typeof window !== 'undefined' && window.localStorage){
+/*     this.client = new Client({
       brokerURL: this.getUrlBroker(),
       onConnect: () => {
         this.client.subscribe('/topic/dashboard', message =>
@@ -26,7 +26,7 @@ export class WebSocketService2 {
         );
         this.client.subscribe('/topic/dispositivos', message => {
           console.log("Message", message);
-          this.dispositivosEmit.emit(JSON.parse(message.body) as Dispositivo [])
+          this.dispositivosEmit.emit(JSON.parse(message.body) as Dispositivo[])
         }
         );
         console.log('Conectado');
@@ -49,16 +49,19 @@ export class WebSocketService2 {
             this.client.deactivate();
         })
       },
-    });
+    }); 
 
-    this.client.activate();
+    this.client.activate();*/
+  }
 
 
 
   }
 
   getUrlBroker() {
-    return environment.urlWebSocket + '?token=' + localStorage.getItem('token.socket');
+    if (typeof window !== 'undefined' && window.localStorage)
+      return environment.urlWebSocket + '?token=' + localStorage.getItem('token.socket');
+    return '';
   }
 
   connect() {

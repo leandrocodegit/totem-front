@@ -194,7 +194,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
 
   reloadMap() {
-
+    if (typeof window !== 'undefined' && window.localStorage){
     localStorage.setItem("center", JSON.stringify(this.mapa.getCenter()))
     localStorage.setItem("zoom", this.mapa.getZoom())
 
@@ -215,6 +215,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
         localStorage.setItem("mapa", "open")
       }
     }
+    }
 
     location.reload();
   }
@@ -226,7 +227,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       lng: -46.59104781183555
     }
     var zoom = 14
-
+    if (typeof window !== 'undefined' && window.localStorage){
     if (localStorage.getItem("center") != null && localStorage.getItem("zoom") != null) {
 
       localizacao = JSON.parse(localStorage.getItem("center")!)
@@ -251,7 +252,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     }
 
     Leaflet.control.zoom({ position: 'topright' }).addTo(this.mapa);
-
+  }
   }
 
 

@@ -36,9 +36,11 @@ export class AuthService {
   }
 
   setTokens(data: any) {
+    if (typeof window !== 'undefined' && window.localStorage){
     localStorage.setItem("token.access", data.access_token);
     localStorage.setItem("token.refresh", data.refresh_token);
     localStorage.setItem("token.socket", data.socket_token);
+    }
   }
 
   get accessToken(): string | null {
@@ -51,6 +53,10 @@ export class AuthService {
   public isLoggedIn() {
     try {
       const jwt = this.decodePayloadJWT(true);
+
+      if(!jwt){
+        return false;
+      }
 
       let expire: number = Number.parseInt(jwt.exp + "000");
       let now: number = new Date().getTime();
@@ -68,7 +74,8 @@ export class AuthService {
   public extrairEmailUsuario() {
     try {
       const jwt = this.decodePayloadJWT();
-      return jwt.preferred_username;
+      if(jwt)
+        return jwt.preferred_username;
     } catch (error) {
       return false;
     }
