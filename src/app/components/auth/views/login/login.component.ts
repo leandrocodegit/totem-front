@@ -33,7 +33,7 @@ import { UserService } from '../../../usuarios/services/user.service';
 })
 export class LoginComponent {
 
-  protected email = 'admin@gmail.com';
+  protected email = 'admin';
   protected password = 'admin';
   protected isError = false;
   protected isLoad = false;

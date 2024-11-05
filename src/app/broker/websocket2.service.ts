@@ -24,11 +24,12 @@ export class WebSocketService2 {
         this.client.subscribe('/topic/dashboard', message =>
           this.dashboardEmit.emit(message.body)
         );
+        if(authService.isLoggedIn()){
         this.client.subscribe('/topic/dispositivos', message => {
           console.log("Message", message);
           this.dispositivosEmit.emit(JSON.parse(message.body) as Dispositivo [])
         }
-        );
+        );}
         console.log('Conectado');
 
       },
