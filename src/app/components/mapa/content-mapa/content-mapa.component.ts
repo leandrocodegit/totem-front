@@ -4,7 +4,7 @@ import { Dispositivo } from '../../models/dispositivo.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
-import { Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 import * as Leaflet from 'leaflet';
 
 @Component({
@@ -12,7 +12,7 @@ import * as Leaflet from 'leaflet';
   templateUrl: './content-mapa.component.html',
   styleUrls: ['./content-mapa.component.scss']
 })
-export class ContentMapaComponent implements OnDestroy {
+export class ContentMapaComponent implements OnInit, OnDestroy {
 
   //protected Leaflet: any;
   protected url = "";
@@ -29,6 +29,7 @@ export class ContentMapaComponent implements OnDestroy {
     private readonly dispositivoService: DispositivoService,
     private readonly websocketService: WebSocketService2,
     private readonly router: Router,
+    private activeRoute: ActivatedRoute,
     @Inject(PLATFORM_ID) private readonly platformId: any) {
     if (isPlatformBrowser(this.platformId)) {
       // this.L = Leaflet;
@@ -57,6 +58,14 @@ export class ContentMapaComponent implements OnDestroy {
     })
   }
 
+  ngOnInit(): void {
+    this.activeRoute.params?.subscribe(params => {
+      if (params['edit'] != undefined) {
+         console.log(params['edit']);         
+      }
+    })
+  }
+
    ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.mapa = Leaflet.map('map').setView(this.cordenadas, 13);
@@ -77,6 +86,7 @@ export class ContentMapaComponent implements OnDestroy {
   } 
 
   private adicionarMarcadorEdicao() {
+    if (isPlatformBrowser(this.platformId)) {
     this.removerMarcadores();
     let marker = new Leaflet.Marker(this.cordenadas, this.gerarIcon()).addTo(this.mapa);
     this.markers.push(marker);
@@ -85,9 +95,11 @@ export class ContentMapaComponent implements OnDestroy {
     });
     marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
   }
+  }
 
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {
+    if (isPlatformBrowser(this.platformId)) {
     console.log("Atualizando mapa");
     this.removerMarcadores();
     if (!this.mapaEdit) {
@@ -101,7 +113,7 @@ export class ContentMapaComponent implements OnDestroy {
       }
     } else {
       this.dispositivoService.mapaEdit.emit(true)
-    }
+    }}
   }
 
   addCenterButton() {
@@ -127,6 +139,7 @@ export class ContentMapaComponent implements OnDestroy {
 
 
   add(dispositivo: Dispositivo) {
+    if (isPlatformBrowser(this.platformId)) {
     let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
       weight: 2,
       color: dispositivo.configuracao.primaria + 'cc',
@@ -141,9 +154,11 @@ export class ContentMapaComponent implements OnDestroy {
     circulo.bindPopup(`
         <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.configuracao.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
         `, { autoClose: false, closeOnClick: false, autoPan: false }).openPopup();
+    }
   }
 
   removerMarcadores() {
+    if (isPlatformBrowser(this.platformId)) {
     console.log("Markers", this.markers);
 
     this.markers.forEach(marker => {
@@ -151,9 +166,12 @@ export class ContentMapaComponent implements OnDestroy {
     })
     this.markers = [];
   }
+  }
 
   centralizar(localizacao: { lat: number, lng: number }, zoom: number) {
+    if (isPlatformBrowser(this.platformId)) {
     this.mapa.setView(localizacao, zoom, { animate: true, duration: 3 });
+    }
   }
 
   private gerarIcon(): any {

@@ -15,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { IconsModule } from '../../../IconsModule';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -28,7 +29,8 @@ import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/car
     MatCardModule,
     ToastModule,
     IconsModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ],
   providers: [
     MessageService

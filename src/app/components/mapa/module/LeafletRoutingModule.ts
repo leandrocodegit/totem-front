@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
  
 const routes: Routes = [
-  { path: '', component: ContentMapaComponent } // Rota padrão para o módulo lazy
+  { path: '', component: ContentMapaComponent } ,
+  { path: '/edicao', component: ContentMapaComponent } 
 ];
 
 @NgModule({

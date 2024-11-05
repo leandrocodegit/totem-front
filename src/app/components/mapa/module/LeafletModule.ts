@@ -9,20 +9,15 @@ import { CardMapaCordenadasComponent } from '../card-mapa-cordenadas/card-mapa-c
 
 @NgModule({
   declarations:[ 
-    ContentMapaComponent,
-    CardMapaCordenadasComponent
+    ContentMapaComponent 
+    
    ],
   imports: [ 
     LeafletModule,
-    LeafletRoutingModule,
-    IconsModule,
-    MatButtonModule,
-    MatDialogModule,
-    
+    LeafletRoutingModule    
    ],
   exports: [
-    ContentMapaComponent,
-    CardMapaCordenadasComponent
+    ContentMapaComponent 
   ]
 })
 export class LeafletModuleStand { }

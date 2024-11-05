@@ -16,6 +16,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { FormularioDispositivoComponent } from '../formulario-dispositivo/formulario-dispositivo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 
 @Component({
   selector: 'app-lista-dispositivos',
@@ -30,6 +33,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    FormularioDispositivoComponent,
   ],
   providers: [
     {
@@ -51,7 +55,8 @@ export class ListaDispositivosComponent {
   protected nomeFind = new Subject<any>();
 
   constructor(private websocketService: WebSocketService2,
-    private readonly dispositivoService: DispositivoService
+    private readonly dispositivoService: DispositivoService,
+    private dialog: MatDialog
   ) {
     this.nomeFind.pipe(
       debounceTime(500),
@@ -71,6 +76,12 @@ export class ListaDispositivosComponent {
 
   ngOnInit() {
     this.carregarLista(PAGE_INIT);
+  }
+
+  mapa(){
+    this.dialog.open(CardMapaCordenadasComponent, {
+      panelClass: 'no-overflow'
+    })
   }
 
   onTabChange(event: MatTabChangeEvent) {

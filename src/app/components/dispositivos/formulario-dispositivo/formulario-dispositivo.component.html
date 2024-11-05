@@ -14,7 +14,7 @@
             <mat-label>Longitude</mat-label>
             <input matInput required [(ngModel)]="dispositivo.longitude" type="text" placeholder="Logitude">
           </mat-form-field>
-          <button (click)="selecionarCordenadas()" mat-raised-button class="mb-8 me-8" color="primary"
+          <button routerLink="/mapa/edicao" mat-raised-button class="mb-8 me-8" color="primary"
             style="height: 55px;margin: 0px 0px 5px 9px;">
             <i-feather name="map-pin" class="feather-base"></i-feather>
           </button>
