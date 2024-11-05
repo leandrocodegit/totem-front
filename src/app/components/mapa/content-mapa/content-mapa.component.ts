@@ -29,7 +29,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     private readonly dispositivoService: DispositivoService,
     private readonly websocketService: WebSocketService2,
     private readonly activeRoute: ActivatedRoute,
-
+    private readonly route: Router,
     @Inject(PLATFORM_ID) private readonly platformId: any) {
     if (isPlatformBrowser(this.platformId)) {
       // this.L = Leaflet;
@@ -46,6 +46,9 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.edicao = this.route.url.includes('/mapa/edicao');
+
     this.activeRoute.params?.subscribe(params => {
       if (params['latitude'] != undefined) {
          this.cordenadas = {
@@ -75,7 +78,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     this.dispositivoService.ajutarPadding.emit();
     this.addCenterButton();
   } 
-
+ 
   private adicionarMarcadorEdicao() {
     if (isPlatformBrowser(this.platformId)) {
     this.removerMarcadores();
@@ -88,6 +91,12 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
   }
 
+  fechar(){
+   
+  }
+  salvar(){
+   
+  }
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {
     if (isPlatformBrowser(this.platformId)) {
@@ -108,7 +117,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
 
   addCenterButton() {
-   /*  const centerButton = Leaflet.control({ position: 'topright' });
+     const centerButton = new Leaflet.Control({ position: 'topright' });
 
      centerButton.onAdd = () => {
       const button = Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
@@ -124,7 +133,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       return button;
     };
 
-    centerButton.addTo(this.mapa);  */
+    centerButton.addTo(this.mapa);   
   }
 
 

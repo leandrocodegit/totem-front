@@ -19,6 +19,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { FormularioDispositivoComponent } from '../formulario-dispositivo/formulario-dispositivo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-dispositivos',
@@ -53,10 +54,12 @@ export class ListaDispositivosComponent {
   protected page?: PageEvent;
   protected indexTab = 0;
   protected nomeFind = new Subject<any>();
+  protected edicao = false;
 
-  constructor(private websocketService: WebSocketService2,
+  constructor(private readonly websocketService: WebSocketService2,
     private readonly dispositivoService: DispositivoService,
-    private dialog: MatDialog
+    private readonly activeRoute: ActivatedRoute,
+    private readonly dialog: MatDialog
   ) {
     this.nomeFind.pipe(
       debounceTime(500),
@@ -74,7 +77,7 @@ export class ListaDispositivosComponent {
       });
   }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.carregarLista(PAGE_INIT);
   }
 

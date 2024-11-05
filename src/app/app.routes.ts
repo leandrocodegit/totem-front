@@ -27,6 +27,7 @@ export const routes: Routes = [
         children: [
           { path: '', redirectTo: 'lista', pathMatch: 'full' },
           { path: "lista", component: ListaDispositivosComponent },
+          { path: "lista/cordenadas/:latitude/:longitude", component: ListaDispositivosComponent },
         ]
       },
       {
@@ -44,7 +45,7 @@ export const routes: Routes = [
       },
       { path: "agendas", component: ListaAgendaDispositivoComponent },
       { path: "configuracoes", component: CardConfiguracoesComponent },
-      { path: "mapa", loadChildren: () => import('./components/mapa/module/LeafletModule').then(m => m.LeafletModuleStand) }
+      { path: "mapa", loadChildren: () => import('./components/mapa/module/MapaModule').then(m => m.MapaModule) }
 
 
     ],

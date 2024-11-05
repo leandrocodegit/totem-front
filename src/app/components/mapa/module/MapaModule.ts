@@ -1,15 +1,25 @@
 import { NgModule } from '@angular/core';
- 
-import { CardMapaCordenadasComponent } from '../card-mapa-cordenadas/card-mapa-cordenadas.component';
-import { LeafletModuleStand } from './LeafletModule';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
+import { LeafletRoutingModule } from './LeafletRoutingModule';
+import { IconsModule } from 'src/app/IconsModule';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
-  declarations:[  
-    ],
+  declarations:[ 
+    ContentMapaComponent, 
+   ],
   imports: [ 
-    ],
-  exports: [ 
-     
+    LeafletModule,
+    LeafletRoutingModule,
+    IconsModule,
+    MatButtonModule,
+    RouterModule  
+   ],
+  exports: [
+    ContentMapaComponent 
   ]
 })
 export class MapaModule { }

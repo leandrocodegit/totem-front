@@ -1,9 +1,4 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
-import { IconsModule } from '../../../IconsModule';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { LeafletModuleStand } from '../module/LeafletModule';
 import { ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -21,7 +16,7 @@ export class CardMapaCordenadasComponent implements OnInit{
   }
 
   constructor(
-    private activeRoute: ActivatedRoute,
+    private readonly activeRoute: ActivatedRoute,
     @Inject(PLATFORM_ID) private readonly platformId: any) {
       if (isPlatformBrowser(this.platformId)) {
         this.activeRoute.params?.subscribe(params => {
