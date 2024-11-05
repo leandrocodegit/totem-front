@@ -4,16 +4,11 @@ import { Dispositivo } from '../../models/dispositivo.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
-import { Router } from '@angular/router';
-//import  'leaflet/dist/leaflet'
-//import * as Leaflet from 'leaflet';
-import 'leaflet'; 
-
-const Leaflet = window['L'];
+import { Router } from '@angular/router'; 
+import * as Leaflet from 'leaflet';
 
 @Component({
-  selector: 'app-content-mapa',
-  standalone: true,
+  selector: 'app-content-mapa', 
   templateUrl: './content-mapa.component.html',
   styleUrls: ['./content-mapa.component.scss']
 })
@@ -62,9 +57,8 @@ export class ContentMapaComponent implements OnDestroy {
     })
   }
 
-/*   async ngAfterViewInit() {
+   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
-      await import('leaflet');
       this.mapa = Leaflet.map('map').setView(this.cordenadas, 13);
       Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
         maxZoom: 19,
@@ -80,7 +74,7 @@ export class ContentMapaComponent implements OnDestroy {
     }
     this.dispositivoService.ajutarPadding.emit();
     this.addCenterButton();
-  } */
+  } 
 
   private adicionarMarcadorEdicao() {
     this.removerMarcadores();

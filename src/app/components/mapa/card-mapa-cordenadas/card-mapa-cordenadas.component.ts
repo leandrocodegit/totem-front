@@ -3,16 +3,11 @@ import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
 import { IconsModule } from '../../../IconsModule';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { LeafletModuleStand } from '../module/LeafletModule';
 
 @Component({
-  selector: 'app-card-mapa-cordenadas',
-  standalone: true,
-  imports: [
-    ContentMapaComponent,
-    IconsModule,
-    MatButtonModule,
-    MatDialogModule
-  ],
+  selector: 'app-card-mapa-cordenadas', 
+ 
   templateUrl: './card-mapa-cordenadas.component.html',
   styleUrl: './card-mapa-cordenadas.component.scss'
 })
