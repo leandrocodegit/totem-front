@@ -102,7 +102,8 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     if (!this.edicao) {
       dispositivos.forEach(device => {
         if (device.latitude && device.longitude)
-          this.add(device)
+          if (device.latitude != 0 && device.longitude != 0)
+            this.add(device)
       });
       if (dispositivos.length) {
         this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)

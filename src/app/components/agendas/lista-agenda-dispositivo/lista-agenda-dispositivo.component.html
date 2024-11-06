@@ -29,8 +29,10 @@
           <td>{{agenda.status}}</td>
           <td>{{getTradutor(agenda.configuracao?.efeito)}}</td>
           <td>
-            <span class="material-symbols-outlined"
-              [style.color]="agenda.configuracao?.primaria">radio_button_checked</span>
+            <div class="cor-primaria-secundaria" style="display: flex;justify-content: center;">
+              <div [style.background]="agenda.configuracao.primaria" style="border-radius: 10px 0 0 10px;"></div>
+              <div [style.background]="agenda.configuracao.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+            </div>
           </td>
           <td>
             <i-feather (click)="editar(agenda)" name="edit" class="feather-base">
