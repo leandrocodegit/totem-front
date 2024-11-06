@@ -15,7 +15,6 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { IconsModule } from '../../../IconsModule';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -29,8 +28,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
     MatCardModule,
     ToastModule,
     IconsModule,
-    MatDialogModule,
-    RouterModule
+    MatDialogModule
   ],
   providers: [
     MessageService
@@ -45,10 +43,9 @@ export class FormularioDispositivoComponent {
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
-    private readonly dialogRef: MatDialogRef<FormularioDispositivoComponent>,
-    private readonly dialog: MatDialog,
-    private readonly route: Router,
-    @Inject(MAT_DIALOG_DATA) private readonly data: any
+    private dialogRef: MatDialogRef<FormularioDispositivoComponent>,
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     if (data) {
       this.dispositivo = JSON.parse(JSON.stringify(data));
@@ -67,8 +64,8 @@ export class FormularioDispositivoComponent {
     })
   }
 
-  fechar() {   
-   // this.dialogRef.close();
+  fechar() {
+    this.dialogRef.close();
   }
 
   salvar() {

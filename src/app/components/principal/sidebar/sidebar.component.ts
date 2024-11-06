@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
   protected search: boolean = false;
   protected nome?: string;
   protected avatar?: string;
-  protected padding = "20px";
+  protected padding = "40px";
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -62,7 +62,7 @@ export class SidebarComponent implements OnInit {
       if(router.url.includes('/mapa')){
         this.padding = '0';
       }else{
-        this.padding = '20px';
+        this.padding = '40px';
       }
       console.log("PADDING", data);
 

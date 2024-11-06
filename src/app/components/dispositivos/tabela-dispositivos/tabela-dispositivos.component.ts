@@ -13,6 +13,7 @@ import { FormularioDispositivoComponent } from '../formulario-dispositivo/formul
 import { Filtro } from '../../models/constantes/filtro';
 import { Agenda } from '../../models/agenda.model';
 import { FormsModule } from '@angular/forms';
+import { DetalhesDispositivoComponent } from '../detalhes-dispositivo/detalhes-dispositivo.component';
 
 var initDialog = true;
 
@@ -35,7 +36,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   @Input() agenda!: Agenda;
   @Input() exibirAcoes: boolean = true;
   @Input() checkEmit: boolean = false;
-  @Output() selecionarEmit = new EventEmitter; 
+  @Output() selecionarEmit = new EventEmitter;
 
 
   constructor(
@@ -46,31 +47,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   ) { }
 
   ngOnInit(): void {
-    if (this.route.url.includes('dispositivos/lista/cordenadas/')) {
-      
-      
-      this.activeRoute.params?.subscribe(params => {
-        if (params['latitude'] != undefined && params['longitude'] != undefined) {
-          this.editar({
-            selecionado: false,
-            mac: 'string',
-            nome: 'string',
-            ip: 'string',
-            memoria: 0,
-            ativo: true,
-            conexao: 'string',
-            latitude: params['latitude'],
-            longitude: params['longitude'],
-            configuracao: new Configuracao,
-            configuracoes: [],
-            comando: Comando.ACEITO
-          } as Dispositivo);
-          this.route.navigate(['dispositivos']);
-          console.log("dialog");
-          initDialog = false;
-        }
-      }) 
-  }
+
   }
 
   ngAfterViewInit(): void {
@@ -88,13 +65,13 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
         })
       });
 
-    }  
+    }
   }
 
   ngOnDestroy(): void {
     initDialog = true;
     console.log('Destroy', initDialog);
-    
+
   }
 
   getTradutor(comando?: Comando, configuracao?: Configuracao) {
@@ -108,6 +85,12 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   mudarStatus(dispositivo: Dispositivo) {
     dispositivo.ativo = !dispositivo.ativo;
     this.dispositivoService.mudarStatus(dispositivo.mac).subscribe();
+  }
+
+  detalhes(dispositivo: Dispositivo) {
+    this.dialog.open(DetalhesDispositivoComponent, {
+      data: dispositivo
+    })
   }
 
   editar(dispositivo: Dispositivo) {

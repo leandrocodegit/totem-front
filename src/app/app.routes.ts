@@ -14,6 +14,7 @@ import { ParamentrosCoresComponent } from './components/dispositivos/paramentros
 import { ListaConfiguracoesDispositivoComponent } from './components/dispositivos/lista-configuracoes-dispositivo/lista-configuracoes-dispositivo.component';
 import { CardConfiguracoesComponent } from './components/configuracoes/lista-configuracoes/card-configuracoes/card-configuracoes.component';
 import { ContentMapaComponent } from './components/mapa/content-mapa/content-mapa.component';
+import { DetalhesDispositivoComponent } from './components/dispositivos/detalhes-dispositivo/detalhes-dispositivo.component';
 
 
 export const routes: Routes = [
@@ -45,7 +46,8 @@ export const routes: Routes = [
       },
       { path: "agendas", component: ListaAgendaDispositivoComponent },
       { path: "configuracoes", component: CardConfiguracoesComponent },
-      { path: "mapa", component: ContentMapaComponent }
+      { path: "mapa", component: ContentMapaComponent },
+      { path: "detalhes", component: DetalhesDispositivoComponent }
 
 
     ],

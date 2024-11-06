@@ -1,21 +1,28 @@
 
-    <div style="width: 400px;padding: 30px;">
-        <mat-form-field class="w-100 fs-16" appearance="outline">
-          <mat-label>Nome</mat-label>
-          <input matInput required [(ngModel)]="dispositivo.nome" type="text" placeholder="Nome">
-        </mat-form-field>
-        <mat-form-field class="w-100 fs-16" appearance="outline">
-          <mat-label>Latitude</mat-label>
-          <input matInput required [(ngModel)]="dispositivo.latitude" type="text" placeholder="Latitude">
-        </mat-form-field>
-          <mat-form-field class="w-100 fs-16" appearance="outline">
-            <mat-label>Longitude</mat-label>
-            <input matInput required [(ngModel)]="dispositivo.longitude" type="text" placeholder="Logitude">
-          </mat-form-field>
-      <div class="botoes">
-        <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close (click)="fechar()" type="submit">Fechar</button>
-        <button mat-raised-button class="me-8 mb-8" color="primary" mat-dialog-close  (click)="salvar()" type="submit">Salvar</button>
-      </div>
-    </div>
+<div style="width: 400px;padding: 30px;">
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Nome</mat-label>
+    <input matInput required [(ngModel)]="dispositivo.nome" type="text" placeholder="Nome">
+  </mat-form-field>
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Latitude</mat-label>
+    <input matInput required [(ngModel)]="dispositivo.latitude" type="text" placeholder="Latitude">
+  </mat-form-field>
+
+  <div style="display: flex;">
+    <mat-form-field class="w-100 fs-16" appearance="outline">
+      <mat-label>Longitude</mat-label>
+      <input matInput required [(ngModel)]="dispositivo.longitude" type="text" placeholder="Logitude">
+    </mat-form-field>
+    <button (click)="selecionarCordenadas()" mat-raised-button class="mb-8 me-8" color="primary"
+      style="height: 55px;margin: 0px 0px 5px 9px;">
+      <i-feather name="map-pin" class="feather-base"></i-feather>
+    </button>
+  </div>
+<div class="botoes">
+  <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
+  <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
+</div>
+</div>
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
-  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />
+[hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

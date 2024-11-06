@@ -51,7 +51,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.edicao = this.route.url.includes('/mapa/edicao');
+    this.edicao = this.route.url.includes('/dispositivos/lista');
 
     this.activeRoute.params?.subscribe(params => {
       if (params['latitude'] != undefined) {
@@ -93,13 +93,6 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     });
     marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
   }
-  }
-
-  fechar(){
-
-  }
-  salvar(){
-
   }
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {

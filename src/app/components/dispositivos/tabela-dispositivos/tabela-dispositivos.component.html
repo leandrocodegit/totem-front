@@ -7,10 +7,7 @@
       <th>Mac</th>
       <th>Status</th>
       <th>Conexão</th>
-      <th *ngIf="!checkEmit">IP</th>
-      <th *ngIf="!checkEmit">Memoria</th>
       <th *ngIf="!checkEmit">Efeito</th>
-      <th *ngIf="!checkEmit">Comando</th>
       <th *ngIf="exibirAcoes"></th>
     </tr>
   </thead>
@@ -39,11 +36,9 @@
         <span class="badge badge-danger rounded-pill">Offline</span>
         }
       </td>
-      <td *ngIf="!checkEmit">{{device.ip}}</td>
-      <td *ngIf="!checkEmit">{{device.memoria > 0 ? (device.memoria / 1000).toFixed(0) : 0}}K</td>
       <td *ngIf="!checkEmit">{{getTradutor(undefined, device.configuracao)}}</td>
-      <td *ngIf="!checkEmit">{{getTradutor(device.comando)}}</td>
       <td *ngIf="exibirAcoes">
+        <i-feather (click)="detalhes(device)" name="info" class="feather-base"></i-feather>
         <i-feather (click)="editar(device)" name="edit" class="feather-base"></i-feather>
         <i-feather (click)="configurar(device)" name="settings" class="feather-base"></i-feather>
         <i-feather (click)="sincronizar(device, false)" name="refresh-ccw" class="feather-base"></i-feather>

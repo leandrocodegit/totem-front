@@ -1,18 +1,22 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
+import { IconsModule } from '../../../IconsModule';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-card-mapa-cordenadas',
   standalone: true,
   imports: [
-    ContentMapaComponent
+    ContentMapaComponent,
+    IconsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   templateUrl: './card-mapa-cordenadas.component.html',
   styleUrl: './card-mapa-cordenadas.component.scss'
 })
-export class CardMapaCordenadasComponent implements OnInit{
+export class CardMapaCordenadasComponent{
 
   protected cordenadas = {
     lat: -23.730476198758623,
@@ -20,32 +24,20 @@ export class CardMapaCordenadasComponent implements OnInit{
   }
 
   constructor(
-    private readonly activeRoute: ActivatedRoute,
-    @Inject(PLATFORM_ID) private readonly platformId: any) {
-      if (isPlatformBrowser(this.platformId)) {
-        this.activeRoute.params?.subscribe(params => {
-          if (params['latitude'] != undefined) {
-             this.cordenadas = {
-              lat: params['latitude'],
-              lng: params['longitude']
-             }
-             console.log("Cordenadas:", this.cordenadas);
-
-          }
-        })
-      }
+    private dialogRef: MatDialogRef<CardMapaCordenadasComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any
+  ) {
+    if (data && data.lat && data.lng) {
+      this.cordenadas = data;
     }
-
-  ngOnInit(): void {
-
   }
 
 
   fechar(){
-
+    this.dialogRef.close();
   }
   salvar(){
-
+    this.dialogRef.close(this.cordenadas)
   }
 
 }

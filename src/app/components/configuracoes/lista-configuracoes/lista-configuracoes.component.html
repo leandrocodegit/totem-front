@@ -1,47 +1,46 @@
-<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th *ngIf="!modoAll" style="width: 10px;"></th>
-      <th>Nome</th>
-      <th>Efeito</th>
-      <th>Primaria</th>
-      <th>Secundária</th>
-      <th>Agendas</th>
-      <th>Velocidade</th>
-      <th>Intensidade</th>
-      <th>Leds</th>
-      <th>Faixa</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let conf of configuracoes">
-      <td *ngIf="!modoAll" style="width: 10px;">
-        <mat-radio-button (change)="definirConfiguracao(conf)" class="example-radio-button" color="primary"
-          [checked]="conf.id == idSelecionado" [value]="conf.id"></mat-radio-button>
-      </td>
-      <td>{{conf.nome}}</td>
-      <td>{{getTradutor(undefined, conf.efeito)}}</td>
-      <td>
-        <span class="material-symbols-outlined" [style.color]="conf.primaria">radio_button_checked</span>
-      </td>
-      <td>
-        <span class="material-symbols-outlined" [style.color]="conf.secundaria">radio_button_checked</span>
-      </td>
-      <td>{{0}}</td>
-      <td>{{conf.velocidade}}</td>
-      <td>{{conf.intensidade}}</td>
-      <td>{{conf.leds}}</td>
-      <td>{{conf.faixa}}</td>
-      <td>
-        <i-feather *ngIf="modoAll" (click)="editar(conf)" name="edit" class="feather-base">
-        </i-feather>
-        <i-feather (click)="remover(conf)" name="trash" class="feather-base">
-        </i-feather>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive-sm">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th *ngIf="!modoAll" style="width: 10px;"></th>
+        <th>Nome</th>
+        <th>Efeito</th>
+        <th>Cores</th>
+        <th>Velocidade</th>
+        <th>Intensidade</th>
+        <th>Leds</th>
+        <th>Faixa</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let conf of configuracoes">
+        <td *ngIf="!modoAll" style="width: 10px;">
+          <mat-radio-button (change)="definirConfiguracao(conf)" class="example-radio-button" color="primary"
+            [checked]="conf.id == idSelecionado" [value]="conf.id"></mat-radio-button>
+        </td>
+        <td>{{conf.nome}}</td>
+        <td>{{getTradutor(undefined, conf.efeito)}}</td>
+        <td>
+          <div class="cor-primaria-secundaria" style="display: flex;justify-content: center;">
+            <div [style.background]="conf.primaria" style="border-radius: 10px 0 0 10px;"></div>
+            <div [style.background]="conf.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+          </div>
+        </td> 
+        <td>{{conf.velocidade}}</td>
+        <td>{{conf.intensidade}}</td>
+        <td>{{conf.leds}}</td>
+        <td>{{conf.faixa}}</td>
+        <td>
+          <i-feather *ngIf="modoAll" (click)="editar(conf)" name="edit" class="feather-base">
+          </i-feather>
+          <i-feather (click)="remover(conf)" name="trash" class="feather-base">
+          </i-feather>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="page?.length"
   [pageSize]="page?.pageSize" [showFirstLastButtons]="true" [pageSizeOptions]="[15,20,50]"
   [pageIndex]="page?.pageIndex"></mat-paginator>

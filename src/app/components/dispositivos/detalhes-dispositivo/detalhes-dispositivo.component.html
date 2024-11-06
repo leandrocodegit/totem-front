@@ -1,0 +1,42 @@
+<div class="box-detalhes">
+  <h2>Detalhes do dispositivo</h2>
+  <br>
+  <div class="box-detalhes-item">
+    <label>Nome</label>
+    <h5>{{dispositivo?.nome}}</h5>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Endereço mac</label>
+    <h5>{{dispositivo?.mac}}</h5>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Endereço ip</label>
+    <h5>{{dispositivo?.ip}}</h5>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Versão software</label>
+    <h5>{{dispositivo?.versao}}</h5>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Ativo</label>
+    <h5>{{dispositivo?.ativo ? 'Sim' : 'Não'}}</h5>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Ignorar agenda</label>
+    <h5>{{dispositivo?.ignorarAgenda ? 'Sim' : 'Não'}}</h5>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Configuração de cor</label>
+    <div class="cor-primaria-secundaria" style="display: flex;">
+      <div [style.background]="dispositivo?.configuracao.primaria" style="border-radius: 10px 0 0 10px;"></div>
+      <div [style.background]="dispositivo?.configuracao.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+    </div>
+  </div>
+  <div class="box-detalhes-item">
+    <label>Leds</label>
+    <h5>{{dispositivo?.configuracao.leds}}</h5>
+  </div>
+  <div class="botoes">
+    <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close type="submit">Fechar</button>
+  </div>
+</div>

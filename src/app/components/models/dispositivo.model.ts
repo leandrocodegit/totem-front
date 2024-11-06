@@ -7,6 +7,8 @@ export interface Dispositivo {
   mac: string;
   nome: string;
   ip: string;
+  versao: string;
+  ignorarAgenda: boolean;
   memoria: number;
   ativo: boolean;
   conexao: string;
