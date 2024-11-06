@@ -4,11 +4,15 @@ import { Dispositivo } from '../../models/dispositivo.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
-import { ActivatedRoute, Router } from '@angular/router'; 
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import * as Leaflet from 'leaflet';
 
 @Component({
-  selector: 'app-content-mapa', 
+  selector: 'app-content-mapa',
+  standalone: true,
+  imports: [
+    RouterModule
+  ],
   templateUrl: './content-mapa.component.html',
   styleUrls: ['./content-mapa.component.scss']
 })
@@ -23,7 +27,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   @Input() edicao = false;
 
   private markers: any[] = [];
-  private mapa: any; 
+  private mapa: any;
 
   constructor(
     private readonly dispositivoService: DispositivoService,
@@ -35,7 +39,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       // this.L = Leaflet;
     }
 
- 
+
     websocketService.dispositivosEmit.subscribe(data => {
       if (data) {
         this.carregarDispositivos(data);
@@ -54,12 +58,12 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
          this.cordenadas = {
           lat: params['latitude'],
           lng: params['longitude']
-         } 
+         }
          console.log("Cordenadas:", this.cordenadas);
-                 
+
       }
     })
-  } 
+  }
 
    ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -67,7 +71,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
         maxZoom: 19,
       }).addTo(this.mapa);
-      if (this.edicao) { 
+      if (this.edicao) {
         this.adicionarMarcadorEdicao();
       } else {
         this.dispositivoService.listaTodosDispositivosFiltroNaoPaginado(Filtro.CORDENADAS).subscribe(response => {
@@ -77,8 +81,8 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     }
     this.dispositivoService.ajutarPadding.emit();
     this.addCenterButton();
-  } 
- 
+  }
+
   private adicionarMarcadorEdicao() {
     if (isPlatformBrowser(this.platformId)) {
     this.removerMarcadores();
@@ -92,10 +96,10 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
 
   fechar(){
-   
+
   }
   salvar(){
-   
+
   }
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {
@@ -133,7 +137,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       return button;
     };
 
-    centerButton.addTo(this.mapa);   
+    centerButton.addTo(this.mapa);
   }
 
 

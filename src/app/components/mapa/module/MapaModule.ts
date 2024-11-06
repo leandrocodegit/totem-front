@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NgModule } from '@angular/core'; 
 import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
 import { LeafletRoutingModule } from './LeafletRoutingModule';
 import { IconsModule } from 'src/app/IconsModule';
@@ -8,18 +7,15 @@ import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations:[ 
-    ContentMapaComponent, 
+  declarations:[
    ],
-  imports: [ 
-    LeafletModule,
+  imports: [
     LeafletRoutingModule,
     IconsModule,
     MatButtonModule,
-    RouterModule  
+    RouterModule
    ],
   exports: [
-    ContentMapaComponent 
   ]
 })
 export class MapaModule { }

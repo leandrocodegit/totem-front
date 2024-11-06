@@ -1,10 +1,14 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { ContentMapaComponent } from '../content-mapa/content-mapa.component';
 
 @Component({
-  selector: 'app-card-mapa-cordenadas', 
- 
+  selector: 'app-card-mapa-cordenadas',
+  standalone: true,
+  imports: [
+    ContentMapaComponent
+  ],
   templateUrl: './card-mapa-cordenadas.component.html',
   styleUrl: './card-mapa-cordenadas.component.scss'
 })
@@ -24,24 +28,24 @@ export class CardMapaCordenadasComponent implements OnInit{
              this.cordenadas = {
               lat: params['latitude'],
               lng: params['longitude']
-             } 
+             }
              console.log("Cordenadas:", this.cordenadas);
-                     
+
           }
         })
       }
     }
 
   ngOnInit(): void {
-    
+
   }
 
 
   fechar(){
-   
+
   }
   salvar(){
-   
+
   }
 
 }
