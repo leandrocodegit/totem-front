@@ -55,8 +55,8 @@ export class ParamentrosCoresComponent {
 
     if (this.dispositivo && this.dispositivo.configuracao) {
       this.configuracao = this.dispositivo.configuracao;
-      this.initCores();
     }
+    this.initCores();
   }
 
   initCores() {

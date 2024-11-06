@@ -11,6 +11,8 @@ import { ConfiguracaoService } from '../../dispositivos/services/configuracao.se
 import { MatCardModule } from '@angular/material/card';
 import { Configuracao } from '../../models/configuracao.model';
 import { ParamentrosCoresComponent } from '../../dispositivos/paramentros-cores/paramentros-cores.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-formulario-configuracao',
@@ -25,7 +27,11 @@ import { ParamentrosCoresComponent } from '../../dispositivos/paramentros-cores/
     MatSelectModule,
     TabelaDispositivosComponent,
     MatCardModule,
-    ParamentrosCoresComponent
+    ParamentrosCoresComponent,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './formulario-configuracao.component.html',
   styleUrl: './formulario-configuracao.component.scss'
@@ -37,6 +43,7 @@ export class FormularioConfiguracaoComponent implements OnInit {
 
   constructor(
     private readonly configuracaoService: ConfiguracaoService,
+    private readonly messageService: MessageService,
     private dialogRef: MatDialogRef<FormularioConfiguracaoComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
@@ -57,10 +64,30 @@ export class FormularioConfiguracaoComponent implements OnInit {
   }
 
   salvar() {
+    console.log("salvar configuração");
+
       this.configuracaoService.salvarConfiguracao(this.configuracao, false).subscribe(() => {
-      }, fail => {
-        console.log('Falha ao salvar');
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Adicionado',
+          detail: 'Configuração salva'
+        });
+      }, fail =>{
+        if(fail.error && fail.error.message){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: fail.error.message
+          });
+        }else{
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao salvar configuração!'
+          });
+        }
+
       });
-  }
+    }
 
 }

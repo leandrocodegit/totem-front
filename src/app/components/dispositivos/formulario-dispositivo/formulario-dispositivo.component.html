@@ -19,6 +19,10 @@
       <i-feather name="map-pin" class="feather-base"></i-feather>
     </button>
   </div>
+  <div style="width: 100%;display: flex;margin-bottom: 50px;">
+    <p-checkbox [(ngModel)]="dispositivo.ativo" label="Ativo" [binary]="true" [style]="{'margin': '0 10px 0 0'}"/>
+    <p-checkbox [(ngModel)]="dispositivo.ignorarAgenda" label="Ignorar agenda"  [style]="{'margin': '0 10px'}" [binary]="true" />
+  </div>
 <div class="botoes">
   <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
   <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>

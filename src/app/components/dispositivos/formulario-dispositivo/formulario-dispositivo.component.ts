@@ -1,13 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { TabelaDispositivosComponent } from '../../dispositivos/tabela-dispositivos/tabela-dispositivos.component';
 import { MatCardModule } from '@angular/material/card';
-import { ParamentrosCoresComponent } from '../../dispositivos/paramentros-cores/paramentros-cores.component';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { DispositivoService } from '../services/dispositivo.service';
@@ -15,6 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { IconsModule } from '../../../IconsModule';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -28,7 +25,8 @@ import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/car
     MatCardModule,
     ToastModule,
     IconsModule,
-    MatDialogModule
+    MatDialogModule,
+    CheckboxModule
   ],
   providers: [
     MessageService

@@ -67,7 +67,10 @@ export class ListaConfiguracoesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private readonly dialog: MatDialog,
-  ) { }
+  ) {
+    configuracaoService.carregarLista.subscribe(() => this.carregarLista());
+  }
+  
   ngOnInit(): void {
     this.carregarLista(PAGE_INIT)
   }

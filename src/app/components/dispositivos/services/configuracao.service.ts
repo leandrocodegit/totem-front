@@ -19,6 +19,8 @@ import { Page } from '../../models/Page';
 )
 export class ConfiguracaoService {
 
+  public carregarLista = new EventEmitter
+
   constructor(
     private readonly http: HttpClient) { }
 

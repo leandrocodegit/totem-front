@@ -19,12 +19,12 @@ export class Configuracao {
     cor = [0,0,255,255,0,0],
     primaria = 'blue',
     secundaria = 'red',
-    leds = 0,
+    leds = 255,
     faixa = 2,
-    intensidade = 0,
+    intensidade = 255,
     velocidade = 100,
     correcao = [255,255,255],
-    efeito = undefined,
+    efeito = Efeito.COLORIDO,
     mac = '',
   ) {
     this.id = id;
