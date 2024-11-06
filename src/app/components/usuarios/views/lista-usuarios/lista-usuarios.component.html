@@ -34,14 +34,17 @@
               <span class="badge badge-{{user.status ? 'success' : 'danger'}} rounded-pill">
                 {{user.status ? 'Ativo' : 'Inativo'}}</span>
             </td>
-            <td *ngIf="isAutorizado">
-              <i-feather (click)="editarUsuario(user)" name="edit" class="feather-base" style="margin-right: 10px;">
+            <td *ngIf="isAutorizado && user.nome != 'admin'">
+              <i-feather (click)="editarUsuario(user)" name="slash" class="feather-base" style="margin-right: 10px;">
               </i-feather>
               <i-feather (click)="bloquearUsuario(user)" [name]="user.status ? 'unlock' : 'lock'" class="feather-base"
                 style="margin-right: 10px;" [style.color]="user.status ? 'unlock' : 'lock'">
               </i-feather>
               <i-feather (click)="removerUsuario(user)" name="trash-2" class="feather-base" style="margin-right: 10px;">
               </i-feather>
+            </td>
+            <td *ngIf="isAutorizado && user.nome == 'admin'">
+              <i-feather name="slash" class="feather-base" style="margin-right: 10px;"></i-feather>
             </td>
           </tr>
         </tbody>
