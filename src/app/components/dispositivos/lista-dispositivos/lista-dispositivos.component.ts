@@ -21,6 +21,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 import { ActivatedRoute } from '@angular/router';
 
+let tab = 0;
+
 @Component({
   selector: 'app-lista-dispositivos',
   standalone: true,
@@ -77,8 +79,9 @@ export class ListaDispositivosComponent {
       });
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.carregarLista(PAGE_INIT);
+    console.log(tab, this.indexTab);
   }
 
   mapa(){
@@ -90,6 +93,7 @@ export class ListaDispositivosComponent {
   onTabChange(event: MatTabChangeEvent) {
     this.indexTab = event.index;
     this.carregarLista(this.page);
+    tab = this.indexTab;
   }
 
   carregarLista(page?: PageEvent){

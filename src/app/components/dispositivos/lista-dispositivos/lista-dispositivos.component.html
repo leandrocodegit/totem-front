@@ -9,16 +9,16 @@
        </div>
         <mat-tab-group mat-stretch-tabs="false" animationDuration="0" (selectedTabChange)="onTabChange($event)">
             <mat-tab label="Ativos">
-                <app-tabela-dispositivos [dispositivos]="dispositivos"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivos"></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Inativos">
-                <app-tabela-dispositivos [dispositivos]="dispositivosInativos"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivosInativos"></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Offline">
-                <app-tabela-dispositivos [dispositivos]="dispositivosOffline"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivosOffline"></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Não assossiado">
-                <app-tabela-dispositivos [dispositivos]="dispositivosnAssociados"></app-tabela-dispositivos>
+                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivosnAssociados"></app-tabela-dispositivos>
             </mat-tab>
         </mat-tab-group>
         <mat-paginator #paginator

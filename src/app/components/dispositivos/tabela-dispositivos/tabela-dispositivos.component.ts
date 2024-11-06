@@ -14,6 +14,7 @@ import { Filtro } from '../../models/constantes/filtro';
 import { Agenda } from '../../models/agenda.model';
 import { FormsModule } from '@angular/forms';
 import { DetalhesDispositivoComponent } from '../detalhes-dispositivo/detalhes-dispositivo.component';
+import { PAGE_INIT } from '../../models/constantes/PageUtil';
 
 var initDialog = true;
 
@@ -36,6 +37,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   @Input() agenda!: Agenda;
   @Input() exibirAcoes: boolean = true;
   @Input() checkEmit: boolean = false;
+  @Input() indexTab = 0;
   @Output() selecionarEmit = new EventEmitter;
 
 
@@ -99,7 +101,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     })
 
     retorno.afterClosed().subscribe(() => {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO).subscribe(response => this.dispositivos = response.content);
+      this.carregarLista();
     })
   }
 
@@ -113,5 +115,25 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   selecionarDispositivo(dispositivo: Dispositivo) {
     this.selecionarEmit.emit(dispositivo);
+  }
+
+  carregarLista(){
+    if (this.indexTab == 0) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, PAGE_INIT).subscribe(response => {
+        this.dispositivos = response.content;
+      });
+    } else if (this.indexTab == 1) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.INATIVO, PAGE_INIT).subscribe(response => {
+        this.dispositivos = response.content;
+      });
+    } else if (this.indexTab == 2) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.OFFLINE, PAGE_INIT).subscribe(response => {
+        this.dispositivos = response.content;
+      });
+    } else if (this.indexTab == 3) {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.NAO_CONFIGURADO, PAGE_INIT).subscribe(response => {
+        this.dispositivos = response.content;
+      });
+    }
   }
 }
