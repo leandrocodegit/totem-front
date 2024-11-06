@@ -88,12 +88,9 @@ export class FormularioDispositivoComponent {
     })
 
     retorno.afterClosed().subscribe(data => {
-      if (data) {
-        this.dispositivo.latitude = data.lat;
-        this.dispositivo.longitude = data.lng;
-        console.log(data);
+      console.log("Data", data);
 
-      }
+
     });
   }
 }

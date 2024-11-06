@@ -53,7 +53,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
     this.edicao = this.route.url.includes('/dispositivos/lista');
 
-    this.activeRoute.params?.subscribe(params => {
+/*     this.activeRoute.params?.subscribe(params => {
       if (params['latitude'] != undefined) {
          this.cordenadas = {
           lat: params['latitude'],
@@ -62,7 +62,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
          console.log("Cordenadas:", this.cordenadas);
 
       }
-    })
+    }) */
   }
 
    ngAfterViewInit() {
@@ -102,12 +102,13 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     if (!this.edicao) {
       dispositivos.forEach(device => {
         if (device.latitude && device.longitude)
-          if (device.latitude != 0 && device.longitude != 0)
+          if (device.latitude != 0 && device.longitude != 0){}
             this.add(device)
       });
       if (dispositivos.length) {
         this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)
-        this.cordenadas = { lat: dispositivos[0].latitude, lng: dispositivos[0].longitude };
+        this.cordenadas.lat = dispositivos[0].latitude;
+        this.cordenadas.lng = dispositivos[0].longitude ;
       }
     } else {
       this.dispositivoService.mapaEdit.emit(true)
@@ -138,6 +139,8 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   add(dispositivo: Dispositivo) {
     if (isPlatformBrowser(this.platformId)) {
+      console.log("Adicionado", dispositivo.latitude, dispositivo.longitude);
+
     let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
       weight: 2,
       color: dispositivo.configuracao.primaria + 'cc',
@@ -153,6 +156,8 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
         <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.configuracao.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
         `, { autoClose: false, closeOnClick: false, autoPan: false }).openPopup();
     }
+    console.log("Markes", this.markers);
+
   }
 
   removerMarcadores() {
