@@ -34,7 +34,8 @@ export class TesteDispositivoComponent {
     { nome: "Ciano", cor: "#00FFFF" },
     { nome: "Magenta", cor: "#FF00FF" },
     { nome: "Amarelo", cor: "yellow" },
-    { nome: "Branco", cor: "white" }
+    { nome: "Branco", cor: "white" },
+    { nome: "Finalizando teste", cor: "white" }
   ];
   protected cor: any;
 
