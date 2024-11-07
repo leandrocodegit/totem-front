@@ -4,12 +4,11 @@
     <div *ngIf="exibeSincronizar" style="margin: 00px 0;">
       <mat-checkbox [(ngModel)]="enviarConfiguracao" color="primary" class="d-block mb-16">Habilitar tem real</mat-checkbox>
     </div>
-    <div style="max-width: 50%;">
-      <mat-form-field class="w-100 fs-16" appearance="outline">
+    <div style="display: flex;">
+      <mat-form-field appearance="outline" style="margin-right: 10px;">
         <mat-label>Nome</mat-label>
         <input matInput required [(ngModel)]="configuracao.nome" type="text" placeholder="Nome">
       </mat-form-field>
-    </div>
     <mat-form-field appearance="outline">
       <mat-label>Efeito</mat-label>
       <mat-select required (selectionChange)="onSliderChange()" [(ngModel)]="configuracao.efeito">
@@ -22,6 +21,7 @@
         <mat-option value="SINALIZADOR">Sinalizador</mat-option>
       </mat-select>
     </mat-form-field>
+  </div>
   </div>
 
   <div style="display: flex;">
@@ -84,9 +84,7 @@
       </div>
     </div>
   </div>
-
-
-  <div style="display: flex;margin: 20px 0;">
+  <div style="display: flex;margin: 0;">
     <div class="box-configuracao">
       <h6>Correção de cor</h6>
       <div class="box-configuracao-item">
@@ -109,6 +107,15 @@
           <input matSliderThumb [(ngModel)]="configuracao.correcao[2]">
         </mat-slider>
         <b>{{configuracao.correcao[2]}}</b>
+      </div>
+      <div class="box-configuracao" style="margin-top: 11px;">
+        <h6>Faixa de leds</h6>
+        <div class="box-configuracao-item">
+          <span class="material-symbols-outlined cor">mitre</span>
+          <mat-slider [max]="255" [step]="1" [min]="2" (change)="onSliderChange()">
+            <input matSliderThumb [(ngModel)]="configuracao.faixa"> </mat-slider>
+          <b>{{configuracao.faixa}}</b>
+        </div>
       </div>
     </div>
 
@@ -139,15 +146,6 @@
           <mat-slider [max]="100" [step]="1" [min]="getMinimo()" (change)="onSliderChange()">
             <input matSliderThumb [(ngModel)]="configuracao.leds"> </mat-slider>
           <b>{{configuracao.leds}}</b>
-        </div>
-      </div>
-      <div class="box-configuracao">
-        <h6>Faixa de leds</h6>
-        <div class="box-configuracao-item">
-          <span class="material-symbols-outlined cor">mitre</span>
-          <mat-slider [max]="255" [step]="1" [min]="2" (change)="onSliderChange()">
-            <input matSliderThumb [(ngModel)]="configuracao.faixa"> </mat-slider>
-          <b>{{configuracao.faixa}}</b>
         </div>
       </div>
     </div>
