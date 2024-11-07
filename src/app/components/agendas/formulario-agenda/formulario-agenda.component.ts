@@ -115,8 +115,13 @@ export class FormularioAgendaComponent implements OnInit {
         this.agenda.termino = this.agenda.inicio;
       }
       this.agendaService.criarAgenda(this.agenda).subscribe(() => {
+        this.dialogRef.close(true);
       }, fail => {
-        console.log('Falha ao salvar');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Erro ao salvar agenda!'
+        });
       });
     } else {
       if(!this.agenda.termino && this.agenda.inicio){
@@ -142,7 +147,6 @@ export class FormularioAgendaComponent implements OnInit {
             detail: 'Erro ao salvar agenda!'
           });
         }
-
       });
     }
   }

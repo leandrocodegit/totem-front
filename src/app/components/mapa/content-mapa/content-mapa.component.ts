@@ -25,6 +25,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     lng: -46.63357944308231
   }
   @Input() edicao = false;
+  @Input() height = '100vh';
 
   private markers: any[] = [];
   private mapa: any;
@@ -41,10 +42,8 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
 
     websocketService.dispositivosEmit.subscribe(data => {
-      if (data) {
+      if (!this.edicao  && data) {
         this.carregarDispositivos(data);
-        console.log("Data", data);
-
       }
     })
   }
@@ -90,6 +89,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     this.markers.push(marker);
     marker.on('drag', (event: any) => {
       this.dispositivoService.mapaEdit.emit(event.target.getLatLng());
+      this.cordenadas = event.target.getLatLng();
     });
     marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
   }

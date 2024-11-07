@@ -14,6 +14,8 @@ import { FormularioAgendaComponent } from '../formulario-agenda/formulario-agend
 import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CustomPaginator } from '../../../util/CustomPaginator';
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-lista-agenda-dispositivo',
@@ -27,9 +29,11 @@ import { PAGE_INIT } from '../../models/constantes/PageUtil';
     CheckboxModule,
     FormsModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ToastModule
   ],
   providers: [
+    MessageService,
     {
       provide: MatPaginatorIntl, useClass: CustomPaginator
     }
@@ -43,6 +47,7 @@ export class ListaAgendaDispositivoComponent {
   protected agendas: Agenda[] = [];
 
   constructor(
+    private readonly messageService: MessageService,
     private readonly agendaService: AgendaService,
     private readonly dialog: MatDialog,
     private router: Router
@@ -76,9 +81,26 @@ export class ListaAgendaDispositivoComponent {
 
   remover(agenda: Agenda) {
     this.agendaService.removerAgenda(agenda.id).subscribe(() => {
-
-    }, fail => {
-      console.log('Falha ao remover agenda');
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Remoção',
+        detail: 'Agenda foi deletada'
+      });
+      this.carregarLista();
+    }, fail =>{
+      if(fail.error && fail.error.message){
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: fail.error.message
+        });
+      }else{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Erro ao remover agenda!'
+        });
+      }
 
     });
   }
@@ -88,7 +110,13 @@ export class ListaAgendaDispositivoComponent {
       data: agenda
     })
 
-    retorno.afterClosed().subscribe(() => {
+    retorno.afterClosed().subscribe(data => {
+      if(data)
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Agenda',
+        detail: 'Agenda foi salva'
+      });
       this.carregarLista(this.page);
     })
   }
