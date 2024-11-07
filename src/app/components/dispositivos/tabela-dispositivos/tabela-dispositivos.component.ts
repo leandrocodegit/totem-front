@@ -15,6 +15,7 @@ import { Agenda } from '../../models/agenda.model';
 import { FormsModule } from '@angular/forms';
 import { DetalhesDispositivoComponent } from '../detalhes-dispositivo/detalhes-dispositivo.component';
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
+import { TesteDispositivoComponent } from '../teste-dispositivo/teste-dispositivo.component';
 
 var initDialog = true;
 
@@ -26,7 +27,8 @@ var initDialog = true;
     NgFor, NgIf,
     MatDialogModule,
     CheckboxModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './tabela-dispositivos.component.html',
   styleUrl: './tabela-dispositivos.component.scss'
@@ -90,7 +92,10 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   testar(dispositivo: Dispositivo) {
-    this.dispositivoService.testar(dispositivo.mac).subscribe();
+    if (dispositivo.conexao == 'Online')
+      this.dialog.open(TesteDispositivoComponent, {
+        data: dispositivo.mac
+      })
   }
 
   detalhes(dispositivo: Dispositivo) {
@@ -121,7 +126,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     this.selecionarEmit.emit(dispositivo);
   }
 
-  carregarLista(){
+  carregarLista() {
     if (this.indexTab == 0) {
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, PAGE_INIT).subscribe(response => {
         this.dispositivos = response.content;

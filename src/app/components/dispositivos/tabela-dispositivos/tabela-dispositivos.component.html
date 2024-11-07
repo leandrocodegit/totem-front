@@ -38,13 +38,13 @@
       </td>
       <td *ngIf="!checkEmit">{{getTradutor(undefined, device.configuracao)}}</td>
       <td *ngIf="exibirAcoes">
-        <i-feather (click)="testar(device)" name="play-circle" class="feather-base"></i-feather>
+        <i-feather [style.color]="device.conexao == 'Online' ? 'green' : 'black'" (click)="testar(device)" name="play-circle" class="feather-base"></i-feather>
         <i-feather (click)="detalhes(device)" name="info" class="feather-base"></i-feather>
         <i-feather (click)="editar(device)" name="edit" class="feather-base"></i-feather>
         <i-feather (click)="configurar(device)" name="settings" class="feather-base"></i-feather>
         <i-feather (click)="sincronizar(device, false)" name="refresh-ccw" class="feather-base"></i-feather>
         <i-feather (click)="mudarStatus(device)" name="power" class="feather-base"
-          [style.color]="device.ativo ? 'blue' : 'black'"> </i-feather>
+          [style.color]="device.ativo ? 'green' : 'black'"> </i-feather>
       </td>
     </tr>
   </tbody>

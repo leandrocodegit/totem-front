@@ -1,0 +1,15 @@
+<div class="box-teste">
+  <h3>Teste de cores</h3>
+  <h5 *ngIf="iniciarTeste">{{cor.nome}} </h5>
+  <div *ngIf="iniciarTeste" style="width: 100%;height: 20px;" [style.background]="cor.cor"></div>
+  <mat-progress-bar *ngIf="iniciarTeste" mode="indeterminate" value="40"></mat-progress-bar>
+  <svg *ngIf="!iniciarTeste" xmlns="http://www.w3.org/2000/svg" height="80px" viewBox="0 -960 960 960" width="80px" fill="#00e5ff">
+    <path
+      d="M296-132 172-256l124-124 20 20-90 90h470v-160h28v188H226l90 90-20 20Zm-60-398v-188h498l-90-90 20-20 124 124-124 124-20-20 90-90H264v160h-28Z" />
+  </svg>
+  <div class="botoes">
+    <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close type="submit">Fechar</button>
+    <button [disabled]="iniciarTeste" mat-raised-button class="me-8 mb-8" color="primary" (click)="testar()"
+      type="submit">Iniciar teste</button>
+  </div>
+</div>
