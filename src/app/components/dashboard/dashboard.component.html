@@ -90,9 +90,9 @@
             <i class="pi pi-times" style="font-size: 12px; line-height: 2;margin-left: 3px;"></i>
           </span>
           }
-          @else if(log.comando == 'ENVIAR') {
+          @else if(log.comando == 'SINCRONIZAR') {
           <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
-            [style]="{ 'background-color': '#d2d2d2', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
+            [style]="{ 'background-color': '#59cdb2', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
             <i class="pi pi-sync" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
           </span>
           }@else if(log.comando == 'SISTEMA') {
@@ -100,7 +100,12 @@
             [style]="{ 'background-color': '#69e2ae', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
             <i class="pi pi-server" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
           </span>
-          }@else {
+          }@else if(log.comando == 'OFFLINE') {
+            <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+              [style]="{ 'background-color': '#fb487a', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
+              <i class="pi pi-times" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
+            </span>
+            }@else {
           <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
             [style]="{ 'background-color': '#30d7dd', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
             <i class="pi pi-check" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
