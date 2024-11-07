@@ -29,8 +29,8 @@ export class TesteDispositivoComponent {
   private index = 0;
   protected cores: any[] = [
     { nome: "Vermelho", cor: "red" },
-    { nome: "Verde", cor: "green" },
-    { nome: "Azul", cor: "blue" },
+    { nome: "Verde", cor: "#02e802" },
+    { nome: "Azul", cor: "#0089f7" },
     { nome: "Ciano", cor: "#00FFFF" },
     { nome: "Magenta", cor: "#FF00FF" },
     { nome: "Amarelo", cor: "yellow" },
