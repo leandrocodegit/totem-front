@@ -89,6 +89,10 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     this.dispositivoService.mudarStatus(dispositivo.mac).subscribe();
   }
 
+  testar(dispositivo: Dispositivo) {
+    this.dispositivoService.testar(dispositivo.mac).subscribe();
+  }
+
   detalhes(dispositivo: Dispositivo) {
     this.dialog.open(DetalhesDispositivoComponent, {
       data: dispositivo

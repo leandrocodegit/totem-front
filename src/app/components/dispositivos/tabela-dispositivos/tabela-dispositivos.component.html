@@ -38,6 +38,7 @@
       </td>
       <td *ngIf="!checkEmit">{{getTradutor(undefined, device.configuracao)}}</td>
       <td *ngIf="exibirAcoes">
+        <i-feather (click)="testar(device)" name="play-circle" class="feather-base"></i-feather>
         <i-feather (click)="detalhes(device)" name="info" class="feather-base"></i-feather>
         <i-feather (click)="editar(device)" name="edit" class="feather-base"></i-feather>
         <i-feather (click)="configurar(device)" name="settings" class="feather-base"></i-feather>

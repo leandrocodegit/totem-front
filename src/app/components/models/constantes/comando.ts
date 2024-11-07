@@ -6,7 +6,9 @@ export enum Comando {
     NENHUM_DEVICE = 'NENHUM_DEVICE',
     ONLINE = 'ONLINE',
     OFFLINE = 'OFFLINE',
-    SINCRONIZAR = 'SINCRONIZAR'
+    SINCRONIZAR = 'SINCRONIZAR',
+    TESTE = 'TESTE',
+    CONCLUIDO = 'CONCLUIDO'
 }
 
 export const ComandoValue: Record<Comando, string> = {
@@ -18,4 +20,6 @@ export const ComandoValue: Record<Comando, string> = {
   [Comando.ONLINE]: 'Online',
   [Comando.OFFLINE]: 'Offline',
   [Comando.SINCRONIZAR]: 'Sincronizar',
+  [Comando.TESTE]: 'Teste',
+  [Comando.CONCLUIDO]: 'Teste concluido',
 };

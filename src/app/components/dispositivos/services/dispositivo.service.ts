@@ -63,4 +63,8 @@ export class DispositivoService {
   public sincronizarTudo(): Observable<any> {
     return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false`, environment.headers)
   }
+
+  public testar(mac: string): Observable<any> {
+    return this.http.get<any>(`${environment.urlApi}/comando/teste/${mac}`, environment.headers)
+  }
 }
