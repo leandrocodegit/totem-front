@@ -42,6 +42,9 @@ export const routes: Routes = [
         path: "dispositivos/configuracoes/:mac", component: PainelConfiguracoesComponent
       },
       {
+        path: "dispositivos/configuracoes/:mac/:tab", component: PainelConfiguracoesComponent
+      },
+      {
         path: "dashboard", component: DashboardComponent
       },
       { path: "agendas", component: ListaAgendaDispositivoComponent },

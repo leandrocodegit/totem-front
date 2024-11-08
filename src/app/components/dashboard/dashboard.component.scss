@@ -10,7 +10,7 @@
 .cores {
   width: 70%;
   background: white;
-  padding: 0 ;
+  padding: 0;
   border: solid #e5e5e5 thin;
   border-radius: 17px;
   flex: 1;
@@ -43,7 +43,7 @@
 h4 {
   font-weight: 600;
   margin: 0;
-  font-size: 18px !important;
+  font-size: 18px;
 }
 
 .box-dashboard-item-label {
@@ -115,4 +115,30 @@ i-feather {
   background: #caeaff;
   font-size: 13px;
   padding: 4px;
+}
+
+.box-adicional {
+  width: 20%;
+  flex-grow: 1;
+  box-sizing: border-box;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+@media(max-width: 600px) {
+  .box-adicional {
+    width: 0;
+  }
+
+  .titulo-chart{
+    font-size: 12px;
+    padding: 4px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 }

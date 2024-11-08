@@ -6,7 +6,7 @@
         <app-paramentros-cores *ngIf="dispositivo" [exibeSincronizar]="true" [dispositivo]="dispositivo"></app-paramentros-cores>
       </mat-tab>
       <mat-tab label="Lista de configurações">
-        <app-lista-configuracoes-dispositivo [dispositivo]="dispositivo"></app-lista-configuracoes-dispositivo>
+        <app-lista-configuracoes-dispositivo [dispositivo]="dispositivo" [tab]="tabSelect"></app-lista-configuracoes-dispositivo>
       </mat-tab>
       <mat-tab label="Agendas">
         <app-lista-agenda-dispositivo></app-lista-agenda-dispositivo>

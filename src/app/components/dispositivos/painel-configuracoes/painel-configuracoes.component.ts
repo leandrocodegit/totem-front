@@ -17,7 +17,6 @@ import { ListaAgendaDispositivoComponent } from '../../agendas/lista-agenda-disp
 import { ListaConfiguracoesDispositivoComponent } from '../lista-configuracoes-dispositivo/lista-configuracoes-dispositivo.component';
 import { NgIf } from '@angular/common';
 
-var tabSelect = 0;
 @Component({
   selector: 'app-painel-configuracoes',
   standalone: true,
@@ -50,20 +49,23 @@ export class PainelConfiguracoesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.tabSelect = tabSelect;
+   // this.tabSelect = tabSelect;
   }
   ngOnInit(): void {
     this.route.params?.subscribe(params => {
       if (params['mac'] != undefined) {
         this.dispositivoService.buscarDicpositivo(params['mac']).subscribe(response => {
           this.dispositivo = response;
-          console.log('Change', this.dispositivo);
-          if(!this.dispositivo.configuracao){
-            tabSelect = 1;
+          if (params['tab'] != undefined){
+            this.tabSelect = params['tab'];
+            this.router.navigate([`/dispositivos/configuracoes/${this.dispositivo.mac}`]);
+          }
+          else if (!this.dispositivo.configuracao){
             this.tabSelect = 1;
           }
         })
       }
+
     })
   }
 

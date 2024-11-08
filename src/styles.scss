@@ -89,3 +89,59 @@ tr td {
   height: 5px;
   padding: 10px;
 }
+
+@media(max-width: 600px){
+  .body-wrapper, .mat-mdc-card-content{
+    padding: 10px !important;
+  }
+
+  .box-painel{
+    flex-wrap: wrap;
+  }
+
+  .box-painel-item{
+    width: 100% !important;
+  }
+
+  .cores{
+    padding: 10px !important;
+  }
+
+  i-feather{
+    margin: 0 !important;
+  }
+
+  .box-dashboard-item svg{
+    width: 40px;
+  }
+
+  .box-dashboard-item-label h4, .box-dashboard-item-label span{
+    font-size: 11px !important;
+  }
+
+  .box-dashboard-item-label{
+    font-size: 12px;
+  }
+
+  .box-dashboard-item{
+    height: 50px !important;
+  }
+
+  .box-botoes-direta{
+    display: block;
+  }
+
+  .box-botoes-direta button{
+    margin-top: 15px;
+  }
+
+  .box-dialog {
+    min-width: 100% !important;
+    max-height: 100%;
+    overflow-x: auto;
+  }
+
+  .box-parametro-item{
+    display: block !important;
+  }
+}

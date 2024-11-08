@@ -70,7 +70,7 @@ export class ListaConfiguracoesComponent implements OnInit {
   ) {
     configuracaoService.carregarLista.subscribe(() => this.carregarLista());
   }
-  
+
   ngOnInit(): void {
     this.carregarLista(PAGE_INIT)
   }

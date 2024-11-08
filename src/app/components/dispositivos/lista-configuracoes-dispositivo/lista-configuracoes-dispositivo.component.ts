@@ -31,14 +31,15 @@ import { ListaConfiguracoesComponent } from '../../configuracoes/lista-configura
 export class ListaConfiguracoesDispositivoComponent {
 
   @Input() dispositivo!: Dispositivo;
+  @Input() tab = 0;
   @Input() configuracoes: Configuracao[] = [];
   protected alterouPrincipal: boolean = false;
 
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly configuracaoService: ConfiguracaoService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: ActivatedRoute,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +69,9 @@ export class ListaConfiguracoesDispositivoComponent {
       configuracao.mac = this.dispositivo.mac;
       this.configuracaoService.salvarConfiguracao(configuracao, true).subscribe(() => {
         this.dispositivo.configuracao = configuracao;
+        this.route.navigate([`/dispositivos/configuracoes/${this.dispositivo.mac}/0`]);
+        console.log(`/dispositivos/configuracoes/${this.dispositivo.mac}`);
+
       }, fail => {
         console.log('Falaha ao salvar configuração');
 
