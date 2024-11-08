@@ -13,7 +13,7 @@
       </div>
       <div class="pt-8">
         <ul>
-          <li class="list-group mb-2" *ngFor="let sidenav of sidebarMenu" (click)="drawer.toggle()">
+          <li class="list-group mb-2" *ngFor="let sidenav of sidebarMenu" (click)="onMenuClick(drawer)">
             <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
               class="sidebar-menu w-100 d-flex align-items-center" [routerLinkActive]="routerActive"
               [routerLinkActiveOptions]="{ exact: false }">

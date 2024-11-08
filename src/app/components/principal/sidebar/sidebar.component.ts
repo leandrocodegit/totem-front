@@ -76,6 +76,12 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  onMenuClick(sidenav: any) {
+    if (window.innerWidth <= 600) {
+      sidenav.toggle();
+    }
+  }
+
   logout(){
     this.authService.logout()
   }
