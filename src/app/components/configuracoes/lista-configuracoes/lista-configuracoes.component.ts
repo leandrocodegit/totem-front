@@ -18,7 +18,8 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
 import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CustomPaginator } from '../../../util/CustomPaginator';
-import { Page } from '../../models/Page';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -36,7 +37,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     MatRadioModule,
     MatButtonModule,
     ToastModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     MessageService,
@@ -59,6 +61,7 @@ export class ListaConfiguracoesComponent implements OnInit {
 
   protected alterouPrincipal: boolean = false;
   protected page?: PageEvent;
+  protected ordenar: any;
 
 
   constructor(
@@ -75,8 +78,13 @@ export class ListaConfiguracoesComponent implements OnInit {
     this.carregarLista(PAGE_INIT)
   }
 
+  sortData(sort: Sort) {
+    this.ordenar = sort;
+    this.carregarLista(this.page)
+  }
+
   carregarLista(page?: PageEvent) {
-    this.configuracaoService.listaTodasConfiguracoes(page).subscribe(response => {
+    this.configuracaoService.listaTodasConfiguracoes(this.ordenar, page).subscribe(response => {
       this.configuracoes = response.content;
       this.initPage(response);
     });
@@ -86,12 +94,12 @@ export class ListaConfiguracoesComponent implements OnInit {
     this.carregarLista(page);
   }
 
-  private initPage(response: Page<Configuracao>){
+  private initPage(response: any) {
     this.page = {
-      pageIndex: response.pageable.pageNumber,
-      length: response.totalElements,
+      pageIndex: response.page.number,
+      length: response.page.totalElements,
       previousPageIndex: 0,
-      pageSize: response.size
+      pageSize: response.page.size
     }
   }
 
@@ -105,18 +113,22 @@ export class ListaConfiguracoesComponent implements OnInit {
 
   remover(configuracao: Configuracao) {
     if (this.modoAll) {
-      this.configuracaoService.removerConfiguracao(configuracao.id).subscribe(() => {
-        this.configuracoes = this.configuracoes.filter(conf => conf != configuracao);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Removido',
-          detail: 'A configuração foi removida!'
-        });
-      }, fail => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: 'Erro ao remover configuração!'
+      let retorno = this.dialog.open(ConfirmacaoComponent);
+      retorno.afterClosed().subscribe(data => {
+        if(data)
+        this.configuracaoService.removerConfiguracao(configuracao.id).subscribe(() => {
+          this.configuracoes = this.configuracoes.filter(conf => conf != configuracao);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Removido',
+            detail: 'A configuração foi removida!'
+          });
+        }, fail => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao remover configuração!'
+          });
         });
       });
     } else {

@@ -1,15 +1,15 @@
 <div class="table-responsive-sm">
-  <table class="table table-striped table-hover">
+  <table  matSort (matSortChange)="sortData($event)" class="table table-striped table-hover">
     <thead>
       <tr>
         <th *ngIf="!modoAll" style="width: 10px;"></th>
-        <th>Nome</th>
+        <th mat-sort-header="nome">Nome</th>
         <th>Efeito</th>
         <th>Cores</th>
-        <th>Velocidade</th>
-        <th>Intensidade</th>
-        <th>Leds</th>
-        <th>Faixa</th>
+        <th mat-sort-header="velocidade">Velocidade</th>
+        <th mat-sort-header="intensidade">Intensidade</th>
+        <th mat-sort-header="leds">Leds</th>
+        <th mat-sort-header="faixa">Faixa</th>
         <th></th>
       </tr>
     </thead>

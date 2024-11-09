@@ -11,6 +11,7 @@ import { Configuracao } from '../../models/configuracao.model';
 import { Filtro } from '../../models/constantes/filtro';
 import { PageEvent } from '@angular/material/paginator';
 import { Page } from '../../models/Page';
+import { Sort } from '@angular/material/sort';
 
 
 
@@ -24,6 +25,7 @@ export class DispositivoService {
   public configuracaoEdit!: Configuracao;
   public ajutarPadding = new EventEmitter;
   public mapaEdit = new EventEmitter;
+  public pesquisa = new EventEmitter;
 
   constructor(
     private readonly http: HttpClient) { }
@@ -44,8 +46,14 @@ export class DispositivoService {
     return this.http.get<Page<Dispositivo>>(`${environment.urlApi}/dispositivo/lista?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
   }
 
-  public listaTodosDispositivosFiltro(filtro: Filtro, page?: PageEvent): Observable<Page<Dispositivo>> {
-    return this.http.get<Page<Dispositivo>>(`${environment.urlApi}/dispositivo/filtro/${filtro}?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
+  public listaTodosDispositivosFiltro(filtro: Filtro, sort?: Sort, page?: PageEvent): Observable<Page<Dispositivo>> {
+    if(!sort){
+      sort = {
+        active: 'nome',
+        direction: 'asc'
+      }
+    }
+    return this.http.get<Page<Dispositivo>>(`${environment.urlApi}/dispositivo/filtro/${filtro}?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
   }
 
   public listaTodosDispositivosFiltroNaoPaginado(filtro: Filtro): Observable<Dispositivo[]> {

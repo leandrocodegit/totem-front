@@ -1,16 +1,17 @@
 <mat-card class="w-100">
   <mat-card-content>
     <div class="box-botoes-direta">
-      <h3>Agendas relacionadas</h3>
+      <h3>Agendas programadas</h3>
       <button mat-raised-button class="me-8 mb-8" color="primary" (click)="editar(undefined)" type="submit">Adicionar agenda</button>
     </div>
+    <app-proximas-agendas></app-proximas-agendas>
     <div class="table-responsive-sm">
-    <table class="table table-striped table-hover">
+    <table matSort (matSortChange)="sortData($event)" class="table table-striped table-hover">
       <thead>
         <tr>
-          <th style="width: 20px;">Ativo</th>
-          <th>Nome</th>
-          <th>Período</th>
+          <th mat-sort-header="ativo" style="width: 20px;">Ativo</th>
+          <th mat-sort-header="nome">Nome</th>
+          <th mat-sort-header="inicio">Período</th>
           <th>Dispositivos</th>
           <th>Status</th>
           <th>Efeito</th>

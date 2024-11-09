@@ -1,0 +1,27 @@
+<div *ngIf="agendas.length" class="" style="margin: 15px -40px;">
+  <p-carousel [value]="agendas" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+    <ng-template let-agenda pTemplate="item">
+      <div class="border-1 surface-border border-round m-2 p-2 bg-white">
+        <div class="flex" style="justify-content: space-between;">
+          <span class="material-symbols-outlined">
+            event
+          </span>
+          <div class="cor-primaria-secundaria" style="display: flex;">
+            <div [style.background]="agenda.configuracao.primaria" style="border-radius: 10px 0 0 10px;"></div>
+            <div
+              [style.background]="agenda.configuracao.efeito == 'COLORIDO' ? agenda.configuracao.primaria : agenda.configuracao.secundaria"
+              style="border-radius: 0 10px 10px 0;"></div>
+          </div>
+        </div>
+        <div class="mb-2 font-medium">
+          {{ agenda.nome}}
+        </div>
+        <div class="flex justify-content-between align-items-center">
+          <div class="mt-0 font-semibold" style="font-size: 14px;">
+            {{ agenda.inicio | date: 'dd/MM' }}
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>

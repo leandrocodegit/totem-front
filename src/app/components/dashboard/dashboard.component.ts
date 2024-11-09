@@ -3,15 +3,19 @@ import { MatCardModule } from '@angular/material/card';
 import { ChartModule } from 'primeng/chart';
 import { IconsModule } from '../../IconsModule';
 import { TimelineModule } from 'primeng/timeline';
-import { CardModule } from 'primeng/card';
 import { NgFor, NgIf } from '@angular/common';
 import { DashboardService } from './services/dashboard.service';
 import { Dashboard } from '../models/dashboard.model';
-import { response } from 'express';
 import { DashboardItem } from '../models/dashboard-item.model';
 import { WebSocketService2 } from '../../broker/websocket2.service';
 import { Comando } from '../models/constantes/comando';
-
+import { TabelaAgendasComponent } from '../agendas/tabela-agendas/tabela-agendas.component';
+import { FieldsetModule } from 'primeng/fieldset';
+import { PrimeNGConfig } from 'primeng/api';
+import { AgendaService } from '../dispositivos/services/agenda.service';
+import { Agenda } from '../models/agenda.model';
+import { PAGE_INIT } from '../models/constantes/PageUtil';
+import { ProximasAgendasComponent } from '../agendas/proximas-agendas/proximas-agendas.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,9 +26,11 @@ import { Comando } from '../models/constantes/comando';
     IconsModule,
     TimelineModule,
     MatCardModule,
-    CardModule,
     NgIf, NgFor,
-    IconsModule
+    IconsModule,
+    TabelaAgendasComponent,
+    FieldsetModule,
+    ProximasAgendasComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -38,10 +44,14 @@ export class DashboardComponent {
   coresBar: any;
   events: EventItem[] = [];
   options: any;
+  protected agenda: Agenda[] = [];
+
 
   constructor(
     private readonly dashboardService: DashboardService,
-    private readonly webSocketService: WebSocketService2) {
+    private readonly webSocketService: WebSocketService2,
+    private readonly agendaService: AgendaService,
+    private primengConfig: PrimeNGConfig) {
 
     webSocketService.dashboardEmit.subscribe(response => {
       if (response) {
@@ -54,6 +64,13 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
+
+    this.agendaService.listaTodosAgendas(undefined,PAGE_INIT).subscribe(response => {
+      this.agenda = response.content;
+      console.log(this.agenda);
+
+    });
+    this.primengConfig.ripple = true;
     this.dashboardService.recuperarDashboard().subscribe(response => {
       this.dashboard = response;
       this.initDashboard();
@@ -227,6 +244,10 @@ export class DashboardComponent {
       console.log(this.agendas);
 
     }
+  }
+
+  quantidadeAgendas(){
+    return this.dashboard.agendas.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
   }
 
   getQuantidadeConexao(conexao: string) {

@@ -73,20 +73,11 @@ export class FormularioConfiguracaoComponent implements OnInit {
           detail: 'Configuração salva'
         });
       }, fail =>{
-        if(fail.error && fail.error.message){
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Falha',
-            detail: fail.error.message
-          });
-        }else{
           this.messageService.add({
             severity: 'error',
             summary: 'Falha',
             detail: 'Erro ao salvar configuração!'
           });
-        }
-
       });
     }
 

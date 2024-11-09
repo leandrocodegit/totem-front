@@ -11,6 +11,7 @@ import { Configuracao } from '../../models/configuracao.model';
 import { Agenda } from '../../models/agenda.model';
 import { Page } from '../../models/Page';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 
 
 
@@ -31,8 +32,19 @@ export class AgendaService {
     return this.http.patch<Agenda>(`${environment.urlApi}/agenda/${removerConflitos}`, agenda, environment.headers)
   }
 
-  public listaTodosAgendas(page?: PageEvent): Observable<Page<Agenda>> {
-    return this.http.get<Page<Agenda>>(`${environment.urlApi}/agenda?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
+  public listaAgendasMesAtual(page?: PageEvent): Observable<Agenda[]> {
+    return this.http.get<Agenda[]>(`${environment.urlApi}/agenda/mes`, environment.headers)
+  }
+
+
+  public listaTodosAgendas(sort?: Sort, page?: PageEvent): Observable<Page<Agenda>> {
+    if(!sort){
+      sort = {
+        active: 'nome',
+        direction: 'asc'
+      }
+    }
+    return this.http.get<Page<Agenda>>(`${environment.urlApi}/agenda?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
   }
 
   public listaTodosAgendasPorDispositivo(mac: string): Observable<Agenda[]> {

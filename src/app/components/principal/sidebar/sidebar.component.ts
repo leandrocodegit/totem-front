@@ -125,7 +125,7 @@ export class SidebarComponent implements OnInit {
     {
       link: "/configuracoes",
       icon: "target",
-      menu: "Configurações",
+      menu: "Cores",
     },
     {
       link: "/mapa",

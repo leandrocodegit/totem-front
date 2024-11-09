@@ -9,25 +9,17 @@
        </div>
         <mat-tab-group mat-stretch-tabs="false" animationDuration="0" (selectedTabChange)="onTabChange($event)">
             <mat-tab label="Ativos">
-                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivos"></app-tabela-dispositivos>
+                <app-tabela-dispositivos></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Inativos">
-                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivosInativos"></app-tabela-dispositivos>
+                <app-tabela-dispositivos></app-tabela-dispositivos>
             </mat-tab>
             <mat-tab label="Offline">
-                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivosOffline"></app-tabela-dispositivos>
+                <app-tabela-dispositivos></app-tabela-dispositivos>
             </mat-tab>
-            <mat-tab label="Não assossiado">
-                <app-tabela-dispositivos [indexTab]="indexTab" [dispositivos]="dispositivosnAssociados"></app-tabela-dispositivos>
+            <mat-tab label="Sem configuração de cor">
+                <app-tabela-dispositivos></app-tabela-dispositivos>
             </mat-tab>
         </mat-tab-group>
-        <mat-paginator #paginator
-        class="demo-paginator"
-        (page)="handlePageEvent($event)"
-        [length]="page?.length"
-        [pageSize]="page?.pageSize"
-        [showFirstLastButtons]="true"
-        [pageSizeOptions]="[15,20,50]"
-        [pageIndex]="page?.pageIndex"></mat-paginator>
     </mat-card-content>
 </mat-card>

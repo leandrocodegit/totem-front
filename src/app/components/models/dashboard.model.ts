@@ -1,3 +1,4 @@
+import { Agenda } from "./agenda.model";
 import { DashboardItem } from "./dashboard-item.model";
 import { Dispositivo } from "./dispositivo.model";
 import { Logconexao } from "./log-conexao.model";
@@ -9,7 +10,7 @@ export interface Dashboard {
   usuariosInativos: number;
   dispositivos: Dispositivo[];
   cores: DashboardItem[];
-  agendas: DashboardItem[];
+  agendas: DashboardItem[]; 
   logs: Log[];
   logsConexao: Logconexao[];
 }

@@ -90,6 +90,31 @@ tr td {
   padding: 10px;
 }
 
+fieldset {
+  border: solid #d1d1d1 thin;       /* Cor da borda */
+  border-radius: 8px;              /* Bordas arredondadas */
+  padding: 20px;                   /* Padding interno */
+  background-color: #ffffff;       /* Cor de fundo */
+  margin: 20px 0;                  /* Margem ao redor do fieldset */
+}
+
+/* Estilizando a legenda */
+legend {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 0 10px;
+  background-color: #ffffff;
+  color: #234194;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px;
+  width: 40%;
+}
+
+.p-carousel-item {
+  flex: 1 30% !important;
+}
+
 @media(max-width: 600px){
   .body-wrapper, .mat-mdc-card-content{
     padding: 10px !important;

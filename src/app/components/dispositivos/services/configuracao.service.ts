@@ -10,6 +10,7 @@ import { Dispositivo } from '../../models/dispositivo.model';
 import { Configuracao } from '../../models/configuracao.model';
 import { PageEvent } from '@angular/material/paginator';
 import { Page } from '../../models/Page';
+import { Sort } from '@angular/material/sort';
 
 
 
@@ -32,8 +33,14 @@ export class ConfiguracaoService {
     return this.http.post<any>(`${environment.urlApi}/configuracao/duplicar`, configuracao, environment.headers)
   }
 
-  public listaTodasConfiguracoes(page?: PageEvent): Observable<Page<Configuracao>> {
-    return this.http.get<Page<Configuracao>>(`${environment.urlApi}/configuracao?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
+  public listaTodasConfiguracoes(sort?: Sort, page?: PageEvent): Observable<Page<Configuracao>> {
+    if(!sort){
+      sort = {
+        active: 'nome',
+        direction: 'asc'
+      }
+    }
+    return this.http.get<Page<Configuracao>>(`${environment.urlApi}/configuracao?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
   }
 
   public removerConfiguracao(id: string): Observable<Configuracao[]> {

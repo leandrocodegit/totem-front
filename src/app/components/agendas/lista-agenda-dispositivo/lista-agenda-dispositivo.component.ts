@@ -16,6 +16,9 @@ import { CustomPaginator } from '../../../util/CustomPaginator';
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { ProximasAgendasComponent } from '../proximas-agendas/proximas-agendas.component';
+import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.component';
 
 @Component({
   selector: 'app-lista-agenda-dispositivo',
@@ -30,7 +33,9 @@ import { ToastModule } from 'primeng/toast';
     FormsModule,
     MatCardModule,
     MatPaginatorModule,
-    ToastModule
+    ToastModule,
+    ProximasAgendasComponent,
+    MatSortModule
   ],
   providers: [
     MessageService,
@@ -54,23 +59,34 @@ export class ListaAgendaDispositivoComponent {
   ) {
   }
   ngOnInit(): void {
-    this.carregarLista(PAGE_INIT);
+    this.carregarLista(PAGE_INIT, undefined);
   }
 
-  handlePageEvent(page: PageEvent) {
-    this.carregarLista(page);
+  sortData(sort: Sort) {
+    this.carregarLista(this.page, sort)
   }
 
-  private carregarLista(page?: PageEvent) {
-    this.agendaService.listaTodosAgendas(page).subscribe(response => {
+  handlePageEvent(page: PageEvent, sort?: Sort) {
+    this.carregarLista(page, sort);
+  }
+
+  private carregarLista(page?: PageEvent, sort?: Sort) {
+    this.agendaService.listaTodosAgendas(sort, page).subscribe(response => {
       this.agendas = response.content;
-      this.page = {
-        pageIndex: response.pageable.pageNumber,
-        length: response.totalElements,
-        previousPageIndex: 0,
-        pageSize: response.size
-      }
+      this.initPage(response);
     });
+  }
+
+  private initPage(response: any) {
+
+    this.page = {
+      pageIndex: response.page.number,
+      length: response.page.totalElements,
+      previousPageIndex: 0,
+      pageSize: response.page.size
+    }
+    console.log(this.page);
+
   }
 
   getTradutor(efeito?: Efeito) {
@@ -80,29 +96,34 @@ export class ListaAgendaDispositivoComponent {
   }
 
   remover(agenda: Agenda) {
-    this.agendaService.removerAgenda(agenda.id).subscribe(() => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Remoção',
-        detail: 'Agenda foi deletada'
-      });
-      this.carregarLista();
-    }, fail =>{
-      if(fail.error && fail.error.message){
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: fail.error.message
-        });
-      }else{
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: 'Erro ao remover agenda!'
-        });
-      }
 
+    let retorno = this.dialog.open(ConfirmacaoComponent);
+    retorno.afterClosed().subscribe(data => {
+      if (data)
+        this.agendaService.removerAgenda(agenda.id).subscribe(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Remoção',
+            detail: 'Agenda foi deletada'
+          });
+          this.carregarLista();
+        }, fail => {
+          if (fail.error && fail.error.message) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Falha',
+              detail: fail.error.message
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Falha',
+              detail: 'Erro ao remover agenda!'
+            });
+          }
+        });
     });
+
   }
 
   editar(agenda?: Agenda) {
@@ -111,12 +132,12 @@ export class ListaAgendaDispositivoComponent {
     })
 
     retorno.afterClosed().subscribe(data => {
-      if(data)
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Agenda',
-        detail: 'Agenda foi salva'
-      });
+      if (data)
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Agenda',
+          detail: 'Agenda foi salva'
+        });
       this.carregarLista(this.page);
     })
   }

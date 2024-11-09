@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { DetalhesDispositivoComponent } from '../detalhes-dispositivo/detalhes-dispositivo.component';
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
 import { TesteDispositivoComponent } from '../teste-dispositivo/teste-dispositivo.component';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 var initDialog = true;
 
@@ -28,7 +30,9 @@ var initDialog = true;
     MatDialogModule,
     CheckboxModule,
     FormsModule,
-    NgIf
+    NgIf,
+    MatPaginatorModule,
+    MatSortModule
   ],
   templateUrl: './tabela-dispositivos.component.html',
   styleUrl: './tabela-dispositivos.component.scss'
@@ -41,17 +45,37 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   @Input() checkEmit: boolean = false;
   @Input() indexTab = 0;
   @Output() selecionarEmit = new EventEmitter;
+  @Output() sortDataEmit = new EventEmitter;
 
+  protected page?: PageEvent;
+  private ordenar: any;
 
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly dialog: MatDialog,
     private readonly activeRoute: ActivatedRoute,
     private readonly route: Router
-  ) { }
+  ) {
+
+    dispositivoService.pesquisa.subscribe(data => {
+      if (data && (data.tab || data.tab == 0)) {
+        this.indexTab = data.tab;
+      }
+
+      if (data && data.value) {
+        console.log("2");
+        this.pesquisar(data.value);
+      }
+      else {
+        console.log("3");
+
+        this.carregarLista(PAGE_INIT);
+      }
+    })
+  }
 
   ngOnInit(): void {
-
+    this.carregarLista(PAGE_INIT)
   }
 
   ngAfterViewInit(): void {
@@ -70,6 +94,18 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
       });
 
     }
+  }
+
+  pesquisar(value: string) {
+    this.dispositivoService.pesquisarDispositivo(value, PAGE_INIT).subscribe(response => {
+      this.dispositivos = response.content;
+      this.initPage(response);
+    });
+  }
+
+  sortData(sort: Sort) {
+    this.ordenar = sort;
+    this.carregarLista(this.page)
   }
 
   ngOnDestroy(): void {
@@ -126,23 +162,45 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     this.selecionarEmit.emit(dispositivo);
   }
 
-  carregarLista() {
+  carregarLista(page?: PageEvent) {
+    console.log("carregar", this.indexTab);
+
     if (this.indexTab == 0) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, PAGE_INIT).subscribe(response => {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;
+        this.initPage(response);
       });
     } else if (this.indexTab == 1) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.INATIVO, PAGE_INIT).subscribe(response => {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.INATIVO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;
+        this.initPage(response);
       });
     } else if (this.indexTab == 2) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.OFFLINE, PAGE_INIT).subscribe(response => {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.OFFLINE, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;
+        this.initPage(response);
       });
     } else if (this.indexTab == 3) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.NAO_CONFIGURADO, PAGE_INIT).subscribe(response => {
+      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.NAO_CONFIGURADO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;
+        this.initPage(response);
       });
     }
   }
+
+  private initPage(response: any) {
+    this.page = {
+      pageIndex: response.page.number,
+      length: response.page.totalElements,
+      previousPageIndex: 0,
+      pageSize: response.page.size
+    }
+  }
+
+  handlePageEvent(page: PageEvent) {
+    this.page = page;
+    this.carregarLista();
+  }
+
+
 }

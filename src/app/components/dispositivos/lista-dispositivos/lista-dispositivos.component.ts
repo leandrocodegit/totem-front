@@ -21,8 +21,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 import { ActivatedRoute } from '@angular/router';
 
-let tab = 0;
-
 @Component({
   selector: 'app-lista-dispositivos',
   standalone: true,
@@ -53,8 +51,6 @@ export class ListaDispositivosComponent {
   protected dispositivosOffline: Dispositivo[] = [];
   protected dispositivosInativos: Dispositivo[] = [];
   protected dispositivosnAssociados: Dispositivo[] = [];
-  protected page?: PageEvent;
-  protected indexTab = 0;
   protected nomeFind = new Subject<any>();
   protected edicao = false;
 
@@ -67,21 +63,16 @@ export class ListaDispositivosComponent {
       debounceTime(500),
       distinctUntilChanged())
       .subscribe(value => {
-        console.log(value);
         if (value != undefined && value.length > 2){
-          this.dispositivoService.pesquisarDispositivo(value, PAGE_INIT).subscribe(response => {
-            this.dispositivos = response.content;
-            this.initPage(response);
-          });
-        }else{
-          this.carregarLista(PAGE_INIT);
+          dispositivoService.pesquisa.emit({
+            value: value
+          })
+        }else if(!value){
+          console.log("Pesquisa todos");
+
+          dispositivoService.pesquisa.emit(false)
         }
       });
-  }
-
-  ngOnInit() {
-    this.carregarLista(PAGE_INIT);
-    console.log(tab, this.indexTab);
   }
 
   mapa(){
@@ -91,58 +82,18 @@ export class ListaDispositivosComponent {
   }
 
   onTabChange(event: MatTabChangeEvent) {
-    this.indexTab = event.index;
-    this.carregarLista(this.page);
-    tab = this.indexTab;
+    console.log(event);
+
+    this.dispositivoService.pesquisa.emit({
+      tab: event.index
+    });
   }
 
-  carregarLista(page?: PageEvent){
-    if (this.indexTab == 0) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, page).subscribe(response => {
-        this.dispositivos = response.content;
-        this.initPage(response);
-      });
-    } else if (this.indexTab == 1) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.INATIVO,page).subscribe(response => {
-        this.dispositivosInativos = response.content;
-        this.initPage(response);
-      });
-    } else if (this.indexTab == 2) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.OFFLINE, page).subscribe(response => {
-        this.dispositivosOffline = response.content;
-        this.initPage(response);
-      });
-    } else if (this.indexTab == 3) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.NAO_CONFIGURADO, page).subscribe(response => {
-        this.dispositivosnAssociados = response.content;
-        this.initPage(response);
-      });
-    }
-  }
-
-  private initPage(response: Page<Dispositivo>){
-    console.log("Init");
-
-    this.page = {
-      pageIndex: response.pageable.pageNumber,
-      length: response.totalElements,
-      previousPageIndex: 0,
-      pageSize: response.size
-    }
-  }
 
   sincronizar() {
     this.dispositivoService.sincronizar(this.dispositivos.map(device => device.mac), false).subscribe(() => {
-
     }, fail => {
       console.log('Falha ao sincronizar');
-
     })
   }
-
-  handlePageEvent(page: PageEvent) {
-    this.carregarLista(page);
-  }
-
-
 }
