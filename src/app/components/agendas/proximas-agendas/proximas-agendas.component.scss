@@ -1,0 +1,9 @@
+.box-proximas-agendas {
+  margin: 15px -40px;
+}
+
+@media(max-width: 600px) {
+  .box-proximas-agendas {
+    margin: auto;
+  }
+}
