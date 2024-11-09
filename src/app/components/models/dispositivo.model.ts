@@ -1,5 +1,6 @@
 import { Configuracao } from "./configuracao.model";
 import { Comando } from "./constantes/comando";
+import { Endereco } from "./endereco.model";
 
 
 export interface Dispositivo {
@@ -16,5 +17,7 @@ export interface Dispositivo {
   longitude: number;
   configuracao: Configuracao
   configuracoes: Configuracao[]
-  comando: Comando
+  comando: Comando,
+  endereco: Endereco,
+  enderecoCompleto: string;
 }

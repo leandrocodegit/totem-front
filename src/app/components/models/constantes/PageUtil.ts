@@ -6,3 +6,5 @@ export var PAGE_INIT: PageEvent = {
   previousPageIndex: 0,
   pageSize: 15
 }
+
+

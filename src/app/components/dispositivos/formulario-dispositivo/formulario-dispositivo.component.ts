@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { IconsModule } from '../../../IconsModule';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 import { CheckboxModule } from 'primeng/checkbox';
+import { EnderecoComponent } from '../endereco/endereco.component';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -26,7 +27,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     ToastModule,
     IconsModule,
     MatDialogModule,
-    CheckboxModule
+    CheckboxModule,
+    EnderecoComponent
   ],
   providers: [
     MessageService

@@ -24,7 +24,7 @@ export class WebSocketService2 {
     this.client = new Client({
       brokerURL: this.getUrlBroker(),
       onConnect: () => {
-        if (route.url.includes('dashboard') || route.url.includes('mapa')) {
+        if (route.url.includes('dashboard') || route.url.includes('mapa') || route.url.includes('/dispositivos/configuracoes')) {
           this.client.subscribe('/topic/dashboard', message =>
             this.dashboardEmit.emit(message.body)
           );

@@ -1,0 +1,34 @@
+<div class="box-endereco" *ngIf="form" [formGroup]="form">
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Cep</mat-label>
+    <input [(ngModel)]="dispositivo.endereco.cep" (input)="consultaCep($event)"matInput formControlName="cep" placeholder="Cep">
+  </mat-form-field>
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Rua/avenida</mat-label>
+    <input [(ngModel)]="dispositivo.endereco.street" matInput formControlName="street">
+  </mat-form-field>
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Número</mat-label>
+    <input [(ngModel)]="dispositivo.endereco.numero" matInput formControlName="numero">
+  </mat-form-field>
+  <mat-form-field class="w-100 fs-16" appearance="outline">
+    <mat-label>Bairro</mat-label>
+    <input [(ngModel)]="dispositivo.endereco.neighborhood" matInput formControlName="neighborhood">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Estado</mat-label>
+    <mat-select [(ngModel)]="dispositivo.endereco.state" formControlName="state">
+      @for (item of estados; track $index) {
+      <mat-option [value]="item.sigla">{{item.sigla}} - {{item.nome}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Cidade</mat-label>
+    <mat-select [(ngModel)]="dispositivo.endereco.city" formControlName="city">
+      @for (cidade of cidades; track $index) {
+      <mat-option [value]="cidade">{{cidade}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

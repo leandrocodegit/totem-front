@@ -60,7 +60,7 @@ export class ListaDispositivosComponent {
     private readonly dialog: MatDialog
   ) {
     this.nomeFind.pipe(
-      debounceTime(500),
+      debounceTime(700),
       distinctUntilChanged())
       .subscribe(value => {
         if (value != undefined && value.length > 2){

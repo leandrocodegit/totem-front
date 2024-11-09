@@ -97,6 +97,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   pesquisar(value: string) {
+    console.log("Pesquisa", value);
     this.dispositivoService.pesquisarDispositivo(value, PAGE_INIT).subscribe(response => {
       this.dispositivos = response.content;
       this.initPage(response);
@@ -163,8 +164,6 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   carregarLista(page?: PageEvent) {
-    console.log("carregar", this.indexTab);
-
     if (this.indexTab == 0) {
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;

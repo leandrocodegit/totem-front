@@ -124,20 +124,23 @@ export class ParamentrosCoresComponent {
   }
 
   fechar() {
-    console.log(this.enviarConfiguracao);
-
     if (this.enviarConfiguracao) {
       this.dispositivoService.sincronizar([this.dispositivo.mac], false).subscribe(() => {
+        console.log("sincronizado");
+        this.router.navigate(['/dispositivos']);
       }, fail => {
         console.log('Falha ao enviar dados');
       });
+    }else{
+      this.router.navigate(['/dispositivos']);
     }
-    this.router.navigate(['/dispositivos']);
+
   }
 
   salvar() {
     this.initCores();
     this.configuracaoService.salvarConfiguracao(this.configuracao, false).subscribe(() => {
+      console.log("sincronizado");
     }, fail => {
       console.log('Falha ao salvar');
     });
