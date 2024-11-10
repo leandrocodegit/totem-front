@@ -108,16 +108,38 @@ i-feather {
 
 .titulo-chart {
   text-align: center;
-  border-radius: 10px;
-  color: #5ea7bd;
+  color: #428ca3;
   border: solid #92d2de thin;
-  background: #caeaff;
-  font-size: 14px;
-  padding: 4px;
-  height: 70px;
+  background: #ffffff;
+  font-size: 11px;
+  width: 100%;
+  height: 45px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  border-left: solid rgb(15, 191, 204) 3px;
+  border-radius: 3px;
+}
+
+.titulo-chart p{
+  margin: 0;
+  margin-left: 5px;
+}
+
+.titulo-chart b{
+  font-size: 16px;
+  color: #ffa85b;
+}
+
+.item-char {
+  width: 20%;
+  max-width: 150px;
+  flex-grow: 1;
+  box-sizing: border-box;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -135,7 +157,7 @@ i-feather {
     width: 0;
   }
 
-  .titulo-chart{
+  .titulo-chart {
     font-size: 12px;
     padding: 4px;
     height: 70px;

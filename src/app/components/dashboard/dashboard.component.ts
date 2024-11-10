@@ -41,6 +41,7 @@ export class DashboardComponent {
   conexoes: any;
   cores: any;
   agendas: any;
+  agendasExecucao: any;
   coresBar: any;
   events: EventItem[] = [];
   options: any;
@@ -151,6 +152,16 @@ export class DashboardComponent {
       ]
     };
 
+    this.agendasExecucao = {
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: []
+        }
+      ]
+    };
+
     this.cores = {
       labels: [],
       datasets: [
@@ -244,10 +255,29 @@ export class DashboardComponent {
       console.log(this.agendas);
 
     }
+
+    if (this.dashboard.agendasExecucao.length) {
+      console.log('tem');
+
+      this.dashboard.agendasExecucao.forEach(agenda => {
+        this.agendasExecucao.datasets[0].data.push(agenda.quantidade);
+        this.agendasExecucao.datasets[0].backgroundColor.push(agenda.item);
+      })
+    } else {
+      this.agendasExecucao.datasets[0].data.push(1);
+      this.agendasExecucao.datasets[0].backgroundColor.push('#f0f0f0');
+
+    }
   }
+
+
 
   quantidadeAgendas(){
     return this.dashboard.agendas.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
+  }
+
+  quantidadeAgendasExecucao(){
+    return this.dashboard.agendasExecucao.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
   }
 
   getQuantidadeConexao(conexao: string) {

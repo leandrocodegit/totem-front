@@ -39,36 +39,37 @@
 
       <div style="display: flex;flex-direction: column;">
         <app-proximas-agendas></app-proximas-agendas>
-        <div class="cores" style="width: 100%;padding: 40px;margin: 5px 0;">
+        <div class="cores" style="width: 100%;padding: 30px;margin: 5px 0;">
           <div class="box-painel-item"
             style="height: 100%;width: 100%;display: flex;box-sizing: border-box;padding: 0 0 50px 0;;margin: auto;justify-content: space-between;">
-            <div
-              style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;">
-              <p class="titulo-chart">
-                <i-feather name="rss" class="feather-base"
-                  [style]="{'color': '#5ea7bd'}"></i-feather>
-                Conexões ({{getQuantidadeConexao('Online') + '/' + getQuantidadeConexao('Offline')}})
-              </p>
+            <div class="item-char">
+              <div class="titulo-chart">
+                <div style="display: flex;">
+                  <b> {{getQuantidadeConexao('Online') + '/' + getQuantidadeConexao('Offline')}}</b>
+                </div>
+                <p>Conexões</p>
+              </div>
               <p-chart responsive="false" type="doughnut" width="100%" [data]="conexoes" />
             </div>
-            <div class="box-adicional"></div>
-            <div
-              style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;flex-grow: 1;">
-              <p class="titulo-chart">
-                <i-feather name="calendar" class="feather-base"
-                  [style]="{'color': '#5ea7bd'}"></i-feather>
-                Agendas ({{quantidadeAgendas()}})
-              </p>
+            <div class="item-char">
+              <div class="titulo-chart">
+                <b>{{quantidadeAgendas()}}</b>
+                <p>Todas agendas</p>
+              </div>
               <p-chart responsive="false" type="doughnut" width="100%" [data]="agendas" />
             </div>
-            <div class="box-adicional"></div>
-            <div
-              style="width: 35%;flex-grow: 1;box-sizing: border-box;margin: 5px;display: flex;flex-direction: column;flex-grow: 1;">
-              <p class="titulo-chart">
-                <i-feather name="cpu" class="feather-base"
-                  [style]="{'color': '#5ea7bd'}"></i-feather>
-                Dispositivos ({{dashboard.dispositivos.length}})
-              </p>
+            <div class="item-char">
+              <div class="titulo-chart">
+                <b> {{quantidadeAgendasExecucao()}}</b>
+                <p>Agendas execução</p>
+              </div>
+              <p-chart responsive="false" type="doughnut" width="100%" [data]="agendasExecucao" />
+            </div>
+            <div class="item-char">
+              <div class="titulo-chart">
+                <b> {{dashboard.dispositivos.length}}</b>
+                <p>Cores dispositivos</p>
+              </div>
               <p-chart responsive="false" type="doughnut" width="100%" [data]="cores" />
             </div>
           </div>

@@ -10,7 +10,8 @@ export interface Dashboard {
   usuariosInativos: number;
   dispositivos: Dispositivo[];
   cores: DashboardItem[];
-  agendas: DashboardItem[]; 
+  agendas: DashboardItem[];
+  agendasExecucao: DashboardItem[];
   logs: Log[];
   logsConexao: Logconexao[];
 }
