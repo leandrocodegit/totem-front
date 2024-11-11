@@ -277,6 +277,8 @@ export class DashboardComponent {
   }
 
   quantidadeAgendasExecucao(){
+    if(!this.dashboard.agendasExecucao || !this.dashboard.agendasExecucao.length)
+      return 0;
     return this.dashboard.agendasExecucao.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
   }
 
