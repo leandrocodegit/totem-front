@@ -24,7 +24,7 @@ export class WebSocketService2 {
     this.client = new Client({
       brokerURL: this.getUrlBroker(),
       onConnect: () => {
-        if (route.url.includes('dashboard') || route.url.includes('mapa') || route.url.includes('/dispositivos/configuracoes')) {
+        if (!route.url.includes('login')) {
           this.client.subscribe('/topic/dashboard', message =>
             this.dashboardEmit.emit(message.body)
           );
@@ -43,7 +43,7 @@ export class WebSocketService2 {
       },
       onDisconnect: () => {
         console.log('Desconectou');
-        if (route.url.includes('dashboard') || route.url.includes('mapa')) {
+        if (!route.url.includes('login')) {
           authService.refreshToken().subscribe(response => {
             authService.setTokens(response);
             this.client.brokerURL = this.getUrlBroker();
@@ -54,7 +54,7 @@ export class WebSocketService2 {
         }
       },
       onWebSocketError: () => {
-        if (route.url.includes('dashboard') || route.url.includes('mapa')) {
+        if (!route.url.includes('login')) {
           authService.refreshToken().subscribe(response => {
             authService.setTokens(response);
             this.client.brokerURL = this.getUrlBroker();
@@ -66,7 +66,6 @@ export class WebSocketService2 {
         }
         else {
           console.log("deactivate");
-
           this.client.deactivate();
         }
       },
