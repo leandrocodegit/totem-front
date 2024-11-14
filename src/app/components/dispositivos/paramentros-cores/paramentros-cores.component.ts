@@ -132,13 +132,25 @@ export class ParamentrosCoresComponent {
 
   fechar() {
     if (this.enviarConfiguracao) {
-      this.dispositivoService.sincronizar([this.dispositivo.mac], false).subscribe(() => {
-        console.log("sincronizado");
-      }, fail => {
-        console.log('Falha ao enviar dados');
-      });
+      this.sincronizar();
     }
     this.router.navigate(['/dispositivos']);
+  }
+
+  private sincronizar(){
+    this.dispositivoService.sincronizar([this.dispositivo.mac], false).subscribe(() => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Sincronizado',
+        detail: 'Comando sincronização enviado'
+      });
+    }, fail => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha',
+        detail: 'Erro ao enviar comando sincronização'
+      });
+    } )
   }
 
   salvar() {
@@ -149,6 +161,7 @@ export class ParamentrosCoresComponent {
         summary: 'Alteração',
         detail: 'Configuração salva com sucesso'
       });
+      this.sincronizar();
     }, fail => {
       this.messageService.add({
         severity: 'error',
