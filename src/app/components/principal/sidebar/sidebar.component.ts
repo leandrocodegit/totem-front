@@ -14,6 +14,8 @@ import { AuthService } from '../../auth/services/auth.service';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { CardMapaComponent } from '../card-mapa/card-mapa.component';
 import { CardItensComponent } from '../card-itens/card-itens.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 interface sidebarMenu {
   link: string;
@@ -34,7 +36,11 @@ interface sidebarMenu {
     MatRippleModule,
     MatButtonModule,
     CardMapaComponent,
-    CardItensComponent
+    CardItensComponent,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
@@ -56,6 +62,7 @@ export class SidebarComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private readonly dispositivoService: DispositivoService,
     private authService: AuthService,
+    private readonly messageService: MessageService,
     private router: Router
   ) {
     dispositivoService.ajutarPadding.subscribe(data => {
@@ -87,10 +94,23 @@ export class SidebarComponent implements OnInit {
   }
 
   sincronizar(){
+   this.enviarSincronizar();
+  }
+
+  private enviarSincronizar(){
     this.dispositivoService.sincronizarTudo().subscribe(() => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Sincronizado',
+        detail: 'Comando sincronização enviado'
+      });
     }, fail => {
-      console.log('Falaha ao sincronizar');
-    });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha',
+        detail: 'Erro ao enviar comando sincronização'
+      });
+    } )
   }
 
   routerActive: string = "activelink";
