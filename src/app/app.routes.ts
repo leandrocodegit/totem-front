@@ -11,12 +11,12 @@ import { ListaAgendaDispositivoComponent } from './components/agendas/lista-agen
 import { CardConfiguracoesComponent } from './components/configuracoes/lista-configuracoes/card-configuracoes/card-configuracoes.component';
 import { ContentMapaComponent } from './components/mapa/content-mapa/content-mapa.component';
 import { DetalhesDispositivoComponent } from './components/dispositivos/detalhes-dispositivo/detalhes-dispositivo.component';
+import { UploadComponent } from './components/principal/upload/upload.component';
 
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
-    //   path: '', component: SidebarComponent, canActivate: [AuthGuard], data: { roles: [Role.admin, Role.user] },
     path: '', component: SidebarComponent,
     children: [
       {

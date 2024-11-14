@@ -15,6 +15,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -31,6 +33,10 @@ import { MatInputModule } from '@angular/material/input';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './paramentros-cores.component.html',
   styleUrl: './paramentros-cores.component.scss'
@@ -47,6 +53,7 @@ export class ParamentrosCoresComponent {
     private websocketService: WebSocketService2,
     private readonly dispositivoService: DispositivoService,
     private readonly configuracaoService: ConfiguracaoService,
+    private readonly messageService: MessageService,
     private readonly router: Router
   ) {}
 
@@ -126,7 +133,7 @@ export class ParamentrosCoresComponent {
   fechar() {
     if (this.enviarConfiguracao) {
       this.dispositivoService.sincronizar([this.dispositivo.mac], false).subscribe(() => {
-        console.log("sincronizado"); 
+        console.log("sincronizado");
       }, fail => {
         console.log('Falha ao enviar dados');
       });
@@ -137,18 +144,35 @@ export class ParamentrosCoresComponent {
   salvar() {
     this.initCores();
     this.configuracaoService.salvarConfiguracao(this.configuracao, false).subscribe(() => {
-      console.log("sincronizado");
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Alteração',
+        detail: 'Configuração salva com sucesso'
+      });
     }, fail => {
-      console.log('Falha ao salvar');
-    });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha',
+        detail: 'Erro ao salvar configuração'
+      });
+    } )
   }
 
   duplicar() {
     this.initCores();
     this.configuracao.mac = this.dispositivo.mac;
     this.configuracaoService.duplicarConfiguracao(this.configuracao).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Duplicação',
+        detail: 'Configuração duplicada com sucesso'
+      });
     }, fail => {
-      console.log('Falha ao salvar');
-    });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha',
+        detail: 'Erro ao copiar configuração'
+      });
+    } )
   }
 }
