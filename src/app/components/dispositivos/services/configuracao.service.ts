@@ -43,7 +43,13 @@ export class ConfiguracaoService {
     return this.http.get<Page<Configuracao>>(`${environment.urlApi}/configuracao?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
   }
 
+  public listaTodasConfiguracoesRapidas(): Observable<Configuracao[]> {
+    return this.http.get<Configuracao[]>(`${environment.urlApi}/configuracao/rapidas`, environment.headers)
+  }
+
   public removerConfiguracao(id: string): Observable<Configuracao[]> {
     return this.http.delete<Configuracao[]>(`${environment.urlApi}/configuracao/${id}`, environment.headers)
   }
+
+
 }

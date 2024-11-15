@@ -19,7 +19,10 @@
           <td>{{agenda.nome}}</td>
           <td>{{isSameDayAndMonth(agenda) ? (agenda.inicio | date: 'dd/MM') : ((agenda.inicio | date: 'dd/MM') + ' à ' + (agenda.termino | date: 'dd/MM'))}}</td>
           <td *ngIf="!resumo">{{agenda.todos ? 'Todos' : agenda.dispositivos.length}}</td>
-          <td>{{agenda.status}}</td>
+          <td [style.color]="agenda.status && agenda.status == 'Expirada' ? 'red' : 'red'">
+            <span class="badge badge-info rounded-pill">Ativo</span>
+            {{agenda.status}}
+          </td>
           <td>{{getTradutor(agenda.configuracao?.efeito)}}</td>
           <td>
             <div class="cor-primaria-secundaria" style="display: flex;">

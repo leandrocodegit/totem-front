@@ -12,6 +12,7 @@ import { CardConfiguracoesComponent } from './components/configuracoes/lista-con
 import { ContentMapaComponent } from './components/mapa/content-mapa/content-mapa.component';
 import { DetalhesDispositivoComponent } from './components/dispositivos/detalhes-dispositivo/detalhes-dispositivo.component';
 import { UploadComponent } from './components/principal/upload/upload.component';
+import { PerfilUsuarioComponent } from './components/usuarios/views/perfil-usuario/perfil-usuario.component';
 
 
 export const routes: Routes = [
@@ -31,7 +32,7 @@ export const routes: Routes = [
         path: "users", component: UsuariosComponent,
         children: [
           { path: '', redirectTo: 'lista', pathMatch: 'full' },
-          { path: "lista", component: ListaUsuariosComponent },
+          { path: 'lista', component: ListaUsuariosComponent }
         ]
       },
       {
@@ -46,8 +47,8 @@ export const routes: Routes = [
       { path: "agendas", component: ListaAgendaDispositivoComponent },
       { path: "configuracoes", component: CardConfiguracoesComponent },
       { path: "mapa", component: ContentMapaComponent },
-      { path: "detalhes", component: DetalhesDispositivoComponent }
-
+      { path: "detalhes", component: DetalhesDispositivoComponent },
+      { path: 'perfil', component: PerfilUsuarioComponent}
 
     ],
   },

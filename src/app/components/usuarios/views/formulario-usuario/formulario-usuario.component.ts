@@ -10,7 +10,13 @@ import { UserService } from '../../services/user.service';
 import { MatSelectModule } from '@angular/material/select';
 import { Role } from '../../../../model/constantes/role.enum';
 import { User } from '../../../models/user.model';
-
+import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { NgIf } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
+import { UserRequest } from 'src/app/components/models/user-request.model';
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -22,9 +28,13 @@ import { User } from '../../../models/user.model';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    NgIf,
+    ToastModule,
+    MessagesModule
   ],
   providers: [
+    MessageService
   ],
   templateUrl: './formulario-usuario.component.html',
   styleUrl: './formulario-usuario.component.scss'
@@ -32,18 +42,24 @@ import { User } from '../../../models/user.model';
 export class FormularioUsuarioComponent {
 
   protected checked = true;
-  protected user!: User;
-  protected role: Role = Role.ADMIN;
+  protected user!: UserRequest;
+  protected role: Role = Role.ROLE_USER;
+  messages: Message[] | undefined;
 
   constructor(
     private readonly _router: Router,
     private userService: UserService,
+    private readonly authService: AuthService,
+    private readonly messageService: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private readonly dialogRef: MatDialogRef<FormularioUsuarioComponent>) {
-    if (data)
+    if (data) {
       this.user = data;
+      this.user.password = '****************';
+      this.user.confirmPassword = '****************';
+    }
     else {
-      this.user = new User
+      this.user = new UserRequest
     }
   }
 
@@ -54,9 +70,49 @@ export class FormularioUsuarioComponent {
   }
 
   salvar() {
-    this.user.roles = [this.role]
-    this.userService.criarUsuario(this.user).subscribe();
-    this.dialogRef.close();
+    if (this.user && this.user.id && this.user.id != '') {
+      this.userService.AtualizarUsuario(this.user).subscribe(() => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Atualizado',
+          detail: 'Usuário foi atualizado com sucesso'
+        });
+      }, fail => {
+        if (fail.error && fail.error.message) {
+          this.messages = JSON.parse(fail.error.message);
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao atualizar usuário'
+          });
+        }
+      });
+    } else {
+      this.userService.criarUsuario(this.user).subscribe(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Atualizado',
+          detail: 'Usuário foi criado com sucesso'
+        });
+      }, fail => {
+        if (fail.error && fail.error.message) {
+          this.messages = JSON.parse(fail.error.message);
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao criar usuário'
+          });
+        }
+      });
+    }
+
+
+  }
+
+  isAutorizado() {
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN]);
   }
 
 }

@@ -1,0 +1,36 @@
+.box-rapidas {
+  min-width: 600px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 25px;
+}
+
+.box-rapidas-item {
+  margin: 4px;
+  border: solid #cbcbcb thin;
+  border-radius: 5px;
+  background: #182c3f;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.box-rapidas-item:hover {
+  background: #2a009c;
+}
+
+p,
+h2 {
+  margin: auto;
+  text-align: center;
+}
+
+.botoes {
+  padding: 10px;
+  margin: auto;
+}

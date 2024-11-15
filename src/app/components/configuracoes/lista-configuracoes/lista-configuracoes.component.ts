@@ -20,6 +20,8 @@ import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/materi
 import { CustomPaginator } from '../../../util/CustomPaginator';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -38,7 +40,9 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     MatButtonModule,
     ToastModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    CheckboxModule,
+    FormsModule
   ],
   providers: [
     MessageService,

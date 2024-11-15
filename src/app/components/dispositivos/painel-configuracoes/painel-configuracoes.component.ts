@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DispositivoService } from '../services/dispositivo.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
-import { ParamentrosCoresComponent } from '../paramentros-cores/paramentros-cores.component';
+import { ParamentrosCoresComponent } from '../../configuracoes/paramentros-cores/paramentros-cores.component';
 import { MatCardModule } from '@angular/material/card';
 import { TabConfiguracoesComponent } from '../tab-configuracoes/tab-configuracoes.component';
 import { ListaAgendaDispositivoComponent } from '../../agendas/lista-agenda-dispositivo/lista-agenda-dispositivo.component';

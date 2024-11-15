@@ -38,7 +38,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser(this.authService.extrairEmailUsuario()).subscribe((response: any) => {
-      this.user = response.data;
+      this.user = response;
      })
   }
 
@@ -49,6 +49,8 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   descricaoRole(role: Role){
+    console.log(role);
+
     return RoleDescriptions[role]
   }
 }

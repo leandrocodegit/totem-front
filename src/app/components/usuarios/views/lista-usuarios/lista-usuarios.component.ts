@@ -77,7 +77,7 @@ export class ListaUsuariosComponent {
   }
 
   isAutorizado(){
-    this.authService.isAuthorizedRoles([Role.ADMIN])
+    this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
   }
 
   handlePageEvent(page: PageEvent) {
@@ -91,12 +91,12 @@ export class ListaUsuariosComponent {
     });
   }
 
-  private initPage(response: Page<User>) {
+  private initPage(response: any) {
     this.page = {
-      pageIndex: response.pageable.pageNumber,
-      length: response.totalElements,
+      pageIndex: response.page.number,
+      length: response.page.totalElements,
       previousPageIndex: 0,
-      pageSize: response.size
+      pageSize: response.page.size
     }
   }
 

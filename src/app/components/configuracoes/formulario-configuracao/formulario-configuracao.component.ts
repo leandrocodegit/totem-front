@@ -10,7 +10,7 @@ import { TabelaDispositivosComponent } from '../../dispositivos/tabela-dispositi
 import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
 import { MatCardModule } from '@angular/material/card';
 import { Configuracao } from '../../models/configuracao.model';
-import { ParamentrosCoresComponent } from '../../dispositivos/paramentros-cores/paramentros-cores.component';
+import { ParamentrosCoresComponent } from '../paramentros-cores/paramentros-cores.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 

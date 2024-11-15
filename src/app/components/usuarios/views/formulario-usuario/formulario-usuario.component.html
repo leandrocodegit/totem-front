@@ -12,16 +12,24 @@
     <mat-form-field appearance="outline">
       <mat-label>Perfil</mat-label>
       <mat-select required [(ngModel)]="role">
-        <mat-option value="ADMIN">Administrador</mat-option>
-        <mat-option value="USER">Usuário regular</mat-option>
+        <mat-option value="ROLE_ADMIN">Administrador</mat-option>
+        <mat-option value="ROLE_USER">Usuário regular</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="user.id == ''" class="w-100 fs-16" appearance="outline">
+    <mat-form-field *ngIf="isAutorizado" class="w-100 fs-16" appearance="outline">
       <mat-label>Senha</mat-label>
       <input [(ngModel)]="user.password" required matInput type="password" placeholder="Senha">
     </mat-form-field>
+    <mat-form-field *ngIf="isAutorizado" class="w-100 fs-16" appearance="outline">
+      <mat-label>Confirmar senha</mat-label>
+      <input [(ngModel)]="user.confirmPassword" required matInput type="password" placeholder="Senha">
+    </mat-form-field>
+    <p-messages [(value)]="messages" [enableService]="false" />
+    <br>
     <div class="botoes">
       <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">fechar</button>
       <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">{{user.id == '' ? 'Cadastrar' : 'Atualizar'}}</button>
     </div>
 </div>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

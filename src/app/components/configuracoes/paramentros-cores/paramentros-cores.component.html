@@ -1,8 +1,9 @@
 <div *ngIf="configuracao" class="painel-configuracao">
 
   <div class="box-configuracao" style="width: 97%;">
-    <div *ngIf="exibeSincronizar" style="margin: 00px 0;">
-      <mat-checkbox [(ngModel)]="enviarConfiguracao" color="primary" class="d-block mb-16">Habilitar tem real</mat-checkbox>
+    <div style="margin: 20px 0; display: flex;">
+      <p-checkbox *ngIf="exibeSincronizar" [(ngModel)]="enviarConfiguracao" label="Habilitar tem real" [binary]="true" />
+      <p-checkbox [(ngModel)]="configuracao.rapida" label="Habilitar configuração rápida" [binary]="true" />
     </div>
     <div style="display: flex;">
       <mat-form-field appearance="outline" style="margin-right: 10px;">
@@ -115,6 +116,15 @@
           <mat-slider [max]="255" [step]="1" [min]="2" (change)="onSliderChange()">
             <input matSliderThumb [(ngModel)]="configuracao.faixa"> </mat-slider>
           <b>{{configuracao.faixa}}</b>
+        </div>
+      </div>
+      <div class="box-configuracao" style="margin-top: 11px;">
+        <h6>Temporizador</h6>
+        <div class="box-configuracao-item">
+          <span class="material-symbols-outlined cor">mitre</span>
+          <mat-slider [max]="120" [step]="1" [min]="1" (change)="onSliderChange()">
+            <input matSliderThumb [(ngModel)]="configuracao.time"> </mat-slider>
+          <b>{{configuracao.time}}</b>
         </div>
       </div>
     </div>

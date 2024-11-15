@@ -1,7 +1,8 @@
 <div class="table-responsive-sm">
-  <table  matSort (matSortChange)="sortData($event)" class="table table-striped table-hover">
+  <table matSort (matSortChange)="sortData($event)" class="table table-striped table-hover">
     <thead>
       <tr>
+        <th *ngIf="modoAll" mat-sort-header="rapida">Rápida</th>
         <th *ngIf="!modoAll" style="width: 10px;"></th>
         <th mat-sort-header="nome">Nome</th>
         <th>Efeito</th>
@@ -15,6 +16,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let conf of configuracoes">
+        <td *ngIf="modoAll"><p-checkbox disabled [(ngModel)]="conf.rapida" [binary]="true" inputId="binary"></p-checkbox></td>
         <td *ngIf="!modoAll" style="width: 10px;">
           <mat-radio-button (change)="definirConfiguracao(conf)" class="example-radio-button" color="primary"
             [checked]="conf.id == idSelecionado" [value]="conf.id"></mat-radio-button>

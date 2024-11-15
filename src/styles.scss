@@ -115,6 +115,25 @@ legend {
   flex: 1 30% !important;
 }
 
+.p-message-detail{
+  font-size: 11px;
+  margin: 8px;
+  flex: 1;
+}
+
+.p-icon-wrapper{
+  padding: 5px;
+}
+
+.p-message-wrapper{
+  align-items: center;
+  justify-content: space-between;
+}
+
+.p-checkbox-label{
+  margin: 0 10px;
+}
+
 @media(max-width: 600px){
   .body-wrapper, .mat-mdc-card-content{
     padding: 10px !important;

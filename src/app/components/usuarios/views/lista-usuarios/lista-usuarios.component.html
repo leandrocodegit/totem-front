@@ -35,7 +35,7 @@
                 {{user.status ? 'Ativo' : 'Inativo'}}</span>
             </td>
             <td *ngIf="isAutorizado && user.nome != 'admin'">
-              <i-feather (click)="editarUsuario(user)" name="slash" class="feather-base" style="margin-right: 10px;">
+              <i-feather (click)="editarUsuario(user)" name="edit" class="feather-base" style="margin-right: 10px;">
               </i-feather>
               <i-feather (click)="bloquearUsuario(user)" [name]="user.status ? 'unlock' : 'lock'" class="feather-base"
                 style="margin-right: 10px;" [style.color]="user.status ? 'unlock' : 'lock'">
@@ -49,9 +49,10 @@
           </tr>
         </tbody>
       </table>
-      <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="page?.length"
-        [pageSize]="page?.pageSize" [showFirstLastButtons]="true" [pageSizeOptions]="[15,20,50]"
-        [pageIndex]="page?.pageIndex"></mat-paginator>
-    </div>
-    <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
-      [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />
+      <mat-paginator #paginator
+      (page)="handlePageEvent($event)"
+      [length]="page?.length"
+      [pageSize]="page?.pageSize"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="[15,20,50]"
+      [pageIndex]="page?.pageIndex"></mat-paginator>

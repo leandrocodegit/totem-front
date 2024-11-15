@@ -7,10 +7,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { Configuracao } from '../../models/configuracao.model';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { MatButtonModule } from '@angular/material/button';
-import { DispositivoService } from '../services/dispositivo.service';
+import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { ConfiguracaoService } from '../services/configuracao.service';
+import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,7 +30,7 @@ import { MessageService } from 'primeng/api';
     MatSelectModule,
     MatButtonModule,
     NgIf,
-    MatCheckboxModule,
+    CheckboxModule,
     MatFormFieldModule,
     MatInputModule,
     ToastModule
@@ -150,7 +150,7 @@ export class ParamentrosCoresComponent {
         summary: 'Falha',
         detail: 'Erro ao enviar comando sincronização'
       });
-    } )
+    });
   }
 
   salvar() {

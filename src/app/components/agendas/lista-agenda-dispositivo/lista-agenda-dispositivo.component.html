@@ -27,7 +27,9 @@
           <td>{{agenda.nome}}</td>
           <td>{{isSameDayAndMonth(agenda) ? (agenda.inicio | date: 'dd/MM') : ((agenda.inicio | date: 'dd/MM') + ' à ' + (agenda.termino | date: 'dd/MM'))}}</td>
           <td>{{agenda.todos ? 'Todos' : agenda.dispositivos.length}}</td>
-          <td>{{agenda.status}}</td>
+          <td>
+            <span class="badge badge-{{getCorStatus(agenda)}} rounded-pill">{{agenda.status}}</span>
+          </td>
           <td>{{getTradutor(agenda.configuracao?.efeito)}}</td>
           <td>
             <div class="cor-primaria-secundaria" style="display: flex;">

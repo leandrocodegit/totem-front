@@ -68,9 +68,11 @@ export class AuthService {
   public extrairEmailUsuario() {
     try {
       const jwt = this.decodePayloadJWT();
-      return jwt.preferred_username;
+      console.log('jwt', jwt);
+
+      return jwt.sub;
     } catch (error) {
-      return false;
+      return '';
     }
   }
 
@@ -117,16 +119,16 @@ export class AuthService {
 
   public decodePayloadJWT(isRefresh?: boolean): any | null {
     try {
-      if (typeof window !== 'undefined') {
         let token = '';
         if (isRefresh)
           token = localStorage.getItem("token.refresh")!
-        else token = localStorage.getItem("token.acess")!;
+        else token = localStorage.getItem("token.access")!;
+
 
         if (token) {
-          return jwtDecode<any>(token);
+          const decode = jwtDecode<any>(token);
+          return decode;
         }
-      }
     } catch (error) {
       return null;
     }

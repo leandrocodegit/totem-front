@@ -18,6 +18,7 @@ import { PAGE_INIT } from '../../models/constantes/PageUtil';
 import { TesteDispositivoComponent } from '../teste-dispositivo/teste-dispositivo.component';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { ListaRapidasComponent } from '../../configuracoes/lista-rapidas/lista-rapidas.component';
 
 var initDialog = true;
 
@@ -153,6 +154,12 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   sincronizar(dispositivo: Dispositivo, teste: boolean) {
     this.dispositivoService.sincronizar([dispositivo.mac], teste).subscribe();
+  }
+
+  comandoRapido(dispositivo: Dispositivo, teste: boolean) {
+    this.dialog.open(ListaRapidasComponent, {
+      data: dispositivo
+    });
   }
 
   configurar(dispositivo: Dispositivo) {

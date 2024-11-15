@@ -20,4 +20,5 @@ export interface Dispositivo {
   comando: Comando,
   endereco: Endereco,
   enderecoCompleto: string;
+  timer: boolean;
 }

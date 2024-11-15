@@ -47,7 +47,7 @@ export class DispositivoService {
   }
 
   public listaTodosDispositivosFiltro(filtro: Filtro, sort?: Sort, page?: PageEvent): Observable<Page<Dispositivo>> {
-    if(!sort){
+    if (!sort) {
       sort = {
         active: 'nome',
         direction: 'asc'
@@ -64,12 +64,20 @@ export class DispositivoService {
     return this.http.get<any>(`${environment.urlApi}/dispositivo/ativar/${mac}`, environment.headers)
   }
 
-  public sincronizar(macs: string[],teste: boolean): Observable<any> {
+  public sincronizar(macs: string[], teste: boolean): Observable<any> {
     return this.http.post<any>(`${environment.urlApi}/comando/sincronizar/${teste}`, macs, environment.headers)
   }
 
   public sincronizarTudo(): Observable<any> {
     return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false`, environment.headers)
+  }
+
+  public enviarComandoTemporizado(idConfiguracao: string, mac: string, cancelar: boolean): Observable<any> {
+    return this.http.post<any>(`${environment.urlApi}/configuracao/temporizar`, {
+      idConfiguracao: idConfiguracao,
+      mac: mac,
+      cancelar: cancelar
+    }, environment.headers)
   }
 
   public testar(mac: string): Observable<any> {

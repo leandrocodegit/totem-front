@@ -160,4 +160,18 @@ export class ListaAgendaDispositivoComponent {
     );
   }
 
+  getCorStatus(agenda: Agenda){
+
+    if(!agenda.status){
+      return 'disable';
+    }
+
+    switch(agenda.status){
+      case 'Executada' : return 'success';
+      case 'Expirada' : return 'danger';
+      case 'Aguardando' : return 'info';
+      case 'Parada' : return 'disable';
+    }
+  }
+
 }

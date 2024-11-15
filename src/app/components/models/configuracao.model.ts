@@ -12,6 +12,8 @@ export class Configuracao {
   correcao: number[];
   efeito?: Efeito;
   mac: string;
+  time: number;
+  rapida: boolean;
 
   constructor(
     id = '',
@@ -26,6 +28,8 @@ export class Configuracao {
     correcao = [255,255,255],
     efeito = Efeito.COLORIDO,
     mac = '',
+    time = 1,
+    rapida = false
   ) {
     this.id = id;
     this.nome = nome;
@@ -39,5 +43,7 @@ export class Configuracao {
     this.correcao = correcao;
     this.efeito = efeito;
     this.mac = mac;
+    this.time = time;
+    this.rapida = rapida;
   }
 }

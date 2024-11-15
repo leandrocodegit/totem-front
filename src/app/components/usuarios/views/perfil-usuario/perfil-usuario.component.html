@@ -2,7 +2,7 @@
   <mat-card-content>
     <div class="box-perfil">
       <div style="display: flex;justify-content: space-between;">
-        <img [src]="host + '' + user?.linkAvatar">
+        <img [src]="'assets/images/favorite.png'">
         <div>
           <span class="badge badge-{{user?.status ? 'success' : 'danger'}} rounded-pill">
             {{user?.status ? 'Ativo' : 'Inativo'}}</span>
@@ -11,12 +11,13 @@
 
       <div class="dados-usuario">
         <div class="dados-usuario-item">
-          <h2>{{user?.firstName}}</h2>
+          <h2>{{user?.nome}}</h2>
           <div class="dados-usuario-item">
             <mat-chip-listbox aria-label="Fish selection">
-              @for (role of authService.decodePayloadJWT().realm_access.roles; track $index) {
+              @if(authService.decodePayloadJWT()){
+              @for (role of authService.decodePayloadJWT().roles; track $index) {
               <mat-chip-option color="accent" selected disabled>{{descricaoRole(role)}}</mat-chip-option>
-              }
+              }}
             </mat-chip-listbox>
           </div>
         </div>
@@ -24,23 +25,9 @@
           <label>Email</label>
           <h5>{{user?.email}}</h5>
         </div>
-
         <div class="dados-usuario-item">
-          <label>Telefone</label>
-          <h5>{{user?.cellphone}}</h5>
-        </div>
-        <div class="dados-usuario-item">
-          <label>Documento</label>
-          <h5>{{user?.doc}}</h5>
-        </div>
-        <div class="dados-usuario-item">
-          <label>Data de nascimento</label>
-          <h5>{{user?.dtBirthday | date: 'dd/MM/yyyy'}}</h5>
-        </div>
-        <div class="dados-usuario-item">
-          <button [disabled]="!user?.status" (click)="editarPerfil()" mat-raised-button mat-button class="me-8 mb-8" color="primary"
+          <button [disabled]="!user?.status || user?.nome == 'admin'" (click)="editarPerfil()" mat-raised-button mat-button class="me-8 mb-8" color="primary"
             type="submit">Editar dados</button>
-          <button [disabled]="!user?.status" mat-raised-button mat-button class="me-8 mb-8" color="primary" type="submit">Trocar senha</button>
         </div>
       </div>
     </div>
