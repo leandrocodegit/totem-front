@@ -3,7 +3,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { Agenda } from '../../models/agenda.model';
 import { DatePipe, NgIf } from '@angular/common';
 import { AgendaService } from '../../dispositivos/services/agenda.service';
-import { response } from 'express';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-proximas-agendas',
@@ -11,7 +11,8 @@ import { response } from 'express';
   imports: [
     CarouselModule,
     DatePipe,
-    NgIf
+    NgIf,
+    TooltipModule
   ],
   templateUrl: './proximas-agendas.component.html',
   styleUrl: './proximas-agendas.component.scss'

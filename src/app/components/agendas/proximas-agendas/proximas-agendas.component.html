@@ -7,7 +7,7 @@
           <span class="material-symbols-outlined">
             event
           </span>
-          <div class="cor-primaria-secundaria" style="display: flex;">
+          <div tooltipPosition="top"  [pTooltip]="agenda.cor.nome" class="cor-primaria-secundaria" style="display: flex;">
             <div [style.background]="agenda.cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
             <div
               [style.background]="agenda.cor.efeito == 'COLORIDO' ? agenda.cor.primaria : agenda.cor.secundaria"

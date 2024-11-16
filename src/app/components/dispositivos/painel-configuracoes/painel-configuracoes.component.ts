@@ -69,6 +69,13 @@ export class PainelConfiguracoesComponent implements OnInit {
       if (params['mac'] != undefined) {
         this.dispositivoService.buscarDicpositivo(params['mac']).subscribe(response => {
           this.dispositivo = response;
+          if(!this.dispositivo.configuracao){
+            this.dispositivo.configuracao = {
+              intensidade: 255,
+              leds: 1,
+              faixa: 2
+            }
+          }
           if (params['tab'] != undefined){
             this.tabSelect = params['tab'];
             this.router.navigate([`/dispositivos/configuracoes/${this.dispositivo.mac}`]);

@@ -19,7 +19,6 @@ import { TesteDispositivoComponent } from '../teste-dispositivo/teste-dispositiv
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ListaRapidasComponent } from '../../configuracoes/lista-rapidas/lista-rapidas.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { TooltipModule } from 'primeng/tooltip';
 var initDialog = true;
 

@@ -7,10 +7,7 @@
         <th mat-sort-header="nome">Nome</th>
         <th>Efeito</th>
         <th>Cores</th>
-        <th mat-sort-header="velocidade">Velocidade</th>
-        <th mat-sort-header="intensidade">Intensidade</th>
-        <th mat-sort-header="leds">Leds</th>
-        <th mat-sort-header="faixa">Faixa</th>
+        <th mat-sort-header="velocidade">Velocidade</th> 
         <th></th>
       </tr>
     </thead>
@@ -30,13 +27,10 @@
           </div>
         </td>
         <td>{{cor.velocidade}}</td>
-        <td>{{cor.intensidade}}</td>
-        <td>{{cor.leds}}</td>
-        <td>{{cor.faixa}}</td>
         <td>
-          <i-feather *ngIf="modoAll" (click)="editar(conf)" name="edit" class="feather-base">
+          <i-feather *ngIf="modoAll" (click)="editar(cor)" name="edit" class="feather-base">
           </i-feather>
-          <i-feather (click)="remover(conf)" name="trash" class="feather-base">
+          <i-feather (click)="remover(cor)" name="trash" class="feather-base">
           </i-feather>
         </td>
       </tr>

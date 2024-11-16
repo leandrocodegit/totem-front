@@ -31,7 +31,7 @@
             <span class="badge badge-{{getCorStatus(agenda)}} rounded-pill">{{agenda.status}}</span>
           </td>
           <td>{{getTradutor(agenda.cor?.efeito)}}</td>
-          <td>
+          <td tooltipPosition="top"  [pTooltip]="agenda.cor.nome">
             <div class="cor-primaria-secundaria" style="display: flex;">
               <div [style.background]="agenda.cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
               <div [style.background]="agenda.cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>

@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { ProximasAgendasComponent } from '../proximas-agendas/proximas-agendas.component';
 import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-lista-agenda-dispositivo',
@@ -35,7 +36,8 @@ import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.compone
     MatPaginatorModule,
     ToastModule,
     ProximasAgendasComponent,
-    MatSortModule
+    MatSortModule,
+    TooltipModule
   ],
   providers: [
     MessageService,
