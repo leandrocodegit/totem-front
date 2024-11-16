@@ -2,7 +2,6 @@
   <thead matSort (matSortChange)="sortData($event)" >
     <tr>
       <th *ngIf="!checkEmit"></th>
-      <th *ngIf="!checkEmit"></th>
       <th *ngIf="checkEmit" style="width: 10px;"></th>
       <th mat-sort-header="nome" >Nome</th>
       <th mat-sort-header="mac" >Mac</th>
@@ -16,14 +15,10 @@
   <tbody>
     <tr *ngFor="let device of dispositivos">
       <td *ngIf="!checkEmit">
-        <i-feather  (click)="sincronizar(device, true)" name="cpu" [style.color]="device.cor ? device.cor.primaria : 'black'"
-          class="feather-base" style="margin-right: 0px;"></i-feather>
-      </td>
-      <td *ngIf="!checkEmit">
-          <i-feather tooltipPosition="top"  pTooltip="Enviar comando rápido" *ngIf="!device.timer" (click)="comandoRapido(device)" name="clock" [style.color]="device.cor ? device.cor.primaria : 'black'"
+        <i-feather  (click)="comandoRapido(device, true)" name="cpu" [style.color]="device.cor ? device.cor.primaria : 'black'"
           class="feather-base" style="margin-right: 0px;"></i-feather>
           <div tooltipPosition="top" pTooltip="Enviar comando rápido" *ngIf="device.timer" (click)="comandoRapido(device)" class="spinner-border spinner-border-sm" style="color: green;cursor: pointer;"></div>
-      </td>
+        </td>
       <td *ngIf="checkEmit" style="width: 20px;">
         <p-checkbox (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
       </td>
