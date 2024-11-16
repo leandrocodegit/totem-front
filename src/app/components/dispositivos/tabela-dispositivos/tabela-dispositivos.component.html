@@ -15,9 +15,9 @@
   <tbody>
     <tr *ngFor="let device of dispositivos">
       <td *ngIf="!checkEmit">
-        <i-feather tooltipPosition="top"  pTooltip="Enviar comando rápido"  (click)="comandoRapido(device, true)" name="cpu" [style.color]="device.cor ? device.cor.primaria : 'black'"
+        <i-feather *ngIf="!device.timer" tooltipPosition="top"  pTooltip="Enviar comando rápido"  (click)="comandoRapido(device, true)" name="cpu" [style.color]="device.cor ? device.cor.primaria : 'black'"
           class="feather-base" style="margin-right: 0px;"></i-feather>
-          <div tooltipPosition="top" pTooltip="Enviar comando rápido" *ngIf="device.timer" (click)="comandoRapido(device)" class="spinner-border spinner-border-sm" style="color: green;cursor: pointer;"></div>
+          <div tooltipPosition="top" pTooltip="Enviar comando rápido" *ngIf="device.timer" (click)="comandoRapido(device)" class="spinner-grow spinner-grow-sm" style="color: #7003d7;cursor: pointer;"></div>
         </td>
       <td *ngIf="checkEmit" style="width: 20px;">
         <p-checkbox (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
