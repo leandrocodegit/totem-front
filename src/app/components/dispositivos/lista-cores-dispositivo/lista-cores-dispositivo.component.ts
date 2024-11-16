@@ -7,15 +7,14 @@ import { Comando, ComandoValue } from '../../models/constantes/comando';
 import { IconsModule } from '../../../IconsModule';
 import { NgFor } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { MatRadioModule } from '@angular/material/radio';
-import { ConfiguracaoService } from '../services/configuracao.service';
+import { CorService } from '../services/cor.service';
 import { MatButtonModule } from '@angular/material/button';
-import { response } from 'express';
-import { ListaConfiguracoesComponent } from '../../configuracoes/lista-configuracoes/lista-configuracoes.component';
+import { ListaCoresComponent } from '../../configuracoes/lista-configuracoes/lista-cores.component';
 
 @Component({
-  selector: 'app-lista-configuracoes-dispositivo',
+  selector: 'app-lista-cores-dispositivo',
   standalone: true,
   imports: [
     IconsModule,
@@ -23,21 +22,21 @@ import { ListaConfiguracoesComponent } from '../../configuracoes/lista-configura
     MatDialogModule,
     MatRadioModule,
     MatButtonModule,
-    ListaConfiguracoesComponent
+    ListaCoresComponent
   ],
-  templateUrl: './lista-configuracoes-dispositivo.component.html',
-  styleUrl: './lista-configuracoes-dispositivo.component.scss'
+  templateUrl: './lista-cores-dispositivo.component.html',
+  styleUrl: './lista-cores-dispositivo.component.scss'
 })
-export class ListaConfiguracoesDispositivoComponent {
+export class ListaCoresDispositivoComponent {
 
   @Input() dispositivo!: Dispositivo;
   @Input() tab = 0;
-  @Input() configuracoes: Configuracao[] = [];
+  @Input() cores: Cor[] = [];
   protected alterouPrincipal: boolean = false;
 
   constructor(
     private readonly dispositivoService: DispositivoService,
-    private readonly configuracaoService: ConfiguracaoService,
+    private readonly corService: CorService,
     private router: ActivatedRoute,
     private route: Router
   ) {}
@@ -57,18 +56,18 @@ export class ListaConfiguracoesDispositivoComponent {
     return '';
   }
 
-  remover(configuracao: Configuracao) {
-    this.configuracaoService.removerConfiguracao(configuracao.id).subscribe();
+  remover(cor: Cor) {
+    this.corService.removerCor(cor.id).subscribe();
   }
 
-  configurar(configuracao: Configuracao) {
+  configurar(configuracao: Cor) {
   }
 
-  salvar(configuracao: Configuracao){
-    if(configuracao){
-      configuracao.mac = this.dispositivo.mac;
-      this.configuracaoService.salvarConfiguracao(configuracao, true).subscribe(() => {
-        this.dispositivo.configuracao = configuracao;
+  salvar(cor: Cor){
+    if(cor){
+      cor.mac = this.dispositivo.mac;
+      this.corService.salvarCor(cor, true).subscribe(() => {
+        this.dispositivo.cor = cor;
         this.route.navigate([`/dispositivos/configuracoes/${this.dispositivo.mac}/0`]);
         console.log(`/dispositivos/configuracoes/${this.dispositivo.mac}`);
 

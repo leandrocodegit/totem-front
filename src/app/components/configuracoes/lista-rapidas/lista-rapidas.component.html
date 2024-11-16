@@ -1,7 +1,7 @@
 <h2 style="padding: 20px;">{{dispositivo?.nome}}</h2>
 <p style="font-weight: 600; color: #008eff;">{{dispositivo.enderecoCompleto}}</p>
 <div class="box-rapidas">
-  @for (conf of configuracoes; track $index) {
+  @for (conf of cores; track $index) {
   <div (click)="enviar(conf)" class="box-rapidas-item">
     <div style="margin: 10px;">
       <p>{{conf.nome}}</p>

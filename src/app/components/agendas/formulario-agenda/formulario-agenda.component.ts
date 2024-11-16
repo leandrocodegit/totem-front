@@ -1,17 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Agenda } from '../../models/agenda.model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { MatSelectModule } from '@angular/material/select';
 import { TabelaDispositivosComponent } from '../../dispositivos/tabela-dispositivos/tabela-dispositivos.component';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
-import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
+import { CorService } from '../../dispositivos/services/cor.service';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { MatCardModule } from '@angular/material/card';
 import { AgendaService } from '../../dispositivos/services/agenda.service';
@@ -19,10 +18,10 @@ import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 import { default as _rollupMoment, Moment } from 'moment';
 import * as _moment from 'moment';
 import { IconsModule } from '../../../IconsModule';
-import { FormularioConfiguracaoComponent } from '../../configuracoes/formulario-configuracao/formulario-configuracao.component';
-import { MessageService } from 'primeng/api';
+ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
+import { FormularioCorComponent } from '../../configuracoes/formulario-cores/formulario-cores.component';
 
 
 const moment = _rollupMoment || _moment;
@@ -67,7 +66,7 @@ export class FormularioAgendaComponent implements OnInit {
 
   protected date = new FormControl(moment());
   protected agenda: Agenda;
-  protected configuracoes: Configuracao[] = [];
+  protected cores: Cor[] = [];
   protected range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -75,7 +74,7 @@ export class FormularioAgendaComponent implements OnInit {
 
   constructor(
     private readonly dispositivoService: DispositivoService,
-    private readonly configuracaoService: ConfiguracaoService,
+    private readonly corService: CorService,
     private readonly messageService: MessageService,
     private readonly agendaService: AgendaService,
     private dialogRef: MatDialogRef<FormularioAgendaComponent>,
@@ -84,8 +83,8 @@ export class FormularioAgendaComponent implements OnInit {
   ) {
     if (data) {
       this.agenda = JSON.parse(JSON.stringify(data));
-      if(!this.agenda.configuracao){
-        this.agenda.configuracao = new Configuracao;
+      if(!this.agenda.cor){
+        this.agenda.cor = new Cor;
       }
     } else {
       this.agenda = new Agenda
@@ -93,15 +92,13 @@ export class FormularioAgendaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.configuracaoService.listaTodasConfiguracoes().subscribe(response => this.configuracoes = response.content);
+    this.corService.listaTodasConfiguracoes().subscribe(response => this.cores = response.content);
   }
 
   novaConfiguracao(){
-    this.dialog.open(FormularioConfiguracaoComponent, {
+    this.dialog.open(FormularioCorComponent, {
       panelClass: 'box-dialog'
-    }
-
-    )
+    }    )
   }
 
   fechar() {

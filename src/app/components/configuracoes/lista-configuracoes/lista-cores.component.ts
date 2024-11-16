@@ -1,17 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, output, ViewEncapsulation } from '@angular/core';
-import { Dispositivo } from '../../models/dispositivo.model';
 import { Efeito, EfeitoValue } from '../../models/constantes/Efeito';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { Comando, ComandoValue } from '../../models/constantes/comando';
 import { IconsModule } from '../../../IconsModule';
 import { NgFor, NgIf } from '@angular/common';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { MatRadioModule } from '@angular/material/radio';
-import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
+import { CorService } from '../../dispositivos/services/cor.service';
 import { MatButtonModule } from '@angular/material/button';
-import { FormularioConfiguracaoComponent } from '../formulario-configuracao/formulario-configuracao.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
@@ -22,6 +19,7 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
+import { FormularioCorComponent } from '../formulario-cores/formulario-cores.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -30,7 +28,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 };
 
 @Component({
-  selector: 'app-lista-configuracoes',
+  selector: 'app-lista-cores',
   standalone: true,
   imports: [
     IconsModule,
@@ -49,13 +47,13 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults },
     { provide: MatPaginatorIntl, useClass: CustomPaginator }
   ],
-  templateUrl: './lista-configuracoes.component.html',
-  styleUrl: './lista-configuracoes.component.scss'
+  templateUrl: './lista-cores.component.html',
+  styleUrl: './lista-cores.component.scss'
 })
-export class ListaConfiguracoesComponent implements OnInit {
+export class ListaCoresComponent implements OnInit {
 
 
-  @Input() configuracoes: Configuracao[] = [];
+  @Input() cores: Cor[] = [];
   @Input() idSelecionado = '';
   @Input() modoAll = true;
   @Output() removerEmit = new EventEmitter;
@@ -69,13 +67,13 @@ export class ListaConfiguracoesComponent implements OnInit {
 
 
   constructor(
-    private readonly configuracaoService: ConfiguracaoService,
+    private readonly corService: CorService,
     private readonly messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
     private readonly dialog: MatDialog,
   ) {
-    configuracaoService.carregarLista.subscribe(() => this.carregarLista());
+    corService.carregarLista.subscribe(() => this.carregarLista());
   }
 
   ngOnInit(): void {
@@ -88,8 +86,8 @@ export class ListaConfiguracoesComponent implements OnInit {
   }
 
   carregarLista(page?: PageEvent) {
-    this.configuracaoService.listaTodasConfiguracoes(this.ordenar, page).subscribe(response => {
-      this.configuracoes = response.content;
+    this.corService.listaTodasConfiguracoes(this.ordenar, page).subscribe(response => {
+      this.cores = response.content;
       this.initPage(response);
     });
   }
@@ -115,13 +113,13 @@ export class ListaConfiguracoesComponent implements OnInit {
     return '';
   }
 
-  remover(configuracao: Configuracao) {
+  remover(cor: Cor) {
     if (this.modoAll) {
       let retorno = this.dialog.open(ConfirmacaoComponent);
       retorno.afterClosed().subscribe(data => {
         if(data)
-        this.configuracaoService.removerConfiguracao(configuracao.id).subscribe(() => {
-          this.configuracoes = this.configuracoes.filter(conf => conf != configuracao);
+        this.corService.removerCor(cor.id).subscribe(() => {
+          this.cores = this.cores.filter(conf => conf != cor);
           this.messageService.add({
             severity: 'success',
             summary: 'Removido',
@@ -136,28 +134,28 @@ export class ListaConfiguracoesComponent implements OnInit {
         });
       });
     } else {
-      this.removerEmit.emit(configuracao);
+      this.removerEmit.emit(cor);
     }
   }
 
-  configurar(configuracao: Configuracao) {
+  configurar(cor: Cor) {
     if (this.modoAll) {
 
     } else {
-      this.editarEmit.emit(configuracao);
+      this.editarEmit.emit(cor);
     }
   }
 
-  editar(configuracao: Configuracao) {
-    let retorno = this.dialog.open(FormularioConfiguracaoComponent, {
-      data: configuracao,
+  editar(cor: Cor) {
+    let retorno = this.dialog.open(FormularioCorComponent, {
+      data: cor,
       panelClass: 'box-dialog'
     });
 
     retorno.afterClosed().subscribe(() => this.carregarLista());
   }
 
-  definirConfiguracao(value: Configuracao) {
+  definirConfiguracao(value: Cor) {
     this.principalEmit.emit(value);
   }
 

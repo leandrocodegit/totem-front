@@ -8,9 +8,9 @@
             event
           </span>
           <div class="cor-primaria-secundaria" style="display: flex;">
-            <div [style.background]="agenda.configuracao.primaria" style="border-radius: 10px 0 0 10px;"></div>
+            <div [style.background]="agenda.cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
             <div
-              [style.background]="agenda.configuracao.efeito == 'COLORIDO' ? agenda.configuracao.primaria : agenda.configuracao.secundaria"
+              [style.background]="agenda.cor.efeito == 'COLORIDO' ? agenda.cor.primaria : agenda.cor.secundaria"
               style="border-radius: 0 10px 10px 0;"></div>
           </div>
         </div>

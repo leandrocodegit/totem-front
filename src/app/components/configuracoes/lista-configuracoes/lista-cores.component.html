@@ -15,24 +15,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let conf of configuracoes">
-        <td *ngIf="modoAll"><p-checkbox disabled [(ngModel)]="conf.rapida" [binary]="true" inputId="binary"></p-checkbox></td>
+      <tr *ngFor="let cor of cores">
+        <td *ngIf="modoAll"><p-checkbox disabled [(ngModel)]="cor.rapida" [binary]="true" inputId="binary"></p-checkbox></td>
         <td *ngIf="!modoAll" style="width: 10px;">
-          <mat-radio-button (change)="definirConfiguracao(conf)" class="example-radio-button" color="primary"
-            [checked]="conf.id == idSelecionado" [value]="conf.id"></mat-radio-button>
+          <mat-radio-button (change)="definirConfiguracao(cor)" class="example-radio-button" color="primary"
+            [checked]="cor.id == idSelecionado" [value]="cor.id"></mat-radio-button>
         </td>
-        <td>{{conf.nome}}</td>
-        <td>{{getTradutor(undefined, conf.efeito)}}</td>
+        <td>{{cor.nome}}</td>
+        <td>{{getTradutor(undefined, cor.efeito)}}</td>
         <td>
           <div class="cor-primaria-secundaria" style="display: flex;">
-            <div [style.background]="conf.primaria" style="border-radius: 10px 0 0 10px;"></div>
-            <div [style.background]="conf.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+            <div [style.background]="cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
+            <div [style.background]="cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
           </div>
         </td>
-        <td>{{conf.velocidade}}</td>
-        <td>{{conf.intensidade}}</td>
-        <td>{{conf.leds}}</td>
-        <td>{{conf.faixa}}</td>
+        <td>{{cor.velocidade}}</td>
+        <td>{{cor.intensidade}}</td>
+        <td>{{cor.leds}}</td>
+        <td>{{cor.faixa}}</td>
         <td>
           <i-feather *ngIf="modoAll" (click)="editar(conf)" name="edit" class="feather-base">
           </i-feather>

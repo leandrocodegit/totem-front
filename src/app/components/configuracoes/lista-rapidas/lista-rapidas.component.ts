@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Configuracao } from '../../models/configuracao.model';
-import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
+import { Cor } from '../../models/cor.model';
+import { CorService } from '../../dispositivos/services/cor.service';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Dispositivo } from '../../models/dispositivo.model';
@@ -25,11 +25,11 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ListaRapidasComponent implements OnInit {
 
-  @Input() configuracoes: Configuracao[] = [];
+  @Input() cores: Cor[] = [];
   @Input() dispositivo: Dispositivo;
 
   constructor(
-    private readonly configuracaoService: ConfiguracaoService,
+    private readonly corService: CorService,
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
     private dialogRef: MatDialogRef<ListaRapidasComponent>,
@@ -41,12 +41,12 @@ export class ListaRapidasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.configuracaoService.listaTodasConfiguracoesRapidas().subscribe(response => this.configuracoes = response)
+    this.corService.listaTodasCoresRapidas().subscribe(response => this.cores = response)
   }
 
-  enviar(configuracao: Configuracao) {
+  enviar(cor: Cor) {
     if(this.dispositivo){
-      this.dispositivoService.enviarComandoTemporizado(configuracao.id, this.dispositivo.mac, false).subscribe(() => {
+      this.dispositivoService.enviarComandoTemporizado(cor.id, this.dispositivo.mac, false).subscribe(() => {
         this.messageService.add({
           severity: 'info',
           summary: 'Comando rápido',

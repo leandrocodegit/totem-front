@@ -1,16 +1,16 @@
-import { Configuracao } from "./configuracao.model";
+import { Cor } from "./cor.model";
 import { TipoAgenda } from "./constantes/TipoAgenda";
 import { Dispositivo } from "./dispositivo.model";
 
 export class Agenda {
   id: string;
   nome: string;
-  execucao: Date; 
+  execucao: Date;
   inicio: Date;
   termino: Date;
   status: string;
   ativo: boolean;
-  configuracao: Configuracao;
+  cor: Cor;
   dispositivos: Dispositivo[];
   todos: boolean;
 
@@ -22,7 +22,7 @@ export class Agenda {
     termino = new Date,
     status = '',
     ativo = false,
-    configuracao = new Configuracao,
+    cor = new Cor,
     dispositivos = [],
     todos = false
   ) {
@@ -33,7 +33,7 @@ export class Agenda {
     this.status = status;
     this.termino = termino;
     this.ativo = ativo;
-    this.configuracao = configuracao;
+    this.cor = cor;
     this.dispositivos = dispositivos;
     this.todos = todos;
   }

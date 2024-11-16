@@ -14,11 +14,11 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { User } from '../../../models/user.model';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { PAGE_INIT } from '../../../models/constantes/PageUtil';
-import { Page } from '../../../models/Page';
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
 import { Role } from '../../../../model/constantes/role.enum';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 const ELEMENT_DATA: User[] = [];
@@ -36,7 +36,8 @@ const ELEMENT_DATA: User[] = [];
     MatInputModule,
     MatIconModule,
     ToastModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TooltipModule
   ],
   providers: [
     MessageService

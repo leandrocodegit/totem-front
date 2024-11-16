@@ -1,0 +1,18 @@
+.box-configuracao {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0 10px;
+}
+
+.box-configuracao-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-slider {
+  box-sizing: border-box;
+  flex-grow: 1;
+}

@@ -35,16 +35,16 @@
                 {{user.status ? 'Ativo' : 'Inativo'}}</span>
             </td>
             <td *ngIf="isAutorizado && user.nome != 'admin'">
-              <i-feather (click)="editarUsuario(user)" name="edit" class="feather-base" style="margin-right: 10px;">
+              <i-feather tooltipPosition="top"  pTooltip="Editar usuário" (click)="editarUsuario(user)" name="edit" class="feather-base" style="margin-right: 10px;">
               </i-feather>
-              <i-feather (click)="bloquearUsuario(user)" [name]="user.status ? 'unlock' : 'lock'" class="feather-base"
+              <i-feather tooltipPosition="top"  pTooltip="Ativar ou desativar usuário" (click)="bloquearUsuario(user)" [name]="user.status ? 'unlock' : 'lock'" class="feather-base"
                 style="margin-right: 10px;" [style.color]="user.status ? 'unlock' : 'lock'">
               </i-feather>
-              <i-feather (click)="removerUsuario(user)" name="trash-2" class="feather-base" style="margin-right: 10px;">
+              <i-feather tooltipPosition="top"  pTooltip="Remover usuário" (click)="removerUsuario(user)" name="trash-2" class="feather-base" style="margin-right: 10px;">
               </i-feather>
             </td>
             <td *ngIf="isAutorizado && user.nome == 'admin'">
-              <i-feather name="slash" class="feather-base" style="margin-right: 10px;"></i-feather>
+              <i-feather tooltipPosition="top"  tooltipPosition="top"  pTooltip="Nenhuma ação permitida para usuário admin" name="slash" class="feather-base" style="margin-right: 10px;"></i-feather>
             </td>
           </tr>
         </tbody>

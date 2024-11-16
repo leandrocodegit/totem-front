@@ -8,7 +8,7 @@ import { DispositivoService } from '../services/dispositivo.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { FormularioDispositivoComponent } from '../formulario-dispositivo/formulario-dispositivo.component';
 import { Filtro } from '../../models/constantes/filtro';
 import { Agenda } from '../../models/agenda.model';
@@ -19,7 +19,8 @@ import { TesteDispositivoComponent } from '../teste-dispositivo/teste-dispositiv
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ListaRapidasComponent } from '../../configuracoes/lista-rapidas/lista-rapidas.component';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 var initDialog = true;
 
 @Component({
@@ -33,7 +34,8 @@ var initDialog = true;
     FormsModule,
     NgIf,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    TooltipModule
   ],
   templateUrl: './tabela-dispositivos.component.html',
   styleUrl: './tabela-dispositivos.component.scss'
@@ -59,9 +61,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   ) {
 
     dispositivoService.pesquisa.subscribe(data => {
-      if (data && (data.tab || data.tab == 0)) {
-        this.indexTab = data.tab;
-      }
+
 
       if (data && data.value) {
         console.log("2");
@@ -116,11 +116,11 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   }
 
-  getTradutor(comando?: Comando, configuracao?: Configuracao) {
+  getTradutor(comando?: Comando, cor?: Cor) {
     if (comando)
       return ComandoValue[comando];
-    else if (configuracao)
-      return EfeitoValue[configuracao.efeito!];
+    else if (cor)
+      return EfeitoValue[cor.efeito!];
     return '';
   }
 
@@ -171,6 +171,8 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   carregarLista(page?: PageEvent) {
+    console.log('Lista');
+
     if (this.indexTab == 0) {
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;

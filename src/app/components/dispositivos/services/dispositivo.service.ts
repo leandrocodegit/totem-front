@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Role } from '../../../model/constantes/role.enum';
 import { environment } from '../../../../environments/environment.prod';
 import { Dispositivo } from '../../models/dispositivo.model';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { Filtro } from '../../models/constantes/filtro';
 import { PageEvent } from '@angular/material/paginator';
 import { Page } from '../../models/Page';
@@ -22,16 +22,21 @@ import { Sort } from '@angular/material/sort';
 export class DispositivoService {
 
   public deviceEdit!: Dispositivo;
-  public configuracaoEdit!: Configuracao;
+  public corEdit!: Cor;
   public ajutarPadding = new EventEmitter;
   public mapaEdit = new EventEmitter;
   public pesquisa = new EventEmitter;
+  public tabSelect = new EventEmitter;
 
   constructor(
     private readonly http: HttpClient) { }
 
   public alterarNomeDicpositivo(dispositivo: Dispositivo): Observable<any> {
     return this.http.patch<any>(`${environment.urlApi}/dispositivo`, dispositivo, environment.headers)
+  }
+
+  public salvarConfiguracao(dispositivo: Dispositivo): Observable<any> {
+    return this.http.patch<any>(`${environment.urlApi}/dispositivo/configuracao`, dispositivo, environment.headers)
   }
 
   public pesquisarDispositivo(pesquisa: string, page?: PageEvent): Observable<Page<Dispositivo>> {
@@ -72,9 +77,9 @@ export class DispositivoService {
     return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false`, environment.headers)
   }
 
-  public enviarComandoTemporizado(idConfiguracao: string, mac: string, cancelar: boolean): Observable<any> {
-    return this.http.post<any>(`${environment.urlApi}/configuracao/temporizar`, {
-      idConfiguracao: idConfiguracao,
+  public enviarComandoTemporizado(idCor: string, mac: string, cancelar: boolean): Observable<any> {
+    return this.http.post<any>(`${environment.urlApi}/cor/temporizar`, {
+      idCor: idCor,
       mac: mac,
       cancelar: cancelar
     }, environment.headers)

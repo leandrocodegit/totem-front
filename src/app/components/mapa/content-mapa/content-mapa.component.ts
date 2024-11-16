@@ -143,8 +143,8 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
     let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
       weight: 2,
-      color: dispositivo.configuracao.primaria + 'cc',
-      fillColor: dispositivo.configuracao.primaria + 'dc',
+      color: dispositivo.cor.primaria + 'cc',
+      fillColor: dispositivo.cor.primaria + 'dc',
       fillOpacity: 0.3,
       radius: 150
     }).addTo(this.mapa);
@@ -153,7 +153,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     this.markers.push(circulo);
 
     circulo.bindPopup(`
-        <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.configuracao.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.cor.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
         `, { autoClose: false, closeOnClick: false, autoPan: false }).openPopup();
     }
     console.log("Markes", this.markers);

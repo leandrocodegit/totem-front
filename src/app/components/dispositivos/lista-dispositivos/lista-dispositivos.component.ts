@@ -15,26 +15,26 @@ import { Page } from '../../models/Page';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, of, Subject, switchMap } from 'rxjs';
 import { FormularioDispositivoComponent } from '../formulario-dispositivo/formulario-dispositivo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 import { ActivatedRoute } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-lista-dispositivos',
   standalone: true,
   imports: [
+    NgIf,
     IconsModule,
     MatTabsModule,
     MatButtonModule,
     MatCardModule,
     TabelaDispositivosComponent,
     MatPaginatorModule,
-    MatFormFieldModule,
     MatInputModule,
-    MatIconModule,
-    FormularioDispositivoComponent,
+    MatIconModule 
   ],
   providers: [
     {
@@ -59,23 +59,26 @@ export class ListaDispositivosComponent {
     private readonly activeRoute: ActivatedRoute,
     private readonly dialog: MatDialog
   ) {
-    this.nomeFind.pipe(
-      debounceTime(700),
-      distinctUntilChanged())
-      .subscribe(value => {
-        if (value != undefined && value.length > 2){
-          dispositivoService.pesquisa.emit({
-            value: value
-          })
-        }else if(!value){
-          console.log("Pesquisa todos");
+    this.nomeFind
+      .pipe(
+        debounceTime(700),
+        distinctUntilChanged(),
+        switchMap(value => {
+          if (value != undefined && value.length > 2) {
+            this.dispositivoService.pesquisa.emit({ value: value });
+            return of(value);
+          } else if (!value) {
+            this.dispositivoService.pesquisa.emit(false);
+            return of(null);
+          }
+          return of(null);
+        })
+      )
+      .subscribe();
 
-          dispositivoService.pesquisa.emit(false)
-        }
-      });
   }
 
-  mapa(){
+  mapa() {
     this.dialog.open(CardMapaCordenadasComponent, {
       panelClass: 'no-overflow'
     })
@@ -84,7 +87,7 @@ export class ListaDispositivosComponent {
   onTabChange(event: MatTabChangeEvent) {
     console.log(event);
 
-    this.dispositivoService.pesquisa.emit({
+    this.dispositivoService.tabSelect.emit({
       tab: event.index
     });
   }

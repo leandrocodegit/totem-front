@@ -8,7 +8,7 @@ import { ListaUsuariosComponent } from './components/usuarios/views/lista-usuari
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PainelDipositivosComponent } from './components/dispositivos/painel-dipositivos/painel-dipositivos.component';
 import { ListaAgendaDispositivoComponent } from './components/agendas/lista-agenda-dispositivo/lista-agenda-dispositivo.component';
-import { CardConfiguracoesComponent } from './components/configuracoes/lista-configuracoes/card-configuracoes/card-configuracoes.component';
+import { CardConfiguracoesComponent } from './components/configuracoes/lista-configuracoes/card-cores/card-cores.component';
 import { ContentMapaComponent } from './components/mapa/content-mapa/content-mapa.component';
 import { DetalhesDispositivoComponent } from './components/dispositivos/detalhes-dispositivo/detalhes-dispositivo.component';
 import { UploadComponent } from './components/principal/upload/upload.component';

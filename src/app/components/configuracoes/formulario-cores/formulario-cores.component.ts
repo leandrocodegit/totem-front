@@ -7,15 +7,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { TabelaDispositivosComponent } from '../../dispositivos/tabela-dispositivos/tabela-dispositivos.component';
-import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
+import { CorService } from '../../dispositivos/services/cor.service';
 import { MatCardModule } from '@angular/material/card';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { ParamentrosCoresComponent } from '../paramentros-cores/paramentros-cores.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-  selector: 'app-formulario-configuracao',
+  selector: 'app-formulario-cores',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -33,24 +33,24 @@ import { ToastModule } from 'primeng/toast';
   providers: [
     MessageService
   ],
-  templateUrl: './formulario-configuracao.component.html',
-  styleUrl: './formulario-configuracao.component.scss'
+  templateUrl: './formulario-cores.component.html',
+  styleUrl: './formulario-cores.component.scss'
 })
-export class FormularioConfiguracaoComponent implements OnInit {
+export class FormularioCorComponent implements OnInit {
 
 
-  protected configuracao: Configuracao;
+  protected cor: Cor;
 
   constructor(
-    private readonly configuracaoService: ConfiguracaoService,
+    private readonly corService: CorService,
     private readonly messageService: MessageService,
-    private dialogRef: MatDialogRef<FormularioConfiguracaoComponent>,
+    private dialogRef: MatDialogRef<FormularioCorComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     if (data) {
-      this.configuracao = JSON.parse(JSON.stringify(data));
+      this.cor = JSON.parse(JSON.stringify(data));
     } else {
-      this.configuracao = new Configuracao;
+      this.cor = new Cor;
     }
   }
 
@@ -66,7 +66,7 @@ export class FormularioConfiguracaoComponent implements OnInit {
   salvar() {
     console.log("salvar configuração");
 
-      this.configuracaoService.salvarConfiguracao(this.configuracao, false).subscribe(() => {
+      this.corService.salvarCor(this.cor, false).subscribe(() => {
         this.messageService.add({
           severity: 'success',
           summary: 'Adicionado',

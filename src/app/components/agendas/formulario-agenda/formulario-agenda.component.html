@@ -9,9 +9,9 @@
           </mat-form-field>
           <div style="display: flex;">
             <mat-form-field appearance="outline">
-              <mat-label>Configuração</mat-label>
-              <mat-select required [(ngModel)]="agenda.configuracao.id">
-                @for (value of configuracoes; track $index) {
+              <mat-label>Cor</mat-label>
+              <mat-select required [(ngModel)]="agenda.cor.id">
+                @for (value of cores; track $index) {
                 <mat-option [value]="value.id">{{value.nome}}</mat-option>
                 }
               </mat-select>

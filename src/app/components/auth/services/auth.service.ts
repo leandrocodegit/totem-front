@@ -103,18 +103,12 @@ export class AuthService {
 
 
   logout() {
-    if (typeof window !== 'undefined') {
       this.limparSessao();
-      this.router.navigate(["/login"]);
-
-    }
+      this.router.navigate(["/login"]); 
   }
 
   limparSessao() {
-    if (typeof window !== 'undefined') {
       localStorage.clear();
-
-    }
   }
 
   public decodePayloadJWT(isRefresh?: boolean): any | null {

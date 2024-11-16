@@ -28,13 +28,13 @@
   <div class="box-detalhes-item">
     <label>Configuração de cor</label>
     <div class="cor-primaria-secundaria" style="display: flex;">
-      <div [style.background]="dispositivo?.configuracao.primaria" style="border-radius: 10px 0 0 10px;"></div>
-      <div [style.background]="dispositivo?.configuracao.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+      <div [style.background]="dispositivo?.cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
+      <div [style.background]="dispositivo?.cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
     </div>
   </div>
   <div class="box-detalhes-item">
     <label>Leds</label>
-    <h5>{{dispositivo?.configuracao.leds}}</h5>
+    <h5>{{dispositivo?.cor.leds}}</h5>
   </div>
   <div class="botoes">
     <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close type="submit">Fechar</button>

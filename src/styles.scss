@@ -134,6 +134,11 @@ legend {
   margin: 0 10px;
 }
 
+.p-tooltip-text{
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
 @media(max-width: 600px){
   .body-wrapper, .mat-mdc-card-content{
     padding: 10px !important;

@@ -16,13 +16,13 @@
   <tbody>
     <tr *ngFor="let device of dispositivos">
       <td *ngIf="!checkEmit">
-        <i-feather (click)="sincronizar(device, true)" name="cpu" [style.color]="device.configuracao ? device.configuracao.primaria : 'black'"
+        <i-feather  (click)="sincronizar(device, true)" name="cpu" [style.color]="device.cor ? device.cor.primaria : 'black'"
           class="feather-base" style="margin-right: 0px;"></i-feather>
       </td>
       <td *ngIf="!checkEmit">
-          <i-feather *ngIf="!device.timer" (click)="comandoRapido(device)" name="clock" [style.color]="device.configuracao ? device.configuracao.primaria : 'black'"
+          <i-feather tooltipPosition="top"  pTooltip="Enviar comando rápido" *ngIf="!device.timer" (click)="comandoRapido(device)" name="clock" [style.color]="device.cor ? device.cor.primaria : 'black'"
           class="feather-base" style="margin-right: 0px;"></i-feather>
-          <div *ngIf="device.timer" (click)="comandoRapido(device)" class="spinner-border spinner-border-sm" style="color: green;cursor: pointer;"></div>
+          <div tooltipPosition="top" pTooltip="Enviar comando rápido" *ngIf="device.timer" (click)="comandoRapido(device)" class="spinner-border spinner-border-sm" style="color: green;cursor: pointer;"></div>
       </td>
       <td *ngIf="checkEmit" style="width: 20px;">
         <p-checkbox (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
@@ -43,15 +43,15 @@
         <span class="badge badge-danger rounded-pill">Offline</span>
         }
       </td>
-      <td *ngIf="!checkEmit">{{getTradutor(undefined, device.configuracao)}}</td>
+      <td *ngIf="!checkEmit">{{getTradutor(undefined, device.cor)}}</td>
       <td style="font-size: 11px;color: rgb(114, 139, 250); max-width: 220px;">{{device.enderecoCompleto}}</td>
       <td *ngIf="exibirAcoes">
-        <i-feather [style.color]="device.conexao == 'Online' ? 'green' : 'black'" (click)="testar(device)" name="play-circle" class="feather-base"></i-feather>
-        <i-feather (click)="detalhes(device)" name="info" class="feather-base"></i-feather>
-        <i-feather (click)="editar(device)" name="edit" class="feather-base"></i-feather>
-        <i-feather (click)="configurar(device)" name="settings" class="feather-base"></i-feather>
-        <i-feather (click)="sincronizar(device, false)" name="refresh-ccw" class="feather-base"></i-feather>
-        <i-feather (click)="mudarStatus(device)" name="power" class="feather-base"
+        <i-feather tooltipPosition="top"   pTooltip="Enviar comando de teste" [style.color]="device.conexao == 'Online' ? 'green' : 'black'" (click)="testar(device)" name="play-circle" class="feather-base"></i-feather>
+        <i-feather tooltipPosition="top"  pTooltip="Ver informações do dispositivo" (click)="detalhes(device)" name="info" class="feather-base"></i-feather>
+        <i-feather tooltipPosition="top"  pTooltip="Editar dispositivo" (click)="editar(device)" name="edit" class="feather-base"></i-feather>
+        <i-feather tooltipPosition="top"  pTooltip="Configurar dispositivo" (click)="configurar(device)" name="settings" class="feather-base"></i-feather>
+        <i-feather tooltipPosition="top"  pTooltip="Dincronizar cor dispositivo" (click)="sincronizar(device, false)" name="refresh-ccw" class="feather-base"></i-feather>
+        <i-feather tooltipPosition="top"  pTooltip="Ativar ou inativar" (click)="mudarStatus(device)" name="power" class="feather-base"
           [style.color]="device.ativo ? 'green' : 'black'"> </i-feather>
       </td>
     </tr>

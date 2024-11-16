@@ -4,13 +4,13 @@ import { IconsModule } from '../../../IconsModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { MatSelectModule } from '@angular/material/select';
-import { Configuracao } from '../../models/configuracao.model';
+import { Cor } from '../../models/cor.model';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { MatButtonModule } from '@angular/material/button';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { ConfiguracaoService } from '../../dispositivos/services/configuracao.service';
+import { CorService } from '../../dispositivos/services/cor.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -43,7 +43,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ParamentrosCoresComponent {
 
-  @Input() configuracao!: Configuracao;
+  @Input() cor!: Cor;
   @Input() dispositivo!: Dispositivo;
   @Input() enviarConfiguracao = false;
   @Input() exibeSincronizar = false;
@@ -52,7 +52,7 @@ export class ParamentrosCoresComponent {
   constructor(
     private websocketService: WebSocketService2,
     private readonly dispositivoService: DispositivoService,
-    private readonly configuracaoService: ConfiguracaoService,
+    private readonly corService: CorService,
     private readonly messageService: MessageService,
     private readonly router: Router
   ) {}
@@ -60,27 +60,27 @@ export class ParamentrosCoresComponent {
   ngOnInit(): void {
     console.log('Parametros', this.dispositivo);
 
-    if (this.dispositivo && this.dispositivo.configuracao) {
-      this.configuracao = this.dispositivo.configuracao;
+    if (this.dispositivo && this.dispositivo.cor) {
+      this.cor = this.dispositivo.cor;
     }
     this.initCores();
   }
 
   initCores() {
-    this.configuracao.primaria = this.rgbToHex(
-      this.configuracao.cor[0],
-      this.configuracao.cor[1],
-      this.configuracao.cor[2],
+    this.cor.primaria = this.rgbToHex(
+      this.cor.cor[0],
+      this.cor.cor[1],
+      this.cor.cor[2],
     )
-    this.configuracao.secundaria = this.rgbToHex(
-      this.configuracao.cor[3],
-      this.configuracao.cor[4],
-      this.configuracao.cor[5],
+    this.cor.secundaria = this.rgbToHex(
+      this.cor.cor[3],
+      this.cor.cor[4],
+      this.cor.cor[5],
     );
   }
 
   getMinimo() {
-    switch (this.configuracao.efeito) {
+    switch (this.cor.efeito) {
       case 'SINALIZADOR': return 10;
       case 'CONTADOR': return 10;
       case 'GIRATORIO': return 10;
@@ -89,24 +89,24 @@ export class ParamentrosCoresComponent {
   }
 
   changeCorPrimaria() {
-    const parsedHex = this.configuracao.primaria.replace('#', '');
+    const parsedHex = this.cor.primaria.replace('#', '');
     const r = parseInt(parsedHex.substring(0, 2), 16);
     const g = parseInt(parsedHex.substring(2, 4), 16);
     const b = parseInt(parsedHex.substring(4, 6), 16);
-    this.configuracao.cor[0] = r;
-    this.configuracao.cor[1] = g;
-    this.configuracao.cor[2] = b;
+    this.cor.cor[0] = r;
+    this.cor.cor[1] = g;
+    this.cor.cor[2] = b;
     this.onSliderChange()
   }
 
   changeCorSecundaria() {
-    const parsedHex = this.configuracao.secundaria.replace('#', '');
+    const parsedHex = this.cor.secundaria.replace('#', '');
     const r = parseInt(parsedHex.substring(0, 2), 16);
     const g = parseInt(parsedHex.substring(2, 4), 16);
     const b = parseInt(parsedHex.substring(4, 6), 16);
-    this.configuracao.cor[3] = r;
-    this.configuracao.cor[4] = g;
-    this.configuracao.cor[5] = b;
+    this.cor.cor[3] = r;
+    this.cor.cor[4] = g;
+    this.cor.cor[5] = b;
     this.onSliderChange()
   }
 
@@ -118,12 +118,12 @@ export class ParamentrosCoresComponent {
   onSliderChange() {
     if (this.enviarConfiguracao) {
       console.log({
-        configuracao: this.configuracao,
+        configuracao: this.cor,
         device: this.dispositivo.mac
       });
 
       this.websocketService.publicar(JSON.stringify({
-        configuracao: this.configuracao,
+        configuracao: this.cor,
         device: this.dispositivo.mac
       }))
     }
@@ -155,7 +155,7 @@ export class ParamentrosCoresComponent {
 
   salvar() {
     this.initCores();
-    this.configuracaoService.salvarConfiguracao(this.configuracao, false).subscribe(() => {
+    this.corService.salvarCor(this.cor, false).subscribe(() => {
       this.messageService.add({
         severity: 'success',
         summary: 'Alteração',
@@ -173,12 +173,12 @@ export class ParamentrosCoresComponent {
 
   duplicar() {
     this.initCores();
-    this.configuracao.mac = this.dispositivo.mac;
-    this.configuracaoService.duplicarConfiguracao(this.configuracao).subscribe(() => {
+    this.cor.mac = this.dispositivo.mac;
+    this.corService.duplicarCor(this.cor).subscribe(() => {
       this.messageService.add({
         severity: 'success',
         summary: 'Duplicação',
-        detail: 'Configuração duplicada com sucesso'
+        detail: 'Cor duplicada com sucesso'
       });
     }, fail => {
       this.messageService.add({
