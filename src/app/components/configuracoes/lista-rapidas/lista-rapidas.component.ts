@@ -7,6 +7,7 @@ import { Dispositivo } from '../../models/dispositivo.model';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MatButtonModule } from '@angular/material/button';
+import { ComandoService } from '../../dispositivos/services/comando.service';
 
 @Component({
   selector: 'app-lista-rapidas',
@@ -17,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatDialogModule
   ],
-  providers:[
+  providers: [
     MessageService
   ],
   templateUrl: './lista-rapidas.component.html',
@@ -33,9 +34,36 @@ export class ListaRapidasComponent implements OnInit {
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
     private dialogRef: MatDialogRef<ListaRapidasComponent>,
+    private readonly comandoService: ComandoService,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
 
+    comandoService.temporizadorEmit.subscribe(data => {
+
+
+      if (data) { 
+        if (data.includes('não') || data.toUpperCase().includes('FALHA')){
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Comando rápido',
+            detail: data
+          });
+        }
+        else if (data.includes('ok')) {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Comando rápido',
+            detail: 'Comando foi executado com sucesso'
+          });
+        } else if (data.includes('aceito')) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Comando rápido',
+            detail: data
+          });
+        }
+      }
+    })
     this.dispositivo = data;
   }
 
@@ -44,8 +72,28 @@ export class ListaRapidasComponent implements OnInit {
     this.corService.listaTodasCoresRapidas().subscribe(response => this.cores = response)
   }
 
+  temporizar(cor: Cor, cancelar: boolean) {
+
+    this.comandoService.enviarComandoRapido(cor.id, this.dispositivo.mac, cancelar
+    ).subscribe({
+      next: (data) => {
+
+      },
+      complete: () => {
+
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Erro ao enviar comando'
+        });
+      }
+    });
+  }
+
   enviar(cor: Cor) {
-    if(this.dispositivo){
+    if (this.dispositivo) {
       this.dispositivoService.enviarComandoTemporizado(cor.id, this.dispositivo.mac, false).subscribe(() => {
         this.messageService.add({
           severity: 'info',
@@ -64,22 +112,7 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   cancelar() {
-    if(this.dispositivo){
-      this.dispositivoService.enviarComandoTemporizado('', this.dispositivo.mac, true).subscribe(() => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Comando rápido',
-          detail: 'Comando foi cancelado'
-        });
-        this.dispositivo.timer = false;
-      }, fail => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: 'Erro ao cancelar comando'
-        });
-      });
-    }
+    // this.temporizar(undefined, this.cancelar);
   }
 
 

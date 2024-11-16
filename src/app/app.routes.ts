@@ -13,9 +13,11 @@ import { ContentMapaComponent } from './components/mapa/content-mapa/content-map
 import { DetalhesDispositivoComponent } from './components/dispositivos/detalhes-dispositivo/detalhes-dispositivo.component';
 import { UploadComponent } from './components/principal/upload/upload.component';
 import { PerfilUsuarioComponent } from './components/usuarios/views/perfil-usuario/perfil-usuario.component';
+import { SicronizarDipositivosComponent } from './components/sincronizar/sicronizar-dipositivos/sicronizar-dipositivos.component';
 
 
 export const routes: Routes = [
+
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: '', component: SidebarComponent,
@@ -48,8 +50,8 @@ export const routes: Routes = [
       { path: "configuracoes", component: CardConfiguracoesComponent },
       { path: "mapa", component: ContentMapaComponent },
       { path: "detalhes", component: DetalhesDispositivoComponent },
-      { path: 'perfil', component: PerfilUsuarioComponent}
-
+      { path: 'perfil', component: PerfilUsuarioComponent},
+      {path: 'sincronizar', component: SicronizarDipositivosComponent},
     ],
   },
   { path: 'login', component: LoginComponent },

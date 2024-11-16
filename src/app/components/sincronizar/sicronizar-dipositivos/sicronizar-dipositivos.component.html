@@ -1,0 +1,34 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <div class="botoes">
+      <h4>Sincronizar dispositivos</h4>
+      <div>
+        <button mat-raised-button class="me-8 mb-8" color="accent" (click)="sincronizar(false)"
+        type="submit">Enviar sem confirmação</button>
+        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="sincronizar(true)"
+        type="submit">Enviar</button>
+      </div>
+
+    </div>
+    <div class="box-sincronizar">
+      <mat-progress-bar *ngIf="isLoad" mode="indeterminate"></mat-progress-bar>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Detalhes</th>
+            <th>Resposta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of logs">
+            <td><span class="badge badge-{{log.severity}} rounded-pill">{{log.status}}</span></td>
+            <td>{{log.detail}}</td>
+            <td>{{log.tipo}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </mat-card-content>
+</mat-card>

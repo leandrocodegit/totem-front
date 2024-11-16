@@ -60,7 +60,7 @@ export class WebSocketService2 {
             this.client.brokerURL = this.getUrlBroker();
             this.client.activate();
           }, fail => {
-            if (fail.error && fail.error.status && fail.error.status == 403)
+            if (fail.error && fail.error.status && fail.error.status == 401)
               this.client.deactivate();
           })
         }

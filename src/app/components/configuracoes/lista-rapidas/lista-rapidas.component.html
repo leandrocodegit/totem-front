@@ -1,15 +1,15 @@
 <h2 style="padding: 20px;">{{dispositivo?.nome}}</h2>
 <p style="font-weight: 600; color: #008eff;">{{dispositivo.enderecoCompleto}}</p>
 <div class="box-rapidas">
-  @for (conf of cores; track $index) {
-  <div (click)="enviar(conf)" class="box-rapidas-item">
+  @for (cor of cores; track $index) {
+  <div (click)="temporizar(cor, false)" class="box-rapidas-item">
     <div style="margin: 10px;">
-      <p>{{conf.nome}}</p>
-      <p style="font-size: 12px;">{{conf.time}} minuto{{conf.time == 1 ? '' : 's'}}</p>
+      <p>{{cor.nome}}</p>
+      <p style="font-size: 12px;">{{cor.time}} minuto{{cor.time == 1 ? '' : 's'}}</p>
     </div>
       <div style="display: flex;width: 100%;height: 8px;min-width: 100px;">
-        <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="conf.primaria"></div>
-        <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="conf.secundaria"></div>
+        <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="cor.primaria"></div>
+        <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="cor.secundaria"></div>
       </div>
   </div>
 }
