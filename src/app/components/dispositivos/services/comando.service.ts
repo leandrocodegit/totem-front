@@ -28,16 +28,57 @@ export class ComandoService {
     private readonly http: HttpClient) { }
 
 
+    public sincronizarDispositivo(mac: string): Observable<any> {
+
+      return new Observable<any>(obs => {
+        const eventSource = new EventSource(`${environment.urlbroker}/comando/${mac}`);
+
+        eventSource.addEventListener('message', (evt: any) => {
+          this.temporizadorEmit.emit(evt.data);
+        });
+
+        eventSource.addEventListener('error', (err) => {
+          eventSource.close();
+          obs.complete();
+        });
+
+        return () => {
+          console.log('Fechando EventSource...');
+          eventSource.close();
+        };
+      })
+    }
+
   public sincronizar(responder: boolean, logs: any[]): Observable<any> {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/comando/sincronizar/${responder}`);
 
       eventSource.addEventListener('message', (evt: any) => {
-        console.log(evt);
         const falha = evt.data.includes('não') || evt.data.toUpperCase().includes('FALHA');
         const naoEncontrado = evt.data.includes('não encontrado');
         logs.push({ severity: falha ? (naoEncontrado ? 'warn' : 'danger'): 'success', status: falha ? 'Falha' : 'Concluido', detail: evt.data, tipo: falha ? (naoEncontrado ? 'Não enviado' : 'Sem resposta') : 'Ok' });
+      });
+
+      eventSource.addEventListener('error', (err) => {
+        eventSource.close();
+        obs.complete();
+      });
+
+      return () => {
+        console.log('Fechando EventSource...');
+        eventSource.close();
+      };
+    })
+  }
+
+  public enviarComandoRapido(idCor: string, mac: string): Observable<any> {
+
+    return new Observable<any>(obs => {
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}`);
+
+      eventSource.addEventListener('message', (evt: any) => {
+        this.temporizadorEmit.emit(evt.data);
       });
 
       eventSource.addEventListener('error', (err) => {
@@ -53,10 +94,10 @@ export class ComandoService {
     })
   }
 
-  public enviarComandoRapido(idCor: string, mac: string, cancelar: boolean): Observable<any> {
+  public cancelarComandoRapido(mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}/${cancelar}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${mac}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);

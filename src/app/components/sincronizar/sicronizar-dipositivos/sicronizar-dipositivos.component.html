@@ -3,9 +3,9 @@
     <div class="botoes">
       <h4>Sincronizar dispositivos</h4>
       <div>
-        <button mat-raised-button class="me-8 mb-8" color="accent" (click)="sincronizar(false)"
+        <button [disabled]="isLoad" mat-raised-button class="me-8 mb-8" color="accent" (click)="sincronizar(false)"
         type="submit">Enviar sem confirmação</button>
-        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="sincronizar(true)"
+        <button [disabled]="isLoad" mat-raised-button class="me-8 mb-8" color="primary" (click)="sincronizar(true)"
         type="submit">Enviar</button>
       </div>
 
@@ -28,7 +28,8 @@
           </tr>
         </tbody>
       </table>
-
     </div>
   </mat-card-content>
 </mat-card>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

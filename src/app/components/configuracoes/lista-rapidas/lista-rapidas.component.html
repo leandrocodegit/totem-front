@@ -2,7 +2,7 @@
 <p style="font-weight: 600; color: #008eff;">{{dispositivo.enderecoCompleto}}</p>
 <div class="box-rapidas">
   @for (cor of cores; track $index) {
-  <div (click)="temporizar(cor, false)" class="box-rapidas-item">
+  <div (click)="temporizar(cor.id)" class="box-rapidas-item">
     <div style="margin: 10px;">
       <p>{{cor.nome}}</p>
       <p style="font-size: 12px;">{{cor.time}} minuto{{cor.time == 1 ? '' : 's'}}</p>

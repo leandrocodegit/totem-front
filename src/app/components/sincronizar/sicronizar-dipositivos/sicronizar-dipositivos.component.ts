@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sicronizar-dipositivos',
@@ -17,7 +19,11 @@ import { MatCardModule } from '@angular/material/card';
     NgFor,
     MatProgressBarModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './sicronizar-dipositivos.component.html',
   styleUrl: './sicronizar-dipositivos.component.scss'
@@ -29,7 +35,8 @@ export class SicronizarDipositivosComponent {
   protected emiter = new EventEmitter;
 
   constructor(
-    private readonly comandoService: ComandoService
+    private readonly comandoService: ComandoService,
+    private readonly messageService: MessageService
   ) {
   }
 
@@ -51,11 +58,19 @@ export class SicronizarDipositivosComponent {
         console.log('Dados recebidos:', data);
       },
       complete: () => {
-        console.log('Finalizado o recebimento de dados.');
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sincronização',
+          detail: 'Envio concluido'
+        });
         this.isLoad = false;
       },
       error: (err) => {
-        console.error('Erro ao processar os dados:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Sincronização',
+          detail: 'Erro ao processar envio'
+        });
         this.isLoad = false;
       }
     });

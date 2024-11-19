@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-painel-dipositivos',
   standalone: true,
   imports: [
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './painel-dipositivos.component.html',
   styleUrl: './painel-dipositivos.component.scss'

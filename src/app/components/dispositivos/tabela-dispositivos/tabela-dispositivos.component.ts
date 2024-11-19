@@ -20,6 +20,9 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ListaRapidasComponent } from '../../configuracoes/lista-rapidas/lista-rapidas.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { MessageService } from 'primeng/api';
+import { ComandoService } from '../services/comando.service';
+import { ToastModule } from 'primeng/toast';
 var initDialog = true;
 
 @Component({
@@ -34,7 +37,11 @@ var initDialog = true;
     NgIf,
     MatPaginatorModule,
     MatSortModule,
-    TooltipModule
+    TooltipModule,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './tabela-dispositivos.component.html',
   styleUrl: './tabela-dispositivos.component.scss'
@@ -56,8 +63,36 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     private readonly dispositivoService: DispositivoService,
     private readonly dialog: MatDialog,
     private readonly activeRoute: ActivatedRoute,
+    private readonly messageService: MessageService,
+    private readonly comandoService: ComandoService,
     private readonly route: Router
   ) {
+
+    comandoService.temporizadorEmit.subscribe(data => {
+
+      if (data) {
+        if (data.includes('não') || data.toUpperCase().includes('FALHA')){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Sincronização',
+            detail: data
+          });
+        }
+        else if (data.includes('ok')) {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Sincronização',
+            detail: 'Comando foi enviado'
+          });
+        } else if (data.includes('aceito')) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sincronização',
+            detail: data
+          });
+        }
+      }
+    })
 
     dispositivoService.pesquisa.subscribe(data => {
 
@@ -152,7 +187,19 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   sincronizar(dispositivo: Dispositivo, teste: boolean) {
-    this.dispositivoService.sincronizar([dispositivo.mac], teste).subscribe();
+    this.comandoService.sincronizarDispositivo(dispositivo.mac).subscribe({
+      next: (data) => {
+      },
+      complete: () => {
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Erro ao enviar comando'
+        });
+      }
+    });
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {

@@ -1,5 +1,7 @@
-<div class="box-login">
-  <div class="box-login-form">
+<div class="box-login"> 
+  <div class="imagem" style="background-image: url(/assets/images/city.jpg);">
+  </div>
+  <div class="box-login-form" >
     <img src="/assets/images/avatar.png" width="70">
       <input [(ngModel)]="email" class="campo-padrao" matInput type="text" placeholder="Entre com seu login">
       <input [(ngModel)]="password" class="campo-padrao" matInput type="password" placeholder="Senha">
@@ -8,4 +10,5 @@
     <mat-spinner class="custom-spinner" *ngIf="isLoad"></mat-spinner>
     <span *ngIf="isError" class="text-danger">Falha no login</span>
   </div>
+
 </div>

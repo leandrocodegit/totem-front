@@ -139,6 +139,19 @@ legend {
   font-size: 12px;
 }
 
+.p-element{
+  font-size: 13px;
+}
+
+.p-toast-message-text {
+  margin-left: 15px;
+  margin: 5px 15px;
+}
+
+.p-toast .p-element svg{
+  width: 25px;
+}
+
 @media(max-width: 600px){
   .body-wrapper, .mat-mdc-card-content{
     padding: 10px !important;

@@ -33,15 +33,14 @@ export class ListaRapidasComponent implements OnInit {
     private readonly corService: CorService,
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
-    private dialogRef: MatDialogRef<ListaRapidasComponent>,
     private readonly comandoService: ComandoService,
+    private dialogRef: MatDialogRef<ListaRapidasComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
 
     comandoService.temporizadorEmit.subscribe(data => {
 
-
-      if (data) { 
+      if (data) {
         if (data.includes('não') || data.toUpperCase().includes('FALHA')){
           this.messageService.add({
             severity: 'warn',
@@ -72,12 +71,10 @@ export class ListaRapidasComponent implements OnInit {
     this.corService.listaTodasCoresRapidas().subscribe(response => this.cores = response)
   }
 
-  temporizar(cor: Cor, cancelar: boolean) {
+  temporizar(cor: string) {
 
-    this.comandoService.enviarComandoRapido(cor.id, this.dispositivo.mac, cancelar
-    ).subscribe({
+    this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
       next: (data) => {
-
       },
       complete: () => {
 
@@ -92,27 +89,23 @@ export class ListaRapidasComponent implements OnInit {
     });
   }
 
-  enviar(cor: Cor) {
-    if (this.dispositivo) {
-      this.dispositivoService.enviarComandoTemporizado(cor.id, this.dispositivo.mac, false).subscribe(() => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Comando rápido',
-          detail: 'Comando foi enviado'
-        });
-        this.dispositivo.timer = true;
-      }, fail => {
+
+  cancelar() {
+    this.comandoService.cancelarComandoRapido(this.dispositivo.mac).subscribe({
+      next: (data) => {
+
+      },
+      complete: () => {
+
+      },
+      error: (err) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Falha',
           detail: 'Erro ao enviar comando'
         });
-      });
-    }
-  }
-
-  cancelar() {
-    // this.temporizar(undefined, this.cancelar);
+      }
+    });
   }
 
 
