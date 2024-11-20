@@ -55,6 +55,7 @@ export class LoginComponent {
       this.isLoad = false;
       this.router.navigate([`/dashboard`]);
     }, fail => {
+      console.log(fail);
       this.isError = true;
       this.isLoad = false;
     });
