@@ -273,6 +273,8 @@ export class DashboardComponent {
 
 
   quantidadeAgendas(){
+    if(!this.dashboard.agendas.length)
+      return 0;
     return this.dashboard.agendas.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
   }
 

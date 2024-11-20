@@ -42,10 +42,7 @@ export class AuthService {
   }
 
   get accessToken(): string | null {
-    if(typeof window !== 'undefined'){
-      return localStorage.getItem("token.access");
-    }
-    return 'token'
+      return localStorage.getItem("token.access"); 
   }
 
   public isLoggedIn() {
@@ -104,7 +101,7 @@ export class AuthService {
 
   logout() {
       this.limparSessao();
-      this.router.navigate(["/login"]); 
+      this.router.navigate(["/login"]);
   }
 
   limparSessao() {

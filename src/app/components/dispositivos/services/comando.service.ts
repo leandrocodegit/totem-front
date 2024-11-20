@@ -13,6 +13,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Page } from '../../models/Page';
 import { Sort } from '@angular/material/sort';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../auth/services/auth.service';
 
 
 
@@ -25,13 +26,18 @@ export class ComandoService {
   public temporizadorEmit = new EventEmitter
 
   constructor(
-    private readonly http: HttpClient) { }
+    private readonly http: HttpClient,
+    private readonly authService: AuthService
+    ) { }
 
+    private getParaToken(){
+      return `?token=${this.authService.accessToken}`
+    }
 
     public sincronizarDispositivo(mac: string): Observable<any> {
 
       return new Observable<any>(obs => {
-        const eventSource = new EventSource(`${environment.urlbroker}/comando/${mac}`);
+        const eventSource = new EventSource(`${environment.urlbroker}/comando/${mac}${this.getParaToken()}`);
 
         eventSource.addEventListener('message', (evt: any) => {
           this.temporizadorEmit.emit(evt.data);
@@ -52,7 +58,7 @@ export class ComandoService {
   public sincronizar(responder: boolean, logs: any[]): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/comando/sincronizar/${responder}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/sincronizar/${responder}${this.getParaToken()}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         const falha = evt.data.includes('não') || evt.data.toUpperCase().includes('FALHA');
@@ -75,7 +81,7 @@ export class ComandoService {
   public enviarComandoRapido(idCor: string, mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}${this.getParaToken()}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -97,7 +103,7 @@ export class ComandoService {
   public cancelarComandoRapido(mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${mac}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${mac}${this.getParaToken()}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -117,11 +123,11 @@ export class ComandoService {
   }
 
   public sincronizarTudo(): Observable<any> {
-    return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false`, environment.headers)
+    return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false${this.getParaToken()}`, environment.headers)
   }
 
   public enviarComandoTemporizado(idCor: string, mac: string, cancelar: boolean): Observable<any> {
-    return this.http.post<any>(`${environment.urlApi}/cor/temporizar`, {
+    return this.http.post<any>(`${environment.urlApi}/cor/temporizar${this.getParaToken()}`, {
       idCor: idCor,
       mac: mac,
       cancelar: cancelar
@@ -129,6 +135,6 @@ export class ComandoService {
   }
 
   public testar(mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlApi}/comando/teste/${mac}`, environment.headers)
+    return this.http.get<any>(`${environment.urlApi}/comando/teste/${mac}${this.getParaToken()}`, environment.headers)
   }
 }
