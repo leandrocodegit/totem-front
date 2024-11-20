@@ -4,7 +4,7 @@ export const environment = {
   production: true,
   urlApi: 'http://vps55601.publiccloud.com.br:8000/totem',
   urlbroker: 'http://vps55601.publiccloud.com.br:8080',
-  urlWebSocket: 'ws://vps55601.publiccloud.com.br:8000/ws',
+  urlWebSocket: 'ws://vps55601.publiccloud.com.br:8080/ws',
   headers: {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
