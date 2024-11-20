@@ -152,6 +152,10 @@ legend {
   width: 25px;
 }
 
+.mat-mdc-card {
+  border-radius: 5px !important;
+}
+
 @media(max-width: 600px){
   .body-wrapper, .mat-mdc-card-content{
     padding: 10px !important;
