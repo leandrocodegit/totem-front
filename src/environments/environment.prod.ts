@@ -2,7 +2,7 @@ import { HttpHeaders } from "@angular/common/http";
 
 export const environment = {
   production: true,
-  urlApi: 'http://vps55601.publiccloud.com.br:8000',
+  urlApi: 'http://vps55601.publiccloud.com.br:8000/totem',
   urlbroker: 'http://localhost:8080',
   urlWebSocket: 'ws://vps55601.publiccloud.com.br:8000/ws',
   headers: {
