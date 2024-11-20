@@ -3,16 +3,6 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: #fafafa;
-}
-
-.imagem{
-  background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 40%;
-    height: 100%;
 }
 
 .box-login-form{
@@ -20,10 +10,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: white;
   padding: 30px;
-  box-shadow: 0 0 5px #cacaca;
   border-radius: 16px;
+  margin: auto;
 }
 
 img{
@@ -34,10 +23,18 @@ img{
   margin-top: 10px;
   padding: 10px;
   width: 250px;
+  border-color: #948fe1 !important;
+  border-style: solid;
+  border-width: thin;
+  border-radius: 5px;
+  font-weight: 400;
+  color: #5a53b9;
 }
 
 button{
-  width: 86%;
+  width: 88%;
+  border-radius: 3px !important;
+  background: #948fe1 !important;
 }
 
 
