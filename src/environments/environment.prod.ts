@@ -7,8 +7,7 @@ export const environment = {
   urlWebSocket: 'ws://vps55601.publiccloud.com.br:8000/ws',
   headers: {
     headers: new HttpHeaders({
-      "Content-Type": "application/json",
-      "Authorizarion": localStorage.getItem('token.access')!
+      "Content-Type": "application/json"
     })
   },
 };
