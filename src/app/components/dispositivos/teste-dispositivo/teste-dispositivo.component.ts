@@ -4,6 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { isPlatformBrowser, NgIf } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ComandoService } from '../services/comando.service';
 
 
 @Component({
@@ -13,7 +16,11 @@ import { isPlatformBrowser, NgIf } from '@angular/common';
     MatButtonModule,
     MatProgressBarModule,
     MatDialogModule,
-    NgIf
+    NgIf,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './teste-dispositivo.component.html',
   styleUrl: './teste-dispositivo.component.scss'
@@ -41,6 +48,8 @@ export class TesteDispositivoComponent {
 
   constructor(
     private readonly dispositivoService: DispositivoService,
+    private readonly messageService: MessageService,
+    private readonly comandoService: ComandoService,
     @Inject(MAT_DIALOG_DATA) private data: any,
     @Inject(PLATFORM_ID) platformId: object,
   ) {
@@ -48,12 +57,48 @@ export class TesteDispositivoComponent {
     if (data) {
       this.mac = data;
     }
+
+    comandoService.testeEmit.subscribe(data => {
+
+      if (data) {
+        if (data.includes('não') || data.toUpperCase().includes('FALHA')){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Sincronização',
+            detail: data
+          });
+        }
+        else if (data.includes('ok')) {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Sincronização',
+            detail: 'Comando foi enviado'
+          });
+        } else if (data.includes('aceito')) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sincronização',
+            detail: data
+          });
+        }
+      }
+    })
   }
 
   testar() {
-    this.iniciarTeste = true;
-    this.dispositivoService.testar(this.mac).subscribe(() => {
-    }, fail => this.iniciarTeste = false);
+    this.comandoService.sincronizarDispositivo(this.mac).subscribe({
+      next: (data) => {
+      },
+      complete: () => {
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Erro ao enviar comando de teste'
+        });
+      }
+    });
 
     this.start();
   }

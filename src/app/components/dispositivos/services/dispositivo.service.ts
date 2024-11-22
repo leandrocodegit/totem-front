@@ -84,10 +84,4 @@ export class DispositivoService {
       cancelar: cancelar
     }, environment.headers)
   }
-
-  
-
-  public testar(mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlApi}/comando/teste/${mac}`, environment.headers)
-  }
 }

@@ -23,7 +23,8 @@ import { AuthService } from '../../auth/services/auth.service';
 )
 export class ComandoService {
 
-  public temporizadorEmit = new EventEmitter
+  public temporizadorEmit = new EventEmitter;
+  public testeEmit = new EventEmitter
 
   constructor(
     private readonly http: HttpClient,
@@ -135,6 +136,23 @@ export class ComandoService {
   }
 
   public testar(mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlApi}/comando/teste/${mac}${this.getParaToken()}`, environment.headers)
+    return new Observable<any>(obs => {
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/teste/${mac}${this.getParaToken()}`);
+
+      eventSource.addEventListener('message', (evt: any) => {
+        this.testeEmit.emit(evt.data);
+      });
+
+      eventSource.addEventListener('error', (err) => {
+        console.error('Erro no EventSource:', err);
+        eventSource.close();
+        obs.complete();
+      });
+
+      return () => {
+        console.log('Fechando EventSource...');
+        eventSource.close();
+      };
+    })
   }
 }
