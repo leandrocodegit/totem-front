@@ -21,7 +21,7 @@ export class WebSocketService2 {
     private authService: AuthService,
     private route: Router) {
 
-    this.client = new Client({
+/*     this.client = new Client({
       brokerURL: this.getUrlBroker(),
       onConnect: () => {
         if (!route.url.includes('login')) {
@@ -71,7 +71,7 @@ export class WebSocketService2 {
       },
     });
 
-    this.client.activate();
+    this.client.activate(); */
 
 
 

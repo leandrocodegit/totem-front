@@ -7,15 +7,15 @@
           <span class="material-symbols-outlined">
             event
           </span>
-          <div tooltipPosition="top"  [pTooltip]="agenda.cor.nome" class="cor-primaria-secundaria" style="display: flex;">
-            <div [style.background]="agenda.cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
+          <div tooltipPosition="top"  [pTooltip]="agenda?.cor?.nome" class="cor-primaria-secundaria" style="display: flex;">
+            <div [style.background]="agenda?.cor?.primaria" style="border-radius: 10px 0 0 10px;"></div>
             <div
-              [style.background]="agenda.cor.efeito == 'COLORIDO' ? agenda.cor.primaria : agenda.cor.secundaria"
+              [style.background]="agenda?.cor?.efeito == 'COLORIDO' ? agenda?.cor?.primaria : agenda?.cor?.secundaria"
               style="border-radius: 0 10px 10px 0;"></div>
           </div>
         </div>
         <div class="mb-2 mt-2 font-medium" style="font-size: 12px;">
-          {{ agenda.nome}}<br>
+          {{ agenda?.nome}}<br>
           <span style="font-size: 10px;color: #4ca1af;">{{agenda.status}}</span>
         </div>
         <div class="flex justify-content-between align-items-center">

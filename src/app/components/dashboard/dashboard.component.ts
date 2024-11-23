@@ -16,6 +16,7 @@ import { AgendaService } from '../dispositivos/services/agenda.service';
 import { Agenda } from '../models/agenda.model';
 import { PAGE_INIT } from '../models/constantes/PageUtil';
 import { ProximasAgendasComponent } from '../agendas/proximas-agendas/proximas-agendas.component';
+import { MqttServices } from 'src/app/broker/mqtt.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +27,7 @@ import { ProximasAgendasComponent } from '../agendas/proximas-agendas/proximas-a
     IconsModule,
     TimelineModule,
     MatCardModule,
-    NgIf, NgFor,
     IconsModule,
-    TabelaAgendasComponent,
     FieldsetModule,
     ProximasAgendasComponent
   ],
@@ -50,18 +49,18 @@ export class DashboardComponent {
 
   constructor(
     private readonly dashboardService: DashboardService,
-    private readonly webSocketService: WebSocketService2,
+    private readonly mqttSevice: MqttServices,
     private readonly agendaService: AgendaService,
     private primengConfig: PrimeNGConfig) {
 
-    webSocketService.dashboardEmit.subscribe(response => {
+   /*  webSocketService.dashboardEmit.subscribe(response => {
       if (response) {
         try {
           this.dashboard = JSON.parse(response);
           this.initDashboard();
         } catch (error) { }
       }
-    })
+    }) */
   }
 
   ngOnInit() {
@@ -303,6 +302,10 @@ export class DashboardComponent {
         }
       ]
     }
+  }
+
+  conectar(){
+    this.mqttSevice.connect()
   }
 }
 
