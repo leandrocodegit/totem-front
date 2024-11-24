@@ -79,7 +79,8 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
             this.dispositivo.configuracao = {
               intensidade: 255,
               leds: 1,
-              faixa: 2
+              faixa: 2,
+              tipoCor: 'RGB'
             }
           }
           if (params['tab'] != undefined){

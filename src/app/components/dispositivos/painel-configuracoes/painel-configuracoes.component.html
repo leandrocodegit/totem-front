@@ -12,6 +12,14 @@
           <p-checkbox (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
         </div>
         <div style="padding: 20px 0 0 0;max-width: 600px;">
+          <mat-form-field appearance="outline">
+            <mat-label>Padrão de cores</mat-label>
+            <mat-select required (selectionChange)="onSliderChange()" [(ngModel)]="dispositivo.configuracao.tipoCor">
+              <mat-option value="RGB">RGB</mat-option>
+              <mat-option value="GRB">GRB</mat-option>
+              <mat-option value="RBG">RBG</mat-option>
+            </mat-select>
+          </mat-form-field>
           <mat-form-field appearance="outline" style="margin-right: 10px;">
             <mat-label>Quantidade leds</mat-label>
             <input (change)="onSliderChange()" matInput required [(ngModel)]="dispositivo?.configuracao.leds" type="number" placeholder="Nome">
