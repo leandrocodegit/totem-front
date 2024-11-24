@@ -84,4 +84,42 @@ export class DispositivoService {
       cancelar: cancelar
     }, environment.headers)
   }
+
+  public formatCor(cores: number[], tipoCor: string) {
+    if (tipoCor == 'RBG') {
+      return [
+        cores[0],
+        cores[2],
+        cores[1],
+        cores[3],
+        cores[5],
+        cores[4]
+      ];
+    } else if (tipoCor == 'GRB') {
+      return [
+        cores[2],
+        cores[0],
+        cores[1],
+        cores[5],
+        cores[3],
+        cores[4]
+      ];
+    }
+  }
+
+  public formatCorrecao(correcao: number[], tipoCor: string) {
+    if (tipoCor == 'RBG') {
+      return [
+        correcao[0],
+        correcao[2],
+        correcao[1]
+      ];
+    } else if (tipoCor == 'GRB') {
+      return [
+        correcao[2],
+        correcao[0],
+        correcao[1]
+      ];
+    }
+  }
 }
