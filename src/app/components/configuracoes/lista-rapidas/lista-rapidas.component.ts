@@ -55,6 +55,7 @@ export class ListaRapidasComponent implements OnInit {
             detail: 'Comando foi executado com sucesso'
           });
         } else if (data.includes('aceito')) {
+          this.dispositivo.timer = true;
           this.messageService.add({
             severity: 'success',
             summary: 'Comando rápido',
@@ -91,6 +92,7 @@ export class ListaRapidasComponent implements OnInit {
 
 
   cancelar() {
+    this.dispositivo.timer = false;
     this.comandoService.cancelarComandoRapido(this.dispositivo.mac).subscribe({
       next: (data) => {
 
