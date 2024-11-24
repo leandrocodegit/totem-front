@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthInterceptor } from './components/auth/services/auth.interceptor';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
+import { MqttService } from 'ngx-mqtt';
 
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
@@ -16,7 +17,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 };
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    MqttService,
+    provideRouter(routes), 
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),

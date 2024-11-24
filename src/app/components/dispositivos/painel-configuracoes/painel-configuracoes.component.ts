@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { IconsModule } from '../../../IconsModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { MqttService } from 'ngx-mqtt';
+import { MqttAppModule } from 'src/app/mqtt-app.module';
 
 @Component({
   selector: 'app-painel-configuracoes',
@@ -41,22 +43,28 @@ import { ToastModule } from 'primeng/toast';
     CheckboxModule,
     MatInputModule,
     MatFormFieldModule,
-    ToastModule
+    ToastModule,
+    MqttAppModule
   ],
   providers: [
-    MessageService
+    MessageService,
+    MqttService
   ],
   templateUrl: './painel-configuracoes.component.html',
   styleUrl: './painel-configuracoes.component.scss'
 })
-export class PainelConfiguracoesComponent implements OnInit {
+export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
 
   protected dispositivo!: Dispositivo;
   protected tabSelect = 0;
+  @Input() enviarConfiguracao = {
+    value: false
+  };
 
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
+    private readonly mqttSevice: MqttService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -85,6 +93,44 @@ export class PainelConfiguracoesComponent implements OnInit {
       }
 
     })
+  }
+
+  ngOnDestroy(): void {
+    this.mqttSevice.disconnect();
+    console.log('Disconnect', this.mqttSevice.onConnect);
+
+  }
+
+  habilitarSincronismo() {
+    if (this.enviarConfiguracao.value) {
+      this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
+        const jsonString = String.fromCharCode(...message.payload);
+        const payload = JSON.parse(jsonString);
+        if (payload && payload.comando && payload.comando == 'ACEITO') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sincronizado',
+            detail: 'Dispositivo sincronizado'
+          });
+        }
+      });
+    }
+  }
+
+  onSliderChange() {
+    if (this.enviarConfiguracao) {
+      this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.mac}`, `{
+        "efeito": "${this.dispositivo.cor.efeito}",
+        "cor": [${this.dispositivo.cor.cor}],
+        "leds": ${this.dispositivo.configuracao.leds},
+        "faixa": ${this.dispositivo.configuracao.faixa},
+        "intensidade": ${this.dispositivo.configuracao.intensidade},
+        "correcao": [${this.dispositivo.cor.correcao}],
+        "velocidade":${this.dispositivo.cor.velocidade},
+        "host": "",
+        "responder": true }
+        `);
+    }
   }
 
   salvarConfiguracao(){

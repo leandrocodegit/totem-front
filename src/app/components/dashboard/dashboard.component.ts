@@ -16,7 +16,9 @@ import { AgendaService } from '../dispositivos/services/agenda.service';
 import { Agenda } from '../models/agenda.model';
 import { PAGE_INIT } from '../models/constantes/PageUtil';
 import { ProximasAgendasComponent } from '../agendas/proximas-agendas/proximas-agendas.component';
-import { MqttServices } from 'src/app/broker/mqtt.service';
+import { MqttService } from 'ngx-mqtt'; // Importa o serviço MQTT
+
+import { MqttAppModule } from 'src/app/mqtt-app.module';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +31,11 @@ import { MqttServices } from 'src/app/broker/mqtt.service';
     MatCardModule,
     IconsModule,
     FieldsetModule,
-    ProximasAgendasComponent
+    ProximasAgendasComponent,
+    MqttAppModule
+  ],
+  providers: [
+    MqttService
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -49,7 +55,7 @@ export class DashboardComponent {
 
   constructor(
     private readonly dashboardService: DashboardService,
-    private readonly mqttSevice: MqttServices,
+    private readonly mqttSevice: MqttService,
     private readonly agendaService: AgendaService,
     private primengConfig: PrimeNGConfig) {
 
@@ -305,7 +311,17 @@ export class DashboardComponent {
   }
 
   conectar(){
-    this.mqttSevice.connect()
+    this.mqttSevice.connect();
+
+    // Subscreve ao tópico
+    this.mqttSevice.observe('topico/teste').subscribe((message) => {
+      console.log('Mensagem recebida:', message.payload.toString());
+    });
+  }
+
+  sendMessage() {
+    // Publica uma mensagem no tópico
+    this.mqttSevice.unsafePublish('topico/teste', 'Mensagem de teste');
   }
 }
 

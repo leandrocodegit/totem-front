@@ -95,26 +95,7 @@ export class WebSocketService2 {
 
   }
 
-  publicar(mensagem: string) {
-    console.log("Publicado");
-    this.client.publish({ destination: '/app/device', body: mensagem });
-  }
-
-  disconnect() {
-    this.client.deactivate();
-  }
-
-  private subscribeToTopics() {
-    this.client.subscribe('/topic/message', (message: Message) => {
-      console.log('Received message:', message.body);
-      // Aqui você pode tratar a mensagem recebida
-    });
-  }
-
-  sendMessage(destination: string, message: string) {
-    this.client.publish({ destination, body: message });
-  }
-
+ 
 
 
 }

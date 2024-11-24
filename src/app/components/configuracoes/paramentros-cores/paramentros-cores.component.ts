@@ -12,11 +12,13 @@ import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { CorService } from '../../dispositivos/services/cor.service';
 import { CheckboxModule } from 'primeng/checkbox';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { MqttService } from 'ngx-mqtt';
+import { MqttAppModule } from 'src/app/mqtt-app.module';
+import { ComandoService } from '../../dispositivos/services/comando.service';
 
 
 @Component({
@@ -33,10 +35,13 @@ import { MessageService } from 'primeng/api';
     CheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    ToastModule
+    ToastModule,
+    MqttAppModule
   ],
   providers: [
-    MessageService
+    MessageService,
+    MqttService,
+
   ],
   templateUrl: './paramentros-cores.component.html',
   styleUrl: './paramentros-cores.component.scss'
@@ -45,17 +50,48 @@ export class ParamentrosCoresComponent {
 
   @Input() cor!: Cor;
   @Input() dispositivo!: Dispositivo;
-  @Input() enviarConfiguracao = false;
+  @Input() enviarConfiguracao = {
+    value: false
+  };
   @Input() exibeSincronizar = false;
   @Input() exibirBotoes = true;
 
   constructor(
-    private websocketService: WebSocketService2,
+    private readonly mqttSevice: MqttService,
     private readonly dispositivoService: DispositivoService,
     private readonly corService: CorService,
     private readonly messageService: MessageService,
+    private readonly comandoService: ComandoService,
     private readonly router: Router
-  ) {}
+  ) {
+
+    comandoService.temporizadorEmit.subscribe(data => {
+
+      if (data) {
+        if (data.includes('não') || data.toUpperCase().includes('FALHA')) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Sincronização',
+            detail: data
+          });
+        }
+        else if (data.includes('ok')) {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Sincronização',
+            detail: 'Comando foi enviado'
+          });
+        } else if (data.includes('aceito')) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sincronização',
+            detail: data
+          });
+          this.router.navigate(['/dispositivos']);
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
     console.log('Parametros', this.dispositivo);
@@ -115,41 +151,62 @@ export class ParamentrosCoresComponent {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
   }
 
+  habilitarSincronismo() {
+    if (this.enviarConfiguracao.value) {
+      this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
+        const jsonString = String.fromCharCode(...message.payload);
+        const payload = JSON.parse(jsonString);
+        if (payload && payload.comando && payload.comando == 'ACEITO') {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sincronizado',
+            detail: 'Dispositivo sincronizado'
+          });
+        }
+      });
+    }
+  }
+
   onSliderChange() {
-    if (this.enviarConfiguracao) {
+    if (this.enviarConfiguracao.value) {
       console.log({
         configuracao: this.cor,
         device: this.dispositivo.mac
       });
-
-      this.websocketService.publicar(JSON.stringify({
-        configuracao: this.cor,
-        device: this.dispositivo.mac
-      }))
+      this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.mac}`, `{
+        "efeito": "${this.dispositivo.cor.efeito}",
+        "cor": [${this.dispositivo.cor.cor}],
+        "leds": ${this.dispositivo.configuracao.leds},
+        "faixa": ${this.dispositivo.configuracao.faixa},
+        "intensidade": ${this.dispositivo.configuracao.intensidade},
+        "correcao": [${this.dispositivo.cor.correcao}],
+        "velocidade":${this.dispositivo.cor.velocidade},
+        "host": "",
+        "responder": true }
+        `);
     }
     this.initCores();
   }
 
   fechar() {
-    if (this.enviarConfiguracao) {
+    if (this.enviarConfiguracao.value) {
       this.sincronizar();
     }
-    this.router.navigate(['/dispositivos']);
   }
 
-  private sincronizar(){
-    this.dispositivoService.sincronizar([this.dispositivo.mac], false).subscribe(() => {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Sincronizado',
-        detail: 'Comando sincronização enviado'
-      });
-    }, fail => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Falha',
-        detail: 'Erro ao enviar comando sincronização'
-      });
+  private sincronizar() {
+    this.comandoService.sincronizarDispositivo(this.dispositivo.mac).subscribe({
+      next: (data) => {
+      },
+      complete: () => {
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Erro ao enviar comando'
+        });
+      }
     });
   }
 
@@ -168,7 +225,7 @@ export class ParamentrosCoresComponent {
         summary: 'Falha',
         detail: 'Erro ao salvar configuração'
       });
-    } )
+    })
   }
 
   duplicar() {
@@ -186,6 +243,10 @@ export class ParamentrosCoresComponent {
         summary: 'Falha',
         detail: 'Erro ao copiar configuração'
       });
-    } )
+    })
+  }
+
+  conectar() {
+
   }
 }

@@ -66,6 +66,7 @@ export class TesteDispositivoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.start();
     this.mqttSevice.observe(`device/send/${this.dispositivo?.mac}`).subscribe((message: any) => {
       const jsonString = String.fromCharCode(...message.payload);
       const payload = JSON.parse(jsonString);
@@ -102,7 +103,8 @@ export class TesteDispositivoComponent implements OnInit {
   }
 
   start() {
-    this.iniciarTeste = true;
+
+
     this.cor = this.cores[this.index];
     if (!this.isRunning && this.isBrowser()) {
       this.isRunning = true;

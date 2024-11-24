@@ -2,7 +2,7 @@
 
   <div class="box-configuracao" style="width: 97%;">
     <div style="margin: 20px 0; display: flex;">
-      <p-checkbox *ngIf="exibeSincronizar" [(ngModel)]="enviarConfiguracao" label="Habilitar tem real" [binary]="true" />
+      <p-checkbox (click)="habilitarSincronismo()" *ngIf="exibeSincronizar" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
       <p-checkbox [(ngModel)]="cor.rapida" label="Habilitar configuração rápida" [binary]="true" />
     </div>
     <div style="display: flex;">

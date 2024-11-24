@@ -5,20 +5,23 @@
       (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Cores e efeitos">
         <app-paramentros-cores *ngIf="dispositivo" [exibeSincronizar]="true"
-          [dispositivo]="dispositivo"></app-paramentros-cores>
+          [dispositivo]="dispositivo" [enviarConfiguracao]="enviarConfiguracao"></app-paramentros-cores>
       </mat-tab>
       <mat-tab label="Configurações">
-        <div style="padding: 50px 0;max-width: 600px;">
+        <div style="margin-top: 20px; display: flex;">
+          <p-checkbox (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
+        </div>
+        <div style="padding: 20px 0 0 0;max-width: 600px;">
           <mat-form-field appearance="outline" style="margin-right: 10px;">
             <mat-label>Quantidade leds</mat-label>
-            <input matInput required [(ngModel)]="dispositivo?.configuracao.leds" type="number" placeholder="Nome">
+            <input (change)="onSliderChange()" matInput required [(ngModel)]="dispositivo?.configuracao.leds" type="number" placeholder="Nome">
           </mat-form-field>
           <div class="box-configuracao">
             <h6>Intensidade</h6>
             <div class="box-configuracao-item">
               <span class="material-symbols-outlined cor">light_mode</span>
               <mat-slider [max]="255" [step]="5">
-                <input matSliderThumb [(ngModel)]="dispositivo?.configuracao.intensidade"> </mat-slider>
+                <input (change)="onSliderChange()" matSliderThumb [(ngModel)]="dispositivo?.configuracao.intensidade"> </mat-slider>
               <b>{{dispositivo?.configuracao.intensidade}}</b>
             </div>
           </div>
@@ -27,7 +30,7 @@
             <div class="box-configuracao-item">
               <span class="material-symbols-outlined cor">mitre</span>
               <mat-slider [max]="255" [step]="1" [min]="2">
-                <input matSliderThumb [(ngModel)]="dispositivo?.configuracao.faixa"> </mat-slider>
+                <input (change)="onSliderChange()" matSliderThumb [(ngModel)]="dispositivo?.configuracao.faixa"> </mat-slider>
               <b>{{dispositivo?.configuracao.faixa}}</b>
             </div>
           </div>

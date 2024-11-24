@@ -114,12 +114,11 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngAfterViewInit(): void {
-    console.log(this.activeRoute.snapshot);
     if (this.checkEmit) {
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO).subscribe(response => {
         this.dispositivos = response.content;
         this.dispositivos.forEach(it => {
-          if (this.agenda.dispositivos.find(device => device.mac === it.mac)) {
+          if (this.agenda.dispositivos.find(device => device?.mac && device.mac === it.mac)) {
             it.selecionado = true;
           }
           else {
@@ -166,7 +165,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   testar(dispositivo: Dispositivo) {
     if (dispositivo.conexao == 'Online')
       this.dialog.open(TesteDispositivoComponent, {
-        data: dispositivo.mac
+        data: dispositivo
       })
   }
 

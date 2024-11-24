@@ -1,3 +1,22 @@
 import { NgModule } from '@angular/core';
+import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
+export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: 'vps55601.publiccloud.com.br',
+  port: 9001,
+  protocol: 'ws',
+  path: '/ws'
+}
 
+@NgModule({
+  declarations:[
+   ],
+  imports: [
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
+   ],
+  exports: [
+  ],
+  providers: [
+
+  ]
+})
 export class MqttAppModule { }

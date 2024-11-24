@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   get accessToken(): string | null {
-      return localStorage.getItem("token.access"); 
+      return localStorage.getItem("token.access");
   }
 
   public isLoggedIn() {

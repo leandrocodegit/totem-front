@@ -12,17 +12,23 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CorService } from '../services/cor.service';
 import { MatButtonModule } from '@angular/material/button';
 import { ListaCoresComponent } from '../../configuracoes/lista-configuracoes/lista-cores.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ComandoService } from '../services/comando.service';
 
 @Component({
   selector: 'app-lista-cores-dispositivo',
   standalone: true,
   imports: [
     IconsModule,
-    NgFor,
     MatDialogModule,
     MatRadioModule,
     MatButtonModule,
-    ListaCoresComponent
+    ListaCoresComponent,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './lista-cores-dispositivo.component.html',
   styleUrl: './lista-cores-dispositivo.component.scss'
@@ -37,9 +43,15 @@ export class ListaCoresDispositivoComponent {
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly corService: CorService,
+    private readonly messageService: MessageService,
+    private readonly comandoService: ComandoService,
     private router: ActivatedRoute,
     private route: Router
-  ) {}
+  ) {
+
+   
+
+  }
 
   ngOnInit(): void {
 
