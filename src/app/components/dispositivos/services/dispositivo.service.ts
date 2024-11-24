@@ -105,6 +105,7 @@ export class DispositivoService {
         cores[4]
       ];
     }
+    return cores;
   }
 
   public formatCorrecao(correcao: number[], tipoCor: string) {
@@ -121,5 +122,6 @@ export class DispositivoService {
         correcao[1]
       ];
     }
+    return correcao;
   }
 }
