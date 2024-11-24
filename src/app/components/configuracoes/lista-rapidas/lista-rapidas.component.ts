@@ -28,6 +28,7 @@ export class ListaRapidasComponent implements OnInit {
 
   @Input() cores: Cor[] = [];
   @Input() dispositivo: Dispositivo;
+  private acao = true;
 
   constructor(
     private readonly corService: CorService,
@@ -55,7 +56,7 @@ export class ListaRapidasComponent implements OnInit {
             detail: 'Comando foi executado com sucesso'
           });
         } else if (data.includes('aceito')) {
-          this.dispositivo.timer = true;
+          this.dispositivo.timer = this.acao;
           this.messageService.add({
             severity: 'success',
             summary: 'Comando rápido',
@@ -73,7 +74,7 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   temporizar(cor: string) {
-
+    this.acao = true;
     this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
       next: (data) => {
       },
@@ -92,7 +93,7 @@ export class ListaRapidasComponent implements OnInit {
 
 
   cancelar() {
-    this.dispositivo.timer = false;
+    this.acao = false;
     this.comandoService.cancelarComandoRapido(this.dispositivo.mac).subscribe({
       next: (data) => {
 
