@@ -1,3 +1,5 @@
 <app-lista-cores [modoAll]="false" [cores]="cores" [idSelecionado]="dispositivo?.cor ? dispositivo?.cor.id  : ''"
 (principalEmit)="salvar($event)"
 ></app-lista-cores>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

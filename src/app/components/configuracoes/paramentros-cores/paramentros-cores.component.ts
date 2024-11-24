@@ -87,7 +87,7 @@ export class ParamentrosCoresComponent {
             summary: 'Sincronização',
             detail: data
           });
-          this.router.navigate(['/dispositivos']);
+
         }
       }
     })
@@ -189,9 +189,8 @@ export class ParamentrosCoresComponent {
   }
 
   fechar() {
-    if (this.enviarConfiguracao.value) {
       this.sincronizar();
-    }
+      this.router.navigate(['/dispositivos']);
   }
 
   private sincronizar() {

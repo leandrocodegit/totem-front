@@ -118,7 +118,7 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
   }
 
   onSliderChange() {
-    if (this.enviarConfiguracao) {
+    if (this.enviarConfiguracao.value) {
       this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.mac}`, `{
         "efeito": "${this.dispositivo.cor.efeito}",
         "cor": [${this.dispositivo.cor.cor}],

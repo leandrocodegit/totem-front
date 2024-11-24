@@ -12,17 +12,19 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CorService } from '../services/cor.service';
 import { MatButtonModule } from '@angular/material/button';
 import { ListaCoresComponent } from '../../configuracoes/lista-configuracoes/lista-cores.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lista-cores-dispositivo',
   standalone: true,
   imports: [
     IconsModule,
-    NgFor,
     MatDialogModule,
     MatRadioModule,
     MatButtonModule,
-    ListaCoresComponent
+    ListaCoresComponent,
+    ToastModule
   ],
   templateUrl: './lista-cores-dispositivo.component.html',
   styleUrl: './lista-cores-dispositivo.component.scss'
@@ -37,6 +39,7 @@ export class ListaCoresDispositivoComponent {
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly corService: CorService,
+    private readonly messageService: MessageService,
     private router: ActivatedRoute,
     private route: Router
   ) {}
@@ -67,17 +70,24 @@ export class ListaCoresDispositivoComponent {
     if(cor){
       cor.mac = this.dispositivo.mac;
       this.corService.salvarCor(cor, true).subscribe(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Configuração',
+          detail: 'Configuração foi salva com sucesso'
+        });
         this.dispositivo.cor = cor;
         this.route.navigate([`/dispositivos/configuracoes/${this.dispositivo.mac}/0`]);
         console.log(`/dispositivos/configuracoes/${this.dispositivo.mac}`);
 
       }, fail => {
-        console.log('Falaha ao salvar configuração');
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Falha',
+          detail: 'Falaha ao salvar configuração'
+        });
 
       })
     }
   }
-
-
 }
 
