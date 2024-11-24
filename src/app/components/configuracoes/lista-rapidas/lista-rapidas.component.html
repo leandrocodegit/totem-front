@@ -1,22 +1,27 @@
 <h2 style="padding: 20px;">{{dispositivo?.nome}}</h2>
 <p style="font-weight: 600; color: #008eff;">{{dispositivo.enderecoCompleto}}</p>
+<div *ngIf="aguardandoResposta" style="padding: 10px;display: flex;flex-direction: column;justify-content: center;">
+  <div class="spinner-border text-primary" style="margin: auto;"></div>
+  <p style="color: #2196F3;">Aguardando resposta</p>
+</div>
 <div class="box-rapidas">
   @for (cor of cores; track $index) {
-  <div (click)="temporizar(cor.id)" class="box-rapidas-item">
+  <div (click)="temporizar(cor.id)" class="box-rapidas-item" [style.background]="aguardandoResposta ? '#d3d3d3' : '#182c3f'">
     <div style="margin: 10px;">
       <p>{{cor.nome}}</p>
       <p style="font-size: 12px;">{{cor.time}} minuto{{cor.time == 1 ? '' : 's'}}</p>
     </div>
-      <div style="display: flex;width: 100%;height: 8px;min-width: 100px;">
-        <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="cor.primaria"></div>
-        <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="cor.secundaria"></div>
-      </div>
+    <div style="display: flex;width: 100%;height: 8px;min-width: 100px;">
+      <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="cor.primaria"></div>
+      <div style="width: 100%;height: 8px;min-width: 100px;" [style.background]="cor.secundaria"></div>
+    </div>
   </div>
-}
+  }
 </div>
 <div class="botoes">
   <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close type="submit">Fechar</button>
-  <button mat-raised-button class="me-8 mb-8" color="primary" (click)="cancelar()" type="submit">Cancelar comando</button>
+  <button mat-raised-button class="me-8 mb-8" color="primary" (click)="cancelar()" type="submit">Cancelar
+    comando</button>
 </div>
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
   [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

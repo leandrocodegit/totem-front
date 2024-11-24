@@ -71,7 +71,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     comandoService.temporizadorEmit.subscribe(data => {
 
       if (data) {
-        if (data.includes('não') || data.toUpperCase().includes('FALHA')){
+        if (data.includes('não') || data.toUpperCase().includes('FALHA')) {
           this.messageService.add({
             severity: 'error',
             summary: 'Sincronização',
@@ -202,9 +202,17 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {
-    this.dialog.open(ListaRapidasComponent, {
-      data: dispositivo
-    });
+    if (dispositivo.conexao == 'Online') {
+      this.dialog.open(ListaRapidasComponent, {
+        data: dispositivo
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Alerta',
+        detail: 'Dispositivo não está online'
+      });
+    }
   }
 
   configurar(dispositivo: Dispositivo) {

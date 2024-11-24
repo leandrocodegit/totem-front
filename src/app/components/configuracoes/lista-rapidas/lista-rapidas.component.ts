@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MatButtonModule } from '@angular/material/button';
 import { ComandoService } from '../../dispositivos/services/comando.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-lista-rapidas',
@@ -16,7 +17,8 @@ import { ComandoService } from '../../dispositivos/services/comando.service';
     MatDialogModule,
     ToastModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    NgIf
   ],
   providers: [
     MessageService
@@ -29,6 +31,7 @@ export class ListaRapidasComponent implements OnInit {
   @Input() cores: Cor[] = [];
   @Input() dispositivo: Dispositivo;
   private acao = true;
+  protected aguardandoResposta = false;
 
   constructor(
     private readonly corService: CorService,
@@ -69,17 +72,15 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.corService.listaTodasCoresRapidas().subscribe(response => this.cores = response)
   }
 
   temporizar(cor: string) {
     this.acao = true;
+    this.aguardandoResposta = true;
     this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
-      next: (data) => {
-      },
       complete: () => {
-
+        this.aguardandoResposta = false;
       },
       error: (err) => {
         this.messageService.add({
@@ -94,12 +95,10 @@ export class ListaRapidasComponent implements OnInit {
 
   cancelar() {
     this.acao = false;
+    this.aguardandoResposta = true;
     this.comandoService.cancelarComandoRapido(this.dispositivo.mac).subscribe({
-      next: (data) => {
-
-      },
-      complete: () => {
-
+        complete: () => {
+        this.aguardandoResposta = false;
       },
       error: (err) => {
         this.messageService.add({

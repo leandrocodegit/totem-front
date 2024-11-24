@@ -169,9 +169,6 @@ export class ParamentrosCoresComponent {
 
   onSliderChange() {
     if (this.enviarConfiguracao.value) {
-      console.log("Format: ", this.dispositivo.cor.cor);
-      console.log("Format: ", this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor));
-
       this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.mac}`, `{
         "efeito": "${this.dispositivo.cor.efeito}",
         "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
@@ -183,19 +180,6 @@ export class ParamentrosCoresComponent {
         "host": "",
         "responder": true }
         `);
-
-        console.log(`{
-        "efeito": "${this.dispositivo.cor.efeito}",
-        "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
-        "leds": ${this.dispositivo.configuracao.leds},
-        "faixa": ${this.dispositivo.configuracao.faixa},
-        "intensidade": ${this.dispositivo.configuracao.intensidade},
-        "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
-        "velocidade":${this.dispositivo.cor.velocidade},
-        "host": "",
-        "responder": true }
-        `);
-
     }
     this.initCores();
   }
