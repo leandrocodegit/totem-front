@@ -17,7 +17,7 @@ import { Agenda } from '../models/agenda.model';
 import { PAGE_INIT } from '../models/constantes/PageUtil';
 import { ProximasAgendasComponent } from '../agendas/proximas-agendas/proximas-agendas.component';
 import { MqttService } from 'ngx-mqtt'; // Importa o serviço MQTT
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MqttAppModule } from 'src/app/mqtt-app.module';
 
 @Component({
@@ -32,7 +32,8 @@ import { MqttAppModule } from 'src/app/mqtt-app.module';
     IconsModule,
     FieldsetModule,
     ProximasAgendasComponent,
-    MqttAppModule
+    MqttAppModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     MqttService
@@ -59,19 +60,19 @@ export class DashboardComponent implements OnInit {
     private readonly agendaService: AgendaService,
     private primengConfig: PrimeNGConfig) {
 
-   /*  webSocketService.dashboardEmit.subscribe(response => {
-      if (response) {
-        try {
-          this.dashboard = JSON.parse(response);
-          this.initDashboard();
-        } catch (error) { }
-      }
-    }) */
+    /*  webSocketService.dashboardEmit.subscribe(response => {
+       if (response) {
+         try {
+           this.dashboard = JSON.parse(response);
+           this.initDashboard();
+         } catch (error) { }
+       }
+     }) */
   }
 
   ngOnInit() {
 
-    this.agendaService.listaTodosAgendas(undefined,PAGE_INIT).subscribe(response => {
+    this.agendaService.listaTodosAgendas(undefined, PAGE_INIT).subscribe(response => {
       this.agenda = response.content;
       console.log(this.agenda);
 
@@ -277,16 +278,16 @@ export class DashboardComponent implements OnInit {
 
 
 
-  quantidadeAgendas(){
-    if(!this.dashboard.agendas.length)
+  quantidadeAgendas() {
+    if (!this.dashboard.agendas.length)
       return 0;
-    return this.dashboard.agendas.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
+    return this.dashboard.agendas.map(agenda => agenda.quantidade).reduce((a, b) => a + b);
   }
 
-  quantidadeAgendasExecucao(){
-    if(!this.dashboard.agendasExecucao || !this.dashboard.agendasExecucao.length)
+  quantidadeAgendasExecucao() {
+    if (!this.dashboard.agendasExecucao || !this.dashboard.agendasExecucao.length)
       return 0;
-    return this.dashboard.agendasExecucao.map(agenda => agenda.quantidade).reduce((a,b) => a + b);
+    return this.dashboard.agendasExecucao.map(agenda => agenda.quantidade).reduce((a, b) => a + b);
   }
 
   getQuantidadeConexao(conexao: string) {
@@ -310,7 +311,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  conectar(){
+  conectar() {
     this.mqttSevice.connect();
 
     // Subscreve ao tópico

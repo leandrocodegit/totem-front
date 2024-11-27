@@ -22,6 +22,7 @@ import { IconsModule } from '../../../IconsModule';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormularioCorComponent } from '../../configuracoes/formulario-cores/formulario-cores.component';
+import { NgIf } from '@angular/common';
 
 
 const moment = _rollupMoment || _moment;
@@ -53,7 +54,8 @@ export const MY_FORMATS = {
     MatCardModule,
     IconsModule,
     MatDialogModule,
-    ToastModule
+    ToastModule,
+    NgIf
   ],
   providers: [
     MessageService,

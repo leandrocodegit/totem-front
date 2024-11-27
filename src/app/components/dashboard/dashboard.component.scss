@@ -7,6 +7,15 @@
 
 }
 
+.load{
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .cores {
   width: 70%;
   background: white;

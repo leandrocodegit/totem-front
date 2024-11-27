@@ -48,8 +48,14 @@
       </div>
     </div>
     <div class="table-dispositivos">
-    <app-tabela-dispositivos (selecionarEmit)="adicionarDispositivo($event)" [checkEmit]="true" [agenda]="agenda"
-      [exibirAcoes]="false"></app-tabela-dispositivos>
+      @if(agenda.todos){
+        <div class="alert alert-warning" style="margin: 30px 0;">
+          <strong>Todos!</strong><br> Todos dispositivos receberam essa configuração.
+        </div>
+      }@else{
+        <app-tabela-dispositivos (selecionarEmit)="adicionarDispositivo($event)" [checkEmit]="true" [agenda]="agenda"
+        [exibirAcoes]="false"></app-tabela-dispositivos>
+      }
     </div>
     <div class="botoes">
       <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>

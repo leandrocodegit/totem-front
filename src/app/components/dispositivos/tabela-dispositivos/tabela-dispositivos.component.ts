@@ -186,19 +186,33 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   sincronizar(dispositivo: Dispositivo, teste: boolean) {
-    this.comandoService.sincronizarDispositivo(dispositivo.mac).subscribe({
-      next: (data) => {
-      },
-      complete: () => {
-      },
-      error: (err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: 'Erro ao enviar comando'
-        });
-      }
-    });
+    try {
+      this.comandoService.sincronizarDispositivo(dispositivo.mac).subscribe({
+        next: (data) => {
+          console.log(data);
+
+        },
+        complete: () => {
+          console.log('error');
+        },
+        error: (err) => {
+          console.log('error');
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao enviar comando'
+          });
+        }
+      },);
+    } catch (error) {
+      console.log('error');
+
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha',
+        detail: 'Erro ao enviar comando'
+      });
+    }
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {

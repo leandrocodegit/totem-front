@@ -40,6 +40,12 @@ export class ComandoService {
       return new Observable<any>(obs => {
         const eventSource = new EventSource(`${environment.urlbroker}/comando/${mac}${this.getParaToken()}`);
 
+
+        eventSource.onerror = (event) => {
+          this.temporizadorEmit.emit('Falha ao enviar comando');
+        };
+
+
         eventSource.addEventListener('message', (evt: any) => {
           this.temporizadorEmit.emit(evt.data);
         });
@@ -61,6 +67,10 @@ export class ComandoService {
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/comando/sincronizar/${responder}${this.getParaToken()}`);
 
+      eventSource.onerror = (event) => {
+        this.temporizadorEmit.emit('Falha ao enviar comando');
+      };
+
       eventSource.addEventListener('message', (evt: any) => {
         const falha = evt.data.includes('não') || evt.data.toUpperCase().includes('FALHA');
         const naoEncontrado = evt.data.includes('não encontrado');
@@ -73,7 +83,6 @@ export class ComandoService {
       });
 
       return () => {
-        console.log('Fechando EventSource...');
         eventSource.close();
       };
     })
@@ -83,6 +92,10 @@ export class ComandoService {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}${this.getParaToken()}`);
+
+      eventSource.onerror = (event) => {
+        this.temporizadorEmit.emit('Falha ao enviar comando');
+      };
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -105,6 +118,10 @@ export class ComandoService {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${mac}${this.getParaToken()}`);
+
+      eventSource.onerror = (event) => {
+        this.temporizadorEmit.emit('Falha ao enviar comando');
+      };
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -138,6 +155,10 @@ export class ComandoService {
   public testar(mac: string): Observable<any> {
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/comando/teste/${mac}${this.getParaToken()}`);
+
+      eventSource.onerror = (event) => {
+        this.temporizadorEmit.emit('Falha ao enviar comando');
+      };
 
       eventSource.addEventListener('message', (evt: any) => {
         this.testeEmit.emit(evt.data);
