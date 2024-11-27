@@ -14,6 +14,7 @@ import { DetalhesDispositivoComponent } from './components/dispositivos/detalhes
 import { UploadComponent } from './components/principal/upload/upload.component';
 import { PerfilUsuarioComponent } from './components/usuarios/views/perfil-usuario/perfil-usuario.component';
 import { SicronizarDipositivosComponent } from './components/sincronizar/sicronizar-dipositivos/sicronizar-dipositivos.component';
+import { ClientesComponent } from './components/integracao/clientes/clientes.component';
 
 
 export const routes: Routes = [
@@ -52,6 +53,7 @@ export const routes: Routes = [
       { path: "detalhes", component: DetalhesDispositivoComponent },
       { path: 'perfil', component: PerfilUsuarioComponent},
       {path: 'sincronizar', component: SicronizarDipositivosComponent},
+      {path: 'integracao', component: ClientesComponent},
     ],
   },
   { path: 'login', component: LoginComponent },

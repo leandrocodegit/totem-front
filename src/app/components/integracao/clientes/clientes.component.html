@@ -1,0 +1,47 @@
+<div class="box-botoes-direta">
+  <h3>Integrações</h3>
+  <button mat-raised-button class="me-8 mb-8" color="primary" (click)="novaChave()" type="submit">Adicionar nova chave</button>
+</div>
+<table class="table table-striped table-hover">
+  <thead matSort (matSortChange)="sortData($event)">
+    <tr>
+      <th>#</th>
+      <th mat-sort-header="nome">Nome</th>
+      <th>Client-id</th>
+      <th mat-sort-header="mac">Secret</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of integracoes">
+      <td>
+        <i-feather name="check"
+        class="feather-base"></i-feather>
+      </td>
+      <td>{{cliente.nome}}</td>
+      <td>{{cliente.clientId}}
+        <i-feather tooltipPosition="top" [cdkCopyToClipboard]="cliente.clientId"
+          pTooltip="Copiar client-id" name="copy" class="feather-base"></i-feather>
+      </td>
+      <td>******************************** <i-feather tooltipPosition="top" [cdkCopyToClipboard]="cliente.secret"
+          pTooltip="Copiar secret" name="copy" class="feather-base"></i-feather>
+      </td>
+      <td>
+        @if(cliente.status){
+        <span class="badge badge-info rounded-pill">Ativo</span>
+        }@else{
+        <span class="badge badge-danger rounded-pill">Inativo</span>
+        }
+      </td>
+      <td>
+        <i-feather tooltipPosition="top" pTooltip="Remover" (click)="remover(cliente)" name="trash"
+          class="feather-base"></i-feather>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<mat-paginator #paginator (page)="handlePageEvent($event)" [length]="page?.length" [pageSize]="page?.pageSize"
+  [showFirstLastButtons]="true" [pageSizeOptions]="[15,20,50]" [pageIndex]="page?.pageIndex"></mat-paginator>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

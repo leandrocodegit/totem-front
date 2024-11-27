@@ -61,8 +61,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   constructor(
     private readonly dispositivoService: DispositivoService,
-    private readonly dialog: MatDialog,
-    private readonly activeRoute: ActivatedRoute,
+    private readonly dialog: MatDialog, 
     private readonly messageService: MessageService,
     private readonly comandoService: ComandoService,
     private readonly route: Router

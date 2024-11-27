@@ -151,8 +151,13 @@ export class SidebarComponent implements OnInit {
       link: "/mapa",
       icon: "map",
       menu: "Mapa",
+    }, 
+    {
+      link: "/integracao",
+      icon: "share-2",
+      menu: "Integração",
     },
- 
+
 
     /*{
       link: "/menu",
