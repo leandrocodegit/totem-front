@@ -51,9 +51,11 @@ export class ListaRapidasComponent implements OnInit {
       if (data) {
         if (data == 'close') {
           if (this.retentativa.retentar < 3) {
-            this.temporizar(this.retentativa.cor);
+            var delay = setInterval(() => {
+              this.temporizar(this.retentativa.cor);
             this.retentativa.retentar++;
-
+              clearInterval(delay);
+            }, 1000)
           }
         }
         if (data.includes('não') || data.toUpperCase().includes('FALHA')) {
