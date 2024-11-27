@@ -32,6 +32,10 @@ export class ListaRapidasComponent implements OnInit {
   @Input() dispositivo: Dispositivo;
   private acao = true;
   protected aguardandoResposta = false;
+  protected retentativa = {
+    retentar: 10,
+    cor: ''
+  };
 
   constructor(
     private readonly corService: CorService,
@@ -45,12 +49,25 @@ export class ListaRapidasComponent implements OnInit {
     comandoService.temporizadorEmit.subscribe(data => {
 
       if (data) {
-        if (data.includes('não') || data.toUpperCase().includes('FALHA')){
+        if (data == 'close') {
+          if (this.retentativa.retentar < 3) {
+            this.temporizar(this.retentativa.cor);
+            this.retentativa.retentar++;
+
+          }
+        }
+        if (data.includes('não') || data.toUpperCase().includes('FALHA')) {
           this.messageService.add({
             severity: 'warn',
             summary: 'Comando rápido',
             detail: data
           });
+          if (this.retentativa.retentar > 3) {
+            this.retentativa.retentar = 0;
+            this.aguardandoResposta = true;
+          }else{
+            this.aguardandoResposta = false;
+          }
         }
         else if (data.includes('ok')) {
           this.messageService.add({
@@ -65,6 +82,7 @@ export class ListaRapidasComponent implements OnInit {
             summary: 'Comando rápido',
             detail: data
           });
+          this.retentativa.retentar = 10;
         }
       }
     })
@@ -76,20 +94,31 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   temporizar(cor: string) {
-    this.acao = true;
-    this.aguardandoResposta = true;
-    this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
-      complete: () => {
-        this.aguardandoResposta = false;
-      },
-      error: (err) => {
+    if (!this.aguardandoResposta || this.retentativa.retentar < 3) {
+      this.acao = true;
+      this.aguardandoResposta = true;
+      if (this.retentativa.retentar == 10) {
+        this.retentativa.cor = cor;
+      }else{
         this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: 'Erro ao enviar comando'
+          severity: 'warn',
+          summary: 'Nova tentetiva',
+          detail: 'Comando reenviado'
         });
       }
-    });
+      this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
+        complete: () => {
+            this.aguardandoResposta = false;
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao enviar comando'
+          });
+        }
+      });
+    }
   }
 
 
@@ -97,7 +126,7 @@ export class ListaRapidasComponent implements OnInit {
     this.acao = false;
     this.aguardandoResposta = true;
     this.comandoService.cancelarComandoRapido(this.dispositivo.mac).subscribe({
-        complete: () => {
+      complete: () => {
         this.aguardandoResposta = false;
       },
       error: (err) => {

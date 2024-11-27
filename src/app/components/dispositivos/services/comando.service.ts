@@ -32,7 +32,7 @@ export class ComandoService {
     ) { }
 
     private getParaToken(){
-      return `?token=${this.authService.accessToken}`
+      return `?token=${this.authService.comandoToken}`
     }
 
     public sincronizarDispositivo(mac: string): Observable<any> {
@@ -105,6 +105,7 @@ export class ComandoService {
       return () => {
         console.log('Fechando EventSource...');
         eventSource.close();
+        this.temporizadorEmit.emit('close');
       };
     })
   }

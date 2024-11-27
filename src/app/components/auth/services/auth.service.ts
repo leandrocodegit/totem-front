@@ -29,8 +29,6 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    console.log('Refreah');
-
     const refreshToken = localStorage.getItem('token.refresh');
     return this.http.get(`${environment.urlApi}/auth/refresh?token=${refreshToken}`);
   }
@@ -38,12 +36,16 @@ export class AuthService {
   setTokens(data: any) {
     localStorage.setItem("token.access", data.access_token);
     localStorage.setItem("token.refresh", data.refresh_token);
-    localStorage.setItem("token.socket", data.socket_token);
+    localStorage.setItem("token.comando", data.comando_token);
   }
 
   get accessToken(): string | null {
       return localStorage.getItem("token.access");
   }
+
+  get comandoToken(): string | null {
+    return localStorage.getItem("token.comando");
+}
 
   public isLoggedIn() {
     try {
