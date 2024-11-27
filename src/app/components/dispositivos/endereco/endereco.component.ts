@@ -15,7 +15,7 @@ import { ESTADOS } from '../../models/constantes/Estados';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgIf, NgFor,
+    NgIf,
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
@@ -51,22 +51,7 @@ export class EnderecoComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.dispositivo && !this.dispositivo?.endereco){
-      this.dispositivo.endereco = {
-        cep: "",
-        state: "",
-        city: "",
-        neighborhood: "",
-        street: "",
-        complemento: "",
-        numero: "",
-        location: {
-          type: "",
-          string: ""
-        }
-      }
-    }else{
-      this.cidades.push(this.dispositivo.endereco.city);
-      this.listaCidade(this.dispositivo.endereco.state);
+      this.dispositivo.endereco = new Endereco(); 
     }
   }
 
