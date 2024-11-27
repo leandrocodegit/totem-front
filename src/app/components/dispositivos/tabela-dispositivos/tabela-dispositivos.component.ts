@@ -181,7 +181,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     })
 
     retorno.afterClosed().subscribe(() => {
-      this.carregarLista();
+     // this.carregarLista();
     })
   }
 
@@ -189,11 +189,8 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     try {
       this.comandoService.sincronizarDispositivo(dispositivo.mac).subscribe({
         next: (data) => {
-          console.log(data);
-
         },
         complete: () => {
-          console.log('error');
         },
         error: (err) => {
           console.log('error');
@@ -205,8 +202,6 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
         }
       },);
     } catch (error) {
-      console.log('error');
-
       this.messageService.add({
         severity: 'error',
         summary: 'Falha',

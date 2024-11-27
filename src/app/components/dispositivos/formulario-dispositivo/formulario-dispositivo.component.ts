@@ -39,6 +39,7 @@ import { EnderecoComponent } from '../endereco/endereco.component';
 export class FormularioDispositivoComponent {
 
   protected dispositivo!: Dispositivo;
+  protected editou = false;
 
   constructor(
     private readonly dispositivoService: DispositivoService,
@@ -53,13 +54,10 @@ export class FormularioDispositivoComponent {
 
     dispositivoService.mapaEdit.subscribe(data => {
       if (data) {
-        console.log("Latitude 1", this.dispositivo.latitude);
         if (data.lat && data.lng) {
           this.dispositivo.latitude = data.lat;
           this.dispositivo.longitude = data.lng;
         }
-        console.log("Latitude 2", this.dispositivo.latitude);
-
       }
     })
   }
@@ -85,14 +83,8 @@ export class FormularioDispositivoComponent {
   }
 
   selecionarCordenadas() {
-    let retorno = this.dialog.open(CardMapaCordenadasComponent, {
+    this.dialog.open(CardMapaCordenadasComponent, {
       panelClass: 'no-overflow'
     })
-
-    retorno.afterClosed().subscribe(data => {
-      console.log("Data", data);
-
-
-    });
   }
 }

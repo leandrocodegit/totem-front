@@ -53,7 +53,7 @@ export class ListaDispositivosComponent {
   protected dispositivosnAssociados: Dispositivo[] = [];
   protected nomeFind = new Subject<any>();
   protected edicao = false;
-
+  
   constructor(private readonly websocketService: WebSocketService2,
     private readonly dispositivoService: DispositivoService,
     private readonly activeRoute: ActivatedRoute,
