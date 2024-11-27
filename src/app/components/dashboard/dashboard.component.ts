@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ChartModule } from 'primeng/chart';
 import { IconsModule } from '../../IconsModule';
@@ -40,7 +40,7 @@ import { MqttAppModule } from 'src/app/mqtt-app.module';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   dashboard!: Dashboard;
   conexoes: any;
