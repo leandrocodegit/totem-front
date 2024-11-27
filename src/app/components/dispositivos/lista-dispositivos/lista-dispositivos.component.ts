@@ -34,7 +34,7 @@ import { NgIf } from '@angular/common';
     TabelaDispositivosComponent,
     MatPaginatorModule,
     MatInputModule,
-    MatIconModule 
+    MatIconModule
   ],
   providers: [
     {
@@ -76,6 +76,10 @@ export class ListaDispositivosComponent {
       )
       .subscribe();
 
+  }
+
+  pesquisar(value: string){
+    this.dispositivoService.pesquisa.emit({ value: value });
   }
 
   mapa() {

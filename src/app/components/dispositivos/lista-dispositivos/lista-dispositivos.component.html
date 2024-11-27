@@ -4,7 +4,7 @@
           <div style="max-width: 400px;flex: 1;">
             <mat-form-field appearance="outline">
               <input (input)="this.nomeFind.next(pesquisa.value)" #pesquisa type="text" matInput placeholder="Pesquisar dispositivo">
-              <mat-icon matSuffix aria-hidden="false" fontIcon="search"></mat-icon>
+              <mat-icon style="cursor: pointer;" (click)="pesquisar(pesquisa.value)" matSuffix aria-hidden="false" fontIcon="search"></mat-icon>
             </mat-form-field>
        </div>
         <mat-tab-group mat-stretch-tabs="false" animationDuration="0" #tab (selectedTabChange)="onTabChange($event)">
