@@ -1,6 +1,6 @@
 <h2 style="padding: 20px;">{{dispositivo?.nome}}</h2>
 <p style="font-weight: 600; color: #008eff;">{{dispositivo.enderecoCompleto}}</p>
-<div *ngIf="aguardandoResposta" style="padding: 10px;display: flex;flex-direction: column;justify-content: center;">
+<div *ngIf="aguardandoResposta" class="load">
   <div class="spinner-border text-primary" style="margin: auto;"></div>
   <p style="color: #2196F3;">Aguardando resposta</p>
 </div>
@@ -19,7 +19,7 @@
   }
 </div>
 <div class="botoes">
-  <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close type="submit">Fechar</button>
+  <button mat-raised-button class="me-8 mb-8" color="basic" (click)="aguardandoResposta = false" mat-dialog-close type="submit">Fechar</button>
   <button mat-raised-button class="me-8 mb-8" color="primary" (click)="cancelar()" type="submit">Cancelar
     comando</button>
 </div>

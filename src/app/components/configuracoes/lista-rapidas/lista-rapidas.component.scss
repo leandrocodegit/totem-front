@@ -19,6 +19,17 @@
   cursor: pointer;
 }
 
+.load {
+  width: 100%;
+  height: 100%;
+  background: #0000004d;
+  position: absolute;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .box-rapidas-item:hover {
   background: #0a1927;
 }
