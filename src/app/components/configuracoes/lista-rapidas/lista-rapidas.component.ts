@@ -50,7 +50,7 @@ export class ListaRapidasComponent implements OnInit {
 
       if (data) {
         if (data == 'close') {
-          if (this.retentativa.retentar < 2) {
+          if (this.retentativa.retentar < 1) {
             var delay = setInterval(() => {
               this.temporizar(this.retentativa.cor);
             this.retentativa.retentar++;
@@ -64,7 +64,7 @@ export class ListaRapidasComponent implements OnInit {
             summary: 'Comando rápido',
             detail: data
           });
-          if (this.retentativa.retentar > 2) {
+          if (this.retentativa.retentar > 1) {
             this.retentativa.retentar = 0;
             this.aguardandoResposta = true;
           }else{
@@ -97,7 +97,7 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   temporizar(cor: string) {
-    if (!this.aguardandoResposta || this.retentativa.retentar < 2) {
+    if (!this.aguardandoResposta || this.retentativa.retentar < 1) {
       this.acao = true;
       this.aguardandoResposta = true;
       if (this.retentativa.retentar == 10) {
