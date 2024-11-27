@@ -260,7 +260,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   handlePageEvent(page: PageEvent) {
     this.page = page;
-    this.carregarLista();
+    this.carregarLista(page);
   }
 
 
