@@ -74,8 +74,6 @@ export class DashboardComponent implements OnInit {
 
     this.agendaService.listaTodosAgendas(undefined, PAGE_INIT).subscribe(response => {
       this.agenda = response.content;
-      console.log(this.agenda);
-
     });
     this.primengConfig.ripple = true;
     this.dashboardService.recuperarDashboard().subscribe(response => {
@@ -231,7 +229,8 @@ export class DashboardComponent implements OnInit {
 
     for (let index = 0; index < 24; index++) {
       if (this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)) {
-        this.coresBar.datasets[1].data.push(0)
+        let quantidade = this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)?.quantidade
+        this.coresBar.datasets[1].data.push(quantidade)
       }
       else {
         this.coresBar.datasets[1].data.push(0)
@@ -249,8 +248,6 @@ export class DashboardComponent implements OnInit {
     }
 
     if (this.dashboard.agendas.length) {
-      console.log('tem');
-
       this.dashboard.agendas.forEach(agenda => {
         this.agendas.datasets[0].data.push(agenda.quantidade);
         this.agendas.datasets[0].backgroundColor.push(agenda.item);
@@ -258,13 +255,9 @@ export class DashboardComponent implements OnInit {
     } else {
       this.agendas.datasets[0].data.push(1);
       this.agendas.datasets[0].backgroundColor.push('#f0f0f0');
-      console.log(this.agendas);
-
     }
 
     if (this.dashboard.agendasExecucao.length) {
-      console.log('tem');
-
       this.dashboard.agendasExecucao.forEach(agenda => {
         this.agendasExecucao.datasets[0].data.push(agenda.quantidade);
         this.agendasExecucao.datasets[0].backgroundColor.push(agenda.item);
