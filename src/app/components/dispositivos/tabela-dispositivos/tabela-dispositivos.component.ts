@@ -61,7 +61,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   constructor(
     private readonly dispositivoService: DispositivoService,
-    private readonly dialog: MatDialog, 
+    private readonly dialog: MatDialog,
     private readonly messageService: MessageService,
     private readonly comandoService: ComandoService,
     private readonly route: Router
@@ -162,7 +162,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   testar(dispositivo: Dispositivo) {
-    if (dispositivo.conexao == 'Online')
+    if (dispositivo.status == 'Online')
       this.dialog.open(TesteDispositivoComponent, {
         data: dispositivo
       })
@@ -210,7 +210,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {
-    if (dispositivo.conexao == 'Online') {
+    if (dispositivo.status == 'Online') {
       this.dialog.open(ListaRapidasComponent, {
         data: dispositivo
       });

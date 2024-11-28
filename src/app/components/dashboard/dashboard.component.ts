@@ -295,7 +295,7 @@ export class DashboardComponent implements OnInit {
       return 0;
     }
     if (conexao) {
-      return this.dashboard.dispositivos.filter(device => device.conexao == conexao).length;
+      return this.dashboard.dispositivos.filter(device => device.status == conexao).length;
     }
     return 0;
   }

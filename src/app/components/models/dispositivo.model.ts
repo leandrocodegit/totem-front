@@ -13,7 +13,7 @@ export interface Dispositivo {
   ignorarAgenda: boolean;
   memoria: number;
   ativo: boolean;
-  conexao: string;
+  status: string;
   latitude: number;
   longitude: number;
   cor: Cor;
