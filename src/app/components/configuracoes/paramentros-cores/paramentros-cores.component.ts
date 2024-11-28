@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { IconsModule } from '../../../IconsModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,7 +46,7 @@ import { ComandoService } from '../../dispositivos/services/comando.service';
   templateUrl: './paramentros-cores.component.html',
   styleUrl: './paramentros-cores.component.scss'
 })
-export class ParamentrosCoresComponent {
+export class ParamentrosCoresComponent implements OnInit {
 
   @Input() cor!: Cor;
   @Input() dispositivo!: Dispositivo;
@@ -100,6 +100,7 @@ export class ParamentrosCoresComponent {
       this.cor = this.dispositivo.cor;
     }
     this.initCores();
+   // this.mqttSevice.connect();
   }
 
   initCores() {
@@ -152,8 +153,9 @@ export class ParamentrosCoresComponent {
   }
 
   habilitarSincronismo() {
+
     if (this.enviarConfiguracao.value) {
-      this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
+     /*  this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
         const jsonString = String.fromCharCode(...message.payload);
         const payload = JSON.parse(jsonString);
         if (payload && payload.comando && payload.comando == 'ACEITO') {
@@ -163,7 +165,7 @@ export class ParamentrosCoresComponent {
             detail: 'Dispositivo sincronizado'
           });
         }
-      });
+      }); */
     }
   }
 
@@ -178,7 +180,7 @@ export class ParamentrosCoresComponent {
         "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
         "velocidade":${this.dispositivo.cor.velocidade},
         "host": "",
-        "responder": true }
+        "responder": false }
         `);
     }
     this.initCores();

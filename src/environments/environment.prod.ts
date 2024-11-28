@@ -4,7 +4,7 @@ export const environment = {
   production: true,
   urlApi: 'http://169.150.1.85:8000/totem',
   urlbroker: 'http://169.150.1.85:8080',
-  urlWebSocket: 'ws://169.150.1.85:8080/ws',
+  urlWebSocket: '169.150.1.85',
   headers: {
     headers: new HttpHeaders({
       "Content-Type": "application/json"

@@ -8,6 +8,7 @@
           [dispositivo]="dispositivo" [enviarConfiguracao]="enviarConfiguracao"></app-paramentros-cores>
       </mat-tab>
       <mat-tab label="Configurações">
+        @if(dispositivo && dispositivo.configuracao){
         <div style="margin-top: 20px; display: flex;">
           <p-checkbox (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
         </div>
@@ -47,6 +48,7 @@
               configurações</button>
           </div>
         </div>
+      }
       </mat-tab>
       <mat-tab label="Lista de cores">
         <app-lista-cores-dispositivo [dispositivo]="dispositivo" [tab]="tabSelect"></app-lista-cores-dispositivo>

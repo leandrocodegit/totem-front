@@ -92,8 +92,8 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
           }
         })
       }
-
     })
+   // this.mqttSevice.connect();
   }
 
   ngOnDestroy(): void {
@@ -104,7 +104,7 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
 
   habilitarSincronismo() {
     if (this.enviarConfiguracao.value) {
-      this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
+     /*  this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
         const jsonString = String.fromCharCode(...message.payload);
         const payload = JSON.parse(jsonString);
         if (payload && payload.comando && payload.comando == 'ACEITO') {
@@ -114,7 +114,7 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
             detail: 'Dispositivo sincronizado'
           });
         }
-      });
+      }); */
     }
   }
 
@@ -129,7 +129,7 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
         "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
         "velocidade":${this.dispositivo.cor.velocidade},
         "host": "",
-        "responder": true }
+        "responder": false }
         `);
     }
   }
