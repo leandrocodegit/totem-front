@@ -51,7 +51,7 @@ export class EnderecoComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.dispositivo && !this.dispositivo?.endereco){
-      this.dispositivo.endereco = new Endereco(); 
+      this.dispositivo.endereco = new Endereco();
     }
   }
 
@@ -63,8 +63,6 @@ export class EnderecoComponent implements OnInit {
         this.cidades.push(response.city);
         this.listaCidade(response.state);
         this.dispositivo.endereco = response;
-        console.log(this.dispositivo.endereco.city);
-
       });
   }
 

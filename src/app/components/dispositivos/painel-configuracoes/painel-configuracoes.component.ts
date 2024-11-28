@@ -2,9 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { IconsModule } from '../../../IconsModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { MatSelectModule } from '@angular/material/select';
-import { Cor } from '../../models/cor.model';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { MatButtonModule } from '@angular/material/button';
 import { DispositivoService } from '../services/dispositivo.service';
@@ -98,8 +96,6 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mqttSevice.disconnect();
-    console.log('Disconnect', this.mqttSevice.onConnect);
-
   }
 
   habilitarSincronismo() {
@@ -152,6 +148,5 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
   }
 
   onTabChange(event: MatTabChangeEvent) {
-    console.log('Change tab', this.dispositivo);
   }
 }

@@ -39,8 +39,6 @@ export class CardMapaCordenadasComponent{
     this.dialogRef.close();
   }
   salvar(){
-    console.log("Data 1" , this.cordenadas);
-
     this.dialogRef.close(this.cordenadas)
   }
 

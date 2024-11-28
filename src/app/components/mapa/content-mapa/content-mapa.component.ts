@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
-import { WebSocketService2 } from '../../../broker/websocket2.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import * as Leaflet from 'leaflet';
 
 @Component({
@@ -32,39 +31,30 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly dispositivoService: DispositivoService,
-    private readonly websocketService: WebSocketService2,
-    private readonly activeRoute: ActivatedRoute,
     private readonly route: Router,
     @Inject(PLATFORM_ID) private readonly platformId: any) {
     if (isPlatformBrowser(this.platformId)) {
       // this.L = Leaflet;
     }
-
-
-    websocketService.dispositivosEmit.subscribe(data => {
-      if (!this.edicao  && data) {
-        this.carregarDispositivos(data);
-      }
-    })
   }
 
   ngOnInit(): void {
 
     this.edicao = this.route.url.includes('/dispositivos/lista');
 
-/*     this.activeRoute.params?.subscribe(params => {
-      if (params['latitude'] != undefined) {
-         this.cordenadas = {
-          lat: params['latitude'],
-          lng: params['longitude']
-         }
-         console.log("Cordenadas:", this.cordenadas);
+    /*     this.activeRoute.params?.subscribe(params => {
+          if (params['latitude'] != undefined) {
+             this.cordenadas = {
+              lat: params['latitude'],
+              lng: params['longitude']
+             }
+             console.log("Cordenadas:", this.cordenadas);
 
-      }
-    }) */
+          }
+        }) */
   }
 
-   ngAfterViewInit() {
+  ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.mapa = Leaflet.map('map').setView(this.cordenadas, 13);
       Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
@@ -84,41 +74,41 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   private adicionarMarcadorEdicao() {
     if (isPlatformBrowser(this.platformId)) {
-    this.removerMarcadores();
-    let marker = new Leaflet.Marker(this.cordenadas, this.gerarIcon()).addTo(this.mapa);
-    this.markers.push(marker);
-    marker.on('drag', (event: any) => {
-      this.dispositivoService.mapaEdit.emit(event.target.getLatLng());
-      this.cordenadas = event.target.getLatLng();
-    });
-    marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
-  }
+      this.removerMarcadores();
+      let marker = new Leaflet.Marker(this.cordenadas, this.gerarIcon()).addTo(this.mapa);
+      this.markers.push(marker);
+      marker.on('drag', (event: any) => {
+        this.dispositivoService.mapaEdit.emit(event.target.getLatLng());
+        this.cordenadas = event.target.getLatLng();
+      });
+      marker.bindTooltip('Arraste o pino', { permanent: false }).openTooltip();
+    }
   }
 
   private carregarDispositivos(dispositivos: Dispositivo[]) {
     if (isPlatformBrowser(this.platformId)) {
-    console.log("Atualizando mapa");
-    this.removerMarcadores();
-    if (!this.edicao) {
-      dispositivos.forEach(device => {
-        if (device.latitude && device.longitude)
-          if (device.latitude != 0 && device.longitude != 0){}
-            this.add(device)
-      });
-      if (dispositivos.length) {
-        this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)
-        this.cordenadas.lat = dispositivos[0].latitude;
-        this.cordenadas.lng = dispositivos[0].longitude ;
+      this.removerMarcadores();
+      if (!this.edicao) {
+        dispositivos.forEach(device => {
+          if (device.latitude && device.longitude)
+            if (device.latitude != 0 && device.longitude != 0) { }
+          this.add(device)
+        });
+        if (dispositivos.length) {
+          this.centralizar({ lat: dispositivos[0].latitude, lng: dispositivos[0].longitude }, 13)
+          this.cordenadas.lat = dispositivos[0].latitude;
+          this.cordenadas.lng = dispositivos[0].longitude;
+        }
+      } else {
+        this.dispositivoService.mapaEdit.emit(true)
       }
-    } else {
-      this.dispositivoService.mapaEdit.emit(true)
-    }}
+    }
   }
 
   addCenterButton() {
-     const centerButton = new Leaflet.Control({ position: 'topright' });
+    const centerButton = new Leaflet.Control({ position: 'topright' });
 
-     centerButton.onAdd = () => {
+    centerButton.onAdd = () => {
       const button = Leaflet.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
       button.innerHTML = '🔄 Centralizar';
       button.style.backgroundColor = 'white';
@@ -139,41 +129,35 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
   add(dispositivo: Dispositivo) {
     if (isPlatformBrowser(this.platformId)) {
-      console.log("Adicionado", dispositivo.latitude, dispositivo.longitude);
+      let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
+        weight: 2,
+        color: dispositivo.cor.primaria + 'cc',
+        fillColor: dispositivo.cor.primaria + 'dc',
+        fillOpacity: 0.3,
+        radius: 150
+      }).addTo(this.mapa);
 
-    let circulo = Leaflet.circle({ lat: dispositivo.latitude, lng: dispositivo.longitude }, {
-      weight: 2,
-      color: dispositivo.cor.primaria + 'cc',
-      fillColor: dispositivo.cor.primaria + 'dc',
-      fillOpacity: 0.3,
-      radius: 150
-    }).addTo(this.mapa);
+      circulo.bindTooltip(dispositivo.nome, { permanent: true }).openTooltip();
+      this.markers.push(circulo);
 
-    circulo.bindTooltip(dispositivo.nome, { permanent: true }).openTooltip();
-    this.markers.push(circulo);
-
-    circulo.bindPopup(`
+      circulo.bindPopup(`
         <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.cor.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
         `, { autoClose: false, closeOnClick: false, autoPan: false }).openPopup();
     }
-    console.log("Markes", this.markers);
-
   }
 
   removerMarcadores() {
     if (isPlatformBrowser(this.platformId)) {
-    console.log("Markers", this.markers);
-
-    this.markers.forEach(marker => {
-      this.mapa.removeLayer(marker)
-    })
-    this.markers = [];
-  }
+      this.markers.forEach(marker => {
+        this.mapa.removeLayer(marker)
+      })
+      this.markers = [];
+    }
   }
 
   centralizar(localizacao: { lat: number, lng: number }, zoom: number) {
     if (isPlatformBrowser(this.platformId)) {
-    this.mapa.setView(localizacao, zoom, { animate: true, duration: 3 });
+      this.mapa.setView(localizacao, zoom, { animate: true, duration: 3 });
     }
   }
 

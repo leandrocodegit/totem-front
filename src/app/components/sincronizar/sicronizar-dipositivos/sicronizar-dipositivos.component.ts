@@ -55,7 +55,6 @@ export class SicronizarDipositivosComponent {
     this.comandoService.sincronizar(responder, this.logs
     ).subscribe({
       next: (data) => {
-        console.log('Dados recebidos:', data);
       },
       complete: () => {
         this.messageService.add({

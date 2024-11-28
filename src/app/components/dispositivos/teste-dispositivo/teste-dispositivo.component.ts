@@ -107,7 +107,6 @@ export class TesteDispositivoComponent implements OnInit {
     if (!this.isRunning && this.isBrowser()) {
       this.isRunning = true;
       this.intervalId = setInterval(() => {
-        console.log('Teste', this.cor);
         if (this.cor.nome != this.cores[this.cores.length - 1].nome) {
           this.index++;
           this.cor = this.cores[this.index];

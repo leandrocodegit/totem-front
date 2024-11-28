@@ -3,13 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { ChartModule } from 'primeng/chart';
 import { IconsModule } from '../../IconsModule';
 import { TimelineModule } from 'primeng/timeline';
-import { NgFor, NgIf } from '@angular/common';
 import { DashboardService } from './services/dashboard.service';
 import { Dashboard } from '../models/dashboard.model';
 import { DashboardItem } from '../models/dashboard-item.model';
-import { WebSocketService2 } from '../../broker/websocket2.service';
 import { Comando } from '../models/constantes/comando';
-import { TabelaAgendasComponent } from '../agendas/tabela-agendas/tabela-agendas.component';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PrimeNGConfig } from 'primeng/api';
 import { AgendaService } from '../dispositivos/services/agenda.service';
@@ -58,17 +55,7 @@ export class DashboardComponent implements OnInit {
     private readonly dashboardService: DashboardService,
     private readonly mqttSevice: MqttService,
     private readonly agendaService: AgendaService,
-    private primengConfig: PrimeNGConfig) {
-
-    /*  webSocketService.dashboardEmit.subscribe(response => {
-       if (response) {
-         try {
-           this.dashboard = JSON.parse(response);
-           this.initDashboard();
-         } catch (error) { }
-       }
-     }) */
-  }
+    private primengConfig: PrimeNGConfig) { }
 
   ngOnInit() {
 

@@ -87,8 +87,6 @@ export class ListaAgendaDispositivoComponent {
       previousPageIndex: 0,
       pageSize: response.page.size
     }
-    console.log(this.page);
-
   }
 
   getTradutor(efeito?: Efeito) {

@@ -94,15 +94,10 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     })
 
     dispositivoService.pesquisa.subscribe(data => {
-
-
       if (data && data.value) {
-        console.log("2");
         this.pesquisar(data.value);
       }
       else {
-        console.log("3");
-
         this.carregarLista(PAGE_INIT);
       }
     })
@@ -130,7 +125,6 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   pesquisar(value: string) {
-    console.log("Pesquisa", value);
     this.dispositivoService.pesquisarDispositivo(value, PAGE_INIT).subscribe(response => {
       this.dispositivos = response.content;
       this.initPage(response);
@@ -144,8 +138,6 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   ngOnDestroy(): void {
     initDialog = true;
-    console.log('Destroy', initDialog);
-
   }
 
   getTradutor(comando?: Comando, cor?: Cor) {
@@ -192,7 +184,6 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
         complete: () => {
         },
         error: (err) => {
-          console.log('error');
           this.messageService.add({
             severity: 'error',
             summary: 'Falha',
@@ -232,8 +223,6 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   carregarLista(page?: PageEvent) {
-    console.log('Lista');
-
     if (this.indexTab == 0) {
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;

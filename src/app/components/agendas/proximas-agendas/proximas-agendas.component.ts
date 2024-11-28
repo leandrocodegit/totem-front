@@ -30,9 +30,6 @@ export class ProximasAgendasComponent implements OnInit {
         this.agendas = response;
     }, fail => {
       console.log("Falaha a carregar agendas do mes atual");
-
     })
   }
-
-
 }

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { IconsModule } from '../../../IconsModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { WebSocketService2 } from '../../../broker/websocket2.service';
 import { MatSelectModule } from '@angular/material/select';
 import { Cor } from '../../models/cor.model';
 import { Dispositivo } from '../../models/dispositivo.model';
@@ -94,8 +93,6 @@ export class ParamentrosCoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Parametros', this.dispositivo);
-
     if (this.dispositivo && this.dispositivo.cor) {
       this.cor = this.dispositivo.cor;
     }

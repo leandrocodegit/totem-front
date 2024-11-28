@@ -71,8 +71,6 @@ export class SidebarComponent implements OnInit {
       }else{
         this.padding = '40px';
       }
-      console.log("PADDING", data);
-
     })
   }
 
@@ -151,7 +149,7 @@ export class SidebarComponent implements OnInit {
       link: "/mapa",
       icon: "map",
       menu: "Mapa",
-    }, 
+    },
     {
       link: "/integracao",
       icon: "share-2",

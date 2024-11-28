@@ -49,8 +49,6 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   descricaoRole(role: Role){
-    console.log(role);
-
     return RoleDescriptions[role]
   }
 }

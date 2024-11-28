@@ -64,8 +64,6 @@ export class FormularioCorComponent implements OnInit {
   }
 
   salvar() {
-    console.log("salvar configuração");
-
       this.corService.salvarCor(this.cor, false).subscribe(() => {
         this.messageService.add({
           severity: 'success',

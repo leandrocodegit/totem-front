@@ -67,8 +67,6 @@ export class AuthService {
   public extrairEmailUsuario() {
     try {
       const jwt = this.decodePayloadJWT();
-      console.log('jwt', jwt);
-
       return jwt.sub;
     } catch (error) {
       return '';

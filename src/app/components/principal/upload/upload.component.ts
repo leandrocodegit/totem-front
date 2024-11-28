@@ -41,8 +41,6 @@ export class UploadComponent {
   constructor(private config: PrimeNGConfig, private messageService: MessageService) { }
 
   choose(event: any, callback: any) {
-    console.log('choose');
-
     callback();
   }
 
@@ -63,9 +61,6 @@ export class UploadComponent {
   }
 
   onSelectedFiles(event: any) {
-
-    console.log('onSelectedFiles');
-
     this.files = event.currentFiles;
     this.files.forEach((file: any) => {
       this.totalSize += parseInt(this.formatSize(file.size));
@@ -75,7 +70,6 @@ export class UploadComponent {
   }
 
   uploadEvent(callback: any) {
-    console.log('uploadEvent');
     callback();
     this.status.progress = false;
   }
@@ -95,14 +89,9 @@ export class UploadComponent {
   }
 
   onProgress(event?: any) {
-    console.log('onProgress', event);
     this.status.progress = true;
-
-
     if (event.progress > 99) {
-
     }
-
   }
 
   formatNome(nome: any){

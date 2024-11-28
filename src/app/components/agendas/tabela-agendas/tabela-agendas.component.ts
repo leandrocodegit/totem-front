@@ -112,7 +112,6 @@ export class TabelaAgendasComponent {
 
     }, fail => {
       console.log('Falaha ao salvar configuração');
-
     })
   }
 
