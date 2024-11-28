@@ -29,40 +29,31 @@ export class ComandoService {
   constructor(
     private readonly http: HttpClient,
     private readonly authService: AuthService
-    ) { }
+  ) { }
 
-    private getParaToken(){
-      return `?token=${this.authService.comandoToken}`
-    }
+  private getParaToken() {
+    return `?token=${this.authService.comandoToken}`
+  }
 
-    public sincronizarDispositivo(mac: string): Observable<any> {
+  public sincronizarDispositivo(mac: string): Observable<any> {
 
-      return new Observable<any>(obs => {
-        const eventSource = new EventSource(`${environment.urlbroker}/comando/${mac}${this.getParaToken()}`);
+    return new Observable<any>(obs => {
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/${mac}${this.getParaToken()}`);
 
+      eventSource.addEventListener('message', (evt: any) => {
+        this.temporizadorEmit.emit(evt.data);
+      });
 
-/*         eventSource.onerror = (event) => {
-          console.log(event);
+      eventSource.addEventListener('error', (err) => {
+        eventSource.close();
+        obs.complete();
+      });
 
-          this.temporizadorEmit.emit('Falha ao enviar comando');
-        }; */
-
-
-        eventSource.addEventListener('message', (evt: any) => {
-          this.temporizadorEmit.emit(evt.data);
-        });
-
-        eventSource.addEventListener('error', (err) => {
-          eventSource.close();
-          obs.complete();
-        });
-
-        return () => {
-          console.log('Fechando EventSource...');
-          eventSource.close();
-        };
-      })
-    }
+      return () => {
+        eventSource.close();
+      };
+    })
+  }
 
   public sincronizar(responder: boolean, logs: any[]): Observable<any> {
 
@@ -72,7 +63,7 @@ export class ComandoService {
       eventSource.addEventListener('message', (evt: any) => {
         const falha = evt.data.includes('não') || evt.data.toUpperCase().includes('FALHA');
         const naoEncontrado = evt.data.includes('não encontrado');
-        logs.push({ severity: falha ? (naoEncontrado ? 'warn' : 'danger'): 'success', status: falha ? 'Falha' : 'Concluido', detail: evt.data, tipo: falha ? (naoEncontrado ? 'Não enviado' : 'Sem resposta') : 'Ok' });
+        logs.push({ severity: falha ? (naoEncontrado ? 'warn' : 'danger') : 'success', status: falha ? 'Falha' : 'Concluido', detail: evt.data, tipo: falha ? (naoEncontrado ? 'Não enviado' : 'Sem resposta') : 'Ok' });
       });
 
       eventSource.addEventListener('error', (err) => {
@@ -81,7 +72,6 @@ export class ComandoService {
       });
 
       return () => {
-        console.log('Fechando EventSource...');
         eventSource.close();
       };
     })
@@ -97,13 +87,11 @@ export class ComandoService {
       });
 
       eventSource.addEventListener('error', (err) => {
-        console.error('Erro no EventSource:', err);
         eventSource.close();
         obs.complete();
       });
 
       return () => {
-        console.log('Fechando EventSource...');
         eventSource.close();
         this.temporizadorEmit.emit('close');
       };
@@ -120,13 +108,11 @@ export class ComandoService {
       });
 
       eventSource.addEventListener('error', (err) => {
-        console.error('Erro no EventSource:', err);
         eventSource.close();
         obs.complete();
       });
 
       return () => {
-        console.log('Fechando EventSource...');
         eventSource.close();
       };
     })
@@ -153,13 +139,11 @@ export class ComandoService {
       });
 
       eventSource.addEventListener('error', (err) => {
-        console.error('Erro no EventSource:', err);
         eventSource.close();
         obs.complete();
       });
 
       return () => {
-        console.log('Fechando EventSource...');
         eventSource.close();
       };
     })
