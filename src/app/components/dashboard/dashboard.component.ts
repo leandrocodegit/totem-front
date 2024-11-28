@@ -59,6 +59,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
+    this.mqttSevice.observe(`dashboard`).subscribe((message: any) => {
+      const jsonString = String.fromCharCode(...message.payload);
+      const payload = JSON.parse(jsonString);
+      if (payload) {
+          this.dashboard = payload;
+          this.initDashboard();
+      }
+    });
+
     this.agendaService.listaTodosAgendas(undefined, PAGE_INIT).subscribe(response => {
       this.agenda = response.content;
     });
