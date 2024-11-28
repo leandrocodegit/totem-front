@@ -136,7 +136,7 @@ export class DashboardComponent implements OnInit {
       labels: [],
       datasets: [
         {
-          data: [this.getQuantidadeConexao('Online'), this.getQuantidadeConexao('Offline')],
+          data: [this.dashboard.dispositivos.online, this.dashboard.dispositivos.offline],
           backgroundColor: ['#2de09b', '#ff8181']
         }
       ]
@@ -277,16 +277,6 @@ export class DashboardComponent implements OnInit {
     if (!this.dashboard.agendasExecucao || !this.dashboard.agendasExecucao.length)
       return 0;
     return this.dashboard.agendasExecucao.map(agenda => agenda.quantidade).reduce((a, b) => a + b);
-  }
-
-  getQuantidadeConexao(conexao: string) {
-    if (!this.dashboard) {
-      return 0;
-    }
-    if (conexao) {
-      return this.dashboard.dispositivos.filter(device => device.status == conexao).length;
-    }
-    return 0;
   }
 
   getData(dashboard: DashboardItem) {

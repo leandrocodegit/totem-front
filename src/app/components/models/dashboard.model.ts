@@ -8,10 +8,17 @@ import { Log } from "./log.model";
 export interface Dashboard {
   usuariosAtivos: number;
   usuariosInativos: number;
-  dispositivos: Dispositivo[];
+  dispositivos: DispositivoDash;
   cores: DashboardItem[];
   agendas: DashboardItem[];
   agendasExecucao: DashboardItem[];
   logs: Log[];
   logsConexao: Logconexao[];
+}
+
+
+export interface DispositivoDash {
+  total: number;
+  online: number;
+  offline: number;
 }

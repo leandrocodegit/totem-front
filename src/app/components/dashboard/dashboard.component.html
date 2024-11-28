@@ -20,7 +20,7 @@
           </svg>
           <div class="box-dashboard-item-label">
             <label>Dispositivos</label>
-            <h4>{{dashboard.dispositivos.length}}</h4>
+            <h4>{{dashboard.dispositivos.total}}</h4>
           </div>
         </div>
         <div class="box-dashboard-item">
@@ -30,7 +30,7 @@
           </svg>
           <div class="box-dashboard-item-label">
             <label>Conexão</label>
-            <h4>{{getQuantidadeConexao('Online')}}/<span style="color: red;">{{getQuantidadeConexao('Offline')}}</span>
+            <h4>{{dashboard.dispositivos.online}}/<span style="color: red;">{{dashboard.dispositivos.offline}}</span>
             </h4>
           </div>
         </div>
@@ -45,7 +45,7 @@
             <div class="item-char">
               <div class="titulo-chart">
                 <div style="display: flex;">
-                  <b> {{getQuantidadeConexao('Online') + '/' + getQuantidadeConexao('Offline')}}</b>
+                  <b> {{dashboard.dispositivos.online + '/' + dashboard.dispositivos.offline}}</b>
                 </div>
                 <p>Conexões</p>
               </div>
