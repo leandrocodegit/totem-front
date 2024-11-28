@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { ChartModule } from 'primeng/chart';
 import { IconsModule } from '../../IconsModule';
@@ -16,6 +16,7 @@ import { ProximasAgendasComponent } from '../agendas/proximas-agendas/proximas-a
 import { MqttService } from 'ngx-mqtt'; // Importa o serviço MQTT
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MqttAppModule } from 'src/app/mqtt-app.module';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +31,8 @@ import { MqttAppModule } from 'src/app/mqtt-app.module';
     FieldsetModule,
     ProximasAgendasComponent,
     MqttAppModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgIf
   ],
   providers: [
     MqttService
@@ -38,7 +40,7 @@ import { MqttAppModule } from 'src/app/mqtt-app.module';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements AfterViewInit {
 
   dashboard!: Dashboard;
   conexoes: any;
@@ -49,6 +51,7 @@ export class DashboardComponent implements OnInit {
   events: EventItem[] = [];
   options: any;
   protected agenda: Agenda[] = [];
+  protected load = false;
 
 
   constructor(
@@ -57,26 +60,15 @@ export class DashboardComponent implements OnInit {
     private readonly agendaService: AgendaService,
     private primengConfig: PrimeNGConfig) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
 
     this.mqttSevice.observe(`dashboard`).subscribe((message: any) => {
-      const jsonString = String.fromCharCode(...message.payload);
-      const payload = JSON.parse(jsonString);
-      if (payload) {
-          this.dashboard = payload;
-          this.initDashboard();
+      if (message) {
+        this.carregarDashboard();
       }
     });
 
-    this.agendaService.listaTodosAgendas(undefined, PAGE_INIT).subscribe(response => {
-      this.agenda = response.content;
-    });
-    this.primengConfig.ripple = true;
-    this.dashboardService.recuperarDashboard().subscribe(response => {
-      this.dashboard = response;
-      this.initDashboard();
-    });
-
+    this.carregarDashboard();
     this.options = {
       maintainAspectRatio: false,
       aspectRatio: 0.6,
@@ -132,6 +124,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initDashboard() {
+    this.load = true;
     this.conexoes = {
       labels: [],
       datasets: [
@@ -215,8 +208,9 @@ export class DashboardComponent implements OnInit {
 
 
     for (let index = 0; index < 24; index++) {
-      if (this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)) {
-        this.coresBar.datasets[0].data.push(this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)?.quantidade)
+      let quantidade = this.dashboard.logsConexao.find(log => log.comando == Comando.ONLINE && log.hora == index)?.quantidade
+      if (quantidade) {
+        this.coresBar.datasets[0].data.push(quantidade)
       }
       else {
         this.coresBar.datasets[0].data.push(0)
@@ -224,8 +218,8 @@ export class DashboardComponent implements OnInit {
     }
 
     for (let index = 0; index < 24; index++) {
-      if (this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)) {
-        let quantidade = this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)?.quantidade
+      let quantidade = this.dashboard.logsConexao.find(log => log.comando == Comando.OFFLINE && log.hora == index)?.quantidade
+      if (quantidade) {
         this.coresBar.datasets[1].data.push(quantidade)
       }
       else {
@@ -263,9 +257,19 @@ export class DashboardComponent implements OnInit {
       this.agendasExecucao.datasets[0].backgroundColor.push('#f0f0f0');
 
     }
+    this.load = false;
   }
 
-
+carregarDashboard(){
+  this.agendaService.listaTodosAgendas(undefined, PAGE_INIT).subscribe(response => {
+    this.agenda = response.content;
+  });
+  this.primengConfig.ripple = true;
+  this.dashboardService.recuperarDashboard().subscribe(response => {
+    this.dashboard = response;
+    this.initDashboard();
+  });
+}
 
   quantidadeAgendas() {
     if (!this.dashboard.agendas.length)
