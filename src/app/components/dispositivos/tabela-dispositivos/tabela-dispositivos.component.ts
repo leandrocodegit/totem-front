@@ -154,7 +154,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   testar(dispositivo: Dispositivo) {
-    if (dispositivo.status == 'Online')
+    if (dispositivo.conexao.status == 'Online')
       this.dialog.open(TesteDispositivoComponent, {
         data: dispositivo
       })
@@ -201,7 +201,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {
-    if (dispositivo.status == 'Online') {
+    if (dispositivo.conexao.status == 'Online') {
       this.dialog.open(ListaRapidasComponent, {
         data: dispositivo
       });

@@ -13,7 +13,7 @@ export interface Dispositivo {
   ignorarAgenda: boolean;
   memoria: number;
   ativo: boolean;
-  status: string;
+  conexao: Conexao;
   latitude: number;
   longitude: number;
   cor: Cor;
@@ -22,4 +22,10 @@ export interface Dispositivo {
   endereco: Endereco,
   enderecoCompleto: string;
   timer: boolean;
+}
+
+interface Conexao
+{
+  ultimaAtualizacao: string;
+  status: string;
 }

@@ -61,7 +61,7 @@
       <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
       <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(true)" type="submit">Salvar e remover
         conflitos</button>
-      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(false)" type="submit">Salvar</button>
+      <button [disabled]="!agenda.nome" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(false)" type="submit">Salvar</button>
     </div>
   </mat-card-content>
 </mat-card>
