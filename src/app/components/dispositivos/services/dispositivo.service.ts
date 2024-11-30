@@ -27,6 +27,7 @@ export class DispositivoService {
   public mapaEdit = new EventEmitter;
   public pesquisa = new EventEmitter;
   public tabSelect = new EventEmitter;
+  public selectDispositivo = new EventEmitter;
 
   constructor(
     private readonly http: HttpClient) { }

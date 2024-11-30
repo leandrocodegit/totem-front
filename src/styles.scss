@@ -2,13 +2,44 @@ html,
 body {
   color: #303030;
   letter-spacing: 0.1rem;
+  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgba(5, 3, 10, 0.86) 100%) !important;
+
+  .blur-background {
+    position: relative;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b49f9f;
+  border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #abd7ec;
+}
+
+.gt_switcher_wrapper {
+  right: 7px !important;
 }
 
 .botoes {
   float: right;
 }
 
-.botoes button{
+.botoes button {
   min-width: 150px;
 }
 
@@ -63,12 +94,13 @@ body {
   text-align: center;
 }
 
-.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.leaflet-popup-close-button{
+.leaflet-popup-close-button {
   display: none;
 }
 
@@ -76,7 +108,7 @@ body {
   margin: 13px 24px -17px 25px !important;
 }
 
-.no-overflow .mdc-dialog__surface{
+.no-overflow .mdc-dialog__surface {
   overflow: hidden !important;
 }
 
@@ -84,18 +116,23 @@ tr td {
   vertical-align: middle !important;
 }
 
-.cor-primaria-secundaria div{
+.cor-primaria-secundaria div {
   width: 10px;
   height: 5px;
   padding: 10px;
 }
 
 fieldset {
-  border: solid #d1d1d1 thin;       /* Cor da borda */
-  border-radius: 8px;              /* Bordas arredondadas */
-  padding: 20px;                   /* Padding interno */
-  background-color: #ffffff;       /* Cor de fundo */
-  margin: 20px 0;                  /* Margem ao redor do fieldset */
+  border: solid #d1d1d1 thin;
+  /* Cor da borda */
+  border-radius: 8px;
+  /* Bordas arredondadas */
+  padding: 20px;
+  /* Padding interno */
+  background-color: #ffffff;
+  /* Cor de fundo */
+  margin: 20px 0;
+  /* Margem ao redor do fieldset */
 }
 
 /* Estilizando a legenda */
@@ -115,31 +152,31 @@ legend {
   flex: 1 30% !important;
 }
 
-.p-message-detail{
+.p-message-detail {
   font-size: 11px;
   margin: 8px;
   flex: 1;
 }
 
-.p-icon-wrapper{
+.p-icon-wrapper {
   padding: 5px;
 }
 
-.p-message-wrapper{
+.p-message-wrapper {
   align-items: center;
   justify-content: space-between;
 }
 
-.p-checkbox-label{
+.p-checkbox-label {
   margin: 0 10px;
 }
 
-.p-tooltip-text{
+.p-tooltip-text {
   padding: 7px 10px;
   font-size: 12px;
 }
 
-.p-element{
+.p-element {
   font-size: 13px;
 }
 
@@ -148,56 +185,148 @@ legend {
   margin: 5px 15px;
 }
 
-.p-toast .p-element svg{
+.p-toast .p-element svg {
   width: 25px;
 }
 
-.mat-mdc-card {
+.mat-mdc-tab .mdc-tab__text-label {
+  color: white !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background: #e7e7e7;
   border-radius: 5px !important;
 }
 
-@media(max-width: 600px){
-  .body-wrapper, .mat-mdc-card-content{
+.mat-drawer-container,
+.mat-drawer {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.mat-drawer {
+  box-shadow: 0 0 10px 0 rgba(0, 225, 255, 0.233) !important;
+}
+
+.mat-mdc-paginator-container {
+  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgb(27 18 55 / 86%) 100%) !important;
+  color: #ffffff;
+}
+
+.mat-drawer-inner-container,
+.body-wrapper,
+.mat-toolbar {
+  color: #ffffff;
+}
+
+tr th,
+.mat-mdc-paginator-range-actions {
+  color: rgb(178, 243, 255) !important;
+}
+
+tr td,
+.mat-mdc-form-field-infix,
+.mat-mdc-paginator-icon,
+.mat-mdc-select-arrow svg,
+.mat-mdc-select-min-line {
+  color: white !important;
+  fill: white !important;
+}
+
+.mat-mdc-card {
+  box-shadow: 0 0 6px 0 #707070 !important;
+  background-color: transparent !important;
+  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgb(27 18 55 / 86%) 100%) !important;
+  background: linear-gradient(90deg, rgb(124 124 124 / 52%) 1%, rgb(64 64 64 / 70%) 100%) !important;
+  background: rgba(119, 122, 128, 0.329) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success {
+  background: rgb(228 248 240 / 12%) !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-info {
+  background: rgb(219 234 254 / 12%) !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-warn {
+  background: rgb(255 242 226 / 12%) !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-error {
+  background: rgba(255, 231, 230, 12%) !important;
+}
+
+.mat-mdc-dialog-surface {
+  background: linear-gradient(90deg, rgba(10, 7, 19, 0.95) 1%, rgba(27, 27, 27, 0.9) 100%) !important;
+  box-shadow: 0 0 10px 0 #6d6d6d !important;
+  border-radius: 9px !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background: #e6e6e652  !important;
+  color: white !important;
+  border: solid rgb(107, 107, 107) thin!important;
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgb(0 0 0 / 74%)!important;
+}
+
+.mat-mdc-form-field-infix input, label, h1, h2, h3, h4, h6, .mdc-floating-label {
+  color: white !important;
+}
+
+.mat-mdc-paginator-range-actions { 
+  cursor: pointer;
+}
+
+@media(max-width: 600px) {
+
+  .body-wrapper,
+  .mat-mdc-card-content {
     padding: 10px !important;
   }
 
-  .box-painel{
+  .box-painel {
     flex-wrap: wrap;
   }
 
-  .box-painel-item{
+  .box-painel-item {
     width: 100% !important;
   }
 
-  .cores{
+  .cores {
     padding: 10px !important;
   }
 
-  i-feather{
+  i-feather {
     margin: 0 !important;
   }
 
-  .box-dashboard-item svg{
+  .box-dashboard-item svg {
     width: 40px;
   }
 
-  .box-dashboard-item-label h4, .box-dashboard-item-label span{
+  .box-dashboard-item-label h4,
+  .box-dashboard-item-label span {
     font-size: 11px !important;
   }
 
-  .box-dashboard-item-label{
+  .box-dashboard-item-label {
     font-size: 12px;
   }
 
-  .box-dashboard-item{
+  .box-dashboard-item {
     height: 50px !important;
   }
 
-  .box-botoes-direta{
+  .box-botoes-direta {
     display: block;
   }
 
-  .box-botoes-direta button{
+  .box-botoes-direta button {
     margin-top: 15px;
   }
 
@@ -207,7 +336,7 @@ legend {
     overflow-x: auto;
   }
 
-  .box-parametro-item{
+  .box-parametro-item {
     display: block !important;
   }
 }

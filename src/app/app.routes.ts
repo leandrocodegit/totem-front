@@ -15,6 +15,7 @@ import { UploadComponent } from './components/principal/upload/upload.component'
 import { PerfilUsuarioComponent } from './components/usuarios/views/perfil-usuario/perfil-usuario.component';
 import { SicronizarDipositivosComponent } from './components/sincronizar/sicronizar-dipositivos/sicronizar-dipositivos.component';
 import { ClientesComponent } from './components/integracao/clientes/clientes.component';
+import { ListaRapidasComponent } from './components/configuracoes/lista-rapidas/lista-rapidas.component';
 
 
 export const routes: Routes = [
@@ -48,6 +49,7 @@ export const routes: Routes = [
         path: "dashboard", component: DashboardComponent
       },
       { path: "agendas", component: ListaAgendaDispositivoComponent },
+      { path: "comandos/:mac", component: ListaRapidasComponent },
       { path: "configuracoes", component: CardConfiguracoesComponent },
       { path: "mapa", component: ContentMapaComponent },
       { path: "detalhes", component: DetalhesDispositivoComponent },

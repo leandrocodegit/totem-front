@@ -5,11 +5,18 @@
 }
 
 .badge-info {
-    background-color: $info;
+    border: solid $info thin;
+    background: transparent;
+    color: $info;
+    font-weight: 300;
 }
 
 .badge-primary {
     background-color: $primary;
+    border: solid $primary thin;
+    background: transparent;
+    color: $primary;
+    font-weight: 300;
 }
 
 .badge-danger {
@@ -18,6 +25,10 @@
 
 .badge-success {
     background-color: $success;
+    border: solid $success thin;
+    background: transparent;
+    color: $success;
+    font-weight: 300;
 }
 
 .badge-disable {

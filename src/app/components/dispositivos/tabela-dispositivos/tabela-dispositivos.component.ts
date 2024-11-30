@@ -201,7 +201,10 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {
-    if (dispositivo.conexao.status == 'Online') {
+
+    this.route.navigate(['/comandos/' + dispositivo.mac])
+
+    if (dispositivo.conexao.status == 'Onlinea') {
       this.dialog.open(ListaRapidasComponent, {
         data: dispositivo
       });

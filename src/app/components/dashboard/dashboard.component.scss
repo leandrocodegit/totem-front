@@ -18,9 +18,7 @@
 
 .cores {
   width: 70%;
-  background: white;
   padding: 0;
-  border: solid #e5e5e5 thin;
   border-radius: 5px;
   flex: 1;
   margin-right: 20px;
@@ -43,9 +41,8 @@
   width: 270px;
   height: 70px;
   margin: 2px;
-  border: 1px solid #e5e5e5;
+  border: solid #374e63 thin;
   border-radius: 5px;
-  background: white;
   flex-grow: 1;
 }
 
@@ -106,7 +103,6 @@ i-feather {
 
 .titulo {
   margin-bottom: 18px;
-  background: #e5e5e5;
   color: #818181;
   padding: 3px;
   line-height: 2;
@@ -117,19 +113,17 @@ i-feather {
 
 .titulo-chart {
   text-align: center;
-  color: #428ca3;
-  border: solid #92d2de thin;
-  background: #ffffff;
-  font-size: 11px;
+  color: #0edbff;
+  font-size: 14px;
   width: 100%;
-  height: 45px;
+  height: 65px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-left: solid rgb(15, 191, 204) 3px;
   border-radius: 3px;
   margin-bottom: 20px;
+  border: solid #374e63 thin;
 }
 
 .titulo-chart p{
