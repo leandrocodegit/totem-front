@@ -101,6 +101,7 @@ export class ListaRapidasComponent implements OnInit {
           });
           this.retentativa.retentar = 10;
           this.aguardandoResposta = false;
+          this.carregarLogs();
         }
       }
     })
@@ -139,7 +140,6 @@ export class ListaRapidasComponent implements OnInit {
       this.comandoService.enviarComandoRapido(cor, this.dispositivo!.mac).subscribe({
         complete: () => {
             this.aguardandoResposta = false;
-            this.carregarLogs();
         },
         error: (err) => {
 
