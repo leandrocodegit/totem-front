@@ -29,7 +29,7 @@ export class LogService {
     if(!sort){
       sort = {
         active: 'data',
-        direction: 'asc'
+        direction: 'desc'
       }
     }
     return this.http.get<Page<Log>>(`${environment.urlApi}/log/${tipo}?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
