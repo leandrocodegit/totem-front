@@ -278,8 +278,12 @@ tr td,
   color: white !important;
 }
 
-.mat-mdc-paginator-range-actions { 
+.mat-mdc-paginator-range-actions {
   cursor: pointer;
+}
+
+.p-timeline-left{
+  margin-right: 20px;
 }
 
 @media(max-width: 600px) {
