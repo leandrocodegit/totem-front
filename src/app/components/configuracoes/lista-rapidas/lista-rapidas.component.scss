@@ -1,16 +1,16 @@
-.box-comandos-rapidos{
+.box-comandos-rapidos {
   width: 100%;
   background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgb(27 18 55 / 86%) 100%) !important;
   background: linear-gradient(90deg, rgba(124, 124, 124, 0.315) 1%, rgba(64, 64, 64, 0.425) 100%) !important;
   border-radius: 10px;
-  max-height: 700px;
+  max-height: 800px;
   box-shadow: 0 0 10px 0 #929292 !important;
   padding: 30px 20px;
   overflow-y: auto;
 }
 
 .box-rapidas {
-  width:30%;
+  width: 30%;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -43,12 +43,12 @@
 }
 
 .load {
-  width: 100%;
-  height: 100%;
-  background: #0000004d;
+  position: absolute;
+  bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 40px;
 }
 
 .box-rapidas-item:hover {

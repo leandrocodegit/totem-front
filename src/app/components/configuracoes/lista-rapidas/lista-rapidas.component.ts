@@ -66,7 +66,7 @@ export class ListaRapidasComponent implements OnInit {
           if (this.retentativa.retentar < 1) {
             var delay = setInterval(() => {
               this.temporizar(this.retentativa.cor);
-            this.retentativa.retentar++;
+              this.retentativa.retentar++;
               clearInterval(delay);
             }, 1000)
           }
@@ -75,12 +75,12 @@ export class ListaRapidasComponent implements OnInit {
           if (this.retentativa.retentar > 1) {
             this.retentativa.retentar = 0;
             this.aguardandoResposta = true;
-          }else{
+          } else {
             this.aguardandoResposta = false;
           }
-          if(this.retentativa.retentar == 1){
+          if (this.retentativa.retentar == 1) {
             this.messageService.add({
-              severity: 'warn',
+              severity: 'error',
               summary: 'Comando rápido',
               detail: data
             });
@@ -93,7 +93,7 @@ export class ListaRapidasComponent implements OnInit {
             detail: 'Comando foi executado com sucesso'
           });
         } else if (data.includes('aceito')) {
-         // this.dispositivo.timer = this.acao;
+          // this.dispositivo.timer = this.acao;
           this.messageService.add({
             severity: 'success',
             summary: 'Comando rápido',
@@ -105,7 +105,7 @@ export class ListaRapidasComponent implements OnInit {
         }
       }
     })
-   // this.dispositivo = data;
+    // this.dispositivo = data;
   }
 
   ngOnInit(): void {
@@ -118,33 +118,55 @@ export class ListaRapidasComponent implements OnInit {
     this.carregarLogs()
   }
 
-  carregarLogs(){
+  carregarLogs() {
     this.logService.listaLogstipo('TIMER_CONCLUIDO').subscribe(response => this.logs = response.content);
   }
 
   temporizar(cor: string) {
-    console.log(this.dispositivo);
+   /*  console.log(this.dispositivo);
+    if (this.dispositivo && this.dispositivo.mac) {
+    this.comandoService.criarTemporizador(cor, this.dispositivo.mac).subscribe(() => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Comando rápido',
+        detail: 'Comando foi executado com sucesso'
+      });
+    }, fail => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Falha',
+        detail: 'Falha ao enviar comando'
+      });
+    })
+  } */
 
     if (!this.aguardandoResposta || this.retentativa.retentar < 1) {
+      var delay = setInterval(() => {
+        this.aguardandoResposta = false;
+        this.retentativa.retentar = 10;
+        clearInterval(delay);
+      }, 30000) 
       this.acao = true;
       this.aguardandoResposta = true;
       if (this.retentativa.retentar == 10) {
         this.retentativa.cor = cor;
-      }else{
+      } else {
         this.messageService.add({
           severity: 'warn',
           summary: 'Nova tentetiva',
           detail: 'Comando reenviado'
         });
       }
-      this.comandoService.enviarComandoRapido(cor, this.dispositivo!.mac).subscribe({
-        complete: () => {
+      if (this.dispositivo && this.dispositivo.mac) {
+        this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
+          complete: () => {
             this.aguardandoResposta = false;
-        },
-        error: (err) => {
+          },
+          error: (err) => {
 
-        }
-      });
+          }
+        });
+      }
     }
   }
 

@@ -35,6 +35,10 @@ export class ComandoService {
     return `?token=${this.authService.comandoToken}`
   }
 
+  public criarTemporizador(idCor: string, mac: string): Observable<any> {
+    return this.http.get<any>(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}${this.getParaToken()}`, environment.headers)
+  }
+
   public sincronizarDispositivo(mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
@@ -80,7 +84,7 @@ export class ComandoService {
   public enviarComandoRapido(idCor: string, mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${idCor}/${mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/flux/temporizar/${idCor}/${mac}${this.getParaToken()}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
