@@ -105,7 +105,7 @@ export class ComandoService {
   public cancelarComandoRapido(mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/comando/temporizar/${mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/comando/flux/temporizar/${mac}${this.getParaToken()}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
