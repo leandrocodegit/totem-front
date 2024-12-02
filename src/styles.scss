@@ -260,6 +260,10 @@ tr td,
   background: rgba(255, 231, 230, 12%) !important;
 }
 
+.mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:enabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: wheat !important;
+}
+
 .mat-mdc-dialog-surface {
   background: linear-gradient(90deg, rgba(14, 13, 13, 0.966) 1%, rgba(64, 64, 64, 0.959) 100%) !important;
   background: transparent !important;
