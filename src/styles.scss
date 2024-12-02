@@ -241,8 +241,7 @@ tr td,
 
 .mat-mdc-card {
   background-color: transparent !important;
-  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgb(27 18 55 / 86%) 100%) !important;
-  background: linear-gradient(90deg, rgba(43, 43, 43, 0.253) 1%, rgba(64, 64, 64, 0.445) 100%) !important;
+  background: linear-gradient(90deg, rgba(43, 43, 43, 0.685) 1%, rgba(64, 64, 64, 0.788) 100%) !important;
 }
 
 .p-toast .p-toast-message.p-toast-message-success {
@@ -267,7 +266,8 @@ tr td,
   border-radius: 9px !important;
 }
 
-.box-configuracao-item b, .box-configuracao-item .material-symbols-outlined{
+.box-configuracao-item b,
+.box-configuracao-item .material-symbols-outlined {
   color: white;
 }
 
@@ -278,9 +278,7 @@ tr td,
 }
 
 .cdk-overlay-dark-backdrop {
-  background: rgb(0 0 0 / 74%) !important;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.884) !important;
 }
 
 .mat-mdc-form-field-infix input,
@@ -302,8 +300,28 @@ h6,
   margin-right: 20px;
 }
 
-.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input, .mat-mdc-select-min-line{
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input,
+.mat-mdc-select-min-line {
   color: #00ffea !important;
+}
+
+input::-webkit-input-placeholder {
+  color: rgb(173, 173, 173) !important;
+}
+
+/* Chrome, Safari, Edge */
+input:-moz-placeholder {
+  color: rgb(173, 173, 173) !important;
+}
+
+/* Firefox 4-18 */
+input::-moz-placeholder {
+  color: rgb(173, 173, 173) !important;
+}
+
+/* Firefox 19+ */
+input:-ms-input-placeholder {
+  color: rgb(173, 173, 173) !important;
 }
 
 @media(max-width: 600px) {
