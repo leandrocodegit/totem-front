@@ -1,3 +1,5 @@
+<mat-card class="w-100">
+  <mat-card-content>
 <div class="box-detalhes">
   <h2>Detalhes do dispositivo</h2>
   <br>
@@ -34,9 +36,11 @@
   </div>
   <div class="box-detalhes-item">
     <label>Leds</label>
-    <h5>{{dispositivo?.cor.leds}}</h5>
+    <h5>{{dispositivo?.configuracao.leds}}</h5>
   </div>
   <div class="botoes">
     <button mat-raised-button class="me-8 mb-8" color="basic" mat-dialog-close type="submit">Fechar</button>
   </div>
 </div>
+</mat-card-content>
+</mat-card>
