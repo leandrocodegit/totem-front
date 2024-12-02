@@ -1,3 +1,4 @@
+<div class="box-integracoes">
 <div class="box-botoes-direta">
   <h3>Integrações</h3>
   <button mat-raised-button class="me-8 mb-8" color="primary" (click)="novaChave()" type="submit">Adicionar nova chave</button>
@@ -43,5 +44,6 @@
 </table>
 <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="page?.length" [pageSize]="page?.pageSize"
   [showFirstLastButtons]="true" [pageSizeOptions]="[15,20,50]" [pageIndex]="page?.pageIndex"></mat-paginator>
+</div>
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
   [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

@@ -13,8 +13,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 11px;
+  width: 10px;
+  height: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -22,7 +22,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b49f9f;
+  background: #7e7e7e;
   border-radius: 10px;
 
 }
@@ -211,18 +211,24 @@ legend {
 .mat-mdc-paginator-container {
   background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgb(27 18 55 / 86%) 100%) !important;
   color: #ffffff;
+  border-radius: 5px;
+}
+
+mat-paginator{
+  border-radius: 8px;
 }
 
 .mat-drawer-inner-container,
 .body-wrapper,
-.mat-toolbar {
+.mat-toolbar,
+.mat-mdc-paginator-range-actions {
   color: #ffffff;
 }
 
-tr th,
-.mat-mdc-paginator-range-actions {
+tr th {
   color: rgb(178, 243, 255) !important;
 }
+
 
 tr td,
 .mat-mdc-form-field-infix,
@@ -265,16 +271,23 @@ tr td,
 }
 
 .mat-mdc-text-field-wrapper {
-  background: #e6e6e652  !important;
+  background: #e6e6e652 !important;
   color: white !important;
-  border: solid rgb(107, 107, 107) thin!important;
+  border: solid rgb(107, 107, 107) thin !important;
 }
 
 .cdk-overlay-dark-backdrop {
-  background: rgb(0 0 0 / 74%)!important;
+  background: rgb(0 0 0 / 74%) !important;
 }
 
-.mat-mdc-form-field-infix input, label, h1, h2, h3, h4, h6, .mdc-floating-label {
+.mat-mdc-form-field-infix input,
+label,
+h1,
+h2,
+h3,
+h4,
+h6,
+.mdc-floating-label {
   color: white !important;
 }
 
@@ -282,7 +295,7 @@ tr td,
   cursor: pointer;
 }
 
-.p-timeline-left{
+.p-timeline-left {
   margin-right: 20px;
 }
 
