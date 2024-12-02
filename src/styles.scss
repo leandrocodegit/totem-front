@@ -214,7 +214,7 @@ legend {
   border-radius: 5px;
 }
 
-mat-paginator{
+mat-paginator {
   border-radius: 8px;
 }
 
@@ -240,12 +240,9 @@ tr td,
 }
 
 .mat-mdc-card {
-  box-shadow: 0 0 6px 0 #707070 !important;
   background-color: transparent !important;
   background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgb(27 18 55 / 86%) 100%) !important;
-  background: linear-gradient(90deg, rgb(124 124 124 / 52%) 1%, rgb(64 64 64 / 70%) 100%) !important;
-  background: rgba(119, 122, 128, 0.329) !important;
-  -webkit-backdrop-filter: blur(5px) !important;
+  background: linear-gradient(90deg, rgba(43, 43, 43, 0.253) 1%, rgba(64, 64, 64, 0.445) 100%) !important;
 }
 
 .p-toast .p-toast-message.p-toast-message-success {
@@ -265,9 +262,13 @@ tr td,
 }
 
 .mat-mdc-dialog-surface {
-  background: linear-gradient(90deg, rgba(10, 7, 19, 0.95) 1%, rgba(27, 27, 27, 0.9) 100%) !important;
-  box-shadow: 0 0 10px 0 #6d6d6d !important;
+  background: linear-gradient(90deg, rgba(14, 13, 13, 0.966) 1%, rgba(64, 64, 64, 0.959) 100%) !important;
+  background: transparent !important;
   border-radius: 9px !important;
+}
+
+.box-configuracao-item b, .box-configuracao-item .material-symbols-outlined{
+  color: white;
 }
 
 .mat-mdc-text-field-wrapper {
@@ -278,6 +279,8 @@ tr td,
 
 .cdk-overlay-dark-backdrop {
   background: rgb(0 0 0 / 74%) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .mat-mdc-form-field-infix input,
@@ -297,6 +300,10 @@ h6,
 
 .p-timeline-left {
   margin-right: 20px;
+}
+
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input, .mat-mdc-select-min-line{
+  color: #00ffea !important;
 }
 
 @media(max-width: 600px) {

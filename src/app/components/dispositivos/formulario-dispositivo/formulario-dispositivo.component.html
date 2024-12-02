@@ -1,4 +1,5 @@
-<div style="padding: 30px;">
+<mat-card class="w-100">
+  <mat-card-content>
   <div style="display: flex;">
     <div>
       <mat-form-field class="w-100 fs-16" appearance="outline">
@@ -33,6 +34,7 @@
     <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
     <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
   </div>
-</div>
+</mat-card-content>
+</mat-card>
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
   [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

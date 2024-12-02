@@ -17,6 +17,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { UserRequest } from 'src/app/components/models/user-request.model';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -31,7 +32,8 @@ import { UserRequest } from 'src/app/components/models/user-request.model';
     MatSelectModule,
     NgIf,
     ToastModule,
-    MessagesModule
+    MessagesModule,
+    MatCardModule
   ],
   providers: [
     MessageService
