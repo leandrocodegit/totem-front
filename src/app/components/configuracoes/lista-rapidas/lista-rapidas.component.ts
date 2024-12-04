@@ -145,7 +145,7 @@ export class ListaRapidasComponent implements OnInit {
         this.aguardandoResposta = false;
         this.retentativa.retentar = 10;
         clearInterval(delay);
-      }, 30000) 
+      }, 30000)
       this.acao = true;
       this.aguardandoResposta = true;
       if (this.retentativa.retentar == 10) {
