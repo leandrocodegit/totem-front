@@ -1,38 +1,44 @@
 .badge {
-    padding: 3px 12px;
-    font-size: 12px;
-    color: $white;
+  padding: 3px 12px;
+  font-size: 12px;
+  color: $white;
+  text-align: center;
+  margin: auto;
 }
 
 .badge-info {
-    border: solid $info thin;
-    background: transparent;
-    color: $info;
-    font-weight: 300;
+  border: solid $info thin;
+  background: transparent;
+  color: $info;
+  font-weight: 300;
 }
 
 .badge-primary {
-    background-color: $primary;
-    border: solid $primary thin;
-    background: transparent;
-    color: $primary;
-    font-weight: 300;
+  background-color: $primary;
+  border: solid $primary thin;
+  background: transparent;
+  color: $primary;
+  font-weight: 300;
 }
 
 .badge-danger {
-    background-color: $danger;
+  background-color: $danger;
 }
 
 .badge-success {
-    background-color: $success;
-    border: solid $success thin;
-    background: transparent;
-    color: $success;
-    font-weight: 300;
+  background-color: $success;
+  border: solid $success thin;
+  background: transparent;
+  color: $success;
+  font-weight: 300;
 }
 
 .badge-disable {
-  background-color: #ababab;
+  background-color: $muted;
+  border: solid $muted thin;
+  background: transparent;
+  color: $muted;
+  font-weight: 300;
 }
 
 .badge-warn {

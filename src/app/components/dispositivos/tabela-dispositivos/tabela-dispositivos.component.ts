@@ -148,6 +148,14 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     return '';
   }
 
+  getModoOperacao(dispositivo: Dispositivo){
+    switch(dispositivo.operacao.modoOperacao){
+      case 'AGENDA': return 'Agenda';
+      case 'TEMPORIZADOR': return 'Temporizada';
+      default: return 'Atual'
+    }
+  }
+
   mudarStatus(dispositivo: Dispositivo) {
     dispositivo.ativo = !dispositivo.ativo;
     this.dispositivoService.mudarStatus(dispositivo.mac).subscribe(() => {

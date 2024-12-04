@@ -22,10 +22,16 @@ export interface Dispositivo {
   endereco: Endereco,
   enderecoCompleto: string;
   timer: boolean;
+  operacao: Operacao;
 }
 
 interface Conexao
 {
   ultimaAtualizacao: string;
   status: string;
+}
+
+interface Operacao
+{
+  modoOperacao: string;
 }

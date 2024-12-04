@@ -8,9 +8,9 @@
         <th>Status</th>
         <th mat-sort-header="status">Conexão</th>
         <th *ngIf="!checkEmit">Efeito</th>
+        <th>Operação</th>
         <th mat-sort-header="configuracao.intensidade">Intensidade</th>
         <th mat-sort-header="configuracao.leds">Leds</th>
-        <th mat-sort-header="configuracao.faixa">Faixa</th>
         <th>Endereço</th>
         <th *ngIf="exibirAcoes"></th>
       </tr>
@@ -46,9 +46,9 @@
         </td>
         <td tooltipPosition="top" [pTooltip]="device.cor?.nome" *ngIf="!checkEmit">{{getTradutor(undefined,
           device.cor)}}</td>
+        <td>{{getModoOperacao(device)}}</td>
         <td>{{device.configuracao?.intensidade}}</td>
         <td>{{device.configuracao?.leds}}</td>
-        <td>{{device.configuracao?.faixa}}</td>
         <td style="font-size: 11px;color: rgb(114, 139, 250); max-width: 220px;">{{device.enderecoCompleto}}</td>
         <td *ngIf="exibirAcoes">
           <i-feather tooltipPosition="top" pTooltip="Enviar comando de teste"
