@@ -150,7 +150,15 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
   mudarStatus(dispositivo: Dispositivo) {
     dispositivo.ativo = !dispositivo.ativo;
-    this.dispositivoService.mudarStatus(dispositivo.mac).subscribe();
+    this.dispositivoService.mudarStatus(dispositivo.mac).subscribe(() => {
+
+    }, error => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Limite excedido',
+        detail: error.error.message
+      });
+    });
   }
 
   testar(dispositivo: Dispositivo) {
