@@ -153,14 +153,14 @@ export class ComandoService {
     })
   }
 
-  public uploadFirmware(file: File): Observable<any> {
+  public uploadFirmware(mac: string, file: File): Observable<any> {
 
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`${environment.urlbroker}/firmware/upload`, formData)
+    return this.http.post<any>(`${environment.urlbroker}/firmware/upload/${mac}`, formData)
   }
 
-  public updateFirmware(mac: string, host: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlbroker}/firmware/update/${mac}/${host}`)
+  public updateFirmware(mac: string): Observable<any> {
+    return this.http.get<any>(`${environment.urlbroker}/firmware/update/${mac}`)
   }
 }

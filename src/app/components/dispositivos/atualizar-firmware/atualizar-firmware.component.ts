@@ -35,11 +35,12 @@ export class AtualizarFirmwareComponent {
   uploadFile(): void {
     if (!this.selectedFile) return;
 
-    this.comandoService.uploadFirmware(this.selectedFile).subscribe(response => {
+    if(this.dispositivo?.mac)
+    this.comandoService.uploadFirmware(this.dispositivo?.mac, this.selectedFile).subscribe(response => {
       console.log('Upload', response.id);
 
       if(this.dispositivo?.mac && response.id){
-        this.comandoService.updateFirmware(this.dispositivo?.mac, response.id).subscribe(response => {
+        this.comandoService.updateFirmware(this.dispositivo?.mac).subscribe(response => {
           console.log('Atualizando', response.id);
         })
       }
