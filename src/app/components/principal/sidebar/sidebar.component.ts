@@ -16,6 +16,7 @@ import { CardMapaComponent } from '../card-mapa/card-mapa.component';
 import { CardItensComponent } from '../card-itens/card-itens.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Role } from 'src/app/model/constantes/role.enum';
 
 interface sidebarMenu {
   link: string;
@@ -51,6 +52,7 @@ export class SidebarComponent implements OnInit {
   protected nome?: string;
   protected avatar?: string;
   protected padding = "40px";
+  protected sidebarMenu: sidebarMenu[] = [];
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -78,6 +80,76 @@ export class SidebarComponent implements OnInit {
 
     if(this.router.url.includes('/mapa')){
 
+    }
+
+    if(this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])){
+     this.sidebarMenu = [
+        {
+          link: "/dashboard",
+          icon: "layout",
+          menu: "Dashboard",
+        },
+        {
+          link: "/users",
+          icon: "users",
+          menu: "Usuários",
+        },
+        {
+          link: "/dispositivos",
+          icon: "cpu",
+          menu: "Dispositivos",
+        },
+        {
+          link: "/agendas",
+          icon: "calendar",
+          menu: "Agendas",
+        },
+
+        {
+          link: "/configuracoes",
+          icon: "target",
+          menu: "Cores",
+        },
+        {
+          link: "/mapa",
+          icon: "map",
+          menu: "Mapa",
+        },
+        {
+          link: "/integracao",
+          icon: "share-2",
+          menu: "Integração",
+        }
+      ]
+    }else {
+      this.sidebarMenu = [
+        {
+          link: "/dashboard",
+          icon: "layout",
+          menu: "Dashboard",
+        },
+        {
+          link: "/dispositivos",
+          icon: "cpu",
+          menu: "Dispositivos",
+        },
+        {
+          link: "/agendas",
+          icon: "calendar",
+          menu: "Agendas",
+        },
+
+        {
+          link: "/configuracoes",
+          icon: "target",
+          menu: "Cores",
+        },
+        {
+          link: "/mapa",
+          icon: "map",
+          menu: "Mapa",
+        }
+      ]
     }
   }
 
@@ -112,112 +184,6 @@ export class SidebarComponent implements OnInit {
   }
 
   routerActive: string = "activelink";
-
-  sidebarMenu: sidebarMenu[] = [
-    {
-      link: "/dashboard",
-      icon: "layout",
-      menu: "Dashboard",
-    },
-    {
-      link: "/users",
-      icon: "users",
-      menu: "Usuários",
-    },
-    /*     {
-          link: "/formularios",
-          icon: "list",
-          menu: "Formulários",
-        }, */
-    {
-      link: "/dispositivos",
-      icon: "cpu",
-      menu: "Dispositivos",
-    },
-    {
-      link: "/agendas",
-      icon: "calendar",
-      menu: "Agendas",
-    },
-
-    {
-      link: "/configuracoes",
-      icon: "target",
-      menu: "Cores",
-    },
-    {
-      link: "/mapa",
-      icon: "map",
-      menu: "Mapa",
-    },
-    {
-      link: "/integracao",
-      icon: "share-2",
-      menu: "Integração",
-    },
-
-
-    /*{
-      link: "/menu",
-      icon: "lock",
-      menu: "Assinatura",
-    },
-    {
-      link: "/table",
-      icon: "git-pull-request",
-      menu: "Fluxos",
-    },
-    {
-      link: "/expansion",
-      icon: "list",
-      menu: "Formulários",
-    },
-    {
-      link: "/chips",
-      icon: "award",
-      menu: "Chips",
-    },
-    {
-      link: "/tabs",
-      icon: "list",
-      menu: "Tabs",
-    },
-    {
-      link: "/progress",
-      icon: "bar-chart-2",
-      menu: "Progress Bar",
-    },
-    {
-      link: "/toolbar",
-      icon: "voicemail",
-      menu: "Toolbar",
-    },
-    {
-      link: "/progress-snipper",
-      icon: "loader",
-      menu: "Progress Snipper",
-    },
-    {
-      link: "/tooltip",
-      icon: "bell",
-      menu: "Tooltip",
-    },
-    {
-      link: "/snackbar",
-      icon: "slack",
-      menu: "Snackbar",
-    },
-    {
-      link: "/slider",
-      icon: "sliders",
-      menu: "Slider",
-    },
-    {
-      link: "/slide-toggle",
-      icon: "layers",
-      menu: "Slide Toggle",
-    }, */
-  ]
 
 }
 

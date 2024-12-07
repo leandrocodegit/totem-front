@@ -23,6 +23,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
 import { ComandoService } from '../services/comando.service';
 import { ToastModule } from 'primeng/toast';
+import { AuthService } from '../../auth/services/auth.service';
+import { Role } from 'src/app/model/constantes/role.enum';
 var initDialog = true;
 
 @Component({
@@ -64,6 +66,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     private readonly dialog: MatDialog,
     private readonly messageService: MessageService,
     private readonly comandoService: ComandoService,
+    private readonly authService: AuthService,
     private readonly route: Router
   ) {
 
@@ -123,6 +126,12 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
 
     }
   }
+
+  isAutorizado(admin?: boolean){
+    if(admin)
+      return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
+   }
 
   pesquisar(value: string) {
     this.dispositivoService.pesquisarDispositivo(value, PAGE_INIT).subscribe(response => {

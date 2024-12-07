@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, output, ViewEncapsulation } from '@angular/core';
 import { Efeito, EfeitoValue } from '../../models/constantes/Efeito';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Comando, ComandoValue } from '../../models/constantes/comando';
 import { IconsModule } from '../../../IconsModule';
 import { NgFor, NgIf } from '@angular/common';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Cor } from '../../models/cor.model';
 import { MatRadioModule } from '@angular/material/radio';
 import { CorService } from '../../dispositivos/services/cor.service';
@@ -20,6 +19,8 @@ import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.compone
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { FormularioCorComponent } from '../formulario-cores/formulario-cores.component';
+import { AuthService } from '../../auth/services/auth.service';
+import { Role } from 'src/app/model/constantes/role.enum';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -69,8 +70,7 @@ export class ListaCoresComponent implements OnInit {
   constructor(
     private readonly corService: CorService,
     private readonly messageService: MessageService,
-    private route: ActivatedRoute,
-    private router: Router,
+    private readonly authService: AuthService,
     private readonly dialog: MatDialog,
   ) {
     corService.carregarLista.subscribe(() => this.carregarLista());
@@ -79,6 +79,12 @@ export class ListaCoresComponent implements OnInit {
   ngOnInit(): void {
     this.carregarLista(PAGE_INIT)
   }
+
+  isAutorizado(admin?: boolean){
+    if(admin)
+      return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
+   }
 
   sortData(sort: Sort) {
     this.ordenar = sort;

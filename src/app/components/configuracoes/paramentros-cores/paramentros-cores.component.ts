@@ -18,6 +18,8 @@ import { MessageService } from 'primeng/api';
 import { MqttService } from 'ngx-mqtt';
 import { MqttAppModule } from 'src/app/mqtt-app.module';
 import { ComandoService } from '../../dispositivos/services/comando.service';
+import { Role } from 'src/app/model/constantes/role.enum';
+import { AuthService } from '../../auth/services/auth.service';
 
 
 @Component({
@@ -61,6 +63,7 @@ export class ParamentrosCoresComponent implements OnInit {
     private readonly corService: CorService,
     private readonly messageService: MessageService,
     private readonly comandoService: ComandoService,
+    private readonly authService: AuthService,
     private readonly router: Router
   ) {
 
@@ -99,6 +102,13 @@ export class ParamentrosCoresComponent implements OnInit {
     this.initCores();
    // this.mqttSevice.connect();
   }
+
+  // private readonly authService: AuthService,
+  isAutorizado(admin?: boolean){
+    if(admin)
+      return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
+   }
 
   initCores() {
     this.cor.primaria = this.rgbToHex(

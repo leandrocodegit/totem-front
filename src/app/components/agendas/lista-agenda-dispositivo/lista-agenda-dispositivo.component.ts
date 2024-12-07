@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Agenda } from '../../models/agenda.model';
 import { Efeito, EfeitoValue } from '../../models/constantes/Efeito';
 import { IconsModule } from '../../../IconsModule';
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -20,13 +20,15 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { ProximasAgendasComponent } from '../proximas-agendas/proximas-agendas.component';
 import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { AuthService } from '../../auth/services/auth.service';
+import { Role } from 'src/app/model/constantes/role.enum';
 
 @Component({
   selector: 'app-lista-agenda-dispositivo',
   standalone: true,
   imports: [
     IconsModule,
-    NgFor,
+    NgFor, NgIf,
     MatDialogModule,
     MatButtonModule,
     DatePipe,
@@ -56,13 +58,19 @@ export class ListaAgendaDispositivoComponent {
   constructor(
     private readonly messageService: MessageService,
     private readonly agendaService: AgendaService,
-    private readonly dialog: MatDialog,
-    private router: Router
+    private readonly authService: AuthService,
+    private readonly dialog: MatDialog
   ) {
   }
   ngOnInit(): void {
     this.carregarLista(PAGE_INIT, undefined);
   }
+
+  isAutorizado(admin?: boolean){
+    if(admin)
+      return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
+   }
 
   sortData(sort: Sort) {
     this.carregarLista(this.page, sort)

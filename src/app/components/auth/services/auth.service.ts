@@ -77,12 +77,12 @@ export class AuthService {
     this.isLoggedIn();
     const tokenPayload = this.decodePayloadJWT();
 
-    if (!tokenPayload || !tokenPayload.realm_access.roles) {
+    if (!tokenPayload || !tokenPayload.roles) {
       this.limparSessao();
       return false;
     }
 
-    const userRoles: Role[] = tokenPayload.realm_access.roles;
+    const userRoles: Role[] = tokenPayload.roles;
 
     if (!userRoles || !rolesData) {
       this.limparSessao();

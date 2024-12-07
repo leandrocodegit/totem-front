@@ -20,6 +20,8 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MqttService } from 'ngx-mqtt';
 import { MqttAppModule } from 'src/app/mqtt-app.module';
+import { AuthService } from '../../auth/services/auth.service';
+import { Role } from 'src/app/model/constantes/role.enum';
 
 @Component({
   selector: 'app-painel-configuracoes',
@@ -64,6 +66,7 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly mqttSevice: MqttService,
     private route: ActivatedRoute,
+    private readonly authService: AuthService,
     private router: Router
   ) {
    // this.tabSelect = tabSelect;
@@ -97,6 +100,12 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mqttSevice.disconnect();
   }
+ 
+  isAutorizado(admin?: boolean){
+    if(admin)
+      return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
+   }
 
   habilitarSincronismo() {
     if (this.enviarConfiguracao.value) {

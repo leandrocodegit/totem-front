@@ -78,7 +78,7 @@ export class ListaUsuariosComponent {
   }
 
   isAutorizado(){
-    this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+   return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
   }
 
   handlePageEvent(page: PageEvent) {

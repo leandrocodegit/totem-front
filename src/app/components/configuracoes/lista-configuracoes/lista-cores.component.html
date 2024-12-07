@@ -7,7 +7,7 @@
         <th mat-sort-header="nome">Nome</th>
         <th>Efeito</th>
         <th>Cores</th>
-        <th mat-sort-header="velocidade">Velocidade</th> 
+        <th mat-sort-header="velocidade">Velocidade</th>
         <th></th>
       </tr>
     </thead>
@@ -15,7 +15,7 @@
       <tr *ngFor="let cor of cores">
         <td *ngIf="modoAll"><p-checkbox disabled [(ngModel)]="cor.rapida" [binary]="true" inputId="binary"></p-checkbox></td>
         <td *ngIf="!modoAll" style="width: 10px;">
-          <mat-radio-button (change)="definirConfiguracao(cor)" class="example-radio-button" color="primary"
+          <mat-radio-button [disabled]="!isAutorizado(true)" (change)="definirConfiguracao(cor)" class="example-radio-button" color="primary"
             [checked]="cor.id == idSelecionado" [value]="cor.id"></mat-radio-button>
         </td>
         <td>{{cor.nome}}</td>
@@ -28,9 +28,9 @@
         </td>
         <td>{{cor.velocidade}}</td>
         <td>
-          <i-feather *ngIf="modoAll" (click)="editar(cor)" name="edit" class="feather-base">
+          <i-feather *ngIf="modoAll && isAutorizado(true)" (click)="editar(cor)" name="edit" class="feather-base">
           </i-feather>
-          <i-feather (click)="remover(cor)" name="trash" class="feather-base">
+          <i-feather *ngIf="isAutorizado(true)" (click)="remover(cor)" name="trash" class="feather-base">
           </i-feather>
         </td>
       </tr>

@@ -10,7 +10,7 @@
       <mat-tab label="Configurações">
         @if(dispositivo && dispositivo.configuracao){
         <div style="margin-top: 20px; display: flex;">
-          <p-checkbox (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
+          <p-checkbox [disabled]="!isAutorizado(true)" (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
         </div>
         <div style="padding: 20px 0 0 0;max-width: 600px;">
           <mat-form-field appearance="outline">
@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="botoes">
-            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvarConfiguracao()" type="submit">Salvar
+            <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvarConfiguracao()" type="submit">Salvar
               configurações</button>
           </div>
         </div>

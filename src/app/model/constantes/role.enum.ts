@@ -4,7 +4,9 @@ export enum Role{
   USER = 'USER',
   ROLE_ROOT = 'ROLE_ROOT',
   ROLE_ADMIN = 'ROLE_ADMIN',
-  ROLE_USER = 'ROLE_USER'
+  ROLE_USER = 'ROLE_USER',
+  ROLE_OPERADOR = 'ROLE_OPERADOR',
+  ROLE_AVANCADO = 'ROLE_AVANCADO'
 }
 
 export const RoleDescriptions: Record<Role, string> = {
@@ -14,4 +16,6 @@ export const RoleDescriptions: Record<Role, string> = {
   [Role.ROLE_ROOT]: 'Root',
   [Role.ROLE_ADMIN]: 'Administrator',
   [Role.ROLE_USER]: 'Usuário regular',
+  [Role.ROLE_AVANCADO]: 'Usuário avançado',
+  [Role.ROLE_OPERADOR]: 'Operador',
 };

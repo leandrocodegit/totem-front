@@ -56,13 +56,13 @@
             class="feather-base"></i-feather>
           <i-feather tooltipPosition="top" pTooltip="Ver informações do dispositivo" (click)="detalhes(device)"
             name="info" class="feather-base"></i-feather>
-          <i-feather tooltipPosition="top" pTooltip="Editar dispositivo" (click)="editar(device)" name="edit"
+          <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Editar dispositivo" (click)="editar(device)" name="edit"
             class="feather-base"></i-feather>
-          <i-feather tooltipPosition="top" pTooltip="Configurar dispositivo" (click)="configurar(device)"
+          <i-feather *ngIf="isAutorizado()" tooltipPosition="top" pTooltip="Configurar dispositivo" (click)="configurar(device)"
             name="settings" class="feather-base"></i-feather>
-          <i-feather tooltipPosition="top" pTooltip="Sincronizar cor dispositivo" (click)="sincronizar(device, false)"
+          <i-feather  *ngIf="isAutorizado()" tooltipPosition="top" pTooltip="Sincronizar cor dispositivo" (click)="sincronizar(device, false)"
             name="refresh-ccw" class="feather-base"></i-feather>
-          <i-feather tooltipPosition="top" pTooltip="Ativar ou inativar" (click)="mudarStatus(device)" name="power"
+          <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Ativar ou inativar" (click)="mudarStatus(device)" name="power"
             class="feather-base" [style.color]="device.ativo ? '#beff00' : 'white'"> </i-feather>
         </td>
       </tr>

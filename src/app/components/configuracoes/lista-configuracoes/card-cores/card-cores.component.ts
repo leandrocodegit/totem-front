@@ -7,6 +7,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CorService } from 'src/app/components/dispositivos/services/cor.service';
 import { MatButtonModule } from '@angular/material/button';
 import { FormularioCorComponent } from '../../formulario-cores/formulario-cores.component';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { Role } from 'src/app/model/constantes/role.enum';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-card-configuracoes',
@@ -15,7 +18,8 @@ import { FormularioCorComponent } from '../../formulario-cores/formulario-cores.
     ListaCoresComponent,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    NgIf
   ],
   providers: [
     MessageService
@@ -30,6 +34,7 @@ export class CardConfiguracoesComponent {
   constructor(
     private readonly corService: CorService,
     private readonly dialog: MatDialog,
+    private readonly authService: AuthService,
   ) { }
 
   adicionar(){
@@ -43,5 +48,10 @@ export class CardConfiguracoesComponent {
     });
   }
 
+  isAutorizado(admin?: boolean){
+    if(admin)
+      return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
+   }
 
 }
