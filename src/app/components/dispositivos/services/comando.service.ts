@@ -152,4 +152,15 @@ export class ComandoService {
       };
     })
   }
+
+  public uploadFirmware(file: File): Observable<any> {
+
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${environment.urlbroker}/firmware/upload`, formData)
+  }
+
+  public updateFirmware(mac: string, host: string): Observable<any> {
+    return this.http.get<any>(`${environment.urlbroker}/firmware/update/${mac}/${host}`)
+  }
 }

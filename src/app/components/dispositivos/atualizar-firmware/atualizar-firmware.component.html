@@ -1,0 +1,24 @@
+<h2 style="margin: 10px 0;">{{dispositivo?.nome}}</h2>
+@if(dispositivo?.enderecoCompleto && dispositivo?.enderecoCompleto.length > 10){
+<p style="font-weight: 600; color: #008eff;margin: 20px 0;text-align: left;">{{dispositivo?.enderecoCompleto}}
+</p>
+}
+<label>Versão atual</label>
+<h5>{{dispositivo?.versao}}</h5>
+
+
+<div class="custom-file-upload">
+  <button class="btn btn-primary" (click)="fileInput.click()">Escolher Arquivo</button>
+  <input
+    #fileInput
+    type="file"
+    hidden
+    (change)="onFileSelected($event)">
+  <span class="file-name mt-2">
+    {{ selectedFile?.name || 'Nenhum arquivo selecionado' }}
+  </span>
+</div>
+ 
+<div class="botoes">
+  <button [disabled]="!selectedFile" mat-raised-button class="me-8 mb-8" color="accent" (click)="uploadFile()" type="submit">Atualizar firmware</button>
+</div>

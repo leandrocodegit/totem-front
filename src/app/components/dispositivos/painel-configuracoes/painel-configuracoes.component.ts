@@ -22,6 +22,7 @@ import { MqttService } from 'ngx-mqtt';
 import { MqttAppModule } from 'src/app/mqtt-app.module';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
+import { AtualizarFirmwareComponent } from '../atualizar-firmware/atualizar-firmware.component';
 
 @Component({
   selector: 'app-painel-configuracoes',
@@ -44,7 +45,8 @@ import { Role } from 'src/app/model/constantes/role.enum';
     MatInputModule,
     MatFormFieldModule,
     ToastModule,
-    MqttAppModule
+    MqttAppModule,
+    AtualizarFirmwareComponent
   ],
   providers: [
     MessageService,
@@ -100,7 +102,7 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mqttSevice.disconnect();
   }
- 
+
   isAutorizado(admin?: boolean){
     if(admin)
       return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
