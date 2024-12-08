@@ -157,10 +157,32 @@ export class ComandoService {
 
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`${environment.urlbroker}/firmware/upload/${mac}`, formData)
+    return this.http.post<any>(`${environment.urlbroker}/firmware/upload/${mac}${this.getParaToken()}`, formData)
   }
 
   public updateFirmware(mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlbroker}/firmware/update/${mac}`)
+    return this.http.get<any>(`${environment.urlbroker}/firmware/update/${mac}${this.getParaToken()}`)
   }
+
+/*   public updateFirmware(response: any): Observable<any> {
+    return new Observable<any>(obs => {
+      const eventSource = new EventSource(`${environment.urlbroker}/firmware/update/${response.mac}${this.getParaToken()}`);
+
+      eventSource.addEventListener('message', (evt: any) => {
+        response.data = evt.data;
+        if(evt.data.includes('Online')){
+          this.testeEmit.emit(evt.data);
+        }
+      });
+
+      eventSource.addEventListener('error', (err) => {
+        eventSource.close();
+        obs.complete();
+      });
+
+      return () => {
+        eventSource.close();
+      };
+    })
+  } */
 }

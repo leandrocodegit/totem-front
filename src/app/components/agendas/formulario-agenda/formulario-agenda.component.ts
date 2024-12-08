@@ -54,8 +54,7 @@ export const MY_FORMATS = {
     MatCardModule,
     IconsModule,
     MatDialogModule,
-    ToastModule,
-    NgIf
+    ToastModule
   ],
   providers: [
     MessageService,
