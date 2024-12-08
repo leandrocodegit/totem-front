@@ -18,8 +18,12 @@
     {{ selectedFile?.name || 'Nenhum arquivo selecionado' }}
   </span>
 </div>
-<h3 style="color: blueviolet;">{{payload?.comando}}</h3>
 
+<ol>
+  @for (item of mensagens; track $index) {
+    <li>{{item}}</li>
+  }
+</ol> 
 <div class="botoes">
   <button [disabled]="!selectedFile" mat-raised-button class="me-8 mb-8" color="accent" (click)="uploadFile()" type="submit">Atualizar firmware</button>
 </div>
