@@ -43,7 +43,7 @@ export class ComandoService {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/${mac}${this.getParaToken()}`, {
-        withCredentials: true
+        withCredentials: false,
       });
 
       eventSource.addEventListener('message', (evt: any) => {
@@ -65,7 +65,7 @@ export class ComandoService {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/sincronizar/${responder}${this.getParaToken()}`, {
-        withCredentials: true
+        withCredentials: false
       });
 
       eventSource.addEventListener('message', (evt: any) => {
@@ -89,7 +89,7 @@ export class ComandoService {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${idCor}/${mac}${this.getParaToken()}`, {
-        withCredentials: true
+        withCredentials: false
       });
 
       eventSource.addEventListener('message', (evt: any) => {
@@ -112,7 +112,7 @@ export class ComandoService {
 
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${mac}${this.getParaToken()}`, {
-        withCredentials: true
+        withCredentials: false
       });
 
       eventSource.addEventListener('message', (evt: any) => {
@@ -145,7 +145,7 @@ export class ComandoService {
   public testar(mac: string): Observable<any> {
     return new Observable<any>(obs => {
       const eventSource = new EventSource(`${environment.urlbroker}/teste/${mac}${this.getParaToken()}`, {
-        withCredentials: true
+        withCredentials: false
       });
 
       eventSource.addEventListener('message', (evt: any) => {
