@@ -36,13 +36,15 @@ export class ComandoService {
   }
 
   public criarTemporizador(idCor: string, mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlbroker}/temporizar/${idCor}/${mac}${this.getParaToken()}`, environment.headers)
+    return this.http.get<any>(`${environment.urlbroker}/temporizar/${idCor}/${mac}${this.getParaToken()}`)
   }
 
   public sincronizarDispositivo(mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/${mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/${mac}${this.getParaToken()}`, {
+        withCredentials: true
+      });
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -62,7 +64,9 @@ export class ComandoService {
   public sincronizar(responder: boolean, logs: any[]): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/sincronizar/${responder}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/sincronizar/${responder}${this.getParaToken()}`, {
+        withCredentials: true
+      });
 
       eventSource.addEventListener('message', (evt: any) => {
         const falha = evt.data.includes('não') || evt.data.toUpperCase().includes('FALHA');
@@ -84,7 +88,9 @@ export class ComandoService {
   public enviarComandoRapido(idCor: string, mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${idCor}/${mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${idCor}/${mac}${this.getParaToken()}`, {
+        withCredentials: true
+      });
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -105,7 +111,9 @@ export class ComandoService {
   public cancelarComandoRapido(mac: string): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${mac}${this.getParaToken()}`, {
+        withCredentials: true
+      });
 
       eventSource.addEventListener('message', (evt: any) => {
         this.temporizadorEmit.emit(evt.data);
@@ -131,12 +139,14 @@ export class ComandoService {
       idCor: idCor,
       mac: mac,
       cancelar: cancelar
-    }, environment.headers)
+    })
   }
 
   public testar(mac: string): Observable<any> {
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/teste/${mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/teste/${mac}${this.getParaToken()}`, {
+        withCredentials: true
+      });
 
       eventSource.addEventListener('message', (evt: any) => {
         this.testeEmit.emit(evt.data);
