@@ -28,6 +28,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
   protected selectedFile: File | null = null;
   protected mensagens: string[] = [];
   private atualizarPayload = false;
+  private initObserve = false;
 
   constructor(
     private readonly comandoService: ComandoService,
@@ -61,7 +62,12 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
     console.log(this.mqttSevice.onConnect);
 
 
-    this.mqttSevice.observe(`device/firmware/${this.dispositivo?.mac}`).subscribe((message: any) => {
+
+  }
+
+  private initObserveMqtt(mac: string){
+    if(!this.initObserve)
+    this.mqttSevice.observe(`device/firmware/${mac}`).subscribe((message: any) => {
       console.log(message);
 
       if (message.payload instanceof Uint8Array) {
@@ -117,7 +123,8 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
 
   uploadFile(): void {
     if (!this.selectedFile) return;
-    if (this.dispositivo?.mac)
+    if (this.dispositivo?.mac){
+      this.initObserveMqtt(this.dispositivo?.mac);
       this.comandoService.uploadFirmware(this.dispositivo?.mac, this.selectedFile).subscribe(response => {
 
         if (this.dispositivo?.mac && response.id) {
@@ -133,6 +140,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
           });
         }
       })
+    }
 
   }
 
