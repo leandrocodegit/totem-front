@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Dispositivo } from '../../models/dispositivo.model';
 import { ComandoService } from '../services/comando.service';
 import { response } from 'express';
@@ -22,7 +22,7 @@ import { MqttService } from 'ngx-mqtt';
   templateUrl: './atualizar-firmware.component.html',
   styleUrl: './atualizar-firmware.component.scss'
 })
-export class AtualizarFirmwareComponent implements OnInit {
+export class AtualizarFirmwareComponent implements AfterViewInit {
 
   @Input() dispositivo?: Dispositivo;
   protected selectedFile: File | null = null;
@@ -56,7 +56,7 @@ export class AtualizarFirmwareComponent implements OnInit {
      }) */
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     console.log(`device/firmware/${this.dispositivo?.mac}`);
     console.log(this.mqttSevice.onConnect);
 
