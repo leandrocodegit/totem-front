@@ -58,6 +58,8 @@ export class AtualizarFirmwareComponent implements OnInit {
 
   ngOnInit(): void {
     this.mqttSevice.observe(`device/firmware/${this.dispositivo?.mac}`).subscribe((message: any) => {
+      console.log(message);
+
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
         const decodedPayload = decoder.decode(message.payload);
@@ -78,6 +80,8 @@ export class AtualizarFirmwareComponent implements OnInit {
           }
 
         } catch (e) {
+          console.log(e);
+
         }
       }
     });
