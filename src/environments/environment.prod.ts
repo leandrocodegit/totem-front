@@ -1,13 +1,17 @@
 import { HttpHeaders } from "@angular/common/http";
 
+const protocolo = 'https://';
+const url = 'sincroled.com.br:9000';
+
 export const environment = {
-  production: true,
-  urlApi: 'https://sincroled.com.br:9000/totem',
-  urlbroker: 'https://sincroled.com.br:9000/comando',
-  urlWebSocket: 'sincroled.com.br',
+  url: protocolo + url,
+  production: false,
+  urlApi: protocolo + url + '/totem',
+  urlbroker: protocolo + url +  '/comando',
+  urlWebSocket: url,
   headers: {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
     })
-  }
+  },
 };
