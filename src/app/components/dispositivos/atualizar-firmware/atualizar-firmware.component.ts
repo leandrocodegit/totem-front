@@ -79,7 +79,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
           if (response.comando != 'ACEITO')
             if (this.getMessagem(response.comando))
               this.mensagens.push(this.getMessagem(response.comando));
-          if (response.comando != 'ATUALIZADO_FIRMWARE') {
+          if (response.comando == 'ATUALIZADO_FIRMWARE') {
             this.atualizarPayload = true;
             this.mensagens.push('Atualização foi concluída')
           }
@@ -124,6 +124,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
   uploadFile(): void {
     if (!this.selectedFile) return;
     if (this.dispositivo?.mac){
+      this.mensagens = [];
       this.initObserveMqtt(this.dispositivo?.mac);
       this.comandoService.uploadFirmware(this.dispositivo?.mac, this.selectedFile).subscribe(response => {
 
