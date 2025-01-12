@@ -57,7 +57,7 @@ export class AtualizarFirmwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mqttSevice.observe(`device/confirmacao/${this.dispositivo?.mac}`).subscribe((message: any) => {
+    this.mqttSevice.observe(`device/firmware/${this.dispositivo?.mac}`).subscribe((message: any) => {
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
         const decodedPayload = decoder.decode(message.payload);
