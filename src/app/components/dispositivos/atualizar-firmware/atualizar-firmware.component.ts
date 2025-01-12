@@ -57,6 +57,10 @@ export class AtualizarFirmwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(`device/firmware/${this.dispositivo?.mac}`);
+    console.log(this.mqttSevice.onConnect);
+
+
     this.mqttSevice.observe(`device/firmware/${this.dispositivo?.mac}`).subscribe((message: any) => {
       console.log(message);
 
