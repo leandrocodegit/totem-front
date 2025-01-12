@@ -167,7 +167,7 @@ export class ComandoService {
 
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`${environment.urlbroker}/firmware/upload/${mac}${this.getParaToken()}`, formData)
+    return this.http.post<any>(`${environment.urlbroker}/firmware/upload/${mac}${this.getParaToken()}`, formData, environment.headers)
   }
 
   public updateFirmware(mac: string): Observable<any> {

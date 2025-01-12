@@ -61,23 +61,17 @@ export class AtualizarFirmwareComponent implements OnInit {
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
         const decodedPayload = decoder.decode(message.payload);
-
-        console.log('Payload decodificado:', this.atualizarPayload);
-
-
         try {
 
           const response = JSON.parse(decodedPayload);
-          console.log(response);
-
           if (response.comando != 'ACEITO')
-            if(this.getMessagem(response.comando))
+            if (this.getMessagem(response.comando))
               this.mensagens.push(this.getMessagem(response.comando));
-          if (response.comando != 'ATUALIZADO_FIRMWARE'){
+          if (response.comando != 'ATUALIZADO_FIRMWARE') {
             this.atualizarPayload = true;
             this.mensagens.push('Atualização foi concluída')
           }
-           if (response.comando == 'ACEITO' && this.atualizarPayload){
+          if (response.comando == 'ACEITO' && this.atualizarPayload) {
             this.mensagens.push('Nova versão ' + response.versao)
             this.atualizarPayload = false;
 
@@ -89,9 +83,9 @@ export class AtualizarFirmwareComponent implements OnInit {
     });
   }
 
-  getMessagem(comando: string){
+  getMessagem(comando: string) {
 
-    switch(comando){
+    switch (comando) {
       case 'FALHA': return 'Falha ao atualizar';
       case 'DOWNLOAD': return 'Fazendo download do arquivo';
       case 'DOWNLOAD_OK': return 'Download foi concluido';
