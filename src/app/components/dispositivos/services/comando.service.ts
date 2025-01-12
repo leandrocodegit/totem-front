@@ -167,11 +167,7 @@ export class ComandoService {
 
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`${environment.url}/firmware/upload/${mac}${this.getParaToken()}`, formData, {
-      headers: new HttpHeaders({
-        "Content-Type": "multipart/form-data"
-      })
-    })
+    return this.http.post<any>(`${environment.url}/firmware/upload/${mac}${this.getParaToken()}`, formData)
   }
 
   public updateFirmware(mac: string): Observable<any> {
