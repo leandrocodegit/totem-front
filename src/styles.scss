@@ -7,10 +7,20 @@ html{
 
 html,
 body {
+  height: -webkit-fill-available!important;
   color: #303030;
   letter-spacing: 0.1rem;
-  background: rgba(0, 0, 0, 0.938);
+  background: rgba(0, 0, 0, 0.92);
 
+}
+
+.mat-sidenav-container {
+  height: 100%;
+  height: -webkit-fill-available!important;
+}
+
+.body-wrapper{
+  padding: auto;;
 }
 
 ::-webkit-scrollbar {
