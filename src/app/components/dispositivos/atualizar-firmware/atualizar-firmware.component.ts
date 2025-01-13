@@ -110,6 +110,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
     if (!this.selectedFile) return;
     if (this.dispositivo?.mac){
       this.mensagens = [];
+      this.initObserve = true;
       this.initObserveMqtt(this.dispositivo?.mac);
       this.comandoService.uploadFirmware(this.dispositivo?.mac, this.selectedFile).subscribe(response => {
 
