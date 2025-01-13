@@ -68,8 +68,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
   private initObserveMqtt(mac: string){
     if(!this.initObserve)
     this.mqttSevice.observe(`device/firmware/${mac}`).subscribe((message: any) => {
-      console.log(message);
-
+      this.initObserve = true;
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
         const decodedPayload = decoder.decode(message.payload);
@@ -80,20 +79,6 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
           }
       }
     });
-  }
-
-  getMessagem(comando: string) {
-
-    switch (comando) {
-      case 'FALHA': return 'Falha ao atualizar';
-      case 'DOWNLOAD': return 'Fazendo download do arquivo';
-      case 'DOWNLOAD_OK': return 'Download foi concluido';
-      case 'ATUALIZANDO_FIRMWARE': return 'Fazendo atualização do firmware';
-      case 'ATUALIZADO_FIRMWARE': return 'Firmware foi atualizado com sucesso';
-    }
-
-    return '';
-
   }
 
   onFileSelected(event: Event): void {
@@ -111,7 +96,6 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
     if (this.dispositivo?.mac){
       this.mensagens = [];
       this.initObserveMqtt(this.dispositivo?.mac);
-      this.initObserve = true;
       this.comandoService.uploadFirmware(this.dispositivo?.mac, this.selectedFile).subscribe(response => {
 
         if (this.dispositivo?.mac && response.id) {
