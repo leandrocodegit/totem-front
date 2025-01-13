@@ -73,7 +73,7 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
         const decodedPayload = decoder.decode(message.payload);
-        this.mensagens.push(this.getMessagem(decodedPayload));
+        this.mensagens.push(decodedPayload);
 
           if (decodedPayload.includes('sucesso') && this.atualizarPayload) {
             this.atualizarPayload = false;
