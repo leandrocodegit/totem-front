@@ -73,26 +73,11 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
         const decodedPayload = decoder.decode(message.payload);
-        try {
+        this.mensagens.push(this.getMessagem(decodedPayload));
 
-          const response = JSON.parse(decodedPayload);
-          if (response.comando != 'ACEITO')
-            if (this.getMessagem(response.comando))
-              this.mensagens.push(this.getMessagem(response.comando));
-          if (response.comando == 'ATUALIZADO_FIRMWARE') {
-            this.atualizarPayload = true;
-            this.mensagens.push('Atualização foi concluída')
-          }
-          if (response.comando == 'ACEITO' && this.atualizarPayload) {
-            this.mensagens.push('Nova versão ' + response.versao)
+          if (decodedPayload.includes('sucesso') && this.atualizarPayload) {
             this.atualizarPayload = false;
-
           }
-
-        } catch (e) {
-          console.log(e);
-
-        }
       }
     });
   }
