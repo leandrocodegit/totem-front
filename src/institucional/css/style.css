@@ -634,6 +634,5 @@ a {
   min-height: 500px;
   z-index: -1;
   background-image: url(../img/network.jpg);
-  background-size: cover;
-      background-position: center;
+  background-size: contain; 
 }
