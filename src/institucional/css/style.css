@@ -239,6 +239,10 @@ a {
     min-height: 260px!important;
     background-repeat: no-repeat;
 }
+
+.btn-outline-body{
+  margin-left: 10px!important;
+}
 }
 
 .header-carousel .owl-dots {
