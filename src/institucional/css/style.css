@@ -25,7 +25,7 @@
 }
 
 body {
-  overflow-x: hidden; 
+  overflow-x: hidden;
   font-family: "Inter", sans-serif;
 }
 :root {
@@ -611,4 +611,29 @@ a {
 
 .footer .copyright a:hover {
   color: var(--primary);
+}
+
+.parallax-section {
+
+}
+
+/* Fundo Parallax */
+.parallax-bg {
+  position: fixed; /* Fixo para criar o efeito de parallax */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  z-index: 1; /* Fica atrás do conteúdo */
+}
+
+.parallax {
+  min-height: 500px;
+  z-index: -1;
+  background-image: url(../img/network.jpg);
+  background-size: cover;
+      background-position: center;
 }
