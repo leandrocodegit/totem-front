@@ -234,6 +234,11 @@ a {
   .header-carousel .owl-carousel-item p {
     font-size: 16px !important;
   }
+
+  .parallax {
+    min-height: 260px!important;
+    background-repeat: no-repeat;
+}
 }
 
 .header-carousel .owl-dots {
