@@ -645,3 +645,19 @@ a {
   background-image: url(../img/network.webp);
   background-size: contain;
 }
+
+
+.parallax {
+  perspective: 1000px; /* Define a perspectiva 3D */
+}
+
+.parallax {
+  object-fit: cover;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.parallax:hover {
+  transform: rotateY(20deg) rotateX(10deg); /* Efeito 3D de rotação */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4); /* Sombra mais forte ao passar o mouse */
+}
