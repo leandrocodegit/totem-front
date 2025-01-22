@@ -424,8 +424,17 @@
                 </div>
               </div>
             </div>
+            <form id="appointmentForm" method="post" action="/totem/email">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+
+              <label for="name">Nome:</label>
+              <input type="text" id="name" name="name" required>
+
+              <button type="submit">Enviar</button>
+            </form>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-              <form id="appointmentForm">
+              <form id="appointmentForm" method="post" action="/totem/email">
                 <div class="row g-3">
                   <div class="col-12 col-sm-6">
                     <input
@@ -433,7 +442,7 @@
                       class="form-control"
                       placeholder="Seu nome"
                       style="height: 55px"
-                      required
+                      required value="Leandro"
                     />
                   </div>
                   <div class="col-12 col-sm-6">
@@ -442,7 +451,7 @@
                       class="form-control"
                       placeholder="Email"
                       style="height: 55px"
-                      required
+                      required value="lpoliveira.ti@gmail.com"
                     />
                   </div>
                   <div class="col-12 col-sm-6">
@@ -451,7 +460,7 @@
                       class="form-control"
                       placeholder="Celular"
                       style="height: 55px"
-                      required
+                      required value="11916511988"
                     />
                   </div>
                   <div class="col-12">
@@ -459,7 +468,7 @@
                       class="form-control"
                       rows="7"
                       placeholder="Mensagem"
-                      required
+                      required value="Teste"
                     ></textarea>
                   </div>
                   <div class="col-12">
@@ -595,6 +604,29 @@
           const successModal = new bootstrap.Modal(
             document.getElementById("successModal")
           );
+
+          const formData = new FormData(this);
+
+      // Converter para JSON, se necessário
+      const data = {
+        email: formData.get('email'),
+        name: formData.get('name')
+      };
+
+      try {
+        // Enviar os dados usando fetch
+        const response =  fetch('/totem/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Ocorreu um erro ao enviar o formulário.');
+      }
           successModal.show();
 
           // Clear the form (optional)
