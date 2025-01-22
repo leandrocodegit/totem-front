@@ -434,7 +434,7 @@
               <button type="submit">Enviar</button>
             </form>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-              <form id="appointmentForm" method="post" action="/totem/email">
+              <form id="appointmentForm" onsubmit="return false;">
                 <div class="row g-3">
                   <div class="col-12 col-sm-6">
                     <input
@@ -613,6 +613,7 @@
 
       // Converter para JSON, se necessário
       const data = {
+        assunto: 'contato portal sincroled',
         nome: formData.get('nome'),
         email: formData.get('email'),
         celular: formData.get('celular'),
