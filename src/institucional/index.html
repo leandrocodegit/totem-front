@@ -424,17 +424,8 @@
                 </div>
               </div>
             </div>
-            <form id="appointmentForm" method="post" action="/totem/email">
-              <label for="email">Email:</label>
-              <input type="email" id="email" name="email" required>
-
-              <label for="name">Nome:</label>
-              <input type="text" id="name" name="name" required>
-
-              <button type="submit">Enviar</button>
-            </form>
             <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-              <form id="appointmentForm" onsubmit="return false;">
+              <form id="appointmentForm" method="post" onsubmit="return false;">
                 <div class="row g-3">
                   <div class="col-12 col-sm-6">
                     <input
@@ -629,14 +620,6 @@
           },
           body: JSON.stringify(data)
         });
-
-        // Verificar a resposta
-        if (response.ok) {
-          const result =  response.json();
-          alert('Formulário enviado com sucesso: ' + JSON.stringify(result));
-        } else {
-          alert('Erro ao enviar formulário: ' + response.statusText);
-        }
       } catch (error) {
         console.error('Erro:', error);
         alert('Ocorreu um erro ao enviar o formulário.');
