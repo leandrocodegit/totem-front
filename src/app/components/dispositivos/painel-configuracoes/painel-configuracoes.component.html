@@ -38,7 +38,7 @@
             <h6>Faixa de leds</h6>
             <div class="box-configuracao-item">
               <span class="material-symbols-outlined cor">mitre</span>
-              <mat-slider [max]="255" [step]="1" [min]="2">
+              <mat-slider [max]="(dispositivo.configuracao.leds / 2)" [step]="1" [min]="2">
                 <input (change)="onSliderChange()" matSliderThumb [(ngModel)]="dispositivo?.configuracao.faixa"> </mat-slider>
               <b>{{dispositivo?.configuracao.faixa}}</b>
             </div>

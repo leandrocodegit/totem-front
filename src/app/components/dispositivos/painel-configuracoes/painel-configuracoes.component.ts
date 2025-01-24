@@ -143,6 +143,10 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
 
 
   salvarConfiguracao(){
+
+    if(this.dispositivo.configuracao.faixa > (this.dispositivo.configuracao.leds / 2))
+        this.dispositivo.configuracao.faixa = (this.dispositivo.configuracao.leds / 2);
+
     this.dispositivoService.salvarConfiguracao(this.dispositivo).subscribe(() => {
       this.messageService.add({
         severity: 'success',
