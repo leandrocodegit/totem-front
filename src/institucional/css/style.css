@@ -229,6 +229,10 @@ a {
 
 @media (max-width: 768px) {
 
+  .logo{
+    width: 120px;
+  }
+
   .mockup {
     margin-top: 15px;
   }
@@ -666,6 +670,9 @@ a {
   background-size: contain;
 }
 
+.logo{
+  width: 250px;
+}
 
 .parallax {
   perspective: 1000px;
