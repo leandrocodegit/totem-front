@@ -11,7 +11,7 @@
     content="plataforma controle de leds, configurar leds remotamente, agendar cores de leds remotamente, mudar cor de leds remotamente, alterar cor led remotamente, aparelho que controla leds pela internet, dispositivo que altera cor de leds remotamente">
 
   <!-- Favicon -->
-  <link href="img/favicon.png" rel="icon" />
+  <link href="img/icon.ico" rel="icon" />
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +43,7 @@
 <body>
   <!-- Spinner Start -->
   <div id="spinner"
-    class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border position-relative txt-primary" style="width: 3rem; height: 3rem" role="status"></div>
   </div>
   <!-- Spinner End -->
@@ -53,11 +53,11 @@
   <!-- Topbar End -->
 
   <!-- Navbar Start -->
-  <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn"
+  <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-4 wow fadeIn" style="background: linear-gradient(90deg, rgb(0 0 0 / 40%) 1%, rgba(21, 2, 36, 0.9) 100%);background: white !important;"
     data-wow-delay="0.1s">
     <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-      <!-- <img class="me-3" src="img/logo.png" alt="logo" /> -->
-      <h1>SINCRO<span style="color: #d31e26;">LED</span></h1>
+      <img class="me-3" src="img/logo.png" alt="logo" width="250"/>
+
     </a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
       <span class="navbar-toggler-icon"></span>
@@ -71,7 +71,7 @@
       </div>
       <a href="#contato" class="btn btn-outline-body py-2 px-4" style="margin-left: 26px">Contato</a>
       <a href="https://painel.sincroled.com.br" class="btn btn-outline-body py-2 px-4"
-        style="margin-left: 26px;background: #d31e26;color: white;">Acessar plataforma</a>
+        style="margin-left: 26px;">Acessar plataforma</a>
     </div>
   </nav>
   <!-- Navbar End -->
@@ -146,9 +146,7 @@
           <div class="col-lg-7 wow fadeIn" data-wow-delay="0.5s">
             <div class="section-title">
               <h6>Sobre nós</h6>
-              <h2 class="mb-4">
-                Sincroled
-              </h2>
+              <img class="mb-4" src="img/marca.png" alt="logo" width="250"/>
             </div>
             <p>
               Nascemos com a missão de transformar a forma como interagimos com as cores, proporcionando uma solução
@@ -162,8 +160,8 @@
               em tempo real dos dispositivos, facilitando a gestão. Também integramos nossa plataforma a sistemas de
               terceiros, permitindo o controle prático dos efeitos através de chamadas à nossa API.
           </div>
-          <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <img style="border-radius: 15px;" class="img-fluid" src="img/fundo.jpg" alt="Creative Architecture" />
+          <div class="col-lg-5 wow fadeIn mockup" data-wow-delay="0.1s">
+            <img style="border-radius: 15px;" class="img-fluid" src="img/background.png" alt="Creative Architecture" />
           </div>
         </div>
       </div>
@@ -394,10 +392,14 @@
     <div class="container-fluid bg-dark text-body footer mt-5 pt-5 px-0 wow fadeIn" data-wow-delay="0.1s">
       <div class="container-fluid copyright">
         <div class="container">
-          <div class="row">
-            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0 text-light">
-              &copy; <a href="#">2024 SINCROLED, SÃO PAULO - SP</a>
+          <div class="" style="display: flex;justify-content: space-between;align-items: flex-end;flex-wrap: wrap;">
+            <div class="col-md-8 text-light">
+              <img src="img/logo_white_h.png" width="170">
             </div>
+            <div class=" text-light" >
+              <p style="margin: 0;"> &copy;2024 SINCROLED, SÃO PAULO - SP</p>
+            </div>
+
           </div>
         </div>
       </div>

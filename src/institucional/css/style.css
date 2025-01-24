@@ -18,7 +18,7 @@
 
 **********************************************/
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -28,12 +28,13 @@ body {
   overflow-x: hidden;
   font-family: "Inter", sans-serif;
 }
+
 :root {
-  --primary: #d31e26;
-  --secondary: #e6353e;
+  --primary: #001233;
+  --secondary: #ac2424;
 
   --light: #f8f8f8;
-  --dark: #252525;
+  --dark: #001233;
 }
 
 h1,
@@ -92,7 +93,7 @@ a {
 
 /*** Button ***/
 .btn {
-  font-weight: 500;
+  font-weight: 300;
   transition: 0.5s;
 }
 
@@ -127,8 +128,9 @@ a {
 }
 
 .btn-outline-body {
-  color: var(--primary);
-  border-color: var(--primary);
+  color: #e9feff;
+  border-color: #ffffff52;
+  background: var(--primary);
 }
 
 .btn-outline-body:hover {
@@ -147,6 +149,10 @@ a {
   background-color: var(--secondary);
 }
 
+.nav {
+  background-color: #2f1640;
+}
+
 /*** Navbar ***/
 .navbar .dropdown-toggle::after {
   border: none;
@@ -161,22 +167,25 @@ a {
   margin-right: 30px;
   padding: 30px 0;
   color: var(--dark);
-  font-weight: 500;
+  font-weight: 300;
   text-transform: uppercase;
   outline: none;
 }
 
 .navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link.active {
-  color: var(--primary);
-}
+.navbar .navbar-nav .nav-link.active {}
 
 .navbar.sticky-top {
   top: -100px;
   transition: 0.5s;
 }
 
+.mockup {
+  margin-top: 125px;
+}
+
 @media (max-width: 991.98px) {
+
   .navbar .navbar-nav .nav-link {
     margin-right: 0;
     padding: 10px 0;
@@ -219,6 +228,11 @@ a {
 }
 
 @media (max-width: 768px) {
+
+  .mockup {
+    margin-top: 15px;
+  }
+
   .header-carousel .owl-carousel-item {
     position: relative;
     min-height: 500px;
@@ -236,14 +250,14 @@ a {
   }
 
   .parallax {
-    min-height: 240px!important;
+    min-height: 240px !important;
     background-repeat: no-repeat;
     background-size: cover;
-}
+  }
 
-.btn-outline-body{
-  margin-left: 10px!important;
-}
+  .btn-outline-body {
+    margin-left: 10px !important;
+  }
 }
 
 .header-carousel .owl-dots {
@@ -292,7 +306,7 @@ a {
   background-size: cover;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
   color: var(--light);
 }
 
@@ -303,6 +317,7 @@ a {
   letter-spacing: 5px;
   text-transform: uppercase;
 }
+
 .section-title h2 {
   font-size: 40px;
 }
@@ -312,6 +327,7 @@ a {
   cursor: pointer;
   border-radius: 10px;
 }
+
 .fact-item .fact-icon {
   width: 120px;
   height: 120px;
@@ -389,6 +405,7 @@ a {
   transition: 0.5s;
   border-radius: 15px;
 }
+
 .service-item .service-text i {
   color: var(--primary);
 }
@@ -576,9 +593,11 @@ a {
 .footer-content a {
   text-decoration: none;
 }
-.footer .btn-outline-body{
+
+.footer .btn-outline-body {
   padding: 18px;
 }
+
 .footer .btn.btn-link {
   display: block;
   margin-bottom: 5px;
@@ -623,13 +642,12 @@ a {
   color: var(--primary);
 }
 
-.parallax-section {
-
-}
+.parallax-section {}
 
 /* Fundo Parallax */
 .parallax-bg {
-  position: fixed; /* Fixo para criar o efeito de parallax */
+  position: fixed;
+  /* Fixo para criar o efeito de parallax */
   top: 0;
   left: 0;
   width: 100%;
@@ -637,7 +655,8 @@ a {
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  z-index: 1; /* Fica atrás do conteúdo */
+  z-index: 1;
+  /* Fica atrás do conteúdo */
 }
 
 .parallax {
@@ -649,15 +668,17 @@ a {
 
 
 .parallax {
-  perspective: 1000px; /* Define a perspectiva 3D */
+  perspective: 1000px;
+  /* Define a perspectiva 3D */
 }
 
 .parallax {
   transition: transform 0.5s ease, box-shadow 0.5s ease;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .parallax:hover {
-  transform: rotateY(20deg) rotateX(10deg); /* Efeito 3D de rotação */
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4); /* Sombra mais forte ao passar o mouse */
+  transform: rotateY(20deg) rotateX(10deg);
+  /* Efeito 3D de rotação */
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+  /* Sombra mais forte ao passar o mouse */
 }
