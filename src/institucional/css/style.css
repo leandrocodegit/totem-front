@@ -254,8 +254,7 @@ a {
   }
 
   .parallax {
-    min-height: 240px !important;
-    background-repeat: no-repeat;
+     background-repeat: no-repeat;
     background-size: cover;
   }
 
@@ -664,10 +663,16 @@ a {
 }
 
 .parallax {
-  min-height: 500px;
+  width: 100vw;
+  height: 40vw;
   z-index: -1;
   background-image: url(../img/network.webp);
   background-size: contain;
+  background-repeat: repeat;
+}
+
+.parallax :hover{
+
 }
 
 .logo{
@@ -683,9 +688,3 @@ a {
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.parallax:hover {
-  transform: rotateY(20deg) rotateX(10deg);
-  /* Efeito 3D de rotação */
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
-  /* Sombra mais forte ao passar o mouse */
-}
