@@ -196,8 +196,14 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
       data: dispositivo
     })
 
-    retorno.afterClosed().subscribe(() => {
-     // this.carregarLista();
+    retorno.afterClosed().subscribe((data) => {
+      if(data){
+        this.dispositivos.find((device, index) => {
+          if(device.mac == data.mac)
+            this.dispositivos[index] = data;
+        });
+      }
+        dispositivo = data;
     })
   }
 

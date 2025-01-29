@@ -13,6 +13,7 @@ import { IconsModule } from '../../../IconsModule';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 import { CheckboxModule } from 'primeng/checkbox';
 import { EnderecoComponent } from '../endereco/endereco.component';
+import { response } from 'express';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -40,6 +41,8 @@ export class FormularioDispositivoComponent {
 
   protected dispositivo!: Dispositivo;
   protected editou = false;
+  private copia: any;
+  private alterado = false;
 
   constructor(
     private readonly dispositivoService: DispositivoService,
@@ -49,7 +52,8 @@ export class FormularioDispositivoComponent {
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     if (data) {
-      this.dispositivo = JSON.parse(JSON.stringify(data));
+      this.copia = JSON.parse(JSON.stringify(data));
+      this.dispositivo = data;
     }
 
     dispositivoService.mapaEdit.subscribe(data => {
@@ -63,7 +67,7 @@ export class FormularioDispositivoComponent {
   }
 
   fechar() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.alterado ? undefined : this.copia);
   }
 
   salvar() {
@@ -73,6 +77,7 @@ export class FormularioDispositivoComponent {
         summary: 'Alteração',
         detail: 'Dispositivo salvo'
       });
+      this.alterado = true;
     }, fail => {
       this.messageService.add({
         severity: 'error',
