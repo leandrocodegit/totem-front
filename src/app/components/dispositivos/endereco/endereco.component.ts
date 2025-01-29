@@ -52,6 +52,7 @@ export class EnderecoComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if(this.dispositivo && !this.dispositivo?.endereco){
       this.dispositivo.endereco = new Endereco();
+      this.dispositivo.endereco.cep = '';
     }else{
       var state = this.dispositivo.endereco.state;
       var city = this.dispositivo.endereco.city;
