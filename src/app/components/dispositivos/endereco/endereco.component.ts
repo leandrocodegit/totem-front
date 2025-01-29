@@ -24,9 +24,9 @@ import { ESTADOS } from '../../models/constantes/Estados';
   templateUrl: './endereco.component.html',
   styleUrl: './endereco.component.css'
 })
-export class EnderecoComponent implements AfterViewInit {
+export class EnderecoComponent implements OnInit, AfterViewInit {
 
-  @Input() dispositivo?: any;
+  @Input() dispositivo: any;
   protected form: FormGroup;
   protected selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
   protected estados = ESTADOS;
@@ -38,7 +38,7 @@ export class EnderecoComponent implements AfterViewInit {
   ) {
 
     this.form = this.formBuild.group({
-      'cep': ['', Validators.required],
+      'cep': [''],
       'state': ['', Validators.required],
       'city': ['', Validators.required],
       'neighborhood': ['', Validators.required],
@@ -49,11 +49,14 @@ export class EnderecoComponent implements AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     if(this.dispositivo && !this.dispositivo?.endereco){
       this.dispositivo.endereco = new Endereco();
-      this.dispositivo.endereco.cep = '';
-    }else{
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if(!(this.dispositivo && !this.dispositivo?.endereco)){
       var state = this.dispositivo.endereco.state;
       var city = this.dispositivo.endereco.city;
       this.carregarCidade(state, city);

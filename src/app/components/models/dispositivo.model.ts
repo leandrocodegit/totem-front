@@ -19,7 +19,7 @@ export interface Dispositivo {
   cor: Cor;
   configuracao: Configuracao;
   comando: Comando,
-  endereco: Endereco,
+  endereco?: Endereco,
   enderecoCompleto: string;
   timer: boolean;
   operacao: Operacao;

@@ -25,6 +25,7 @@ import { ComandoService } from '../services/comando.service';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
+import { Endereco } from '../../models/endereco.model';
 var initDialog = true;
 
 @Component({
@@ -186,6 +187,10 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   detalhes(dispositivo: Dispositivo) {
+
+    if(dispositivo && !dispositivo?.endereco){
+      dispositivo.endereco = new Endereco();
+    }
     this.dialog.open(DetalhesDispositivoComponent, {
       data: dispositivo
     })

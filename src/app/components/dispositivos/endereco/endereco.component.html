@@ -1,7 +1,7 @@
 <div class="box-endereco" *ngIf="form" [formGroup]="form">
   <mat-form-field class="w-100 fs-16" appearance="outline">
     <mat-label>Cep</mat-label>
-    <input [(ngModel)]="dispositivo.endereco.cep" (input)="consultaCep($event)"matInput formControlName="cep" placeholder="Cep">
+    <input [(ngModel)]="dispositivo?.endereco.cep" (input)="consultaCep($event)"matInput formControlName="cep" placeholder="Cep">
   </mat-form-field>
   <mat-form-field class="w-100 fs-16" appearance="outline">
     <mat-label>Rua/avenida</mat-label>
