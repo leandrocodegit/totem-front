@@ -26,7 +26,7 @@ import { ESTADOS } from '../../models/constantes/Estados';
 })
 export class EnderecoComponent implements AfterViewInit {
 
-  @Input() dispositivo!: Dispositivo;
+  @Input() dispositivo?: any;
   protected form: FormGroup;
   protected selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
   protected estados = ESTADOS;
