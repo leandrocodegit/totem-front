@@ -260,6 +260,10 @@ export class DashboardComponent implements AfterViewInit {
     this.load = false;
   }
 
+  getQuantidadeCores(){
+   return  this.dashboard.cores.map(cor => cor.quantidade).reduce((a,b) => a + b);
+  }
+
 carregarDashboard(){
   this.agendaService.listaTodosAgendas(undefined, PAGE_INIT).subscribe(response => {
     this.agenda = response.content;
