@@ -23,7 +23,7 @@
         <td>
           <div class="cor-primaria-secundaria" style="display: flex;">
             <div [style.background]="cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
-            <div [style.background]="cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+            <div [style.background]="cor?.efeito == 'COLORIDO' ? cor.primaria : cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
           </div>
         </td>
         <td>{{cor.velocidade}}</td>

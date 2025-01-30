@@ -7,7 +7,7 @@
         <app-paramentros-cores *ngIf="dispositivo" [exibeSincronizar]="true"
           [dispositivo]="dispositivo" [enviarConfiguracao]="enviarConfiguracao"></app-paramentros-cores>
       </mat-tab>
-      <mat-tab label="Configurações">
+      <mat-tab label="Parametros">
         @if(dispositivo && dispositivo.configuracao){
         <div style="margin-top: 20px; display: flex;">
           <p-checkbox [disabled]="!isAutorizado(true)" (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />

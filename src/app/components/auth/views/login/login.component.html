@@ -4,8 +4,8 @@
     <a href="https://sincroled.com.br/">
     <img src="assets/images/logo_white.png" width="180">
   </a>
-      <input [(ngModel)]="email" class="campo-padrao" matInput type="text" placeholder="Entre com seu login">
-      <input [(ngModel)]="password" class="campo-padrao" matInput type="password" placeholder="Senha">
+      <input (keyup.enter)="login()" [(ngModel)]="email" class="campo-padrao" matInput type="text" placeholder="Entre com seu login">
+      <input (keyup.enter)="login()" [(ngModel)]="password" class="campo-padrao" matInput type="password" placeholder="Senha">
       <br>
     <button mat-raised-button class="me-8 mb-8" color="primary" (click)="login()" type="submit">Entrar</button>
     <mat-spinner class="custom-spinner" *ngIf="isLoad"></mat-spinner>

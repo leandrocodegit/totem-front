@@ -342,6 +342,10 @@ input:-ms-input-placeholder {
   color: rgb(173, 173, 173) !important;
 }
 
+.p-colorpicker-panel .p-colorpicker-hue {
+  background: transparent url(/assets/images/hue.png) no-repeat left top !important;
+}
+
 @media(max-width: 600px) {
 
   .body-wrapper,
