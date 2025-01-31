@@ -16,9 +16,8 @@
   <p style="font-weight: 600; color: #008eff;margin: 0 0 20px 10px;text-align: left;">{{dispositivo?.enderecoCompleto}}</p>
   }
 
-  <div style="display: flex;justify-content: space-between;">
+  <div class="box-comandos">
     <div class="box-rapidas">
-
       @for (cor of cores; track $index) {
       <div (click)="temporizar(cor.id)" class="box-rapidas-item"
         [style.background]="aguardandoResposta ? '#d3d3d3' : '#343434'">
@@ -34,8 +33,6 @@
             <div [style.background]="cor?.efeito == 'COLORIDO' ? cor.primaria : cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
           </div>
         </div>
-
-
       </div>
       }
     </div>

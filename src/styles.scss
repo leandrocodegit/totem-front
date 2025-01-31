@@ -346,7 +346,7 @@ input:-ms-input-placeholder {
   background: transparent url(/assets/images/hue.png) no-repeat left top !important;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 700px) {
 
   .body-wrapper,
   .mat-mdc-card-content {
@@ -363,10 +363,6 @@ input:-ms-input-placeholder {
 
   .cores {
     padding: 10px !important;
-  }
-
-  i-feather {
-    margin: 0 !important;
   }
 
   .box-dashboard-item svg {

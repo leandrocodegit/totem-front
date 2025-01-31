@@ -16,10 +16,17 @@
   flex-wrap: wrap;
   flex-direction: column;
   padding: 0 5px;
+  margin: 15px 0;
   max-height: 700px;
   overflow-x: hidden;
   overflow-y: auto;
 
+}
+
+.box-comandos {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .box-rapidas-item {
@@ -85,4 +92,15 @@ h2 {
 
 .comando-autor {
   color: #ff9000;
+}
+
+@media(max-width: 700px) {
+  .box-botoes-direta {
+    display: flex!important;
+    flex-direction: column!important;
+  }
+  
+  .box-rapidas {
+    width: 100%;
+  }
 }

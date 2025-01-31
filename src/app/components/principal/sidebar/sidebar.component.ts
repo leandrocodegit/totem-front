@@ -12,8 +12,6 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../auth/services/auth.service';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
-import { CardMapaComponent } from '../card-mapa/card-mapa.component';
-import { CardItensComponent } from '../card-itens/card-itens.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Role } from 'src/app/model/constantes/role.enum';
@@ -36,8 +34,6 @@ interface sidebarMenu {
     MatSidenavModule,
     MatRippleModule,
     MatButtonModule,
-    CardMapaComponent,
-    CardItensComponent,
     ToastModule
   ],
   providers: [
@@ -69,9 +65,9 @@ export class SidebarComponent implements OnInit {
   ) {
     dispositivoService.ajutarPadding.subscribe(data => {
       if(router.url.includes('/mapa')){
-        this.padding = '0';
+        this.padding = '0!important';
       }else{
-        this.padding = '40px';
+        this.padding = '40px!important';
       }
     })
   }
