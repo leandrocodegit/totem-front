@@ -43,6 +43,8 @@ export class ListaRapidasComponent implements OnInit {
   protected logs: Log[] = [];
   protected corSelecionada: any;
   protected mac: any;
+  protected interval: any;
+  protected timer: any;
 
   constructor(
     private readonly corService: CorService,
@@ -101,8 +103,12 @@ export class ListaRapidasComponent implements OnInit {
   carregarDispositivo() {
     this.dispositivoService.buscarDicpositivo(this.mac).subscribe(response => {
       this.dispositivo = response;
-      if (this.dispositivo.operacao.modoOperacao == 'TEMPORIZADOR')
+      if (this.dispositivo.operacao.modoOperacao == 'TEMPORIZADOR') {
         this.corSelecionada = this.dispositivo.operacao.corTemporizador.id;
+        this.interval = setInterval(() => {
+          this.calcularDiferenca(this.dispositivo?.operacao.time);
+        }, 1000);
+      }
     });
   }
 
@@ -124,7 +130,7 @@ export class ListaRapidasComponent implements OnInit {
           complete: () => {
             this.aguardandoResposta = false;
           },
-          error: (err) => {}
+          error: (err) => { }
         });
       }
     }
@@ -147,6 +153,25 @@ export class ListaRapidasComponent implements OnInit {
         });
       }
     });
+  }
+
+  calcularDiferenca(data: Date | undefined): void {
+    const data1: Date = new Date;
+    if (data) {
+      const data2 = new Date(data);
+      if (data2) {
+        const diffMs = Math.abs(data2.getTime() - data1.getTime());
+        const diffSegundos = Math.floor(diffMs / 1000);
+        const diffMinutos = Math.floor(diffSegundos / 60);
+        const diffHoras = Math.floor(diffMinutos / 60);
+        this.timer = `${diffHoras % 24}:${diffMinutos % 60}:${diffSegundos % 60}`;
+        if(diffHoras == 0 && diffMinutos == 0 && diffSegundos == 0){
+          this.timer = '';
+          this.cancelar();
+          clearInterval(this.interval);
+        }
+      } else this.timer = '';
+    } else this.timer = '';
   }
 
 
