@@ -1,8 +1,4 @@
 <div class="box-comandos-rapidos">
-  <div *ngIf="aguardandoResposta" class="load">
-    <div class="spinner-border text-primary" style="margin: auto;"></div>
-    <p style="color: #2196F3;">Aguardando resposta</p>
-  </div>
   <div class="box-botoes-direta" style="margin: 0 0 0;">
     <h2 style="margin: 10px;">{{dispositivo?.nome}}</h2>
     <div class="botoes">
@@ -13,14 +9,18 @@
     </div>
   </div>
   @if(dispositivo?.enderecoCompleto && dispositivo?.enderecoCompleto.length > 10){
-  <p style="font-weight: 600; color: #008eff;margin: 0 0 20px 10px;text-align: left;">{{dispositivo?.enderecoCompleto}}</p>
+  <p style="font-weight: 600; color: #008eff;margin: 0 0 20px 10px;text-align: left;">{{dispositivo?.enderecoCompleto}}
+  </p>
   }
-
   <div class="box-comandos">
     <div class="box-rapidas">
       @for (cor of cores; track $index) {
       <div (click)="temporizar(cor.id)" class="box-rapidas-item"
-        [style.background]="aguardandoResposta ? '#d3d3d3' : '#343434'">
+        [style.border-color]="aguardandoResposta ? '#fc8d8d4a' : '#b9c7d45e'"
+        [style.background]="aguardandoResposta ? '#d017171c' : '#04031a56'">
+        @if (cor.id == corSelecionada) {
+        <mat-progress-bar mode="indeterminate" value="40"></mat-progress-bar>
+        }
         <div class="cor-primaria-secundaria" style="display: flex;margin: 5px 0px;align-items: center;">
           <p>{{cor.nome}}</p>
         </div>
@@ -30,7 +30,8 @@
           <div class="cor-primaria-secundaria"
             style="display: flex;align-items: center;width: 30px;flex: 1;margin: 0 3px;">
             <div [style.background]="cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
-            <div [style.background]="cor?.efeito == 'COLORIDO' ? cor.primaria : cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
+            <div [style.background]="cor?.efeito == 'COLORIDO' ? cor.primaria : cor.secundaria"
+              style="border-radius: 0 10px 10px 0;"></div>
           </div>
         </div>
       </div>
@@ -39,17 +40,17 @@
     <div style="max-height: 500px;overflow-y: auto;">
       <p-timeline [value]="logs" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-log>
-         @if(log.comando == 'TIMER_CONCLUIDO') {
+          @if(log.comando == 'TIMER_CONCLUIDO') {
           <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
             [style]="{ 'background-color': '#25a971', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
             <i class="pi pi-check" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
           </span>
-        }
+          }
           @else if(log.comando == 'TIMER_CANCELADO') {
-            <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
-              [style]="{ 'background-color': '#fb487a', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
-              <i class="pi pi-times" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
-            </span>
+          <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+            [style]="{ 'background-color': '#fb487a', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">
+            <i class="pi pi-times" style="font-size: 12px; line-height: 2;margin-left: 3px!important;"></i>
+          </span>
           }@else {
           <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
             [style]="{ 'background-color': 'rgb(0 166 207)', 'width': '25px', 'height': '25px', 'margin-left': '3px' }">

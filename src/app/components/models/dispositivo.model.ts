@@ -35,4 +35,5 @@ interface Conexao
 interface Operacao
 {
   modoOperacao: string;
+  corTemporizador: Cor
 }

@@ -13,6 +13,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TimelineModule } from 'primeng/timeline';
 import { LogService } from '../../dispositivos/services/log.service';
 import { Log } from '../../models/log.model';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-lista-rapidas',
@@ -24,7 +25,8 @@ import { Log } from '../../models/log.model';
     MatDialogModule,
     NgIf,
     TimelineModule,
-    RouterModule
+    RouterModule,
+    MatProgressBar
   ],
   providers: [
     MessageService
@@ -39,6 +41,8 @@ export class ListaRapidasComponent implements OnInit {
   private acao = true;
   protected aguardandoResposta = false;
   protected logs: Log[] = [];
+  protected corSelecionada: any;
+  protected mac: any;
 
   constructor(
     private readonly corService: CorService,
@@ -76,22 +80,30 @@ export class ListaRapidasComponent implements OnInit {
             summary: 'Comando rápido',
             detail: data
           });
+          this.carregarDispositivo();
           this.aguardandoResposta = false;
           this.carregarLogs();
         }
       }
-    })
-    // this.dispositivo = data;
+    });
   }
 
   ngOnInit(): void {
     this.aguardandoResposta = false;
     this.corService.listaTodasCoresRapidas().subscribe(response => this.cores = response)
     this.routerActive.params.subscribe(param => {
-      this.dispositivoService.buscarDicpositivo(param['mac']).subscribe(response => this.dispositivo = response)
-    })
+      this.mac = param['mac'];
+      this.carregarDispositivo();
+    });
+    this.carregarLogs();
+  }
 
-    this.carregarLogs()
+  carregarDispositivo() {
+    this.dispositivoService.buscarDicpositivo(this.mac).subscribe(response => {
+      this.dispositivo = response;
+      if (this.dispositivo.operacao.modoOperacao == 'TEMPORIZADOR')
+        this.corSelecionada = this.dispositivo.operacao.corTemporizador.id;
+    });
   }
 
   carregarLogs() {
@@ -99,24 +111,8 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   temporizar(cor: string) {
-    /*  console.log(this.dispositivo);
-     if (this.dispositivo && this.dispositivo.mac) {
-     this.comandoService.criarTemporizador(cor, this.dispositivo.mac).subscribe(() => {
-       this.messageService.add({
-         severity: 'info',
-         summary: 'Comando rápido',
-         detail: 'Comando foi executado com sucesso'
-       });
-     }, fail => {
-       this.messageService.add({
-         severity: 'error',
-         summary: 'Falha',
-         detail: 'Falha ao enviar comando'
-       });
-     })
-   } */
-
     if (!this.aguardandoResposta) {
+      this.corSelecionada = cor;
       var delay = setInterval(() => {
         this.aguardandoResposta = false;
         clearInterval(delay);
@@ -128,9 +124,7 @@ export class ListaRapidasComponent implements OnInit {
           complete: () => {
             this.aguardandoResposta = false;
           },
-          error: (err) => {
-
-          }
+          error: (err) => {}
         });
       }
     }
@@ -139,6 +133,7 @@ export class ListaRapidasComponent implements OnInit {
 
   cancelar() {
     this.acao = false;
+    this.corSelecionada = '';
     this.aguardandoResposta = true;
     this.comandoService.cancelarComandoRapido(this.dispositivo!.mac).subscribe({
       complete: () => {
