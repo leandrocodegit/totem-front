@@ -1,29 +1,30 @@
-html{
-  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgba(31,4,52, 0.86) 100%) !important;
-  background: url(assets/images/fundo.jpg)!important;
-  background-size: cover!important;
-  background-repeat: no-repeat!important;
+html {
+  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgba(31, 4, 52, 0.86) 100%) !important;
+  background: url(assets/images/fundo.jpg) !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
 }
 
 html,
 body {
-  height: -webkit-fill-available!important;
+  height: -webkit-fill-available !important;
   color: #303030;
   letter-spacing: 0.1rem;
   background: rgba(0, 0, 0, 0.92);
 }
 
-.mat-drawer-inner-container{
+.mat-drawer-inner-container {
   background: rgba(0, 0, 0, 0.92);
 }
 
 .mat-sidenav-container {
   height: 100%;
-  height: -webkit-fill-available!important;
+  height: -webkit-fill-available !important;
 }
 
-.body-wrapper{
-  padding: auto;;
+.body-wrapper {
+  padding: auto;
+  ;
 }
 
 ::-webkit-scrollbar {
@@ -344,6 +345,17 @@ input:-ms-input-placeholder {
 
 .p-colorpicker-panel .p-colorpicker-hue {
   background: transparent url(/assets/images/hue.png) no-repeat left top !important;
+}
+
+.principal-login {
+  max-width: 230px !important;
+  background-color: #0e0d11ef !important;
+  box-shadow: 0 0 4px 0 #30d7dd !important;
+  border-radius: 10px !important;
+}
+
+.principal-login span{
+  color: white !important;
 }
 
 @media(max-width: 700px) {

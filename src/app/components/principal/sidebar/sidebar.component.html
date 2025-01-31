@@ -8,7 +8,7 @@
     <div class="p-16">
       <div class="mb-16">
         <a href="javascript:void(0)" class="d-flex align-items-center">
-           <img src="assets/images/logo.png" style="width: 200px;margin: 30px 0;">
+          <img src="assets/images/logo.png" style="width: 200px;margin: 30px 0;">
         </a>
       </div>
       <div class="pt-8">
@@ -17,14 +17,14 @@
             <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
               class="sidebar-menu w-100 d-flex align-items-center" [routerLinkActive]="routerActive"
               [routerLinkActiveOptions]="{ exact: false }">
-              <i-feather name="{{ sidenav.icon }}" class="feather-base" style="margin-right: 10px;margin-bottom: 7px;"> </i-feather> <span
-                class="ps-4">{{ sidenav.menu }}</span>
+              <i-feather name="{{ sidenav.icon }}" class="feather-base" style="margin-right: 10px;margin-bottom: 7px;">
+              </i-feather> <span class="ps-4">{{ sidenav.menu }}</span>
             </a>
           </li>
           <li class=" " style="margin-top: 40px;">
-            <a  routerLink="/sincronizar" matRipple [matRippleColor]="'#f7f8f443'" class="sidebar-menu w-100 d-flex align-items-center bt-sincronizar">
-               <span
-                class="ps-4">Sincronizar</span>
+            <a routerLink="/sincronizar" matRipple [matRippleColor]="'#f7f8f443'"
+              class="sidebar-menu w-100 d-flex align-items-center bt-sincronizar">
+              <span class="ps-4">Sincronizar</span>
             </a>
           </li>
         </ul>
@@ -45,25 +45,23 @@
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center"
           [matMenuTriggerFor]="menu">
           <div class="d-flex align-items-center">
-            <img src="assets/images/avatar.png" width="30" height="30" class="rounded-circle">
+            <img src="assets/images/icon_white_64.png" width="30" class="rounded-circle">
             <span class="fw-bold ms-8" style="margin: 5px;">{{nome ? nome.split(' ')[0] : nome}}</span>
-            <i-feather name="chevron-down" class="feather-base"></i-feather>
+            <i-feather name="chevron-down" style="color: white;" class="feather-base"></i-feather>
           </div>
         </button>
         <mat-menu #menu="matMenu" class="profile-dropdown" class="principal-login">
-          <div class="p-4 mb-4">
+          <div class="p-2 mb-8">
             <button routerLink="/perfil" mat-menu-item class="fs-16">Meus dados</button>
           </div>
-          <hr>
-          <div class="p-16">
-            <button (click)="logout()" mat-flat-button color="accent" class="w-100 text-white">Sair</button>
-          </div>
+          <p (click)="logout()" style="color: white;text-align: center;cursor: pointer;margin: auto;"
+            class="p-4"><i-feather name="log-out" style="color: white;" class="feather-base"></i-feather> Sair</p>
         </mat-menu>
       </div>
     </mat-toolbar>
     <!-- Content -->
     <div class="body-wrapper" [style.padding]="padding">
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
 
   </mat-sidenav-content>
@@ -72,5 +70,3 @@
 
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
   [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />
-
-
