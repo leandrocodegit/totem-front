@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Cor } from '../../models/cor.model';
 import { CorService } from '../../dispositivos/services/cor.service';
 import { DispositivoService } from '../../dispositivos/services/dispositivo.service';
@@ -34,7 +34,7 @@ import { MatProgressBar } from '@angular/material/progress-bar';
   templateUrl: './lista-rapidas.component.html',
   styleUrl: './lista-rapidas.component.scss'
 })
-export class ListaRapidasComponent implements OnInit {
+export class ListaRapidasComponent implements OnInit, OnDestroy {
 
   @Input() cores: Cor[] = [];
   @Input() dispositivo?: Dispositivo;
@@ -119,6 +119,8 @@ export class ListaRapidasComponent implements OnInit {
   temporizar(cor: string) {
     if (!this.aguardandoResposta) {
       this.corSelecionada = cor;
+      this.timer = '';
+      clearInterval(this.interval);
       var delay = setInterval(() => {
         this.aguardandoResposta = false;
         clearInterval(delay);
@@ -174,5 +176,9 @@ export class ListaRapidasComponent implements OnInit {
     } else this.timer = '';
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+    this.timer = '';
+  }
 
 }
