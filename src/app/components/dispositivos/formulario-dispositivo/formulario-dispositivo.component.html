@@ -22,6 +22,7 @@
       </div>
       <div style="width: 100%;display: flex;margin-bottom: 50px;">
         <p-checkbox [(ngModel)]="dispositivo.ativo" label="Ativo" [binary]="true" [style]="{'margin': '0 10px 0 0'}" />
+        <p-checkbox [(ngModel)]="dispositivo.permiteComando" label="Permite comandos" [binary]="true" [style]="{'margin': '0 10px 0 0'}" />
         <p-checkbox [(ngModel)]="dispositivo.ignorarAgenda" label="Ignorar agenda" [style]="{'margin': '0 10px'}"
           [binary]="true" />
       </div>

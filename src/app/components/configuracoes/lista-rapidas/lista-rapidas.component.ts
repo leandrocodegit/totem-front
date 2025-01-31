@@ -51,8 +51,6 @@ export class ListaRapidasComponent implements OnInit {
 
     dispositivoService.selectDispositivo.subscribe(data => {
       this.dispositivo = data;
-      console.log('Device', data);
-
     })
 
     comandoService.temporizadorEmit.subscribe(data => {
