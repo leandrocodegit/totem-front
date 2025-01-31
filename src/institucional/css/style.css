@@ -671,7 +671,7 @@ a {
   width: 100vw;
   height: 30vw;
   z-index: -1;
-  background-image: url(../img/buildings.jpg);
+  background-image: url(../img/buildings.webp);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
