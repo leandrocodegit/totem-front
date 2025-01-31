@@ -237,18 +237,13 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
   }
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {
-
-    this.route.navigate(['/comandos/' + dispositivo.mac])
-
-    if (dispositivo.conexao.status == 'Onlinea') {
-      this.dialog.open(ListaRapidasComponent, {
-        data: dispositivo
-      });
+    if (dispositivo.permiteComando && dispositivo.conexao.status == 'Online') {
+      this.route.navigate(['/comandos/' + dispositivo.mac]);
     } else {
       this.messageService.add({
         severity: 'error',
         summary: 'Alerta',
-        detail: 'Dispositivo não está online'
+        detail: !dispositivo.permiteComando ? 'Dispositivo não permite o envio de comando' : 'Dispositivo offline'
       });
     }
   }

@@ -20,10 +20,10 @@
           <i-feather name="map-pin" class="feather-base"></i-feather>
         </button>
       </div>
-      <div style="width: 100%;display: flex;margin-bottom: 50px;">
-        <p-checkbox [(ngModel)]="dispositivo.ativo" label="Ativo" [binary]="true" [style]="{'margin': '0 10px 0 0'}" />
-        <p-checkbox [(ngModel)]="dispositivo.permiteComando" label="Permite comandos" [binary]="true" [style]="{'margin': '0 10px 0 0'}" />
-        <p-checkbox [(ngModel)]="dispositivo.ignorarAgenda" label="Ignorar agenda" [style]="{'margin': '0 10px'}"
+      <div style="width: 100%;display: flex;flex-direction: column; margin-bottom: 50px;">
+        <p-checkbox [(ngModel)]="dispositivo.ativo" label="Ativo" [binary]="true" [style]="{'margin': '10px 10px 0 0'}" />
+        <p-checkbox [(ngModel)]="dispositivo.permiteComando" label="Permite comandos" [binary]="true" [style]="{'margin': '10px 10px 0 0'}" />
+        <p-checkbox [(ngModel)]="dispositivo.ignorarAgenda" label="Ignorar agenda" [style]="{'margin': '10px 0px'}"
           [binary]="true" />
       </div>
     </div>
