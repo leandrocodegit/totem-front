@@ -158,7 +158,7 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
   }
 
   calcularDiferenca(data: Date | undefined): void {
-    const data1: Date = new Date;
+    const data1: Date = new Date(new Date().getTime() + 40 * 1000);
     if (data) {
       const data2 = new Date(data);
       if (data2) {
