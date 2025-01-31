@@ -129,14 +129,12 @@ a {
 
 .btn-outline-body {
   color: #e9feff;
-  border-color: #ffffff52;
   background: var(--primary);
 }
 
 .btn-outline-body:hover {
   color: #ffffff;
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--primary); 
 }
 
 .btn-inline-body {
