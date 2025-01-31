@@ -166,17 +166,18 @@ a {
 .navbar .navbar-nav .nav-link {
   margin-right: 30px;
   padding: 30px 0;
-  color: var(--dark);
+  color: white;
   font-weight: 300;
   text-transform: uppercase;
   outline: none;
 }
 
 .navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link.active {}
+.navbar .navbar-nav .nav-link.active {
+  color: #a91c1c;
+}
 
 .navbar.sticky-top {
-  top: -100px;
   transition: 0.5s;
 }
 
@@ -228,6 +229,10 @@ a {
 }
 
 @media (max-width: 768px) {
+
+  .parallax {
+    height: 60vw!important;
+  }
 
   .logo{
     width: 120px!important;
@@ -451,7 +456,7 @@ a {
 
 .project .nav .nav-link.active {
   background: var(--primary);
-  color: var(--light)
+  color: red
 }
 
 .project .nav .nav-link.active h3 {
@@ -664,11 +669,12 @@ a {
 
 .parallax {
   width: 100vw;
-  height: 40vw;
+  height: 30vw;
   z-index: -1;
-  background-image: url(../img/network.webp);
-  background-size: contain;
-  background-repeat: repeat;
+  background-image: url(../img/buildings.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .parallax :hover{

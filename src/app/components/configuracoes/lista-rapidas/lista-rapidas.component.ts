@@ -39,10 +39,6 @@ export class ListaRapidasComponent implements OnInit {
   private acao = true;
   protected aguardandoResposta = false;
   protected logs: Log[] = [];
-  protected retentativa = {
-    retentar: 10,
-    cor: ''
-  };
 
   constructor(
     private readonly corService: CorService,
@@ -62,29 +58,12 @@ export class ListaRapidasComponent implements OnInit {
     comandoService.temporizadorEmit.subscribe(data => {
 
       if (data) {
-        if (data == 'close') {
-          if (this.retentativa.retentar < 1) {
-            var delay = setInterval(() => {
-              this.temporizar(this.retentativa.cor);
-              this.retentativa.retentar++;
-              clearInterval(delay);
-            }, 1000)
-          }
-        }
         if (data.includes('não') || data.toUpperCase().includes('FALHA')) {
-          if (this.retentativa.retentar > 1) {
-            this.retentativa.retentar = 0;
-            this.aguardandoResposta = true;
-          } else {
-            this.aguardandoResposta = false;
-          }
-          if (this.retentativa.retentar == 1) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Comando rápido',
-              detail: data
-            });
-          }
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Comando rápido',
+            detail: data
+          });
         }
         else if (data.includes('ok')) {
           this.messageService.add({
@@ -99,7 +78,6 @@ export class ListaRapidasComponent implements OnInit {
             summary: 'Comando rápido',
             detail: data
           });
-          this.retentativa.retentar = 10;
           this.aguardandoResposta = false;
           this.carregarLogs();
         }
@@ -123,40 +101,30 @@ export class ListaRapidasComponent implements OnInit {
   }
 
   temporizar(cor: string) {
-   /*  console.log(this.dispositivo);
-    if (this.dispositivo && this.dispositivo.mac) {
-    this.comandoService.criarTemporizador(cor, this.dispositivo.mac).subscribe(() => {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Comando rápido',
-        detail: 'Comando foi executado com sucesso'
-      });
-    }, fail => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Falha',
-        detail: 'Falha ao enviar comando'
-      });
-    })
-  } */
+    /*  console.log(this.dispositivo);
+     if (this.dispositivo && this.dispositivo.mac) {
+     this.comandoService.criarTemporizador(cor, this.dispositivo.mac).subscribe(() => {
+       this.messageService.add({
+         severity: 'info',
+         summary: 'Comando rápido',
+         detail: 'Comando foi executado com sucesso'
+       });
+     }, fail => {
+       this.messageService.add({
+         severity: 'error',
+         summary: 'Falha',
+         detail: 'Falha ao enviar comando'
+       });
+     })
+   } */
 
-    if (!this.aguardandoResposta || this.retentativa.retentar < 1) {
+    if (!this.aguardandoResposta) {
       var delay = setInterval(() => {
         this.aguardandoResposta = false;
-        this.retentativa.retentar = 10;
         clearInterval(delay);
       }, 30000)
       this.acao = true;
       this.aguardandoResposta = true;
-      if (this.retentativa.retentar == 10) {
-        this.retentativa.cor = cor;
-      } else {
-        this.messageService.add({
-          severity: 'warn',
-          summary: 'Nova tentetiva',
-          detail: 'Comando reenviado'
-        });
-      }
       if (this.dispositivo && this.dispositivo.mac) {
         this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
           complete: () => {
