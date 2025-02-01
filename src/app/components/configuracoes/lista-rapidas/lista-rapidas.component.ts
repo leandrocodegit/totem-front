@@ -158,7 +158,7 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
   }
 
   calcularDiferenca(data: Date | undefined): void {
-    const data1: Date = new Date(new Date().getTime() + 40 * 1000);
+    const data1: Date = new Date();
     if (data) {
       const data2 = new Date(data);
       if (data2) {
@@ -167,7 +167,7 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
         const diffMinutos = Math.floor(diffSegundos / 60);
         const diffHoras = Math.floor(diffMinutos / 60);
         this.timer = `${diffHoras % 24}:${diffMinutos % 60}:${diffSegundos % 60}`;
-        if(diffHoras == 0 && diffMinutos == 0 && diffSegundos == 0){
+        if(diffHoras <= 0 && diffMinutos <= 0 && diffSegundos <= 0){
           this.timer = '';
           this.cancelar();
           clearInterval(this.interval);
