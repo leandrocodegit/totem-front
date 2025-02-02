@@ -151,14 +151,11 @@ export class FormularioAgendaComponent implements OnInit {
 
   adicionarDispositivo(dispositivo: Dispositivo){
     if(dispositivo.selecionado){
-      if(!this.agenda.dispositivos.find(device => device.mac == dispositivo.mac)){
-        this.agenda.dispositivos.push(dispositivo);
+      if(!this.agenda.dispositivos.find(device => device == dispositivo.mac)){
+        this.agenda.dispositivos.push(dispositivo.mac);
       }
     }else{
-        this.agenda.dispositivos = this.agenda.dispositivos.filter(device => device.mac != dispositivo.mac);
+        this.agenda.dispositivos = this.agenda.dispositivos.filter(device => device != dispositivo.mac);
     }
   }
-
-
-
 }

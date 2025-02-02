@@ -31,8 +31,7 @@ import { NgIf } from '@angular/common';
     FieldsetModule,
     ProximasAgendasComponent,
     MqttAppModule,
-    MatProgressSpinnerModule,
-    NgIf
+    MatProgressSpinnerModule
   ],
   providers: [
     MqttService

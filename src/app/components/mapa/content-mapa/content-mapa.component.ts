@@ -5,12 +5,18 @@ import { isPlatformBrowser } from '@angular/common';
 import { Filtro } from '../../models/constantes/filtro';
 import { Router, RouterModule } from '@angular/router';
 import * as Leaflet from 'leaflet';
+import { MqttService } from 'ngx-mqtt';
+import { MqttAppModule } from 'src/app/mqtt-app.module';
 
 @Component({
   selector: 'app-content-mapa',
   standalone: true,
   imports: [
-    RouterModule
+    RouterModule,
+    MqttAppModule
+  ],
+  providers: [
+    MqttService
   ],
   templateUrl: './content-mapa.component.html',
   styleUrls: ['./content-mapa.component.scss']
@@ -32,6 +38,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly route: Router,
+    private readonly mqttSevice: MqttService,
     @Inject(PLATFORM_ID) private readonly platformId: any) {
     if (isPlatformBrowser(this.platformId)) {
       // this.L = Leaflet;
@@ -41,6 +48,15 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.edicao = this.route.url.includes('/dispositivos/lista');
+
+    if(!this.edicao){
+      this.mqttSevice.observe(`dashboard`).subscribe((message: any) => {
+        this.inicializarMarcadores();
+      });
+      this.mqttSevice.observe(`mapa`).subscribe((message: any) => {
+        this.inicializarMarcadores();
+      });
+    }
 
     /*     this.activeRoute.params?.subscribe(params => {
           if (params['latitude'] != undefined) {
@@ -63,13 +79,17 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       if (this.edicao) {
         this.adicionarMarcadorEdicao();
       } else {
-        this.dispositivoService.listaTodosDispositivosFiltroNaoPaginado(Filtro.CORDENADAS).subscribe(response => {
-          this.carregarDispositivos(response);
-        });
+        this.inicializarMarcadores();
       }
     }
     this.dispositivoService.ajutarPadding.emit();
     this.addCenterButton();
+  }
+
+  inicializarMarcadores(){
+    this.dispositivoService.listaTodosDispositivosFiltroNaoPaginado(Filtro.CORDENADAS).subscribe(response => {
+      this.carregarDispositivos(response);
+    });
   }
 
   private adicionarMarcadorEdicao() {
@@ -118,14 +138,10 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       button.onclick = () => {
         this.mapa.setView(this.cordenadas, 14);
       };
-
       return button;
     };
-
     centerButton.addTo(this.mapa);
   }
-
-
 
   add(dispositivo: Dispositivo) {
     if (isPlatformBrowser(this.platformId)) {
@@ -140,8 +156,27 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
       circulo.bindTooltip(dispositivo.nome, { permanent: true }).openTooltip();
       this.markers.push(circulo);
 
-      circulo.bindPopup(`
-        <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="${dispositivo.cor.primaria + 'ac'}"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
+      var cor = dispositivo.cor;
+      var style = '';
+      var classe = '';
+
+      if (dispositivo.operacao.modoOperacao == 'TEMPORIZADOR')
+        cor = dispositivo.operacao.corTemporizador;
+      if (dispositivo.operacao.modoOperacao == 'AGENDA')
+        cor = dispositivo.operacao.agenda.cor;
+
+      if(cor.efeito != 'COLORIDO'){
+        style = `<style>
+        @keyframes mudarCores {
+       10% { fill: ${cor.primaria + 'ac'}; }
+       50% { fill: transparent; }
+      100% { fill : ${cor.secundaria + 'ac'}}
+        }</style>`
+        classe = 'alternando-cores';
+      }
+
+      circulo.bindPopup(`${style}
+        <svg xmlns="http://www.w3.org/2000/svg" height="60px" class="${classe}" viewBox="0 -960 960 960" width="60px" style="fill: ${cor.primaria + 'ac'};"><path d="M215-755v-151h531v151H215Zm264.65 424q17.35 0 29.85-11.82 12.5-11.83 12.5-29.5 0-17.68-12.15-30.18-12.14-12.5-29.5-12.5-17.35 0-29.85 12.2T438-373.18Q438-355 450.15-343q12.14 12 29.5 12ZM305-55v-451l-90-132v-57h531v57l-90 132v451H305Z"/></svg>
         `, { autoClose: false, closeOnClick: false, autoPan: false }).openPopup();
     }
   }
@@ -242,13 +277,10 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
   }
 
 
-
-
-
-
   ngOnDestroy(): void {
     this.dispositivoService.ajutarPadding.emit(true);
     this.edicao = false;
+    this.mqttSevice.disconnect();
   }
 
 

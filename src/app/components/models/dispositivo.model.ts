@@ -2,6 +2,7 @@ import { Cor } from "./cor.model";
 import { Comando } from "./constantes/comando";
 import { Endereco } from "./endereco.model";
 import { Configuracao } from "./configuracao.model";
+import { Agenda } from "./agenda.model";
 
 
 export interface Dispositivo {
@@ -37,4 +38,5 @@ interface Operacao
   modoOperacao: string;
   corTemporizador: Cor;
   time: Date;
+  agenda: Agenda
 }

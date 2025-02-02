@@ -11,7 +11,7 @@ export class Agenda {
   status: string;
   ativo: boolean;
   cor: Cor;
-  dispositivos: Dispositivo[];
+  dispositivos: string[];
   todos: boolean;
 
   constructor(

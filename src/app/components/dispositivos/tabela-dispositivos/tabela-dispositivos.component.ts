@@ -116,7 +116,7 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO).subscribe(response => {
         this.dispositivos = response.content;
         this.dispositivos.forEach(it => {
-          if (this.agenda.dispositivos.find(device => device?.mac && device.mac === it.mac)) {
+          if (this.agenda.dispositivos.find(device => device === it.mac)) {
             it.selecionado = true;
           }
           else {

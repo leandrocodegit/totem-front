@@ -358,6 +358,13 @@ input:-ms-input-placeholder {
   color: white !important;
 }
 
+
+
+.alternando-cores {
+  fill: var(--cor-svg, black);
+  animation: mudarCores 1s infinite alternate;
+}
+
 @media(max-width: 700px) {
 
   .body-wrapper,
