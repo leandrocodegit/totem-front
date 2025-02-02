@@ -34,4 +34,14 @@ export class LogService {
     }
     return this.http.get<Page<Log>>(`${environment.urlApi}/log/${tipo}?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
   }
+
+  public listaTodosLogs(sort?: Sort, page?: PageEvent): Observable<Page<Log>> {
+    if(!sort){
+      sort = {
+        active: 'data',
+        direction: 'desc'
+      }
+    }
+    return this.http.get<Page<Log>>(`${environment.urlApi}/log?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
+  }
 }

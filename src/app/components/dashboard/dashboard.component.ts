@@ -17,6 +17,8 @@ import { MqttService } from 'ngx-mqtt'; // Importa o serviço MQTT
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MqttAppModule } from 'src/app/mqtt-app.module';
 import { NgIf } from '@angular/common';
+import { LogService } from '../dispositivos/services/log.service';
+import { Log } from '../models/log.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,7 +41,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
   dashboard!: Dashboard;
   conexoes: any;
@@ -51,13 +53,19 @@ export class DashboardComponent implements AfterViewInit {
   options: any;
   protected agenda: Agenda[] = [];
   protected load = false;
+  protected logs: Log[] = [];
 
 
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly mqttSevice: MqttService,
     private readonly agendaService: AgendaService,
+    private readonly logService: LogService,
     private primengConfig: PrimeNGConfig) { }
+
+    ngOnInit(): void {
+      this.carregarLogs();
+    }
 
   ngAfterViewInit() {
 
@@ -120,6 +128,12 @@ export class DashboardComponent implements AfterViewInit {
         }
       }
     };
+  }
+
+  carregarLogs(){
+    this.logService.listaTodosLogs().subscribe(response => {
+      this.logs = response.content;
+    })
   }
 
   initDashboard() {

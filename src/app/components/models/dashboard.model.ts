@@ -11,8 +11,7 @@ export interface Dashboard {
   dispositivos: DispositivoDash;
   cores: DashboardItem[];
   agendas: DashboardItem[];
-  agendasExecucao: DashboardItem[];
-  logs: Log[];
+  agendasExecucao: DashboardItem[]; 
   logsConexao: Logconexao[];
 }
 

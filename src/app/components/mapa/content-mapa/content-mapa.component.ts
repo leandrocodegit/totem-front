@@ -51,9 +51,11 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
 
     if(!this.edicao){
       this.mqttSevice.observe(`dashboard`).subscribe((message: any) => {
+        console.log("Atualizando mapa 1");
         this.inicializarMarcadores();
       });
       this.mqttSevice.observe(`mapa`).subscribe((message: any) => {
+        console.log("Atualizando mapa 2");
         this.inicializarMarcadores();
       });
     }

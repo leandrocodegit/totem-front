@@ -87,11 +87,11 @@
       </svg>
       <div class="box-dashboard-item-label">
         <label>Ultimos eventos</label>
-        <h4>{{dashboard.logs.length}}</h4>
+        <h4>{{logs.length}}</h4>
       </div>
     </div>
     <div style="max-height:670px;overflow-x: auto;margin-top: 30px;margin-left: 10px;">
-      <p-timeline [value]="dashboard.logs" styleClass="customized-timeline">
+      <p-timeline [value]="logs" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-log>
           @if(log.comando == 'NENHUM_DEVICE'){
           <span class="flex align-items-center justify-content-center text-white border-circle z-1 shadow-1"
