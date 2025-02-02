@@ -19,8 +19,8 @@
           <span style="font-size: 10px;color: #4ca1af;">{{agenda.status}}</span>
         </div>
         <div class="flex justify-content-between align-items-center">
-          <div class="mt-0 font-semibold" style="font-size: 13px;">
-            {{ agenda.inicio | date: 'dd/MM' }}
+          <div class="mt-0 font-semibold" style="font-size: 12px;">
+            {{isSameDayAndMonth(agenda) ? (agenda.inicio | date: 'dd/MM') : ((agenda.inicio | date: 'dd/MM') + ' à ' + (agenda.termino | date: 'dd/MM'))}}
           </div>
         </div>
       </div>

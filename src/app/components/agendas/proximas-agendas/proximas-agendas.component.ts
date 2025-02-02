@@ -32,4 +32,11 @@ export class ProximasAgendasComponent implements OnInit {
       console.log("Falaha a carregar agendas do mes atual");
     })
   }
+
+  isSameDayAndMonth(agenda: Agenda): boolean {
+    return (
+      new Date(agenda.inicio).getDate() === new Date(agenda.termino).getDate() &&
+      new Date(agenda.inicio).getMonth() === new Date(agenda.termino).getMonth()
+    );
+  }
 }
