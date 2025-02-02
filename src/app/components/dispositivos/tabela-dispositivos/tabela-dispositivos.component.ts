@@ -49,10 +49,10 @@ var initDialog = true;
   templateUrl: './tabela-dispositivos.component.html',
   styleUrl: './tabela-dispositivos.component.scss'
 })
-export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TabelaDispositivosComponent implements OnInit, OnDestroy {
 
   @Input() dispositivos: Dispositivo[] = [];
-  @Input() agenda!: Agenda;
+  @Input() agenda?: Agenda;
   @Input() exibirAcoes: boolean = true;
   @Input() checkEmit: boolean = false;
   @Input() indexTab = 0;
@@ -111,21 +111,25 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
     this.carregarLista(PAGE_INIT)
   }
 
-  ngAfterViewInit(): void {
-    if (this.checkEmit) {
-      this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO).subscribe(response => {
-        this.dispositivos = response.content;
-        this.dispositivos.forEach(it => {
-          if (this.agenda.dispositivos.find(device => device === it.mac)) {
-            it.selecionado = true;
-          }
-          else {
-            it.selecionado = false;
-          }
-        })
-      });
+  private marcarDispositivos(){
+    this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO).subscribe(response => {
+      this.dispositivos = response.content;
+      this.dispositivos.forEach(it => {
+        if (this.agenda?.dispositivos.find(device => device === it.mac)) {
+          it.selecionado = true;
+        }
+        else {
+          it.selecionado = false;
+        }
+      })
+    });
+  }
 
-    }
+  contemNaAgenda(dispositivo: Dispositivo){
+    if (!this.checkEmit || !this.agenda)
+      return false;
+    return (this.agenda?.dispositivos.find(mac => mac == dispositivo.mac));
+
   }
 
   isAutorizado(admin?: boolean){
@@ -261,6 +265,9 @@ export class TabelaDispositivosComponent implements OnInit, AfterViewInit, OnDes
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO, this.ordenar, page).subscribe(response => {
         this.dispositivos = response.content;
         this.initPage(response);
+        if (this.checkEmit) {
+          this.marcarDispositivos();
+        }
       });
     } else if (this.indexTab == 1) {
       this.dispositivoService.listaTodosDispositivosFiltro(Filtro.INATIVO, this.ordenar, page).subscribe(response => {
