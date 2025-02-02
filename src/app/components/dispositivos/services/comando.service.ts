@@ -71,7 +71,9 @@ export class ComandoService {
       eventSource.addEventListener('message', (evt: any) => {
         const falha = evt.data.includes('não') || evt.data.toUpperCase().includes('FALHA');
         const naoEncontrado = evt.data.includes('não encontrado');
-        logs.push({ severity: falha ? (naoEncontrado ? 'warn' : 'danger') : 'success', status: falha ? 'Falha' : 'Concluido', detail: evt.data, tipo: falha ? (naoEncontrado ? 'Não enviado' : 'Sem resposta') : 'Ok' });
+        if(evt.data.includes('offline'))
+          logs.push({ severity: 'danger', status: 'Offline', detail: evt.data, tipo: 'Não enviado' });
+       else logs.push({ severity: falha ? (naoEncontrado ? 'warn' : 'danger') : 'success', status: falha ? 'Falha' : 'Concluido', detail: evt.data, tipo: falha ? (naoEncontrado ? 'Não enviado' : 'Sem resposta') : 'Ok' });
       });
 
       eventSource.addEventListener('error', (err) => {
