@@ -7,15 +7,7 @@
     </mat-tab>
   </mat-tab-group>
   <div class="box-tags">
-    <div class="box-tags-item" style="width: 20%;display: flex; flex-direction: column;">
-      @for (item of [{nome: '1º Andar', planta: 'planta.webp'}, {nome: '2º Andar', planta: 'planta2.jpg'}, {nome: '3º Andar', planta: 'planta3.jpg'}]; track $index) {
-        <div (click)="selecionarPlanta(item)" class="tag-item" [style.background]="planta == item.nome ? '#7292fa61' : 'transparent'">
-          <p>{{item.nome}}</p>
-          <span>Tags: 2</span>
-        </div>
-      }
-    </div>
-    <div class="box-tags-item" style="width: 80%;">
+    <div class="box-tags-item box-pavimentos">
       <div class="pesquisa-mapa">
         <mat-form-field appearance="outline" [className]="'pesquisar-input'" [style]="{'background': 'linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgba(31, 4, 52, 0.86) 100%) !important;'}">
           <input (input)="this.nomeFind.next(pesquisa.value)" #pesquisa type="text" matInput
@@ -24,7 +16,15 @@
             fontIcon="search"></mat-icon>
         </mat-form-field>
       </div>
-      <div id="overview" style="height: 88vh;border: solid;"></div>
+      @for (item of [{nome: '1º Andar', planta: 'planta.webp'}, {nome: '2º Andar', planta: 'planta2.jpg'}, {nome: '3º Andar', planta: 'planta3.jpg'}]; track $index) {
+        <div (click)="selecionarPlanta(item)" class="tag-item" [style.background]="planta == item.nome ? '#7292fa61' : 'transparent'">
+          <p>{{item.nome}}</p>
+          <span>Tags: 2</span>
+        </div>
+      }
+    </div>
+    <div class="box-tags-item" style="width: 100%;">
+      <div id="overview" style="height: 86vh;"></div>
     </div>
   </div>
 </div>

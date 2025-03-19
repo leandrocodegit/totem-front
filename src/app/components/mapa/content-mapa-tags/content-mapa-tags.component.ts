@@ -46,7 +46,7 @@ export class ContentMapaTagsComponent implements OnInit, OnDestroy {
   private markers: any[] = [];
   private itens: Map<string, any> = new Map<string, { marker: any, item: any }>();
   private mapa: any;
-  protected planta = '';
+  protected planta = '1º Andar';
   protected linhas:any[] = [];
   protected centro:any = {lat: 1092.217748065566, lng: 2812};
 

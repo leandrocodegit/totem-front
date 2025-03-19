@@ -6,16 +6,29 @@
   overflow-y: auto;
 }
 
+.box-pavimentos {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 9999;
+  background: #010101d9;
+  max-height: 94%;
+  overflow-y: auto;
+}
+
 .box-tags-item:nth-child(1) {
-  padding: 10px 0 0 10px;
+  padding: 7px;
 }
 
 .tag-item {
-  border-left: solid rgb(114, 146, 250) 3px;
-  padding: 5px;
+  padding: 2px 5px;
   box-shadow: 0px 2px 4px 0px #474747;
+  border: solid rgb(126 136 171 / 47%) thin;
   margin: 2px 0;
   cursor: pointer;
+  border-radius: 2px;
 }
 
 .tag-item:hover {
@@ -46,12 +59,7 @@ h1 {
   z-index: 999999;
 }
 
-.pesquisa-mapa {
-  position: absolute;
-  left: 40%;
-  right: 25%;
-  z-index: 99999;
-}
+.pesquisa-mapa {}
 
 .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input,
 .mat-mdc-select-min-line {
