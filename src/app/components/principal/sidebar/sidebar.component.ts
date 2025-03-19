@@ -57,6 +57,7 @@ export class SidebarComponent implements OnInit {
   protected cliente: any;
   protected modoIcon = false;
   protected reload = false;
+  protected width = '97%';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -72,7 +73,7 @@ export class SidebarComponent implements OnInit {
     private router: Router
   ) {
     dispositivoService.ajutarPadding.subscribe(data => {
-      
+      this.width = '100%';
     })
   }
 
