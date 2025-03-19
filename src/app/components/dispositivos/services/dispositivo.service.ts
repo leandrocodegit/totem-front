@@ -37,15 +37,20 @@ export class DispositivoService {
   }
 
   public salvarConfiguracao(dispositivo: Dispositivo): Observable<any> {
-    return this.http.patch<any>(`${environment.urlApi}/dispositivo/configuracao`, dispositivo, environment.headers)
+    return this.http.patch<any>(`${environment.urlApi}/dispositivo/configuracao`, {
+      id: dispositivo.id,
+      sensibilidadeVibracao: dispositivo.sensibilidadeVibracao,
+      conexao: dispositivo.conexao,
+      corVibracao: dispositivo?.operacao?.corVibracao?.id
+    }, environment.headers)
   }
 
   public pesquisarDispositivo(pesquisa: string, page?: PageEvent): Observable<Page<Dispositivo>> {
     return this.http.get<Page<Dispositivo>>(`${environment.urlApi}/dispositivo/pesquisar/${pesquisa}?page=${page?.pageIndex}&size=${page?.pageSize}`, environment.headers)
   }
 
-  public buscarDicpositivo(mac: string): Observable<Dispositivo> {
-    return this.http.get<Dispositivo>(`${environment.urlApi}/dispositivo/${mac}`, environment.headers)
+  public buscarDicpositivo(id: number): Observable<Dispositivo> {
+    return this.http.get<Dispositivo>(`${environment.urlApi}/dispositivo/${id}`, environment.headers)
   }
 
   public listaTodosDispositivos(page?: PageEvent): Observable<Page<Dispositivo>> {
@@ -66,22 +71,22 @@ export class DispositivoService {
     return this.http.get<Dispositivo[]>(`${environment.urlApi}/dispositivo/filtro/${filtro}?unpaged=${true}`, environment.headers)
   }
 
-  public mudarStatus(mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlApi}/dispositivo/ativar/${mac}`, environment.headers)
+  public mudarStatus(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.urlApi}/dispositivo/ativar/${id}`, environment.headers)
   }
 
-  public sincronizar(macs: string[], teste: boolean): Observable<any> {
-    return this.http.post<any>(`${environment.urlApi}/comando/sincronizar/${teste}`, macs, environment.headers)
+  public sincronizar(ids: number[], teste: boolean): Observable<any> {
+    return this.http.post<any>(`${environment.urlApi}/comando/sincronizar/${teste}`, ids, environment.headers)
   }
 
   public sincronizarTudo(): Observable<any> {
     return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false`, environment.headers)
   }
 
-  public enviarComandoTemporizado(idCor: string, mac: string, cancelar: boolean): Observable<any> {
+  public enviarComandoTemporizado(idCor: string, id: number, cancelar: boolean): Observable<any> {
     return this.http.post<any>(`${environment.urlApi}/cor/temporizar`, {
       idCor: idCor,
-      mac: mac,
+      id: id,
       cancelar: cancelar
     }, environment.headers)
   }

@@ -24,36 +24,37 @@
           </div>
         </div>
         <div style="margin-left: 30px;width: 170px;">
-        <mat-form-field appearance="outline">
-          <mat-label>Selecione um periodo</mat-label>
-          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-            <input [(ngModel)]="agenda.inicio" matStartDate formControlName="start" placeholder="Início">
-            <input [(ngModel)]="agenda.termino" matEndDate formControlName="end" placeholder="Fim">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-
-          @if (range.controls.start.hasError('matStartDateInvalid')) {
-          <mat-error>Data inicio invalida</mat-error>
-          }
-          @if (range.controls.end.hasError('matEndDateInvalid')) {
-          <mat-error>Data fim invalida</mat-error>
-          }
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Selecione um periodo</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+              <input [(ngModel)]="agenda.inicio" matStartDate formControlName="start" placeholder="Início">
+              <input [(ngModel)]="agenda.termino" matEndDate formControlName="end" placeholder="Fim">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            @if (range.controls.start.hasError('matStartDateInvalid')) {
+            <mat-error>Data inicio invalida</mat-error>
+            }
+            @if (range.controls.end.hasError('matEndDateInvalid')) {
+            <mat-error>Data fim invalida</mat-error>
+            }
+          </mat-form-field>
+        </div>
       </div>
-    </div>
       <div style="width: 100%;display: flex;">
-        <p-checkbox [(ngModel)]="agenda.ativo" label="Agenda ativa" [binary]="true" [style]="{'margin': '0 10px 0 0'}"/>
-        <p-checkbox [(ngModel)]="agenda.todos" label="Enviar para todos"  [style]="{'margin': '0 10px'}" [binary]="true" />
+        <p-checkbox [(ngModel)]="agenda.ativo" label="Agenda ativa" [binary]="true"
+          [style]="{'margin': '0 10px 0 0'}" />
+        <p-checkbox [(ngModel)]="agenda.todos" label="Enviar para todos" [style]="{'margin': '0 10px'}"
+          [binary]="true" />
       </div>
     </div>
     <div class="table-dispositivos">
       @if(agenda.todos){
-        <div class="alert alert-warning" style="margin: 30px 0;">
-          <strong>Todos!</strong><br> Todos dispositivos receberam essa configuração.
-        </div>
+      <div class="alert alert-warning" style="margin: 30px 0;">
+        <strong>Todos!</strong><br> Todos dispositivos receberam essa configuração.
+      </div>
       }@else{
-        <app-tabela-dispositivos (selecionarEmit)="adicionarDispositivo($event)" [checkEmit]="true" [agenda]="agenda"
+      <app-tabela-dispositivos (selecionarEmit)="adicionarDispositivo($event)" [checkEmit]="true" [agenda]="agenda"
         [exibirAcoes]="false"></app-tabela-dispositivos>
       }
     </div>
@@ -61,7 +62,8 @@
       <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
       <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(true)" type="submit">Salvar e remover
         conflitos</button>
-      <button [disabled]="!agenda.nome" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(false)" type="submit">Salvar</button>
+      <button [disabled]="!agenda.nome" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar(false)"
+        type="submit">Salvar</button>
     </div>
   </mat-card-content>
 </mat-card>

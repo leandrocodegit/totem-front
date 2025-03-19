@@ -1,0 +1,190 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <div style="display: flex;margin-left: 10px;width: 100%;">
+      <div style="width: 40%;">
+        <p-checkbox [(ngModel)]="dispositivo?.conexao.habilitarWifi" label="Habilitar wifi" style="margin-bottom: 12px;"
+          [binary]="true" />
+        @if(dispositivo?.conexao.habilitarWifi){
+        <mat-form-field class="w-100 fs-16 mt-4" appearance="outline">
+          <mat-label>SSID</mat-label>
+          <input matInput required [(ngModel)]="dispositivo.conexao.ssid" type="text" placeholder="Nome">
+        </mat-form-field>
+        <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input matInput required [(ngModel)]="dispositivo.conexao.senha" type="text" placeholder="Nome">
+        </mat-form-field>
+        }
+        <mat-form-field appearance="outline">
+          <mat-label>Tempo inatividade</mat-label>
+          <mat-select required [(ngModel)]="dispositivo.conexao.tempoAtividade">
+            <mat-option [value]="1">1</mat-option>
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="3">3</mat-option>
+            <mat-option [value]="4">4</mat-option>
+            <mat-option [value]="5">5</mat-option>
+            <mat-option [value]="6">6</mat-option>
+            <mat-option [value]="7">7</mat-option>
+            <mat-option [value]="8">8</mat-option>
+            <mat-option [value]="9">9</mat-option>
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="11">11</mat-option>
+            <mat-option [value]="12">12</mat-option>
+            <mat-option [value]="13">13</mat-option>
+            <mat-option [value]="14">14</mat-option>
+            <mat-option [value]="15">15</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Sensibilidade vibração</mat-label>
+          <mat-select required [(ngModel)]="dispositivo.sensibilidadeVibracao">
+            <mat-option [value]="0">Desabilitado</mat-option>
+            <mat-option [value]="1.0">1.00</mat-option>
+            <mat-option [value]="1.01">1.01</mat-option>
+            <mat-option [value]="1.02">1.02</mat-option>
+            <mat-option [value]="1.03">1.03</mat-option>
+            <mat-option [value]="1.04">1.04</mat-option>
+            <mat-option [value]="1.05">1.05</mat-option>
+            <mat-option [value]="1.06">1.06</mat-option>
+            <mat-option [value]="1.07">1.07</mat-option>
+            <mat-option [value]="1.08">1.08</mat-option>
+            <mat-option [value]="1.09">1.09</mat-option>
+            <mat-option [value]="1.1">1.10</mat-option>
+            <mat-option [value]="1.11">1.11</mat-option>
+            <mat-option [value]="1.12">1.12</mat-option>
+            <mat-option [value]="1.13">1.13</mat-option>
+            <mat-option [value]="1.14">1.14</mat-option>
+            <mat-option [value]="1.15">1.15</mat-option>
+            <mat-option [value]="1.16">1.16</mat-option>
+            <mat-option [value]="1.17">1.17</mat-option>
+            <mat-option [value]="1.18">1.18</mat-option>
+            <mat-option [value]="1.19">1.19</mat-option>
+            <mat-option [value]="2.0">2.00</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="margin-top: 15px;">
+          <mat-label>Cor de evento</mat-label>
+          <mat-select required [(ngModel)]="dispositivo.operacao?.corVibracao.id">
+            @for (value of cores; track $index) {
+            <mat-option [value]="value.id">{{value.nome}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style="width: 50%;margin-left: 40px;">
+        <p-checkbox [(ngModel)]="dispositivo?.conexao.habilitarLoraWan" label="Habilitar LoraWan" [binary]="true" />
+        <div style="display: flex;justify-content: space-between;">
+          <div>
+            <mat-form-field appearance="outline" style="margin-top: 7px;">
+              <mat-label>Tipo</mat-label>
+              <mat-select required [(ngModel)]="dispositivo.conexao.modoLora">
+                <mat-option [disabled]="true" [value]="0">ABP</mat-option>
+                <mat-option [value]="1">OTA</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="margin-top: 7px;">
+              <mat-label>Classe</mat-label>
+              <mat-select required [(ngModel)]="dispositivo.conexao.classe">
+                <mat-option value="A">A</mat-option>
+                <mat-option value="C">C</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+              <mat-label>DevEUI</mat-label>
+              <input mask="AA:AA:AA:AA:AA:AA:AA:AA" placeholder="00:00:00:00:00:00:00:00"
+                [disabled]="!dispositivo?.conexao.habilitarLoraWan" matInput required
+                [(ngModel)]="dispositivo.conexao.devEui" type="text" placeholder="Nome">
+            </mat-form-field>
+            @if (dispositivo.conexao.modoLora == 1) {
+            <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+              <mat-label>AppEUI</mat-label>
+              <input mask="AA:AA:AA:AA:AA:AA:AA:AA" placeholder="00:00:00:00:00:00:00:00"
+                [disabled]="!dispositivo?.conexao.habilitarLoraWan" matInput required
+                [(ngModel)]="dispositivo.conexao.appEui" type="text" placeholder="Nome">
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+              <mat-label>AppKey</mat-label>
+              <input mask="AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA"
+                placeholder="00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+                [disabled]="!dispositivo?.conexao.habilitarLoraWan" matInput required
+                [(ngModel)]="dispositivo.conexao.appKey" type="text" placeholder="Nome">
+            </mat-form-field>
+            }@else{
+            <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+              <mat-label>NwkSKey</mat-label>
+              <input mask="AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA"
+                placeholder="00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+                [disabled]="!dispositivo?.conexao.habilitarLoraWan" matInput required
+                [(ngModel)]="dispositivo.conexao.nwkSKey" type="text" placeholder="Nome">
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+              <mat-label>AppSKey</mat-label>
+              <input mask="AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA:AA"
+                placeholder="00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+                [disabled]="!dispositivo?.conexao.habilitarLoraWan" matInput required
+                [(ngModel)]="dispositivo.conexao.appSKey" type="text" placeholder="Nome">
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+              <mat-label>DevAddr</mat-label>
+              <input mask="AA:AA:AA:AA" placeholder="00:00:00:00" [disabled]="!dispositivo?.conexao.habilitarLoraWan"
+                matInput required [(ngModel)]="dispositivo.conexao.devAddr" type="text" placeholder="Nome">
+            </mat-form-field>
+            }
+          </div>
+          <div style="margin: 0 40px;width: 20%;">
+            @if(dispositivo?.conexao.modoLora == 1){
+            <p-checkbox [(ngModel)]="dispositivo?.conexao.autoJoin" label="Auto Join" style="margin-bottom: 12px;"
+              [binary]="true" />
+            }
+            <p-checkbox [(ngModel)]="dispositivo?.conexao.adr" label="ADR" style="margin-bottom: 12px;"
+              [binary]="true" />
+            <p-checkbox [disabled]="!isRoot()" [(ngModel)]="dispositivo?.conexao.fracionarMensagem" label="Fracionar"
+              style="margin-bottom: 12px;" [binary]="true" />
+              <mat-form-field class="w-100 fs-16 mt-2" appearance="outline">
+                <mat-label>Data rate</mat-label>
+                <input [disabled]="!dispositivo?.conexao.habilitarLoraWan" matInput required
+                  [(ngModel)]="dispositivo.conexao.dataRate" type="number" placeholder="Nome">
+              </mat-form-field>
+            <mat-form-field class="w-100 fs-16 mt-2">
+              <mat-label>Tx Power</mat-label>
+              <input disabled matInput required
+                [(ngModel)]="dispositivo.conexao.txPower" type="number" placeholder="Nome">
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16 mt-2">
+              <mat-label>SNR</mat-label>
+              <input [disabled]="true" matInput required [(ngModel)]="dispositivo.conexao.snr" type="number"
+                placeholder="Nome">
+            </mat-form-field>
+            <mat-form-field class="w-100 fs-16 mt-2">
+              <mat-label>RSSI</mat-label>
+              <input [disabled]="true" matInput required [(ngModel)]="dispositivo.conexao.rssi" type="number"
+                placeholder="Nome">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="botoes">
+      <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesVibracao()"
+        type="submit">Set Vibração</button>
+      <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesWIFI()" type="submit">Set
+        WiFi</button>
+
+      <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesLoraWan(false)"
+        type="submit">Set LoraWan</button>
+      <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesLoraWanJoin()"
+        type="submit" [disabled]="!dispositivo?.conexao.habilitarLoraWan">Join LoraWan</button>
+      <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesLoraWan(true)"
+        type="submit" [disabled]="!dispositivo?.conexao.habilitarLoraWan">Get LoraWan</button>
+      <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesLoraWanSend()"
+        type="submit" [disabled]="!dispositivo?.conexao.habilitarLoraWan">Teste LoraWan</button>
+        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="enviarConfiguracoesLoraWanReset()"
+        type="submit" [disabled]="!dispositivo?.conexao.habilitarLoraWan">Reiniciar modulo</button>
+        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="abrirDebug()"
+        type="submit" [disabled]="!isRoot()">Debug</button>
+      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

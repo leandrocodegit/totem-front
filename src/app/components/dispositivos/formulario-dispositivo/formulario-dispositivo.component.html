@@ -1,19 +1,27 @@
 <mat-card class="w-100">
   <mat-card-content>
   <div style="display: flex;">
-    <div>
+    <div style="margin: 0 40px;">
       <mat-form-field class="w-100 fs-16" appearance="outline">
         <mat-label>Nome</mat-label>
         <input matInput required [(ngModel)]="dispositivo.nome" type="text" placeholder="Nome">
       </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Cliente</mat-label>
+        <mat-select required [(ngModel)]="dispositivo.clienteId">
+          @for (cliente of clientes; track $index) {
+          <mat-option [value]="cliente.id" select>{{cliente.nome}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
       <mat-form-field class="w-100 fs-16" appearance="outline">
         <mat-label>Latitude</mat-label>
-        <input matInput required [(ngModel)]="dispositivo.latitude" type="text" placeholder="Latitude">
+        <input matInput required [(ngModel)]="dispositivo.conexao.latitude" type="text" placeholder="Latitude">
       </mat-form-field>
       <div style="display: flex;">
         <mat-form-field class="w-100 fs-16" appearance="outline">
           <mat-label>Longitude</mat-label>
-          <input matInput required [(ngModel)]="dispositivo.longitude" type="text" placeholder="Logitude">
+          <input matInput required [(ngModel)]="dispositivo.conexao.longitude" type="text" placeholder="Logitude">
         </mat-form-field>
         <button (click)="selecionarCordenadas()" mat-raised-button class="mb-8 me-8" color="primary"
           style="height: 55px;margin: 0px 0px 5px 9px;">

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgFor, NgIf } from '@angular/common';
@@ -27,6 +27,7 @@ import { ESTADOS } from '../../models/constantes/Estados';
 export class EnderecoComponent implements OnInit, AfterViewInit {
 
   @Input() dispositivo: any;
+  @Input() endereco: Endereco = new Endereco;
   protected form: FormGroup;
   protected selected = new FormControl('valid', [Validators.required, Validators.pattern('valid')]);
   protected estados = ESTADOS;
@@ -50,15 +51,15 @@ export class EnderecoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    if(this.dispositivo && !this.dispositivo?.endereco){
-      this.dispositivo.endereco = new Endereco();
-    }
+
   }
 
   ngAfterViewInit(): void {
-    if(!(this.dispositivo && !this.dispositivo?.endereco)){
-      var state = this.dispositivo.endereco.state;
-      var city = this.dispositivo.endereco.city;
+
+
+    if(this.endereco?.state){
+      var state = this.endereco?.state;
+      var city = this.endereco?.city;
       this.carregarCidade(state, city);
     }
   }
@@ -69,7 +70,10 @@ export class EnderecoComponent implements OnInit, AfterViewInit {
       this.http.get('https://brasilapi.com.br/api/cep/v2/' + event.target.value.replace('-','')).subscribe((response: any) => {
         response.city = this.normalizeText(response.city);
         this.carregarCidade(response.state, response.city);
-        this.dispositivo.endereco = response;
+        this.endereco.street = response.street;
+        this.endereco.state = response.state;
+        this.endereco.neighborhood = response.neighborhood;
+        this.endereco.city = response.city;
       });
   }
 
@@ -83,6 +87,10 @@ export class EnderecoComponent implements OnInit, AfterViewInit {
       this.cidades = response.map((city:any) => this.normalizeText(city.nome));
     })
 
+  }
+
+  atualizouEstado(){
+    console.log('aa', this.endereco);
   }
 
   possuiErro(form: any) {

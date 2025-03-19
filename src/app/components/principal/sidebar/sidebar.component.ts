@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { IconsModule } from '../../../IconsModule';
@@ -15,6 +15,9 @@ import { DispositivoService } from '../../dispositivos/services/dispositivo.serv
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Role } from 'src/app/model/constantes/role.enum';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { TooltipModule } from 'primeng/tooltip';
 
 interface sidebarMenu {
   link: string;
@@ -34,7 +37,10 @@ interface sidebarMenu {
     MatSidenavModule,
     MatRippleModule,
     MatButtonModule,
-    ToastModule
+    ToastModule,
+    MatCardModule,
+    MatIconModule,
+    TooltipModule
   ],
   providers: [
     MessageService
@@ -47,8 +53,10 @@ export class SidebarComponent implements OnInit {
   protected search: boolean = false;
   protected nome?: string;
   protected avatar?: string;
-  protected padding = "40px";
   protected sidebarMenu: sidebarMenu[] = [];
+  protected cliente: any;
+  protected modoIcon = false;
+  protected reload = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -64,26 +72,38 @@ export class SidebarComponent implements OnInit {
     private router: Router
   ) {
     dispositivoService.ajutarPadding.subscribe(data => {
-      if(router.url.includes('/mapa')){
-        this.padding = '0!important';
-      }else{
-        this.padding = '40px!important';
-      }
+      
     })
   }
 
   ngOnInit(): void {
 
-    if(this.router.url.includes('/mapa')){
+    this.modoIcon =  localStorage.getItem('modoIcon') != null && localStorage.getItem('modoIcon') == 'true';
+
+    var interval = setInterval(() => {
+      this.cliente = {
+        nome: localStorage.getItem('cliente.nome'),
+        endereco: localStorage.getItem('cliente.endereco')
+      }
+      clearInterval(interval);
+    }, 3000);
+
+
+    if (this.router.url.includes('/mapa')) {
 
     }
 
-    if(this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])){
-     this.sidebarMenu = [
+    if (this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])) {
+      this.sidebarMenu = [
         {
           link: "/dashboard",
           icon: "layout",
           menu: "Dashboard",
+        },
+        {
+          link: "/clientes",
+          icon: "award",
+          menu: "Clientes",
         },
         {
           link: "/users",
@@ -117,7 +137,7 @@ export class SidebarComponent implements OnInit {
           menu: "Integração",
         }
       ]
-    }else {
+    } else {
       this.sidebarMenu = [
         {
           link: "/dashboard",
@@ -149,21 +169,30 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  modo() {
+    this.modoIcon = !this.modoIcon;
+    localStorage.setItem('modoIcon', this.modoIcon ? 'true' : 'false');
+  }
+
   onMenuClick(sidenav: any) {
     if (window.innerWidth <= 600) {
       sidenav.toggle();
     }
   }
 
-  logout(){
+  logout() {
     this.authService.logout()
   }
 
-  sincronizar(){
-   this.enviarSincronizar();
+  sincronizar() {
+    this.enviarSincronizar();
   }
 
-  private enviarSincronizar(){
+  viewCliente() {
+    return !this.router.url.includes('mapa');
+  }
+
+  private enviarSincronizar() {
     this.dispositivoService.sincronizarTudo().subscribe(() => {
       this.messageService.add({
         severity: 'info',
@@ -176,7 +205,7 @@ export class SidebarComponent implements OnInit {
         summary: 'Falha',
         detail: 'Erro ao enviar comando sincronização'
       });
-    } )
+    })
   }
 
   routerActive: string = "activelink";

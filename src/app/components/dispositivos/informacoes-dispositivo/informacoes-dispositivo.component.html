@@ -1,0 +1,50 @@
+<div class="box-detalhes" style="display: flex;justify-content: space-between;">
+  <div>
+    <div class="box-detalhes-item">
+      <label>Nome</label>
+      <h5>{{dispositivo?.nome}}</h5>
+    </div>
+    <div class="box-detalhes-item">
+      <label>Id</label>
+      <h5>{{dispositivo?.id}}</h5>
+    </div>
+    <div class="box-detalhes-item">
+      <label>Firmware</label>
+      <h5>{{dispositivo?.versao}}</h5>
+    </div>
+  </div>
+  <div>
+    <div class="box-detalhes-item">
+      <label>Tipo conexão</label>
+      <h5>{{dispositivo?.conexao.tipoConexao}}</h5>
+    </div>
+    <div class="box-detalhes-item">
+      <label>Conexão</label>
+      <br>
+      @if(dispositivo?.conexao?.status == 'Online'){
+      <span class="badge badge-success rounded-pill">Online</span>
+      }@else{
+      <span class="badge badge-danger rounded-pill">Offline</span>
+      }
+    </div>
+    <div class="box-detalhes-item">
+      <label>Sensor vibração</label>
+      <br>
+      @if(dispositivo?.conexao?.statusMCU == 'Online'){
+      <span class="badge badge-success rounded-pill">Online</span>
+      }@else{
+      <span class="badge badge-danger rounded-pill">Offline</span>
+      }
+    </div>
+  </div>
+  <div>
+    <div class="box-detalhes-item">
+      <label>Ativo</label>
+      <h5>{{dispositivo?.ativo ? 'Sim' : 'Não'}}</h5>
+    </div>
+    <div class="box-detalhes-item">
+      <label>Ignorar agenda</label>
+      <h5>{{dispositivo?.ignorarAgenda ? 'Sim' : 'Não'}}</h5>
+    </div>
+  </div>
+</div>

@@ -1,22 +1,27 @@
 <mat-card class="w-100">
-    <mat-card-content>
-        <h4 class="mb-32">Lista de dispositivos</h4>
-          <div style="max-width: 400px;flex: 1;">
-            <mat-form-field appearance="outline">
-              <input (input)="this.nomeFind.next(pesquisa.value)" #pesquisa type="text" matInput placeholder="Pesquisar dispositivo">
-              <mat-icon style="cursor: pointer;" (click)="pesquisar(pesquisa.value)" matSuffix aria-hidden="false" fontIcon="search"></mat-icon>
-            </mat-form-field>
-       </div>
-        <mat-tab-group mat-stretch-tabs="false" animationDuration="0" #tab (selectedTabChange)="onTabChange($event)">
-            <mat-tab label="Ativos">
-                <app-tabela-dispositivos *ngIf="tab._indexToSelect == 0" [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
-            </mat-tab>
-            <mat-tab label="Inativos">
-                <app-tabela-dispositivos *ngIf="tab._indexToSelect == 1" [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
-            </mat-tab>
-            <mat-tab label="Offline">
-                <app-tabela-dispositivos *ngIf="tab._indexToSelect == 2" [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
-            </mat-tab>
-        </mat-tab-group>
-    </mat-card-content>
+  <mat-card-content>
+    <h4 class="mb-32">Lista de dispositivos</h4>
+    <div style="max-width: 400px;flex: 1;">
+      <mat-form-field appearance="outline">
+        <input (input)="this.nomeFind.next(pesquisa.value)" #pesquisa type="text" matInput
+          placeholder="Pesquisar dispositivo">
+        <mat-icon style="cursor: pointer;" (click)="pesquisar(pesquisa.value)" matSuffix aria-hidden="false"
+          fontIcon="search"></mat-icon>
+      </mat-form-field>
+    </div>
+    <mat-tab-group mat-stretch-tabs="false" animationDuration="0" #tab (selectedTabChange)="onTabChange($event)">
+      <mat-tab label="Ativos">
+        <app-tabela-dispositivos *ngIf="tab._indexToSelect == 0"
+          [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
+      </mat-tab>
+      <mat-tab label="Inativos">
+        <app-tabela-dispositivos *ngIf="tab._indexToSelect == 1"
+          [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
+      </mat-tab>
+      <mat-tab label="Offline">
+        <app-tabela-dispositivos *ngIf="tab._indexToSelect == 2"
+          [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
 </mat-card>

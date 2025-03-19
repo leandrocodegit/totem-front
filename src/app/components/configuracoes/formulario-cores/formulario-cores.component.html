@@ -1,11 +1,7 @@
 <mat-card class="w-100">
   <mat-card-content>
     <div class="box-configuracao">
-      <app-paramentros-cores [exibirBotoes]="false" [cor]="cor"></app-paramentros-cores>
-      <div class="botoes">
-        <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">Fechar</button>
-        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
-      </div>
+      <app-paramentros-cores [exibirBotoes]="false" [cor]="cor" [parametro]="parametro"></app-paramentros-cores>
     </div>
   </mat-card-content>
 </mat-card>

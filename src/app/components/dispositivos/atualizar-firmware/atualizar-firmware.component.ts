@@ -58,16 +58,16 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(`device/firmware/${this.dispositivo?.mac}`);
+    console.log(`device/firmware/${this.dispositivo?.id}`);
     console.log(this.mqttSevice.onConnect);
 
 
 
   }
 
-  private initObserveMqtt(mac: string){
+  private initObserveMqtt(id: number){
     if(!this.initObserve)
-    this.mqttSevice.observe(`device/firmware/${mac}`).subscribe((message: any) => {
+    this.mqttSevice.observe(`device/firmware/${id}`).subscribe((message: any) => {
       this.initObserve = true;
       if (message.payload instanceof Uint8Array) {
         const decoder = new TextDecoder('utf-8');
@@ -93,15 +93,15 @@ export class AtualizarFirmwareComponent implements AfterViewInit {
 
   uploadFile(): void {
     if (!this.selectedFile) return;
-    if (this.dispositivo?.mac){
+    if (this.dispositivo?.id){
       this.mensagens = [];
-      this.initObserveMqtt(this.dispositivo?.mac);
-      this.comandoService.uploadFirmware(this.dispositivo?.mac, this.selectedFile).subscribe(response => {
+      this.initObserveMqtt(this.dispositivo?.id);
+      this.comandoService.uploadFirmware(this.dispositivo?.id, this.selectedFile).subscribe(response => {
 
-        if (this.dispositivo?.mac && response.id) {
+        if (this.dispositivo?.id && response.id) {
           this.atualizarPayload = true;
           this.mensagens.push('Iniciando atualização')
-          this.comandoService.updateFirmware(this.dispositivo?.mac).subscribe({
+          this.comandoService.updateFirmware(this.dispositivo?.id).subscribe({
             complete: () => {
               this.mensagens.push('Iniciando atualização')
             },

@@ -16,12 +16,16 @@ export class UserService {
     private readonly http: HttpClient
   ) { }
 
-  public criarUsuario(user: User): Observable<any> {
+  public criarUsuario(user: any): Observable<any> {
     return this.http.post<any>(`${environment.urlApi}/user`, user, environment.headers)
   }
 
   public AtualizarUsuario(user: UserRequest): Observable<any> {
     return this.http.put<any>(`${environment.urlApi}/user`, user, environment.headers)
+  }
+
+  public AtualizarSenhaUsuario(user: UserRequest): Observable<any> {
+    return this.http.put<any>(`${environment.urlApi}/user/password`, user, environment.headers)
   }
 
   public getUser(email: string): Observable<any> {
@@ -40,7 +44,7 @@ export class UserService {
     return this.http.get<Page<User>>(`${environment.urlApi}/user/pesquisar/${pesquisa}?page=${page?.pageIndex}&size=${page?.pageSize}` )
   }
 
-  public listaTodosUsuarios(page?: PageEvent): Observable<Page<User>> {
-    return this.http.get<Page<User>>(`${environment.urlApi}/user?page=${page?.pageIndex}&size=${page?.pageSize}` )
+  public listaTodosUsuarios(business: boolean, page?: PageEvent): Observable<Page<User>> {
+    return this.http.get<Page<User>>(`${environment.urlApi}/user/lista/${business}?page=${page?.pageIndex}&size=${page?.pageSize}` )
   }
 }

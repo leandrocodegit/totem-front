@@ -34,10 +34,21 @@ export class AuthService {
   }
 
   setTokens(data: any) {
+    localStorage.setItem("token.clienteId", data.access_token);
     localStorage.setItem("token.access", data.access_token);
     localStorage.setItem("token.refresh", data.refresh_token);
     localStorage.setItem("token.comando", data.comando_token);
   }
+
+  setCliente(data: any) {
+    localStorage.setItem("cliente.nome", data.nome);
+    localStorage.setItem("cliente.endereco", data.endereco);
+  }
+
+  get clienteId(): string {
+    const clienteId = localStorage.getItem("token.clienteId");
+    return clienteId ? clienteId : '';
+}
 
   get accessToken(): string | null {
       return localStorage.getItem("token.access");
@@ -71,6 +82,27 @@ export class AuthService {
     } catch (error) {
       return '';
     }
+  }
+
+  public extrairClienteId() {
+    try {
+      const jwt = this.decodePayloadJWT();
+      const clienteId = jwt['cliente-id'];
+      return clienteId ? clienteId : '';
+    } catch (error) {
+      return '';
+    }
+  }
+
+  public isBusiness() {
+    try {
+      const jwt = this.decodePayloadJWT();
+      const business = jwt['business'];
+      return business ? business : false;
+    } catch (error) {
+      return false;
+    }
+    return false;
   }
 
   isAuthorizedRoles(rolesData: Role[]): boolean {

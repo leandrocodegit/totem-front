@@ -1,0 +1,16 @@
+@if(load) {
+<div class="load">
+  <mat-spinner></mat-spinner>
+  <p>Rederizando mapa...</p>
+</div>
+}
+<mat-tab-group  mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect"
+  (selectedTabChange)="onTabChange($event)">
+  <mat-tab [disabled]="load" label="Leds">
+    <app-content-mapa *ngIf="tabSelect == 0"></app-content-mapa>
+  </mat-tab>
+  <mat-tab [disabled]="load" label="Tags">
+    <app-content-mapa-tags *ngIf="tabSelect == 1" [tag]="true"></app-content-mapa-tags>
+  </mat-tab>
+</mat-tab-group>
+

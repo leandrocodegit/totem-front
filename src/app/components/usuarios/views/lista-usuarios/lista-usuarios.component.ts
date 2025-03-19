@@ -15,10 +15,12 @@ import { User } from '../../../models/user.model';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { PAGE_INIT } from '../../../models/constantes/PageUtil';
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
-import { Role } from '../../../../model/constantes/role.enum';
+import { Role, RoleDescriptions } from '../../../../model/constantes/role.enum';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
+import { FormularioSenhaUsuarioComponent } from '../formulario-senha-usuario/formulario-senha-usuario.component';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 
 
 const ELEMENT_DATA: User[] = [];
@@ -37,7 +39,8 @@ const ELEMENT_DATA: User[] = [];
     MatIconModule,
     ToastModule,
     MatPaginatorModule,
-    TooltipModule
+    TooltipModule,
+    MatTabsModule
   ],
   providers: [
     MessageService
@@ -50,6 +53,7 @@ export class ListaUsuariosComponent {
   protected usuarios: User[] = [];
   protected page?: PageEvent;
   protected nomeFind = new Subject<any>();
+  protected tabSelect = 0;
 
   constructor(
     private readonly userService: UserService,
@@ -86,10 +90,20 @@ export class ListaUsuariosComponent {
   }
 
   carregarLista(page?: PageEvent) {
-    this.userService.listaTodosUsuarios(page).subscribe(response => {
+    this.userService.listaTodosUsuarios(this.tabSelect == 0, page).subscribe(response => {
       this.usuarios = response.content;
       this.initPage(response);
     });
+  }
+
+
+  getRole(user: User): string{
+    if(user.roles.length > 0){
+      return RoleDescriptions[user.roles[0]] as string
+    }
+
+    return '--'
+
   }
 
   private initPage(response: any) {
@@ -140,6 +154,12 @@ export class ListaUsuariosComponent {
         });
       }
     });
+  }
+
+  alterarSenhaUsuario(user: User) {
+    this.dialog.open(FormularioSenhaUsuarioComponent, {
+      data: JSON.parse(JSON.stringify(user))
+    })
   }
 
   bloquearUsuario(user: User) {
@@ -194,6 +214,11 @@ export class ListaUsuariosComponent {
 
   redirect(url: string) {
     this.router.navigate([url])
+  }
+
+  onTabChange(event: MatTabChangeEvent) {
+    this.tabSelect = event.index;
+    this.carregarLista();
   }
 }
 

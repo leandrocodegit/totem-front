@@ -18,6 +18,10 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { UserRequest } from 'src/app/components/models/user-request.model';
 import { MatCardModule } from '@angular/material/card';
+import { ClienteService } from 'src/app/components/dispositivos/services/cliente.service';
+import { Cliente } from 'src/app/components/models/cliente.model';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -30,10 +34,10 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    NgIf,
     ToastModule,
     MessagesModule,
-    MatCardModule
+    MatCardModule,
+    CheckboxModule
   ],
   providers: [
     MessageService
@@ -46,10 +50,11 @@ export class FormularioUsuarioComponent {
   protected checked = true;
   protected user!: UserRequest;
   protected role: Role = Role.ROLE_USER;
-  messages: Message[] | undefined;
+  protected messages: Message[] | undefined;
+  protected clientes: Cliente[] = [];
 
   constructor(
-    private readonly _router: Router,
+    private readonly clienteService: ClienteService,
     private userService: UserService,
     private readonly authService: AuthService,
     private readonly messageService: MessageService,
@@ -59,19 +64,30 @@ export class FormularioUsuarioComponent {
       this.user = data;
       this.user.password = '****************';
       this.user.confirmPassword = '****************';
+      if(this.user.roles.length > 0)
+        this.role = this.user.roles[0]
     }
     else {
       this.user = new UserRequest
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.carregarListaClientes();
+   }
 
   fechar(): void {
     this.dialogRef.close();
   }
 
+  carregarListaClientes() {
+    this.clienteService.listaClientes(true).subscribe(response => {
+      this.clientes = response.content;
+    });
+  }
+
   salvar() {
+    this.user.roles = [this.role]
     if (this.user && this.user.id && this.user.id != '') {
       this.userService.AtualizarUsuario(this.user).subscribe(() => {
         this.messageService.add({
@@ -80,15 +96,11 @@ export class FormularioUsuarioComponent {
           detail: 'Usuário foi atualizado com sucesso'
         });
       }, fail => {
-        if (fail.error && fail.error.message) {
-          this.messages = JSON.parse(fail.error.message);
-        } else {
           this.messageService.add({
             severity: 'error',
             summary: 'Falha',
-            detail: 'Erro ao atualizar usuário'
+            detail: fail.error.message
           });
-        }
       });
     } else {
       this.userService.criarUsuario(this.user).subscribe(() => {
@@ -98,15 +110,11 @@ export class FormularioUsuarioComponent {
           detail: 'Usuário foi criado com sucesso'
         });
       }, fail => {
-        if (fail.error && fail.error.message) {
-          this.messages = JSON.parse(fail.error.message);
-        } else {
           this.messageService.add({
             severity: 'error',
             summary: 'Falha',
             detail: 'Erro ao criar usuário'
           });
-        }
       });
     }
 
@@ -115,6 +123,10 @@ export class FormularioUsuarioComponent {
 
   isAutorizado() {
     return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN]);
+  }
+
+  isRoot() {
+    return this.authService.isAuthorizedRoles([Role.ROLE_ROOT]);
   }
 
 }

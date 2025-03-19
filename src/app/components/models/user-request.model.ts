@@ -1,4 +1,5 @@
 import { Role } from "../../model/constantes/role.enum";
+import { Cliente } from "./cliente.model";
 
 
 export class UserRequest {
@@ -8,7 +9,10 @@ export class UserRequest {
   email: string;
   nome: string;
   status: boolean;
+  business: boolean;
   roles: Role[];
+  cliente?: Cliente;
+  clienteId: string;
 
   constructor(
     id = '',
@@ -17,7 +21,10 @@ export class UserRequest {
     confirmPassword = '',
     email = '',
     status = false,
+    business = false,
     roles = [],
+    cliente = undefined,
+    clienteId = ''
   ) {
     this.id = id;
     this.nome = nome;
@@ -25,6 +32,9 @@ export class UserRequest {
     this.confirmPassword = confirmPassword;
     this.email = email;
     this.status = status;
+    this.business = business; 
     this.roles = roles;
+    this.cliente = cliente
+    this.clienteId = clienteId
   }
 }

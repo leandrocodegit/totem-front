@@ -6,24 +6,28 @@
 
 
     <div class="p-16">
-      <div class="mb-16">
-        <a href="javascript:void(0)" class="d-flex align-items-center">
-          <img src="assets/images/logo.png" style="width: 200px;margin: 30px 10px;">
+      <div  style="display: flex;align-items: center; justify-content: center;">
+        <a *ngIf="!modoIcon" href="javascript:void(0)" class="d-flex align-items-center">
+          <img src="assets/images/logo.png" style="width: 200px;margin: 5px 10px;">
         </a>
+        <button (click)="modo()" mat-icon-button color="primary">
+          <mat-icon [fontIcon]="!modoIcon ? 'arrow_back_ios' : 'arrow_forward_ios'"></mat-icon>
+        </button>
       </div>
       <div class="pt-8">
         <ul>
           <li class="list-group mb-2" *ngFor="let sidenav of sidebarMenu" (click)="onMenuClick(drawer)">
-            <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
-              class="sidebar-menu w-100 d-flex align-items-center" [routerLinkActive]="routerActive"
+            <a [pTooltip]="modoIcon ? sidenav.menu : ''" tooltipPosition="right" matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
+              class="sidebar-menu  d-flex align-items-center" [class.w-100]="!modoIcon" [routerLinkActive]="routerActive"
               [routerLinkActiveOptions]="{ exact: false }">
-              <i-feather name="{{ sidenav.icon }}" class="feather-base" style="margin-right: 10px;margin-bottom: 7px;">
-              </i-feather> <span class="ps-4">{{ sidenav.menu }}</span>
+              <i-feather name="{{ sidenav.icon }}" class="feather-base" style="margin-bottom: 7px;">
+              </i-feather> <span *ngIf="!modoIcon" style="margin-left: 10px;" class="ps-4">{{ sidenav.menu }}</span>
             </a>
           </li>
-          <li class=" " style="margin-top: 40px;">
-            <a routerLink="/sincronizar" matRipple [matRippleColor]="'#f7f8f443'"
-              class="sidebar-menu w-100 d-flex align-items-center bt-sincronizar">
+          <li class="list-group mb-2" style="margin-top: 40px;">
+            <i-feather *ngIf="modoIcon" name="repeat"  routerLink="/sincronizar" class="feather-base" style="margin-right: 10px;margin-bottom: 7px;"></i-feather>
+            <a [pTooltip]="modoIcon ? 'Sincronizar' : ''" *ngIf="!modoIcon" routerLink="/sincronizar" matRipple [matRippleColor]="'#f7f8f443'"
+              class="sidebar-menu d-flex align-items-center bt-sincronizar" [class.w-100]="!modoIcon">
               <span class="ps-4">Sincronizar</span>
             </a>
           </li>
@@ -33,10 +37,15 @@
 
   </mat-sidenav>
 
-  <mat-sidenav-content>
-
+  <mat-sidenav-content [style.margin-left]="modoIcon ? '89px' : '285px'">
     <!-- Header -->
-    <mat-toolbar class="header ps-24 pe-24">
+    <mat-toolbar *ngIf="viewCliente()" class="header ps-24 pe-24">
+      <div style="margin: 0 25px;">
+          <br>
+        <h2>{{cliente?.nome}}</h2>
+        <span style="color: powderblue;font-size: 11px;">{{cliente?.endereco}}</span>
+  </div>
+
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <i-feather name="menu" class="text-light-muted feather-base mt-n3"></i-feather>
@@ -60,7 +69,7 @@
       </div>
     </mat-toolbar>
     <!-- Content -->
-    <div class="body-wrapper" [style.padding]="padding">
+    <div *ngIf="!reload" class="body-wrapper">
       <router-outlet></router-outlet>
     </div>
 

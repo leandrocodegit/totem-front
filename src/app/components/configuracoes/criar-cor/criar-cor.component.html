@@ -1,0 +1,47 @@
+<div *ngIf="cor" class="painel-configuracao">
+
+  <div class="box-configuracao" style="width: 97%;">
+
+    <div style="display: flex;">
+      <mat-form-field appearance="outline" style="margin-right: 10px;">
+        <mat-label>Nome</mat-label>
+        <input [disabled]="cor.exclusiva" matInput required [(ngModel)]="cor.nome" type="text" placeholder="Nome">
+      </mat-form-field>
+    </div>
+  </div>
+  <div style="margin: 15px;">
+    <p-checkbox [disabled]="cor.exclusiva || !isAutorizado(true)" [(ngModel)]="cor.rapida" label="Habilitar configuração rápida"
+      [binary]="true" />
+  </div>
+  <div style="margin: 15px;">
+    <p-checkbox [disabled]="cor.exclusiva || !isAutorizado(true)" [(ngModel)]="cor.vibracao" label="Habilitar cor de vibração"
+      [binary]="true" />
+  </div>
+  <div class="box-configuracao">
+    <h6>Velocidade</h6>
+    <div class="box-configuracao-item">
+      <span class="material-symbols-outlined cor">speed</span>
+      <mat-slider [max]="255" [min]="1" [step]="1" (change)="onSliderChange()">
+        <input matSliderThumb [(ngModel)]="cor.velocidade"> </mat-slider>
+      <b>{{cor.velocidade}}</b>
+    </div>
+  </div>
+  <div class="box-configuracao" style="margin-top: 20px;">
+    <h6>Temporizador</h6>
+    <div class="box-configuracao-item">
+      <span class="material-symbols-outlined cor">mitre</span>
+      <mat-slider [max]="120" [step]="1" [min]="1">
+        <input matSliderThumb [(ngModel)]="cor.time"> </mat-slider>
+      <b>{{cor.time}}</b>
+    </div>
+  </div>
+  <div class="botoes">
+    <button mat-raised-button class="me-8 mb-8" color="basic" routerLink="/configuracoes" type="submit">Voltar</button>
+    <button [disabled]="!cor.id" *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8"
+      routerLink="/configuracoes/parametros/{{cor.id}}" color="primary" type="submit">Configurações</button>
+    <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()"
+      type="submit">Salvar</button>
+  </div>
+</div>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

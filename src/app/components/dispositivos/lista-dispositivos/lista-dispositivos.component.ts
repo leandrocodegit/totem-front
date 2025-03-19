@@ -87,7 +87,7 @@ export class ListaDispositivosComponent {
 
 
   sincronizar() {
-    this.dispositivoService.sincronizar(this.dispositivos.map(device => device.mac), false).subscribe(() => {
+    this.dispositivoService.sincronizar(this.dispositivos.map(device => device.id), false).subscribe(() => {
     }, fail => {
       console.log('Falha ao sincronizar');
     })

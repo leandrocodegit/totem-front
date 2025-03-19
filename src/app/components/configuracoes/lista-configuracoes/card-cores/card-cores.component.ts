@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ListaCoresComponent } from '../lista-cores.component';
 import { MatCardModule } from '@angular/material/card';
 import { Cor } from 'src/app/components/models/cor.model';
 import { MessageService } from 'primeng/api';
@@ -10,16 +9,19 @@ import { FormularioCorComponent } from '../../formulario-cores/formulario-cores.
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
 import { NgIf } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TabCoresComponent } from '../tab-cores/tab-cores.component';
 
 @Component({
   selector: 'app-card-configuracoes',
   standalone: true,
   imports: [
-    ListaCoresComponent,
+    TabCoresComponent,
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    NgIf
+    NgIf,
+    RouterModule,
   ],
   providers: [
     MessageService

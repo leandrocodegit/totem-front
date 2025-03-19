@@ -20,6 +20,11 @@ import { MqttAppModule } from 'src/app/mqtt-app.module';
 import { ComandoService } from '../../dispositivos/services/comando.service';
 import { Role } from 'src/app/model/constantes/role.enum';
 import { AuthService } from '../../auth/services/auth.service';
+import { Parametro } from '../../models/parametro.model';
+import { MatDialogModule } from '@angular/material/dialog';
+import { Configuracao } from '../../models/configuracao.model';
+import { Tipoconfiguracao } from '../../models/constantes/tipo-configuracao';
+import { Efeito } from '../../models/constantes/Efeito';
 
 
 @Component({
@@ -37,7 +42,8 @@ import { AuthService } from '../../auth/services/auth.service';
     MatFormFieldModule,
     MatInputModule,
     ToastModule,
-    MqttAppModule
+    MqttAppModule,
+    MatDialogModule
   ],
   providers: [
     MessageService,
@@ -49,6 +55,7 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class ParamentrosCoresComponent implements OnInit {
 
+  @Input() parametro?: Parametro;
   @Input() cor!: Cor;
   @Input() dispositivo!: Dispositivo;
   @Input() enviarConfiguracao = {
@@ -56,6 +63,7 @@ export class ParamentrosCoresComponent implements OnInit {
   };
   @Input() exibeSincronizar = false;
   @Input() exibirBotoes = true;
+  protected tipoComando = Tipoconfiguracao.LED;
 
   constructor(
     private readonly mqttSevice: MqttService,
@@ -96,35 +104,50 @@ export class ParamentrosCoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.dispositivo && this.dispositivo.cor) {
-      this.cor = this.dispositivo.cor;
-    }
+    /*     if (this.dispositivo && this.dispositivo.cor) {
+          this.parametro = this.dispositivo.cor;
+        } */
+
+    if (!this.parametro)
+      this.parametro = new Parametro
+    if (!this.parametro.configuracao)
+      this.parametro.configuracao = new Configuracao;
     this.initCores();
-   // this.mqttSevice.connect();
+    // this.mqttSevice.connect();
   }
 
+  contemPino(pino: number) {
+    return this.cor.parametros.find(param => param.pino == pino);
+  }
   // private readonly authService: AuthService,
-  isAutorizado(admin?: boolean){
-    if(admin)
+  isAutorizado(admin?: boolean) {
+    if (admin)
       return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
     return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
-   }
+  }
 
   initCores() {
-    this.cor.primaria = this.rgbToHex(
-      this.cor.cor[0],
-      this.cor.cor[1],
-      this.cor.cor[2],
-    )
-    this.cor.secundaria = this.rgbToHex(
-      this.cor.cor[3],
-      this.cor.cor[4],
-      this.cor.cor[5],
-    );
+    if (this.parametro) {
+      this.parametro.corHexa[0] = this.rgbToHex(
+        this.parametro.cor[0],
+        this.parametro.cor[1],
+        this.parametro.cor[2],
+      )
+      this.parametro.corHexa[1] = this.rgbToHex(
+        this.parametro.cor[3],
+        this.parametro.cor[4],
+        this.parametro.cor[5],
+      );
+      this.parametro.corHexa[2] = this.rgbToHex(
+        this.parametro.cor[6],
+        this.parametro.cor[7],
+        this.parametro.cor[8],
+      );
+    }
   }
 
   getMinimo() {
-    switch (this.cor.efeito) {
+    switch (this.parametro && this.parametro.efeito) {
       case 'SINALIZADOR': return 10;
       case 'CONTADOR': return 10;
       case 'GIRATORIO': return 10;
@@ -132,26 +155,24 @@ export class ParamentrosCoresComponent implements OnInit {
     }
   }
 
-  changeCorPrimaria() {
-    const parsedHex = this.cor.primaria.replace('#', '');
-    const r = parseInt(parsedHex.substring(0, 2), 16);
-    const g = parseInt(parsedHex.substring(2, 4), 16);
-    const b = parseInt(parsedHex.substring(4, 6), 16);
-    this.cor.cor[0] = r;
-    this.cor.cor[1] = g;
-    this.cor.cor[2] = b;
-    this.onSliderChange()
-  }
+  changeCorPrimaria(index: number) {
+    if (this.parametro) {
+      const parsedHex = this.parametro.corHexa[index].replace('#', '');
+      const r = parseInt(parsedHex.substring(0, 2), 16);
+      const g = parseInt(parsedHex.substring(2, 4), 16);
+      const b = parseInt(parsedHex.substring(4, 6), 16);
 
-  changeCorSecundaria() {
-    const parsedHex = this.cor.secundaria.replace('#', '');
-    const r = parseInt(parsedHex.substring(0, 2), 16);
-    const g = parseInt(parsedHex.substring(2, 4), 16);
-    const b = parseInt(parsedHex.substring(4, 6), 16);
-    this.cor.cor[3] = r;
-    this.cor.cor[4] = g;
-    this.cor.cor[5] = b;
-    this.onSliderChange()
+      let i = index * 3
+      this.parametro.cor[i++] = r;
+      this.parametro.cor[i++] = g;
+      this.parametro.cor[i++] = b;
+
+      if (index = 0) {
+
+      }
+
+      this.onSliderChange()
+    }
   }
 
   rgbToHex(r: number, g: number, b: number): string {
@@ -162,44 +183,48 @@ export class ParamentrosCoresComponent implements OnInit {
   habilitarSincronismo() {
 
     if (this.enviarConfiguracao.value) {
-     /*  this.mqttSevice.observe(`device/send/${this.dispositivo.mac}`).subscribe((message: any) => {
-        const jsonString = String.fromCharCode(...message.payload);
-        const payload = JSON.parse(jsonString);
-        if (payload && payload.comando && payload.comando == 'ACEITO') {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sincronizado',
-            detail: 'Dispositivo sincronizado'
-          });
-        }
-      }); */
+      /*  this.mqttSevice.observe(`device/send/${this.dispositivo.id}`).subscribe((message: any) => {
+         const jsonString = String.fromCharCode(...message.payload);
+         const payload = JSON.parse(jsonString);
+         if (payload && payload.comando && payload.comando == 'ACEITO') {
+           this.messageService.add({
+             severity: 'success',
+             summary: 'Sincronizado',
+             detail: 'Dispositivo sincronizado'
+           });
+         }
+       }); */
     }
+  }
+
+  onSliderChangeReset() {
+    this.tipoComando = Tipoconfiguracao.LED_RESTART;
   }
 
   onSliderChange() {
-    if (this.enviarConfiguracao.value) {
-      this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.mac}`, `{
-        "efeito": "${this.dispositivo.cor.efeito}",
-        "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
-        "leds": ${this.dispositivo.configuracao.leds},
-        "faixa": ${this.dispositivo.configuracao.faixa},
-        "intensidade": ${this.dispositivo.configuracao.intensidade},
-        "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
-        "velocidade":${this.dispositivo.cor.velocidade},
-        "host": "",
-        "responder": false }
-        `);
-    }
-    this.initCores();
+    /*     if (this.enviarConfiguracao.value) {
+          this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.id}`, `{
+            "efeito": "${this.dispositivo.cor.efeito}",
+            "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
+            "leds": ${this.dispositivo.configuracao.leds},
+            "faixa": ${this.dispositivo.configuracao.faixa},
+            "intensidade": ${this.dispositivo.configuracao.intensidade},
+            "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
+            "velocidade":${this.dispositivo.cor.velocidade},
+            "host": "",
+            "responder": false }
+            `);
+        }
+        this.initCores(); */
   }
 
   fechar() {
-      this.sincronizar();
-      this.router.navigate(['/dispositivos']);
+    this.sincronizar();
+    this.router.navigate(['/dispositivos']);
   }
 
-  private sincronizar() {
-    this.comandoService.sincronizarDispositivo(this.dispositivo.mac).subscribe({
+  sincronizar() {
+    this.comandoService.sincronizarDispositivo(this.dispositivo.id, this.tipoComando).subscribe({
       next: (data) => {
       },
       complete: () => {
@@ -213,9 +238,19 @@ export class ParamentrosCoresComponent implements OnInit {
       }
     });
   }
-
+ 
   salvar() {
     this.initCores();
+    if (this.parametro && !this.contemPino(this.parametro.pino)) {
+      if (this.parametro.pino == 0)
+        this.parametro.pino = 1;
+      this.cor.parametros.push(this.parametro);
+    }
+
+    if (this.parametro)
+      if (this.parametro?.configuracao.faixa > (this.parametro?.configuracao.leds / 2))
+        this.parametro.configuracao.faixa = (this.parametro?.configuracao.leds / 2);
+
     this.corService.salvarCor(this.cor, false).subscribe(() => {
       this.messageService.add({
         severity: 'success',
@@ -232,22 +267,26 @@ export class ParamentrosCoresComponent implements OnInit {
     })
   }
 
+
   duplicar() {
-    this.initCores();
-    this.cor.mac = this.dispositivo.mac;
-    this.corService.duplicarCor(this.cor).subscribe(() => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Duplicação',
-        detail: 'Cor duplicada com sucesso'
-      });
-    }, fail => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Falha',
-        detail: 'Erro ao copiar configuração'
-      });
-    })
+    if (this.parametro && this.cor.parametros.length < 4) {
+      var pino = 0;
+      if (!this.contemPino(1))
+        pino = 1;
+      else if (!this.contemPino(2))
+        pino = 2;
+      else if (!this.contemPino(3))
+        pino = 3;
+      else if (!this.contemPino(4))
+        pino = 4;
+      if (pino != 0) {
+        var copy = JSON.parse(JSON.stringify(this.parametro));
+        copy.pino = pino;
+        this.cor.parametros.push(copy);
+        this.salvar();
+        this.parametro = copy;
+      }
+    }
   }
 
   conectar() {

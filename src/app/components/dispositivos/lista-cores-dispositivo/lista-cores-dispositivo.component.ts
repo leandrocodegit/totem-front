@@ -68,7 +68,7 @@ export class ListaCoresDispositivoComponent {
 
   salvar(cor: Cor){
     if(cor){
-      cor.mac = this.dispositivo.mac;
+      cor.deviceId = this.dispositivo.id;
       this.corService.salvarCor(cor, true).subscribe(() => {
         this.messageService.add({
           severity: 'success',
@@ -76,8 +76,8 @@ export class ListaCoresDispositivoComponent {
           detail: 'Configuração foi salva com sucesso'
         });
         this.dispositivo.cor = cor;
-        this.route.navigate([`/dispositivos/configuracoes/${this.dispositivo.mac}/0`]);
-        console.log(`/dispositivos/configuracoes/${this.dispositivo.mac}`);
+        this.route.navigate([`/dispositivos/configuracoes/${this.dispositivo.id}/0`]);
+        console.log(`/dispositivos/configuracoes/${this.dispositivo.id}`);
 
       }, fail => {
         this.messageService.add({

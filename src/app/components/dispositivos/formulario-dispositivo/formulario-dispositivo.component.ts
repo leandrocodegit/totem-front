@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,9 @@ import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/car
 import { CheckboxModule } from 'primeng/checkbox';
 import { EnderecoComponent } from '../endereco/endereco.component';
 import { response } from 'express';
+import { ClienteService } from '../services/cliente.service';
+import { Cliente } from '../../models/cliente.model';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-formulario-dispositivo',
@@ -29,7 +32,8 @@ import { response } from 'express';
     IconsModule,
     MatDialogModule,
     CheckboxModule,
-    EnderecoComponent
+    EnderecoComponent,
+    MatSelectModule,
   ],
   providers: [
     MessageService
@@ -37,16 +41,18 @@ import { response } from 'express';
   templateUrl: './formulario-dispositivo.component.html',
   styleUrl: './formulario-dispositivo.component.scss'
 })
-export class FormularioDispositivoComponent {
+export class FormularioDispositivoComponent implements OnInit {
 
   protected dispositivo!: Dispositivo;
   protected editou = false;
   private copia: any;
   private alterado = false;
+  protected clientes: Cliente[] = [];
 
   constructor(
     private readonly dispositivoService: DispositivoService,
     private readonly messageService: MessageService,
+    private readonly clienteService: ClienteService,
     private dialogRef: MatDialogRef<FormularioDispositivoComponent>,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) private data: any
@@ -59,11 +65,15 @@ export class FormularioDispositivoComponent {
     dispositivoService.mapaEdit.subscribe(data => {
       if (data) {
         if (data.lat && data.lng) {
-          this.dispositivo.latitude = data.lat;
-          this.dispositivo.longitude = data.lng;
+          this.dispositivo.conexao.latitude = data.lat;
+          this.dispositivo.conexao.longitude = data.lng;
         }
       }
     })
+  }
+
+  ngOnInit(): void {
+    this. carregarListaClientes();
   }
 
   fechar() {
@@ -71,6 +81,9 @@ export class FormularioDispositivoComponent {
   }
 
   salvar() {
+
+    this.dispositivo.cliente = this.clientes.find(cliente => cliente.id == this.dispositivo.clienteId);
+
     this.dispositivoService.alterarNomeDicpositivo(this.dispositivo).subscribe(() => {
       this.messageService.add({
         severity: 'success',
@@ -91,5 +104,11 @@ export class FormularioDispositivoComponent {
     this.dialog.open(CardMapaCordenadasComponent, {
       panelClass: 'no-overflow'
     })
+  }
+
+  carregarListaClientes() {
+    this.clienteService.listaClientes(true).subscribe(response => {
+      this.clientes = response.content;
+    });
   }
 }

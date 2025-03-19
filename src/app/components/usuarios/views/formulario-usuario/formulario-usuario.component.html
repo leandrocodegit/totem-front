@@ -1,40 +1,44 @@
 <!-- Form Layout -->
 <mat-card>
   <mat-card-content>
-<div class="container" style="max-width: 500px;padding: 25px;">
-  <h3 class="mb-32">Cadastro de usuário</h3>
-    <mat-form-field class="w-100 fs-16" appearance="outline">
-      <mat-label>Nome</mat-label>
-      <input [(ngModel)]="user.nome" required matInput type="text" placeholder="Nome">
-    </mat-form-field>
-    <mat-form-field class="w-100 fs-16" appearance="outline">
-      <mat-label>Endereço de email</mat-label>
-      <input [(ngModel)]="user.email" required matInput type="email" placeholder="Endereço de email">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Perfil</mat-label>
-      <mat-select required [(ngModel)]="role">
-        <mat-option value="ROLE_ADMIN">Administrador</mat-option>
-        <mat-option value="ROLE_AVANÇADO">Usuário avançado</mat-option>
-        <mat-option value="ROLE_USER">Usuário regular</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field *ngIf="isAutorizado" class="w-100 fs-16" appearance="outline">
-      <mat-label>Senha</mat-label>
-      <input [(ngModel)]="user.password" required matInput type="password" placeholder="Senha">
-    </mat-form-field>
-    <mat-form-field *ngIf="isAutorizado" class="w-100 fs-16" appearance="outline">
-      <mat-label>Confirmar senha</mat-label>
-      <input [(ngModel)]="user.confirmPassword" required matInput type="password" placeholder="Senha">
-    </mat-form-field>
-    <p-messages [(value)]="messages" [enableService]="false" />
-    <br>
-    <div class="botoes">
-      <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">fechar</button>
-      <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">{{user.id == '' ? 'Cadastrar' : 'Atualizar'}}</button>
+    <div class="container" style="max-width: 500px;padding: 25px;">
+      <h3 class="mb-32">Cadastro de usuário</h3>
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input [(ngModel)]="user.nome" required matInput type="text" placeholder="Nome">
+      </mat-form-field>
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Endereço de email</mat-label>
+        <input [(ngModel)]="user.email" required matInput type="email" placeholder="Endereço de email">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Cliente</mat-label>
+        <mat-select [disabled]="(!user.business && !isRoot()) || (user.email == 'smaster')" required [(ngModel)]="user.clienteId">
+          @for (cliente of clientes; track $index) {
+          <mat-option [value]="cliente.id">{{cliente.nome}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Perfil</mat-label>
+        <mat-select required [(ngModel)]="role">
+          <mat-option value="ADMIN">Administrador</mat-option>
+          <mat-option value="AVANCADO">Usuário avançado</mat-option>
+          <mat-option value="USER">Usuário regular</mat-option>
+        </mat-select>
+      </mat-form-field>
+      @if(isRoot() || isAutorizado()){
+      <p-checkbox [disabled]="!isRoot()" [(ngModel)]="user.business" label="Usuário business" [binary]="true"/><br><br>
+      }
+      <p-messages [(value)]="messages" [enableService]="false" />
+      <br>
+      <div class="botoes">
+        <button mat-raised-button class="me-8 mb-8" color="basic" (click)="fechar()" type="submit">fechar</button>
+        <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">{{user.id == '' ?
+          'Cadastrar' : 'Atualizar'}}</button>
+      </div>
     </div>
-</div>
-</mat-card-content>
+  </mat-card-content>
 </mat-card>
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
   [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

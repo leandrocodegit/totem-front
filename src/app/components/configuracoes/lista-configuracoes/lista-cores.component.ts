@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { FormularioCorComponent } from '../formulario-cores/formulario-cores.component';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
+import { RouterModule } from '@angular/router';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -41,7 +42,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     MatPaginatorModule,
     MatSortModule,
     CheckboxModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [
     MessageService,
@@ -61,6 +63,10 @@ export class ListaCoresComponent implements OnInit {
   @Output() editarEmit = new EventEmitter;
   @Output() principalEmit = new EventEmitter;
   @Output() salvarEmit = new EventEmitter;
+  @Input() rapida = false;
+  @Input() vibracao = false;
+  @Input() exclusiva = false;
+
 
   protected alterouPrincipal: boolean = false;
   protected page?: PageEvent;
@@ -77,7 +83,7 @@ export class ListaCoresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carregarLista(PAGE_INIT)
+    this.carregarLista(PAGE_INIT);
   }
 
   isAutorizado(admin?: boolean){
@@ -92,7 +98,7 @@ export class ListaCoresComponent implements OnInit {
   }
 
   carregarLista(page?: PageEvent) {
-    this.corService.listaTodasConfiguracoes(this.ordenar, page).subscribe(response => {
+    this.corService.listaTodasConfiguracoes(this.rapida, this.vibracao, this.exclusiva, this.ordenar, page).subscribe(response => {
       this.cores = response.content;
       this.initPage(response);
     });
@@ -135,7 +141,7 @@ export class ListaCoresComponent implements OnInit {
           this.messageService.add({
             severity: 'error',
             summary: 'Falha',
-            detail: 'Erro ao remover configuração!'
+            detail: fail?.error?.message ? fail?.error?.message : 'Erro ao remover configuração!'
           });
         });
       });

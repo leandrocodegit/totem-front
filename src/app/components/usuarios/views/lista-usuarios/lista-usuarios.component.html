@@ -14,14 +14,24 @@
         Novo usuário</button>
     </div>
 
+    <mat-tab-group mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect"
+    (selectedTabChange)="onTabChange($event)">
+    <mat-tab label="Business">
+    </mat-tab>
+    <mat-tab label="Outros usuários">
+    </mat-tab>
+  </mat-tab-group>
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
           <tr>
             <th></th>
             <th>Nome</th>
-            <th>Email</th>
             <th>Status</th>
+            <th>Business</th>
+            <th>Cliente</th>
+            <th>Email</th>
+            <th>Perfil</th>
             <th></th>
           </tr>
         </thead>
@@ -29,30 +39,42 @@
           <tr *ngFor="let user of usuarios">
             <td><img src="assets/images/avatar.png" width="35" height="35" class="rounded-circle"></td>
             <td>{{user.nome}}</td>
-            <td>{{user.email}}</td>
             <td>
               <span class="badge badge-{{user.status ? 'success' : 'danger'}} rounded-pill">
                 {{user.status ? 'Ativo' : 'Inativo'}}</span>
             </td>
+            <td>
+              <span tooltipPosition="top"  pTooltip="Permite criar clientes"
+                class="badge badge-{{user.business ? 'success' : 'danger'}} rounded-pill">{{user.business
+                ? 'Sim' : 'Não'}}</span>
+            </td>
+            <td>{{user.nomeCliente}}</td>
+            <td>{{user.email}}</td>
+            <td>{{getRole(user)}}</td>
             <td *ngIf="isAutorizado && user.nome != 'admin'">
-              <i-feather tooltipPosition="top"  pTooltip="Editar usuário" (click)="editarUsuario(user)" name="edit" class="feather-base" style="margin-right: 10px;">
+              <i-feather tooltipPosition="top" pTooltip="Editar usuário" (click)="editarUsuario(user)" name="edit"
+                class="feather-base" style="margin-right: 10px;">
               </i-feather>
-              <i-feather tooltipPosition="top"  pTooltip="Ativar ou desativar usuário" (click)="bloquearUsuario(user)" [name]="user.status ? 'unlock' : 'lock'" class="feather-base"
-                style="margin-right: 10px;" [style.color]="user.status ? 'unlock' : 'lock'">
+              <i-feather tooltipPosition="top" pTooltip="Ativar ou desativar usuário" (click)="bloquearUsuario(user)"
+                [name]="user.status ? 'unlock' : 'lock'" class="feather-base" style="margin-right: 10px;"
+                [style.color]="user.status ? 'unlock' : 'lock'">
               </i-feather>
-              <i-feather tooltipPosition="top"  pTooltip="Remover usuário" (click)="removerUsuario(user)" name="trash-2" class="feather-base" style="margin-right: 10px;">
+              <i-feather tooltipPosition="top" pTooltip="Remover usuário" (click)="removerUsuario(user)" name="trash-2"
+                class="feather-base" style="margin-right: 10px;">
+              </i-feather>
+              <i-feather tooltipPosition="top" pTooltip="Alterar senha do usuário" (click)="alterarSenhaUsuario(user)" name="key"
+                class="feather-base" style="margin-right: 10px;">
               </i-feather>
             </td>
             <td *ngIf="isAutorizado && user.nome == 'admin'">
-              <i-feather tooltipPosition="top"  tooltipPosition="top"  pTooltip="Nenhuma ação permitida para usuário admin" name="slash" class="feather-base" style="margin-right: 10px;"></i-feather>
+              <i-feather tooltipPosition="top" tooltipPosition="top"
+                pTooltip="Nenhuma ação permitida para usuário admin" name="slash" class="feather-base"
+                style="margin-right: 10px;"></i-feather>
             </td>
           </tr>
         </tbody>
       </table>
-      <mat-paginator #paginator
-      (page)="handlePageEvent($event)"
-      [length]="page?.length"
-      [pageSize]="page?.pageSize"
-      [showFirstLastButtons]="true"
-      [pageSizeOptions]="[15,20,50]"
-      [pageIndex]="page?.pageIndex"></mat-paginator>
+      <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="page?.length" [pageSize]="page?.pageSize"
+        [showFirstLastButtons]="true" [pageSizeOptions]="[15,20,50]" [pageIndex]="page?.pageIndex"></mat-paginator>
+        <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+        [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

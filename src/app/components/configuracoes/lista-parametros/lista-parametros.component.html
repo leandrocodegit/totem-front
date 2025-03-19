@@ -1,0 +1,61 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <div class="box-botoes-direta">
+      <div>
+        <label>Nome</label>
+        <h5>{{cor?.nome}}</h5>
+      </div>
+      <div>
+        <label>Tempo teporizador</label>
+        <h5>{{cor?.time}} minuto(s)</h5>
+      </div>
+      <div>
+        <label>Rapida</label>
+        <h5>{{cor?.rapida ? 'Sim' : 'Não'}}</h5>
+      </div>
+      @if(exibirBotoes){
+      <div>
+        <button mat-raised-button class="me-8 mb-8 mr-2" color="accent" routerLink="/configuracoes"
+        type="submit">Voltar</button>
+        <button [disabled]="cor?.parametros?.length == 4" mat-raised-button class="me-8 mb-8 mr-2" color="primary" (click)="adicionar()"
+        type="submit">Novo</button>
+      </div>
+    }
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="table-responsive-sm box-tabela-parametros">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Porta</th>
+        <th>Leds</th>
+        <th>Faixa</th>
+        <th>Efeito</th>
+        <th>Tipo</th>
+        <th>Cores</th>
+        <th mat-sort-header="velocidade">Velocidade</th>
+        <th *ngIf="edicao"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let parametro of cor?.parametros">
+        <td>{{parametro.efeito == 'ADICIONAL_1' ? 1 : parametro.efeito == 'ADICIONAL_2' ? 2 : parametro.pino}}</td>
+        <td>{{parametro?.configuracao.leds}}</td>
+        <td>{{parametro?.configuracao.faixa}}</td>
+        <td>{{getTradutor(undefined, parametro.efeito)}}</td>
+        <td>{{parametro?.configuracao.tipoCor}}</td>
+        <td>
+          <app-label-cor [parametro]="parametro"></app-label-cor>
+        </td>
+        <td>{{cor.velocidade}}</td>
+        <td *ngIf="edicao">
+          <i-feather *ngIf="isAutorizado(true)" (click)="editar(parametro)" name="edit" class="feather-base">
+          </i-feather>
+          <i-feather *ngIf="isAutorizado(true)" (click)="remover(parametro)" name="trash" class="feather-base">
+          </i-feather>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

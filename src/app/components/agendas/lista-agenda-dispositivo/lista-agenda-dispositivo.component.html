@@ -31,11 +31,8 @@
             <span class="badge badge-{{getCorStatus(agenda)}} rounded-pill">{{agenda.status}}</span>
           </td>
           <td>{{getTradutor(agenda.cor?.efeito)}}</td>
-          <td tooltipPosition="top"  [pTooltip]="agenda.cor.nome">
-            <div class="cor-primaria-secundaria" style="display: flex;">
-              <div [style.background]="agenda.cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
-              <div [style.background]="agenda.cor?.efeito == 'COLORIDO' ? agenda.cor.primaria : agenda.cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
-            </div>
+          <td tooltipPosition="top"  [pTooltip]="agenda.cor?.nome">
+            <app-label-cor [parametro]="agenda.cor?.parametros[0]"></app-label-cor>
           </td>
           <td>
             <i-feather  *ngIf="isAutorizado()" (click)="editar(agenda)" name="edit" class="feather-base">

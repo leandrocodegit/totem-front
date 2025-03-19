@@ -93,7 +93,7 @@ export class FormularioAgendaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.corService.listaTodasConfiguracoes().subscribe(response => this.cores = response.content);
+    this.corService.listaTodasConfiguracoes(false, false, false).subscribe(response => this.cores = response.content);
   }
 
   novaConfiguracao(){
@@ -151,11 +151,11 @@ export class FormularioAgendaComponent implements OnInit {
 
   adicionarDispositivo(dispositivo: Dispositivo){
     if(dispositivo.selecionado){
-      if(!this.agenda.dispositivos.find(device => device == dispositivo.mac)){
-        this.agenda.dispositivos.push(dispositivo.mac);
+      if(!this.agenda.dispositivos.find(device => device == dispositivo.id)){
+        this.agenda.dispositivos.push(dispositivo.id);
       }
     }else{
-        this.agenda.dispositivos = this.agenda.dispositivos.filter(device => device != dispositivo.mac);
+        this.agenda.dispositivos = this.agenda.dispositivos.filter(device => device != dispositivo.id);
     }
   }
 }

@@ -2,8 +2,8 @@
   <mat-card-content>
     <div class="box-botoes-direta">
       <h3>Configurações de cores</h3>
-      <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="adicionar()" type="submit">Nova configuração</button>
+      <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" routerLink="/configuracoes/nova" type="submit">Nova cor</button>
     </div>
-    <app-lista-cores></app-lista-cores>
+    <app-painel-cores></app-painel-cores>
   </mat-card-content>
 </mat-card>

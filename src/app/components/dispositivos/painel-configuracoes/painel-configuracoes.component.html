@@ -1,57 +1,19 @@
 <mat-card class="w-100">
   <mat-card-content>
-    <h4 class="mb-32">Configurações gerais</h4>
     <mat-tab-group mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect"
       (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Cores e efeitos">
-        <app-paramentros-cores *ngIf="dispositivo" [exibeSincronizar]="true"
-          [dispositivo]="dispositivo" [enviarConfiguracao]="enviarConfiguracao"></app-paramentros-cores>
-      </mat-tab>
-      <mat-tab label="Parametros">
-        @if(dispositivo && dispositivo.configuracao){
-        <div style="margin-top: 20px; display: flex;">
-          <p-checkbox [disabled]="!isAutorizado(true)" (click)="habilitarSincronismo()" [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
-        </div>
-        <div style="padding: 20px 0 0 0;max-width: 600px;">
-          <mat-form-field appearance="outline">
-            <mat-label>Padrão de cores</mat-label>
-            <mat-select required (selectionChange)="onSliderChange()" [(ngModel)]="dispositivo.configuracao.tipoCor">
-              <mat-option value="RGB">RGB</mat-option>
-              <mat-option value="GRB">GRB</mat-option>
-              <mat-option value="RBG">RBG</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" style="margin-right: 10px;">
-            <mat-label>Quantidade leds</mat-label>
-            <input (change)="onSliderChange()" matInput required [(ngModel)]="dispositivo?.configuracao.leds" type="number" placeholder="Nome">
-          </mat-form-field>
-          <div class="box-configuracao">
-            <h6>Intensidade</h6>
-            <div class="box-configuracao-item">
-              <span class="material-symbols-outlined cor">light_mode</span>
-              <mat-slider [max]="255" [step]="5">
-                <input (change)="onSliderChange()" matSliderThumb [(ngModel)]="dispositivo?.configuracao.intensidade"> </mat-slider>
-              <b>{{dispositivo?.configuracao.intensidade}}</b>
-            </div>
-          </div>
-          <div class="box-configuracao" style="margin-top: 11px;">
-            <h6>Faixa de leds</h6>
-            <div class="box-configuracao-item">
-              <span class="material-symbols-outlined cor">mitre</span>
-              <mat-slider [max]="(dispositivo.configuracao.leds / 2)" [step]="1" [min]="2">
-                <input (change)="onSliderChange()" matSliderThumb [(ngModel)]="dispositivo?.configuracao.faixa"> </mat-slider>
-              <b>{{dispositivo?.configuracao.faixa}}</b>
-            </div>
-          </div>
-          <div class="botoes">
-            <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvarConfiguracao()" type="submit">Salvar
-              configurações</button>
-          </div>
-        </div>
-      }
+        <br>
+        <app-lista-parametros [cor]="dispositivo?.cor"></app-lista-parametros>
       </mat-tab>
       <mat-tab label="Lista de cores">
         <app-lista-cores-dispositivo [dispositivo]="dispositivo" [tab]="tabSelect"></app-lista-cores-dispositivo>
+      </mat-tab>
+      <mat-tab label="Parametros">
+        @if (dispositivo) {
+        <app-parametros-dispositivo (salvarEmit)="salvarConfiguracao($event)"
+          [dispositivo]="dispositivo"></app-parametros-dispositivo>
+        }
       </mat-tab>
       <mat-tab label="Agendas">
         <app-lista-agenda-dispositivo></app-lista-agenda-dispositivo>

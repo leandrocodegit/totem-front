@@ -1,0 +1,7 @@
+<div class="cor-primaria-secundaria" style="display: flex;">
+  <div [style.background]="parametro?.corHexa[0]" style="border-radius: 10px 0 0 10px;"></div>
+  <div [style.background]="parametro?.efeito == 'COLORIDO' ? parametro?.corHexa[0] : parametro?.corHexa[1]"
+    style="border-radius: 0"></div>
+  <div [style.background]="parametro?.efeito == 'COLORIDO' ? parametro?.corHexa[0] : parametro?.corHexa[2]"
+    style="border-radius: 0 10px 10px 0;"></div>
+</div>

@@ -6,13 +6,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { TabelaDispositivosComponent } from '../../dispositivos/tabela-dispositivos/tabela-dispositivos.component';
 import { CorService } from '../../dispositivos/services/cor.service';
 import { MatCardModule } from '@angular/material/card';
 import { Cor } from '../../models/cor.model';
 import { ParamentrosCoresComponent } from '../paramentros-cores/paramentros-cores.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Parametro } from '../../models/parametro.model';
 
 @Component({
   selector: 'app-formulario-cores',
@@ -25,7 +25,6 @@ import { ToastModule } from 'primeng/toast';
     MatButtonModule,
     MatCheckboxModule,
     MatSelectModule,
-    TabelaDispositivosComponent,
     MatCardModule,
     ParamentrosCoresComponent,
     ToastModule
@@ -36,10 +35,11 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './formulario-cores.component.html',
   styleUrl: './formulario-cores.component.scss'
 })
-export class FormularioCorComponent implements OnInit {
+export class FormularioCorComponent {
 
 
-  protected cor: Cor;
+  protected cor?: Cor;
+  protected parametro?: Parametro;
 
   constructor(
     private readonly corService: CorService,
@@ -48,22 +48,17 @@ export class FormularioCorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     if (data) {
-      this.cor = JSON.parse(JSON.stringify(data));
-    } else {
-      this.cor = new Cor;
+      this.cor = data.cor;
+      this.parametro = data.parametro;
     }
   }
-
-  ngOnInit() {
-
-  }
-
 
   fechar() {
     this.dialogRef.close();
   }
 
   salvar() {
+    if(this.cor)
       this.corService.salvarCor(this.cor, false).subscribe(() => {
         this.messageService.add({
           severity: 'success',

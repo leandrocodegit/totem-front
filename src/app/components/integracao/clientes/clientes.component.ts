@@ -12,9 +12,9 @@ import { Integracao } from '../../models/integracao.model';
 import { IntegracaoService } from '../../dispositivos/services/integracao.service';
 import { MessageService } from 'primeng/api';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { FormularioClienteComponent } from '../formulario-cliente/formulario-cliente.component';
 import { MatButtonModule } from '@angular/material/button';
 import { PAGE_INIT } from '../../models/constantes/PageUtil';
+import { FormularioIntegracaoComponent } from '../formulario-integracao/formulario-integracao.component';
 
 @Component({
   selector: 'app-clientes',
@@ -80,7 +80,7 @@ export class ClientesComponent implements OnInit {
   }
 
   novaChave() {
-    var retorno = this.dialog.open(FormularioClienteComponent);
+    var retorno = this.dialog.open(FormularioIntegracaoComponent);
     retorno.afterClosed().subscribe(() => this.carregarIntegracoes());
   }
 

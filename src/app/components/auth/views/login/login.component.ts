@@ -11,6 +11,7 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { UserService } from '../../../usuarios/services/user.service';
+import { ClienteService } from 'src/app/components/dispositivos/services/cliente.service';
 
 @Component({
   selector: 'app-login',
@@ -33,14 +34,16 @@ import { UserService } from '../../../usuarios/services/user.service';
 })
 export class LoginComponent {
 
-  protected email = '';
-  protected password = '';
+  protected email = 'master';
+  protected password = 'Master@1520';
+  //protected email = 'lpoliveira.ti@gmail.com';
+  //protected password = 'Pass2020!@#$';
   protected isError = false;
   protected isLoad = false;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
+    private clienteService: ClienteService,
     private router: Router
   ) { }
 
@@ -48,9 +51,9 @@ export class LoginComponent {
 
     this.isLoad = true;
     this.isError = false;
-
     this.authService.login(this.email, this.password).subscribe((response: any) => {
       this.authService.setTokens(response);
+      this.buscarDadosDoCliente();
       this.isError = false;
       this.isLoad = false;
       this.router.navigate([`/dashboard`]);
@@ -58,5 +61,15 @@ export class LoginComponent {
       this.isError = true;
       this.isLoad = false;
     });
+  }
+
+
+  private buscarDadosDoCliente(){
+    this.clienteService.buscarClienteLogado().subscribe(response => {
+        this.authService.setCliente({
+          nome: response.nome,
+          endereco: response.endereco ? response.endereco?.street + ' ' + response.endereco?.numero + ' ' + response.endereco?.city + ' - ' + response.endereco?.state : ''
+        })
+    })
   }
 }

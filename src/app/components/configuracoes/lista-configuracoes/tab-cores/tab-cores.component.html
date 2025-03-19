@@ -1,0 +1,20 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <mat-tab-group mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect"
+      (selectedTabChange)="onTabChange($event)">
+      <mat-tab label="Cores">
+        <app-lista-cores  *ngIf="tabSelect == 0"></app-lista-cores>
+      </mat-tab>
+      <mat-tab label="Dispositivos">
+        <app-lista-cores  *ngIf="tabSelect == 1" [exclusiva]="true"></app-lista-cores>
+      </mat-tab>
+      <mat-tab label="Evento">
+        <app-lista-cores  *ngIf="tabSelect == 2" [vibracao]="true"></app-lista-cores>
+      </mat-tab>
+      <mat-tab label="Rápidas">
+        <app-lista-cores *ngIf="tabSelect == 3" [rapida]="true"></app-lista-cores>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+

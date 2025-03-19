@@ -7,7 +7,6 @@ import { User } from '../../../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioUsuarioComponent } from '../formulario-usuario/formulario-usuario.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { DatePipe } from '@angular/common';
 import { Role, RoleDescriptions } from '../../../../model/constantes/role.enum';
 import { environment } from '../../../../../environments/environment.prod';
 import { UserService } from '../../services/user.service';
@@ -19,8 +18,7 @@ import { UserService } from '../../services/user.service';
     MatCardModule,
     MatButtonModule,
     IconsModule,
-    MatChipsModule,
-    DatePipe
+    MatChipsModule
   ],
   templateUrl: './perfil-usuario.component.html',
   styleUrl: './perfil-usuario.component.scss'

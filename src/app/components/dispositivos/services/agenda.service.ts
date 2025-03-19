@@ -47,11 +47,11 @@ export class AgendaService {
     return this.http.get<Page<Agenda>>(`${environment.urlApi}/agenda?page=${page?.pageIndex}&size=${page?.pageSize}&sort=${sort?.active},${sort?.direction}`, environment.headers)
   }
 
-  public listaTodosAgendasPorDispositivo(mac: string): Observable<Agenda[]> {
-    return this.http.get<Agenda[]>(`${environment.urlApi}/agenda/dispositivo/${mac}`, environment.headers)
+  public listaTodosAgendasPorDispositivo(id: number): Observable<Agenda[]> {
+    return this.http.get<Agenda[]>(`${environment.urlApi}/agenda/dispositivo/${id}`, environment.headers)
   }
 
-  public listaTodosAgendasPorConfiguracao(id: string): Observable<Agenda[]> {
+  public listaTodosAgendasPorConfiguracao(id: number): Observable<Agenda[]> {
     return this.http.get<Agenda[]>(`${environment.urlApi}/agenda/dispositivo/${id}`, environment.headers)
   }
 

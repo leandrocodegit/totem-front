@@ -1,4 +1,4 @@
-<h2 style="margin: 10px 0;">{{dispositivo?.mac}}</h2>
+<h2 style="margin: 10px 0;">{{dispositivo?.id}}</h2>
 @if(dispositivo?.enderecoCompleto && dispositivo?.enderecoCompleto.length > 10){
 <p style="font-weight: 600; color: #008eff;margin: 20px 0;text-align: left;">{{dispositivo?.enderecoCompleto}}
 </p>
@@ -23,7 +23,7 @@
   @for (item of mensagens; track $index) {
     <li>{{item}}</li>
   }
-</ol> 
+</ol>
 <div class="botoes">
   <button [disabled]="!selectedFile" mat-raised-button class="me-8 mb-8" color="accent" (click)="uploadFile()" type="submit">Atualizar firmware</button>
 </div>

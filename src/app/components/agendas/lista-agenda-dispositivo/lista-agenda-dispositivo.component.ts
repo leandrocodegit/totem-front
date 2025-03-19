@@ -22,6 +22,7 @@ import { ConfirmacaoComponent } from '../../util/confirmacao/confirmacao.compone
 import { TooltipModule } from 'primeng/tooltip';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
+import { LabelCorComponent } from '../../configuracoes/label-cor/label-cor.component';
 
 @Component({
   selector: 'app-lista-agenda-dispositivo',
@@ -39,7 +40,8 @@ import { Role } from 'src/app/model/constantes/role.enum';
     ToastModule,
     ProximasAgendasComponent,
     MatSortModule,
-    TooltipModule
+    TooltipModule,
+    LabelCorComponent
   ],
   providers: [
     MessageService,
@@ -152,9 +154,7 @@ export class ListaAgendaDispositivoComponent {
 
 
   salvar(agenda: Agenda) {
-
     this.agendaService.alterarAgenda(agenda, false).subscribe(() => {
-
     }, fail => {
       console.log('Falaha ao salvar configuração');
 

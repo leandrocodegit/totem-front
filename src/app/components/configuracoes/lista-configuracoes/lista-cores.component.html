@@ -5,9 +5,9 @@
         <th *ngIf="modoAll" mat-sort-header="rapida">Rápida</th>
         <th *ngIf="!modoAll" style="width: 10px;"></th>
         <th mat-sort-header="nome">Nome</th>
-        <th>Efeito</th>
-        <th>Cores</th>
-        <th mat-sort-header="velocidade">Velocidade</th>
+        <th>Time</th>
+        <th>Velocidade</th>
+        <th>Parametros</th>
         <th></th>
       </tr>
     </thead>
@@ -19,16 +19,14 @@
             [checked]="cor.id == idSelecionado" [value]="cor.id"></mat-radio-button>
         </td>
         <td>{{cor.nome}}</td>
-        <td>{{getTradutor(undefined, cor.efeito)}}</td>
-        <td>
-          <div class="cor-primaria-secundaria" style="display: flex;">
-            <div [style.background]="cor.primaria" style="border-radius: 10px 0 0 10px;"></div>
-            <div [style.background]="cor?.efeito == 'COLORIDO' ? cor.primaria : cor.secundaria" style="border-radius: 0 10px 10px 0;"></div>
-          </div>
-        </td>
+        <td>{{cor.time}}</td>
         <td>{{cor.velocidade}}</td>
+        <td>{{cor.parametros ? cor.parametros?.length : 0}}</td>
         <td>
-          <i-feather *ngIf="modoAll && isAutorizado(true)" (click)="editar(cor)" name="edit" class="feather-base">
+
+          <i-feather *ngIf="modoAll && isAutorizado(true)" routerLink="/configuracoes/{{cor.id}}" name="edit" class="feather-base">
+          </i-feather>
+          <i-feather *ngIf="modoAll && isAutorizado(true)" routerLink="/configuracoes/parametros/{{cor.id}}" name="settings" class="feather-base">
           </i-feather>
           <i-feather *ngIf="isAutorizado(true)" (click)="remover(cor)" name="trash" class="feather-base">
           </i-feather>

@@ -66,7 +66,7 @@ export class TesteDispositivoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mqttSevice.observe(`device/send/${this.dispositivo?.mac}`).subscribe((message: any) => {
+    this.mqttSevice.observe(`device/send/${this.dispositivo?.id}`).subscribe((message: any) => {
       const jsonString = String.fromCharCode(...message.payload);
       const payload = JSON.parse(jsonString);
       if (payload && payload.comando && payload.comando == 'ACEITO') {
@@ -87,7 +87,7 @@ export class TesteDispositivoComponent implements OnInit {
   }
 
   testar() {
-    this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo?.mac}`, `{
+   /*  this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo?.id}`, `{
       "efeito": "TESTE",
       "cor": [${this.dispositivo?.cor.cor}],
       "leds": ${this.dispositivo?.configuracao.leds},
@@ -98,7 +98,7 @@ export class TesteDispositivoComponent implements OnInit {
       "host": "",
       "responder": true }
       `);
-    this.start();
+    this.start(); */
   }
 
   start() {

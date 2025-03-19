@@ -1,0 +1,31 @@
+<!-- Form Layout -->
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <h3 class="mb-32">Cadastro de cliente</h3>
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input [(ngModel)]="cliente.nome" required matInput type="text" placeholder="Nome">
+      </mat-form-field>
+      <div style="display: flex;">
+        @if (load) {
+        <app-endereco [endereco]="cliente?.endereco"></app-endereco>
+        }@else {
+        <app-endereco [endereco]="cliente?.endereco"></app-endereco>
+        }
+        <div style="display: flex; flex-direction: column;justify-content: space-between">
+          <p-checkbox [(ngModel)]="cliente.ativo" label="Cliente ativo" [style]="{'margin': '0 10px'}"
+            [binary]="true" />
+          <div class="botoes" style="margin-bottom: 12px;">
+            <button mat-raised-button class="me-8 mb-8" color="basic" routerLink="/clientes/lista" mat-dialog-close
+              type="submit">fechar</button>
+            <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </mat-card-content>
+</mat-card>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />

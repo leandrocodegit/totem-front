@@ -19,6 +19,7 @@ import { MqttAppModule } from 'src/app/mqtt-app.module';
 import { NgIf } from '@angular/common';
 import { LogService } from '../dispositivos/services/log.service';
 import { Log } from '../models/log.model';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -61,6 +62,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private readonly mqttSevice: MqttService,
     private readonly agendaService: AgendaService,
     private readonly logService: LogService,
+    private readonly authService: AuthService,
     private primengConfig: PrimeNGConfig) { }
 
     ngOnInit(): void {
@@ -69,7 +71,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    this.mqttSevice.observe(`dashboard`).subscribe((message: any) => {
+    this.mqttSevice.observe(`dashboard/${this.authService.extrairClienteId}`).subscribe((message: any) => {
       if (message) {
         this.carregarDashboard();
       }
@@ -250,31 +252,31 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.cores.datasets[0].backgroundColor.push('#f0f0f0');
     }
 
-    if (this.dashboard.agendas.length) {
+    if (this.dashboard?.agendas?.length) {
       this.dashboard.agendas.forEach(agenda => {
         this.agendas.datasets[0].data.push(agenda.quantidade);
         this.agendas.datasets[0].backgroundColor.push(agenda.item);
       })
     } else {
       this.agendas.datasets[0].data.push(1);
-      this.agendas.datasets[0].backgroundColor.push('#f0f0f0');
+      this.agendas.datasets[0].backgroundColor.push('transparent');
     }
 
-    if (this.dashboard.agendasExecucao.length) {
+    if (this.dashboard?.agendasExecucao?.length) {
       this.dashboard.agendasExecucao.forEach(agenda => {
         this.agendasExecucao.datasets[0].data.push(agenda.quantidade);
         this.agendasExecucao.datasets[0].backgroundColor.push(agenda.item);
       })
     } else {
       this.agendasExecucao.datasets[0].data.push(1);
-      this.agendasExecucao.datasets[0].backgroundColor.push('#f0f0f0');
+      this.agendasExecucao.datasets[0].backgroundColor.push('transparent');
 
     }
     this.load = false;
   }
 
   getQuantidadeCores(){
-   return  this.dashboard.cores.map(cor => cor.quantidade).reduce((a,b) => a + b);
+   return  this.dashboard?.cores.map(cor => cor.quantidade)?.reduce((a,b) => a + b);
   }
 
 carregarDashboard(){
@@ -289,13 +291,19 @@ carregarDashboard(){
 }
 
   quantidadeAgendas() {
-    if (!this.dashboard.agendas.length)
+    if (!this.dashboard?.agendas?.length)
+      return 0;
+    const validas = this.dashboard.agendas.filter(cor => cor.item != 'transparent');
+    if(!validas.length)
       return 0;
     return this.dashboard.agendas.map(agenda => agenda.quantidade).reduce((a, b) => a + b);
   }
 
   quantidadeAgendasExecucao() {
     if (!this.dashboard.agendasExecucao || !this.dashboard.agendasExecucao.length)
+      return 0;
+    const validas = this.dashboard.agendasExecucao.filter(cor => cor.item != 'transparent');
+    if(!validas.length)
       return 0;
     return this.dashboard.agendasExecucao.map(agenda => agenda.quantidade).reduce((a, b) => a + b);
   }

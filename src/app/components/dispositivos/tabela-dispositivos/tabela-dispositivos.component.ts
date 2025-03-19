@@ -26,6 +26,8 @@ import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
 import { Endereco } from '../../models/endereco.model';
+import { Parametro } from '../../models/parametro.model';
+import { Tipoconfiguracao } from '../../models/constantes/tipo-configuracao';
 var initDialog = true;
 
 @Component({
@@ -115,7 +117,7 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
     this.dispositivoService.listaTodosDispositivosFiltro(Filtro.ATIVO).subscribe(response => {
       this.dispositivos = response.content;
       this.dispositivos.forEach(it => {
-        if (this.agenda?.dispositivos.find(device => device === it.mac)) {
+        if (this.agenda?.dispositivos.find(device => device === it.id)) {
           it.selecionado = true;
         }
         else {
@@ -128,7 +130,7 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
   contemNaAgenda(dispositivo: Dispositivo){
     if (!this.checkEmit || !this.agenda)
       return false;
-    return (this.agenda?.dispositivos.find(mac => mac == dispositivo.mac));
+    return (this.agenda?.dispositivos.find(device => device == dispositivo.id));
 
   }
 
@@ -154,11 +156,11 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
     initDialog = true;
   }
 
-  getTradutor(comando?: Comando, cor?: Cor) {
+  getTradutor(comando?: Comando, parametro?: Parametro) {
     if (comando)
       return ComandoValue[comando];
-    else if (cor)
-      return EfeitoValue[cor.efeito!];
+    else if (parametro)
+      return EfeitoValue[parametro.efeito!];
     return '';
   }
 
@@ -170,9 +172,17 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
     }
   }
 
+  getCor(dispositivo: Dispositivo){
+    if(dispositivo.operacao.modoOperacao == 'TEMPORIZADOR')
+      return dispositivo.operacao.corTemporizador;
+    else if(dispositivo.operacao.modoOperacao == 'AGENDA')
+      return dispositivo.operacao.agenda.cor;
+    return dispositivo.cor;
+  }
+
   mudarStatus(dispositivo: Dispositivo) {
     dispositivo.ativo = !dispositivo.ativo;
-    this.dispositivoService.mudarStatus(dispositivo.mac).subscribe(() => {
+    this.dispositivoService.mudarStatus(dispositivo.id).subscribe(() => {
 
     }, error => {
       this.messageService.add({
@@ -208,7 +218,7 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
     retorno.afterClosed().subscribe((data) => {
       if(data){
         this.dispositivos.find((device, index) => {
-          if(device.mac == data.mac)
+          if(device.id == data.id)
             this.dispositivos[index] = data;
         });
       }
@@ -218,7 +228,7 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
 
   sincronizar(dispositivo: Dispositivo, teste: boolean) {
     try {
-      this.comandoService.sincronizarDispositivo(dispositivo.mac).subscribe({
+      this.comandoService.sincronizarDispositivo(dispositivo.id, Tipoconfiguracao.LED).subscribe({
         next: (data) => {
         },
         complete: () => {
@@ -242,18 +252,27 @@ export class TabelaDispositivosComponent implements OnInit, OnDestroy {
 
   comandoRapido(dispositivo: Dispositivo, teste: boolean) {
     if (dispositivo.permiteComando && dispositivo.conexao.status == 'Online') {
-      this.route.navigate(['/comandos/' + dispositivo.mac]);
+      this.route.navigate(['/comandos/' + dispositivo.id]);
     } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Alerta',
-        detail: !dispositivo.permiteComando ? 'Dispositivo não permite o envio de comando' : 'Dispositivo offline'
-      });
+
+      if(dispositivo.conexao.tipoConexao == 'LORA'){
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Alerta',
+          detail: 'Opção não disponivel na conexão LoraWan'
+        });
+      }else{
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Alerta',
+          detail: !dispositivo.permiteComando ? 'Dispositivo não permite o envio de comando' : 'Dispositivo offline'
+        });
+      }
     }
   }
 
   configurar(dispositivo: Dispositivo) {
-    this.route.navigate(['/dispositivos/configuracoes/' + dispositivo.mac]);
+    this.route.navigate(['/dispositivos/configuracoes/' + dispositivo.id]);
   }
 
   selecionarDispositivo(dispositivo: Dispositivo) {

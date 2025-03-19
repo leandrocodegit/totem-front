@@ -8,7 +8,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } fro
 import { AuthInterceptor } from './components/auth/services/auth.interceptor';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 import { MqttService } from 'ngx-mqtt';
+import { NgxMaskConfig, provideEnvironmentNgxMask } from 'ngx-mask';
 
+const maskConfig: Partial<NgxMaskConfig> = {
+  validation: false,
+};
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -18,11 +22,12 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 export const appConfig: ApplicationConfig = {
   providers: [
     MqttService,
-    provideRouter(routes), 
+    provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     importProvidersFrom(HttpClientModule),
+    provideEnvironmentNgxMask(maskConfig),
      {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

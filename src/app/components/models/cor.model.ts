@@ -1,40 +1,37 @@
-import { Efeito } from "./constantes/Efeito";
+import { Parametro } from "./parametro.model";
 export class Cor {
   id: string;
   nome: string;
-  cor: number[];
-  primaria: string;
-  secundaria: String;
-  velocidade: number;
-  correcao: number[];
-  efeito?: Efeito;
-  mac: string;
+  deviceId: number;
   time: number;
   rapida: boolean;
+  vibracao: boolean;
+  exclusiva: boolean;
+  velocidade: number;
+  quantidadePinos: number;
+  parametros: Parametro[];
 
   constructor(
     id = '',
     nome = '',
-    cor = [0,0,255,255,0,0],
-    primaria = 'blue',
-    secundaria = 'red',
-    velocidade = 100,
-    correcao = [255,255,255],
-    efeito = Efeito.COLORIDO,
-    mac = '',
+    deviceId = 0,
     time = 1,
-    rapida = false
+    rapida = false,
+    vibracao = false,
+    exclusiva = false,
+    velocidade = 0,
+    quantidadePinos = 0,
+    parametros = []
   ) {
     this.id = id;
     this.nome = nome;
-    this.cor = cor;
-    this.primaria = primaria;
-    this.secundaria = secundaria;
-    this.velocidade = velocidade;
-    this.correcao = correcao;
-    this.efeito = efeito;
-    this.mac = mac;
+    this.deviceId = deviceId;
     this.time = time;
     this.rapida = rapida;
+    this.vibracao = vibracao;
+    this.exclusiva = exclusiva;
+    this.velocidade = velocidade;
+    this.quantidadePinos = quantidadePinos;
+    this.parametros = parametros;
   }
 }

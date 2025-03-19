@@ -1,0 +1,29 @@
+<div style="padding: 15px;height: 65vh;">
+  <app-informacoes-dispositivo [dispositivo]="dispositivo"></app-informacoes-dispositivo>
+  @if(this.dispositivo?.conexao.tipoConexao != 'LORA' && this.dispositivo?.conexao.status == 'Online'){
+  <div style="height: 100%;max-height: 850px;overflow-y: auto;">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Mensagem</th>
+          <th style="width: 10px;cursor: pointer;" (click)="mensagens = []"><mat-icon fontIcon="restart_alt"></mat-icon></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mensagem of mensagens.slice().reverse()">
+          <td colspan="2">{{mensagem}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  }@else if(this.dispositivo?.conexao.tipoConexao != 'LORA') {
+  <div class="alert alert-warning">
+    <strong>Debug!</strong> Não é possivel fazer debug quando dispositivo estiver no modo LoraWan
+  </div>
+  }@else if(this.dispositivo?.conexao.status == 'Offline') {
+    <div class="alert alert-warning">
+      <strong>Debug!</strong> Dispositivo offline
+    </div>
+    }
+
+</div>

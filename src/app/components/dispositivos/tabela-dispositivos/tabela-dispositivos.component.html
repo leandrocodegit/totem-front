@@ -4,13 +4,12 @@
         <th *ngIf="!checkEmit"></th>
         <th *ngIf="checkEmit" style="width: 10px;"></th>
         <th mat-sort-header="nome">Nome</th>
-        <th mat-sort-header="mac">Mac</th>
+        <th mat-sort-header="id">Id</th>
         <th>Status</th>
         <th mat-sort-header="status">Conexão</th>
-        <th *ngIf="!checkEmit">Efeito</th>
+        <th>Interface</th>
         <th>Operação</th>
-        <th mat-sort-header="configuracao.intensidade">Intensidade</th>
-        <th mat-sort-header="configuracao.leds">Leds</th>
+        <th>Cor</th>
         <th>Endereço</th>
         <th *ngIf="exibirAcoes"></th>
       </tr>
@@ -29,7 +28,7 @@
           <p-checkbox  (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
         </td>
         <td>{{device.nome}}</td>
-        <td>{{device.mac}}</td>
+        <td>{{device.id}}</td>
         <td>
           @if(device.ativo){
           <span class="badge badge-info rounded-pill">Ativo</span>
@@ -40,15 +39,15 @@
         <td>
           @if(device.conexao?.status == 'Online'){
           <span class="badge badge-success rounded-pill">Online</span>
-          }@else{
+          }@else if(device.conexao?.status == 'Offline'){
           <span class="badge badge-danger rounded-pill">Offline</span>
-          }
+          }@else {
+            <span class="badge badge-warn rounded-pill">Espera</span>
+            }
         </td>
-        <td tooltipPosition="top" [pTooltip]="device.cor?.nome" *ngIf="!checkEmit">{{getTradutor(undefined,
-          device.cor)}}</td>
+        <td>{{device.conexao.tipoConexao}}</td>
         <td>{{getModoOperacao(device)}}</td>
-        <td>{{device.configuracao?.intensidade}}</td>
-        <td>{{device.configuracao?.leds}}</td>
+        <td>{{getCor(device)?.nome}}</td>
         <td style="font-size: 11px;color: rgb(114, 139, 250); max-width: 220px;">{{device.enderecoCompleto}}</td>
         <td *ngIf="exibirAcoes">
           <i-feather tooltipPosition="top" pTooltip="Enviar comando de teste"

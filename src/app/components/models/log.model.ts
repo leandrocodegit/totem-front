@@ -4,7 +4,7 @@ import { Dispositivo } from "./dispositivo.model";
 
 
 export interface Log {
-  id: string;
+  id: number;
   usuario: string;
   descricao: string;
   comando: Comando;

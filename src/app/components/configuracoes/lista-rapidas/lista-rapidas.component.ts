@@ -42,7 +42,7 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
   protected aguardandoResposta = false;
   protected logs: Log[] = [];
   protected corSelecionada: any;
-  protected mac: any;
+  protected id: any;
   protected interval: any;
   protected timer: any;
 
@@ -92,16 +92,16 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.aguardandoResposta = false;
-    this.corService.listaTodasCoresRapidas().subscribe(response => this.cores = response)
+    this.corService.listaTodasConfiguracoes(true, false, false).subscribe(response => this.cores = response.content)
     this.routerActive.params.subscribe(param => {
-      this.mac = param['mac'];
+      this.id = param['id'];
       this.carregarDispositivo();
     });
     this.carregarLogs();
   }
 
   carregarDispositivo() {
-    this.dispositivoService.buscarDicpositivo(this.mac).subscribe(response => {
+    this.dispositivoService.buscarDicpositivo(this.id).subscribe(response => {
       this.dispositivo = response;
       if (this.dispositivo.operacao.modoOperacao == 'TEMPORIZADOR') {
         this.corSelecionada = this.dispositivo.operacao.corTemporizador.id;
@@ -127,8 +127,8 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
       }, 30000)
       this.acao = true;
       this.aguardandoResposta = true;
-      if (this.dispositivo && this.dispositivo.mac) {
-        this.comandoService.enviarComandoRapido(cor, this.dispositivo.mac).subscribe({
+      if (this.dispositivo && this.dispositivo.id) {
+        this.comandoService.enviarComandoRapido(cor, this.dispositivo.id).subscribe({
           complete: () => {
             this.aguardandoResposta = false;
           },
@@ -143,7 +143,7 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
     this.acao = false;
     this.corSelecionada = '';
     this.aguardandoResposta = true;
-    this.comandoService.cancelarComandoRapido(this.dispositivo!.mac).subscribe({
+    this.comandoService.cancelarComandoRapido(this.dispositivo!.id).subscribe({
       complete: () => {
         this.aguardandoResposta = false;
       },

@@ -41,6 +41,9 @@
   font-weight: 300;
 }
 
-.badge-warn {
-  background-color: #ffa601;
+.badge-warn { 
+  border: solid #f5c15f thin;
+  background: transparent;
+  color: #f5c15f;
+  font-weight: 300;
 }

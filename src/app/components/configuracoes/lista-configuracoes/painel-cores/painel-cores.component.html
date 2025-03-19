@@ -1,0 +1,18 @@
+<mat-card class="w-100">
+  <mat-card-content>
+    <h4 class="mb-32">Configurações gerais</h4>
+    <mat-tab-group mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect"
+      (selectedTabChange)="onTabChange($event)">
+      <mat-tab label="Cores">
+        <app-lista-cores></app-lista-cores>
+      </mat-tab>
+      <mat-tab label="Cores de evento">
+      </mat-tab>
+      <mat-tab label="Cores dispositivos">
+
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
+

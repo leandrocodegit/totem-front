@@ -14,6 +14,7 @@ import { Page } from '../../models/Page';
 import { Sort } from '@angular/material/sort';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../auth/services/auth.service';
+import { Tipoconfiguracao } from '../../models/constantes/tipo-configuracao';
 
 
 
@@ -35,14 +36,14 @@ export class ComandoService {
     return `?token=${this.authService.comandoToken}`
   }
 
-  public criarTemporizador(idCor: string, mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.urlbroker}/temporizar/${idCor}/${mac}${this.getParaToken()}`)
+  public criarTemporizador(idCor: string, id: number): Observable<any> {
+    return this.http.get<any>(`${environment.urlbroker}/temporizar/${idCor}/${id}${this.getParaToken()}`)
   }
 
-  public sincronizarDispositivo(mac: string): Observable<any> {
+  public sincronizarDispositivo(id: number, tipo: Tipoconfiguracao): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/${mac}${this.getParaToken()}`, {
+      const eventSource = new EventSource(`${environment.urlbroker}/${id}/${tipo}${this.getParaToken()}`, {
         withCredentials: false,
       });
 
@@ -87,10 +88,10 @@ export class ComandoService {
     })
   }
 
-  public enviarComandoRapido(idCor: string, mac: string): Observable<any> {
+  public enviarComandoRapido(idCor: string, id: number): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${idCor}/${mac}${this.getParaToken()}`, {
+      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${idCor}/${id}${this.getParaToken()}`, {
         withCredentials: false
       });
 
@@ -110,10 +111,10 @@ export class ComandoService {
     })
   }
 
-  public cancelarComandoRapido(mac: string): Observable<any> {
+  public cancelarComandoRapido(id: number): Observable<any> {
 
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${mac}${this.getParaToken()}`, {
+      const eventSource = new EventSource(`${environment.urlbroker}/flux/temporizar/${id}${this.getParaToken()}`, {
         withCredentials: false
       });
 
@@ -136,17 +137,17 @@ export class ComandoService {
     return this.http.get<any>(`${environment.urlApi}/comando/sincronizar/false${this.getParaToken()}`, environment.headers)
   }
 
-  public enviarComandoTemporizado(idCor: string, mac: string, cancelar: boolean): Observable<any> {
+  public enviarComandoTemporizado(idCor: string, id: number, cancelar: boolean): Observable<any> {
     return this.http.post<any>(`${environment.urlApi}/cor/temporizar${this.getParaToken()}`, {
       idCor: idCor,
-      mac: mac,
+      id: id,
       cancelar: cancelar
     })
   }
 
-  public testar(mac: string): Observable<any> {
+  public testar(id: number): Observable<any> {
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/teste/${mac}${this.getParaToken()}`, {
+      const eventSource = new EventSource(`${environment.urlbroker}/teste/${id}${this.getParaToken()}`, {
         withCredentials: false
       });
 
@@ -165,20 +166,20 @@ export class ComandoService {
     })
   }
 
-  public uploadFirmware(mac: string, file: File): Observable<any> {
+  public uploadFirmware(id: number, file: File): Observable<any> {
 
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<any>(`${environment.url}/firmware/upload/${mac}${this.getParaToken()}`, formData)
+    return this.http.post<any>(`${environment.url}/firmware/upload/${id}${this.getParaToken()}`, formData)
   }
 
-  public updateFirmware(mac: string): Observable<any> {
-    return this.http.get<any>(`${environment.url}/firmware/update/${mac}${this.getParaToken()}`)
+  public updateFirmware(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.url}/firmware/update/${id}${this.getParaToken()}`)
   }
 
 /*   public updateFirmware(response: any): Observable<any> {
     return new Observable<any>(obs => {
-      const eventSource = new EventSource(`${environment.urlbroker}/firmware/update/${response.mac}${this.getParaToken()}`);
+      const eventSource = new EventSource(`${environment.urlbroker}/firmware/update/${response.id}${this.getParaToken()}`);
 
       eventSource.addEventListener('message', (evt: any) => {
         response.data = evt.data;

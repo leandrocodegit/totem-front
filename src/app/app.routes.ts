@@ -16,6 +16,14 @@ import { PerfilUsuarioComponent } from './components/usuarios/views/perfil-usuar
 import { SicronizarDipositivosComponent } from './components/sincronizar/sicronizar-dipositivos/sicronizar-dipositivos.component';
 import { ClientesComponent } from './components/integracao/clientes/clientes.component';
 import { ListaRapidasComponent } from './components/configuracoes/lista-rapidas/lista-rapidas.component';
+import { ListaParametrosComponent } from './components/configuracoes/lista-parametros/lista-parametros.component';
+import { PainelCoresComponent } from './components/configuracoes/painel-cores/painel-cores.component';
+import { CriarCorComponent } from './components/configuracoes/criar-cor/criar-cor.component';
+import { PainelClienteComponent } from './components/clientes/painel-cliente/painel-cliente.component';
+import { ListaClientesComponent } from './components/clientes/lista-clientes/lista-clientes.component';
+import { FormularioClienteComponent } from './components/clientes/formulario-cliente/formulario-cliente.component';
+import { PainelMapaComponent } from './components/mapa/painel-mapa/painel-mapa.component';
+import { DebugComponent } from './components/dispositivos/debug/debug.component';
 
 
 export const routes: Routes = [
@@ -24,6 +32,14 @@ export const routes: Routes = [
   {
     path: '', component: SidebarComponent,
     children: [
+      {
+        path: 'clientes', component: PainelClienteComponent,
+        children: [
+          { path: '', redirectTo: 'lista', pathMatch: 'full' },
+          { path: "lista", component: ListaClientesComponent },
+          { path: "lista/:id", component: FormularioClienteComponent },
+        ]
+      },
       {
         path: 'dispositivos', component: PainelDipositivosComponent,
         children: [
@@ -40,24 +56,31 @@ export const routes: Routes = [
         ]
       },
       {
-        path: "dispositivos/configuracoes/:mac", component: PainelConfiguracoesComponent
+        path: "dispositivos/configuracoes/:id", component: PainelConfiguracoesComponent
       },
       {
-        path: "dispositivos/configuracoes/:mac/:tab", component: PainelConfiguracoesComponent
+        path: "dispositivos/configuracoes/:id/:tab", component: PainelConfiguracoesComponent
       },
       {
         path: "dashboard", component: DashboardComponent
       },
       { path: "agendas", component: ListaAgendaDispositivoComponent },
-      { path: "comandos/:mac", component: ListaRapidasComponent },
-      { path: "configuracoes", component: CardConfiguracoesComponent },
-      { path: "mapa", component: ContentMapaComponent },
+      { path: "comandos/:id", component: ListaRapidasComponent },
+      { path: "configuracoes", component: PainelCoresComponent,
+        children: [
+        { path: '', component: CardConfiguracoesComponent },
+        { path: 'nova', component: CriarCorComponent },
+        { path: ':cor', component: CriarCorComponent },
+        { path: 'parametros/:cor', component: ListaParametrosComponent }
+      ]},
+      { path: "mapa", component: PainelMapaComponent },
       { path: "detalhes", component: DetalhesDispositivoComponent },
       { path: 'perfil', component: PerfilUsuarioComponent},
       {path: 'sincronizar', component: SicronizarDipositivosComponent},
       {path: 'integracao', component: ClientesComponent},
     ],
   },
+  { path: 'debug/:id',component: DebugComponent },
   { path: 'login', component: LoginComponent },
   { path: '**',  redirectTo: 'dashboard', pathMatch: 'full' },
 
