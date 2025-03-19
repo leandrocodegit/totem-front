@@ -77,6 +77,10 @@ export class FormularioClienteComponent implements OnInit {
     return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
   }
 
+  isRoot() {
+    return this.authService.isAuthorizedRoles([Role.ROLE_ROOT])
+  }
+
   salvar() {
 
       this.clienteService.salvarCleinte(this.cliente).subscribe((response) => {

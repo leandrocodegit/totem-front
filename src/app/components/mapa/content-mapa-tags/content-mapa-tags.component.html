@@ -16,7 +16,7 @@
             fontIcon="search"></mat-icon>
         </mat-form-field>
       </div>
-      @for (item of [{nome: '1º Andar', planta: 'planta.webp'}, {nome: '2º Andar', planta: 'planta2.jpg'}, {nome: '3º Andar', planta: 'planta3.jpg'}]; track $index) {
+      @for (item of [{nome: '1º Andar', planta: 'planta.webp'}, {nome: '3º Andar', planta: 'planta3.jpg'}]; track $index) {
         <div (click)="selecionarPlanta(item)" class="tag-item" [style.background]="planta == item.nome ? '#7292fa61' : 'transparent'">
           <p>{{item.nome}}</p>
           <span>Tags: 2</span>

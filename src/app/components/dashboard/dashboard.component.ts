@@ -270,12 +270,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     } else {
       this.agendasExecucao.datasets[0].data.push(1);
       this.agendasExecucao.datasets[0].backgroundColor.push('transparent');
+    }
 
+    if(!this.conexoes.length){
+        this.conexoes.datasets[0].data.push(1);
+        this.conexoes.datasets[0].backgroundColor.push('transparent');
     }
     this.load = false;
   }
 
   getQuantidadeCores(){
+    if(!this.dashboard?.cores?.length)
+      return 0;
    return  this.dashboard?.cores.map(cor => cor.quantidade)?.reduce((a,b) => a + b);
   }
 
