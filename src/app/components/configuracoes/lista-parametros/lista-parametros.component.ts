@@ -38,7 +38,10 @@ import { LabelCorComponent } from '../label-cor/label-cor.component';
 export class ListaParametrosComponent implements OnInit {
 
   @Input() cor?: Cor;
-  @Input() exibirBotoes = true;
+  @Input() exibirBotoes = {
+    add: true,
+    back: true
+  };
   @Input() edicao = true;
 
   constructor(
@@ -52,9 +55,6 @@ export class ListaParametrosComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    if(this.router.url.includes('dispositivos'))
-      this.exibirBotoes = false;
-
     if (!this.cor?.id)
       this.route.params?.subscribe(params => {
         if (params['cor'] != undefined) {

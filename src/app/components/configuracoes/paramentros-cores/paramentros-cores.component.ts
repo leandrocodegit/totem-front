@@ -62,7 +62,7 @@ export class ParamentrosCoresComponent implements OnInit {
     value: false
   };
   @Input() exibeSincronizar = false;
-  @Input() exibirBotoes = true;
+  @Input() exibirBotoes = {add: true, back: true};
   protected tipoComando = Tipoconfiguracao.LED;
 
   constructor(
@@ -238,7 +238,7 @@ export class ParamentrosCoresComponent implements OnInit {
       }
     });
   }
- 
+
   salvar() {
     this.initCores();
     if (this.parametro && !this.contemPino(this.parametro.pino)) {

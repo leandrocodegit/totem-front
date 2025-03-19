@@ -49,6 +49,7 @@ import { ParametrosDispositivoComponent } from '../parametros-dispositivo/parame
     MqttAppModule,
     AtualizarFirmwareComponent,
     ParametrosDispositivoComponent
+
   ],
   providers: [
     MessageService,

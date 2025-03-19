@@ -4,7 +4,7 @@
       (selectedTabChange)="onTabChange($event)">
       <mat-tab label="Cores e efeitos">
         <br>
-        <app-lista-parametros [cor]="dispositivo?.cor"></app-lista-parametros>
+        <app-lista-parametros [exibirBotoes]="{add: true, back: false}" [cor]="dispositivo?.cor"></app-lista-parametros>
       </mat-tab>
       <mat-tab label="Lista de cores">
         <app-lista-cores-dispositivo [dispositivo]="dispositivo" [tab]="tabSelect"></app-lista-cores-dispositivo>

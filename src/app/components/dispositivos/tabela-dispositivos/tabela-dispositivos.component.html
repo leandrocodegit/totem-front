@@ -50,9 +50,9 @@
         <td>{{getCor(device)?.nome}}</td>
         <td style="font-size: 11px;color: rgb(114, 139, 250); max-width: 220px;">{{device.enderecoCompleto}}</td>
         <td *ngIf="exibirAcoes">
-          <i-feather tooltipPosition="top" pTooltip="Enviar comando de teste"
+         <!--  <i-feather tooltipPosition="top" pTooltip="Enviar comando de teste"
             [style.color]="device.conexao.status == 'Online' ? '#beff00' : 'white'" (click)="testar(device)" name="play-circle"
-            class="feather-base"></i-feather>
+            class="feather-base"></i-feather> -->
           <i-feather tooltipPosition="top" pTooltip="Ver informações do dispositivo" (click)="detalhes(device)"
             name="info" class="feather-base"></i-feather>
           <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Editar dispositivo" (click)="editar(device)" name="edit"

@@ -13,14 +13,17 @@
         <label>Rapida</label>
         <h5>{{cor?.rapida ? 'Sim' : 'Não'}}</h5>
       </div>
-      @if(exibirBotoes){
-      <div>
+
+      <div>@if(exibirBotoes.back){
         <button mat-raised-button class="me-8 mb-8 mr-2" color="accent" routerLink="/configuracoes"
         type="submit">Voltar</button>
+      }
+        @if(exibirBotoes.add){
         <button [disabled]="cor?.parametros?.length == 4" mat-raised-button class="me-8 mb-8 mr-2" color="primary" (click)="adicionar()"
         type="submit">Novo</button>
+      }
       </div>
-    }
+
     </div>
   </mat-card-content>
 </mat-card>
@@ -52,7 +55,7 @@
         <td *ngIf="edicao">
           <i-feather *ngIf="isAutorizado(true)" (click)="editar(parametro)" name="edit" class="feather-base">
           </i-feather>
-          <i-feather *ngIf="isAutorizado(true)" (click)="remover(parametro)" name="trash" class="feather-base">
+          <i-feather *ngIf="isAutorizado(true) && cor.parametros.length > 1" (click)="remover(parametro)" name="trash" class="feather-base">
           </i-feather>
         </td>
       </tr>
