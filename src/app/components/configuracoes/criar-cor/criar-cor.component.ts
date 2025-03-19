@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CorService } from '../../dispositivos/services/cor.service';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../auth/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Cor } from '../../models/cor.model';
 import { MatCardModule } from '@angular/material/card';
@@ -36,7 +36,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     MatCheckboxModule,
     MatSelectModule,
     MatSliderModule,
-    CheckboxModule
+    CheckboxModule,
+    MatDialogModule
   ],
   templateUrl: './criar-cor.component.html',
   styleUrl: './criar-cor.component.scss'
@@ -44,6 +45,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 export class CriarCorComponent implements OnInit {
 
   @Input() cor: Cor = {} as Cor;
+  @Input() apenasCriar = false;
 
   constructor(
     private readonly corService: CorService,

@@ -249,7 +249,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       })
     } else {
       this.cores.datasets[0].data.push(1);
-      this.cores.datasets[0].backgroundColor.push('#f0f0f0');
+      this.cores.datasets[0].backgroundColor.push('transparent');
     }
 
     if (this.dashboard?.agendas?.length) {

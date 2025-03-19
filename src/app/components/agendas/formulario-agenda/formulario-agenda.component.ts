@@ -23,6 +23,8 @@ import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormularioCorComponent } from '../../configuracoes/formulario-cores/formulario-cores.component';
 import { NgIf } from '@angular/common';
+import { CriarCorComponent } from '../../configuracoes/criar-cor/criar-cor.component';
+import { CriarCorInjectComponent } from '../../configuracoes/criar-cor-inject/criar-cor-inject.component';
 
 
 const moment = _rollupMoment || _moment;
@@ -93,13 +95,20 @@ export class FormularioAgendaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.listaCores();
+  }
+
+  private listaCores(){
     this.corService.listaTodasConfiguracoes(false, false, false).subscribe(response => this.cores = response.content);
   }
 
   novaConfiguracao(){
-    this.dialog.open(FormularioCorComponent, {
+   var retorno = this.dialog.open(CriarCorInjectComponent, {
       panelClass: 'box-dialog'
     }    )
+    retorno.afterClosed().subscribe(() => {
+      this.listaCores();
+    })
   }
 
   fechar() {

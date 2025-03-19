@@ -36,9 +36,14 @@
     </div>
   </div>
   <div class="botoes">
-    <button mat-raised-button class="me-8 mb-8" color="basic" routerLink="/configuracoes" type="submit">Voltar</button>
+    @if(apenasCriar){
+      <button mat-raised-button mat-dialog-close class="me-8 mb-8" color="basic" type="submit">Fechar</button>
+    }
+    @else{
+      <button mat-raised-button class="me-8 mb-8" color="basic" routerLink="/configuracoes" type="submit">Voltar</button>
     <button [disabled]="!cor.id" *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8"
       routerLink="/configuracoes/parametros/{{cor.id}}" color="primary" type="submit">Configurações</button>
+    }
     <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()"
       type="submit">Salvar</button>
   </div>

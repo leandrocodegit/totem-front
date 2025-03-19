@@ -117,6 +117,8 @@ export class ParamentrosCoresComponent implements OnInit {
   }
 
   contemPino(pino: number) {
+    if(!this.cor?.parametros || !this.cor?.parametros?.length)
+      return false;
     return this.cor.parametros.find(param => param.pino == pino);
   }
   // private readonly authService: AuthService,
