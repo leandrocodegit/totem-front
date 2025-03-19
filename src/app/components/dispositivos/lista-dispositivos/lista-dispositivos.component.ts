@@ -14,6 +14,8 @@ import { debounceTime, distinctUntilChanged, of, Subject, switchMap } from 'rxjs
 import { MatDialog } from '@angular/material/dialog';
 import { CardMapaCordenadasComponent } from '../../mapa/card-mapa-cordenadas/card-mapa-cordenadas.component';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../auth/services/auth.service';
+import { Role } from 'src/app/model/constantes/role.enum';
 
 @Component({
   selector: 'app-lista-dispositivos',
@@ -48,6 +50,7 @@ export class ListaDispositivosComponent {
 
   constructor(
     private readonly dispositivoService: DispositivoService,
+    private readonly authService: AuthService,
     private readonly dialog: MatDialog
   ) {
     this.nomeFind
@@ -69,7 +72,7 @@ export class ListaDispositivosComponent {
 
   }
 
-  pesquisar(value: string){
+  pesquisar(value: string) {
     this.dispositivoService.pesquisa.emit({ value: value });
   }
 
@@ -91,5 +94,13 @@ export class ListaDispositivosComponent {
     }, fail => {
       console.log('Falha ao sincronizar');
     })
+  }
+
+  isAutorizado() {
+    return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN]);
+  }
+
+  isRoot() {
+    return this.authService.isAuthorizedRoles([Role.ROLE_ROOT]);
   }
 }
