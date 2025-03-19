@@ -34,8 +34,10 @@ import { ClienteService } from 'src/app/components/dispositivos/services/cliente
 })
 export class LoginComponent {
 
-  protected email = 'master';
-  protected password = 'Master@1520';
+  protected email = '';
+  protected password = '';
+  //protected email = 'master';
+  //protected password = 'Master@1520';
   //protected email = 'lpoliveira.ti@gmail.com';
   //protected password = 'Pass2020!@#$';
   protected isError = false;
