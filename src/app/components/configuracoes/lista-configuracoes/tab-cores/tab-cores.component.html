@@ -2,7 +2,7 @@
   <mat-card-content>
     <mat-tab-group mat-stretch-tabs="false" animationDuration="0" [selectedIndex]="tabSelect"
       (selectedTabChange)="onTabChange($event)">
-      <mat-tab label="Cores">
+      <mat-tab label="Todas">
         <app-lista-cores  *ngIf="tabSelect == 0"></app-lista-cores>
       </mat-tab>
       <mat-tab label="Dispositivos">
