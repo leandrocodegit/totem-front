@@ -1,7 +1,25 @@
-<div class="cor-primaria-secundaria" style="display: flex;">
-  <div [style.background]="parametro?.corHexa[0]" style="border-radius: 10px 0 0 10px;"></div>
-  <div [style.background]="parametro?.efeito == 'COLORIDO' ? parametro?.corHexa[0] : parametro?.corHexa[1]"
-    style="border-radius: 0"></div>
-  <div [style.background]="parametro?.efeito == 'COLORIDO' ? parametro?.corHexa[0] : parametro?.corHexa[2]"
-    style="border-radius: 0 10px 10px 0;"></div>
-</div>
+
+@if(agrupar && cor?.parametros){
+  @for(item of cor?.parametros; track $index){
+    <div class="cor-primaria-secundaria" style="display: flex;">
+      <div [style.background]="item?.corHexa[0]" style="border-radius: 10px 0 0 10px;"></div>
+      <div [style.background]="item?.efeito == 'COLORIDO' ? item?.corHexa[0] : item?.corHexa[1]"
+        style="border-radius: 0;"></div>
+      <div [style.background]="item?.efeito == 'COLORIDO' ? item?.corHexa[0] : item?.corHexa[2]"
+        style="border-radius: 0 10px 10px 0;"></div>
+    </div>
+    }
+}@else if(parametro){
+  <div class="cor-primaria-secundaria" style="display: flex;">
+    <div [style.background]="parametro?.corHexa[0]" style="border-radius: 10px 0 0 10px;"></div>
+    <div [style.background]="parametro?.efeito == 'COLORIDO' ? parametro?.corHexa[0] : parametro?.corHexa[1]"
+      style="border-radius: 0"></div>
+    <div [style.background]="parametro?.efeito == 'COLORIDO' ? parametro?.corHexa[0] : parametro?.corHexa[2]"
+      style="border-radius: 0 10px 10px 0;"></div>
+  </div>
+}@else{
+  <div class="cor-primaria-secundaria" style="left: 0;border: solid rgb(105, 105, 105) thin;padding: 5px;border-radius: 10px;max-width: 70px;margin: 0;">
+
+  </div>
+}
+

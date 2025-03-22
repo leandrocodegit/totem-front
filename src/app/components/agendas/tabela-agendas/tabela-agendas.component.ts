@@ -15,6 +15,7 @@ import { MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/materi
 import { CustomPaginator } from '../../../util/CustomPaginator';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { LabelCorComponent } from '../../configuracoes/label-cor/label-cor.component';
 
 @Component({
   selector: 'app-tabela-agendas',
@@ -30,7 +31,8 @@ import { ToastModule } from 'primeng/toast';
     MatCardModule,
     MatPaginatorModule,
     ToastModule,
-    NgIf
+    NgIf,
+    LabelCorComponent
   ],
   providers: [
     MessageService,

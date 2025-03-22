@@ -22,6 +22,7 @@ import { FormularioCorComponent } from '../formulario-cores/formulario-cores.com
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
 import { RouterModule } from '@angular/router';
+import { LabelCorComponent } from '../label-cor/label-cor.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 1000,
@@ -43,7 +44,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
     MatSortModule,
     CheckboxModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    LabelCorComponent
   ],
   providers: [
     MessageService,

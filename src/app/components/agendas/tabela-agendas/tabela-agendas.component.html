@@ -26,11 +26,7 @@
           </td>
           <td>{{getTradutor(agenda.configuracao?.efeito)}}</td>
           <td>
-            a
-            <div class="cor-primaria-secundaria" style="display: flex;">
-              <div [style.background]="agenda.configuracao.primaria" style="border-radius: 10px 0 0 10px;"></div>
-              <div [style.background]="agenda.configuracao?.efeito == 'COLORIDO' ? agenda.configuracao.primaria : agenda.configuracao.primaria" style="border-radius: 0 10px 10px 0;"></div>
-            </div>
+            <app-label-cor [cor]="agenda.cor" [agrupar]="true"></app-label-cor>
           </td>
           <td *ngIf="!resumo">
             <i-feather (click)="editar(agenda)" name="edit" class="feather-base">

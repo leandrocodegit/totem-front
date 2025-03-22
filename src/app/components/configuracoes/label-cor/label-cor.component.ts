@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Parametro } from '../../models/parametro.model';
+import { Cor } from '../../models/cor.model';
 
 @Component({
   selector: 'app-label-cor',
@@ -8,8 +9,17 @@ import { Parametro } from '../../models/parametro.model';
   templateUrl: './label-cor.component.html',
   styleUrl: './label-cor.component.scss'
 })
-export class LabelCorComponent {
+export class LabelCorComponent implements OnInit {
 
+  @Input() cor?: Cor;
   @Input() parametro?: Parametro;
+  @Input() agrupar = false;
+
+  ngOnInit(): void {
+   if(this.agrupar && this.cor?.parametros.length == 1){
+    this.agrupar = false;
+    this.parametro = this.cor.parametros[0];
+   }
+  }
 
 }

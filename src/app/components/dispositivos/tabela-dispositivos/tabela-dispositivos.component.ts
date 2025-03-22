@@ -28,6 +28,7 @@ import { Role } from 'src/app/model/constantes/role.enum';
 import { Endereco } from '../../models/endereco.model';
 import { Parametro } from '../../models/parametro.model';
 import { Tipoconfiguracao } from '../../models/constantes/tipo-configuracao';
+import { LabelCorComponent } from '../../configuracoes/label-cor/label-cor.component';
 var initDialog = true;
 
 @Component({
@@ -43,7 +44,8 @@ var initDialog = true;
     MatPaginatorModule,
     MatSortModule,
     TooltipModule,
-    ToastModule
+    ToastModule,
+    LabelCorComponent
   ],
   providers: [
     MessageService

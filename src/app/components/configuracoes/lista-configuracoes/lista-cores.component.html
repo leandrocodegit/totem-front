@@ -5,6 +5,7 @@
         <th *ngIf="modoAll" mat-sort-header="rapida">Rápida</th>
         <th *ngIf="!modoAll" style="width: 10px;"></th>
         <th mat-sort-header="nome">Nome</th>
+        <th>Cores</th>
         <th>Time</th>
         <th>Velocidade</th>
         <th>Parametros</th>
@@ -19,6 +20,9 @@
             [checked]="cor.id == idSelecionado" [value]="cor.id"></mat-radio-button>
         </td>
         <td>{{cor.nome}}</td>
+        <td>
+          <app-label-cor [cor]="cor" [agrupar]="true"></app-label-cor>
+        </td>
         <td>{{cor.time}}</td>
         <td>{{cor.velocidade}}</td>
         <td>{{cor.parametros ? cor.parametros?.length : 0}}</td>

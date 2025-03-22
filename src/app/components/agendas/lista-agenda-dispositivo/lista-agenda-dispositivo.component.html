@@ -11,11 +11,11 @@
         <tr>
           <th mat-sort-header="ativo" style="width: 20px;">Ativo</th>
           <th mat-sort-header="nome">Nome</th>
+          <th>Cor</th>
+          <th>Status</th>
           <th mat-sort-header="inicio">Período</th>
           <th>Dispositivos</th>
-          <th>Status</th>
           <th>Efeito</th>
-          <th>Cor</th>
           <th></th>
         </tr>
       </thead>
@@ -25,15 +25,15 @@
             <p-checkbox disabled [(ngModel)]="agenda.ativo" [binary]="true" />
           </td>
           <td>{{agenda.nome}}</td>
-          <td>{{isSameDayAndMonth(agenda) ? (agenda.inicio | date: 'dd/MM') : ((agenda.inicio | date: 'dd/MM') + ' à ' + (agenda.termino | date: 'dd/MM'))}}</td>
-          <td>{{agenda.todos ? 'Todos' : agenda.dispositivos.length}}</td>
+          <td tooltipPosition="top"  [pTooltip]="agenda.cor?.nome">
+            <app-label-cor [cor]="agenda.cor" [agrupar]="true"></app-label-cor>
+          </td>
           <td>
             <span class="badge badge-{{getCorStatus(agenda)}} rounded-pill">{{agenda.status}}</span>
           </td>
+          <td>{{isSameDayAndMonth(agenda) ? (agenda.inicio | date: 'dd/MM') : ((agenda.inicio | date: 'dd/MM') + ' à ' + (agenda.termino | date: 'dd/MM'))}}</td>
+          <td>{{agenda.todos ? 'Todos' : agenda.dispositivos.length}}</td>
           <td>{{getTradutor(agenda.cor?.efeito)}}</td>
-          <td tooltipPosition="top"  [pTooltip]="agenda.cor?.nome">
-            <app-label-cor [parametro]="agenda.cor?.parametros[0]"></app-label-cor>
-          </td>
           <td>
             <i-feather  *ngIf="isAutorizado()" (click)="editar(agenda)" name="edit" class="feather-base">
             </i-feather>
