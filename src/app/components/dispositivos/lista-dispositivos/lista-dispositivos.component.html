@@ -10,12 +10,7 @@
       </mat-form-field>
     </div>
     <mat-tab-group mat-stretch-tabs="false" animationDuration="0" #tab (selectedTabChange)="onTabChange($event)">
-      @if (isRoot()) {
-      <mat-tab label="Todos">
-        <app-tabela-dispositivos *ngIf="tab._indexToSelect == 0"
-          [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
-      </mat-tab>
-      }@else{
+
       <mat-tab label="Ativos">
         <app-tabela-dispositivos *ngIf="tab._indexToSelect == 0"
           [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
@@ -24,6 +19,7 @@
         <app-tabela-dispositivos *ngIf="tab._indexToSelect == 1"
           [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
       </mat-tab>
+      @if (!isRoot()) {
       <mat-tab label="Offline">
         <app-tabela-dispositivos *ngIf="tab._indexToSelect == 2"
           [indexTab]="tab._indexToSelect"></app-tabela-dispositivos>
