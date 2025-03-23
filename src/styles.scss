@@ -13,7 +13,7 @@ body {
   background: rgba(0, 0, 0, 0.92);
 }
 
-.pesquisar-input .mat-mdc-text-field-wrapper{
+.pesquisar-input .mat-mdc-text-field-wrapper {
   background: rgba(0, 0, 0, 0.911) !important;
   color: white;
 }
@@ -79,9 +79,10 @@ body {
   justify-content: center;
 }
 
-.box-mapa .body-wrapper{
+.box-mapa .body-wrapper {
   padding: 0 !important;
 }
+
 .mat-mdc-tab-body-content {
   margin-bottom: 0 !important;
 }
@@ -386,24 +387,24 @@ input:-ms-input-placeholder {
   animation: mudarCores 1s infinite alternate;
 }
 
-.p-tabmenu ul{
+.p-tabmenu ul {
   margin: 0;
 }
 
-.p-tabmenu .p-tabmenu-nav{
+.p-tabmenu .p-tabmenu-nav {
   background: transparent;
   border-bottom: solid rgba(119, 119, 119, 0.712) thin;
 }
 
-.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
   border: none;
 }
 
-.p-tabmenu .p-menuitem-icon{
+.p-tabmenu .p-menuitem-icon {
   margin: 0 5px;
 }
 
-.p-tabmenu .p-tabmenu-nav .p-tabmenuitem{
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem {
   padding: 15px 20px;
 }
 
@@ -439,7 +440,7 @@ input:-ms-input-placeholder {
   background: rgba(154, 207, 207, 0.856) !important
 }
 
- #overview .leaflet-popup-content-wrapper {
+#overview .leaflet-popup-content-wrapper {
   background: rgba(226, 72, 0, 0.856) !important
 }
 
@@ -457,20 +458,21 @@ input:-ms-input-placeholder {
   margin: -1px;
 }
 
-.box-color-popup svg{
+.box-color-popup svg {
   fill: white;
 }
 
-.box-color-popup-rota .leaflet-popup-tip, .box-color-popup-rota .leaflet-popup-content-wrapper {
+.box-color-popup-rota .leaflet-popup-tip,
+.box-color-popup-rota .leaflet-popup-content-wrapper {
   background: #005aae !important;
 }
 
-.box-color-popup-rota{
+.box-color-popup-rota {
   background: #144bc2ec;
   border-radius: 10px;
 }
 
-.box-color-popup .local{
+.box-color-popup .local {
   font-weight: 200;
   font-size: 10px;
 }
@@ -511,6 +513,10 @@ input:-ms-input-placeholder {
 
 @media(max-width: 700px) {
 
+  .body-wrapper {
+    width: 100%;
+  }
+
   .body-wrapper,
   .mat-mdc-card-content {
     padding: 10px !important;
@@ -525,7 +531,7 @@ input:-ms-input-placeholder {
   }
 
   .cores {
-    padding: 10px !important;
+    padding: initial;
   }
 
   .box-dashboard-item svg {

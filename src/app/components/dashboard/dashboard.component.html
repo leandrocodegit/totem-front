@@ -90,7 +90,7 @@
         <h4>{{logs.length}}</h4>
       </div>
     </div>
-    <div style="max-height:670px;overflow-x: auto;margin-top: 30px;margin-left: 10px;">
+    <div class="box-logs">
       <p-timeline [value]="logs" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-log>
           @if(log.comando == 'NENHUM_DEVICE'){

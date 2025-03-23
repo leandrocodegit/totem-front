@@ -147,7 +147,19 @@ i-feather {
   flex-direction: column;
 }
 
+.box-logs {
+  max-height: 670px;
+  overflow-x: auto;
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
 @media(max-width: 700px) {
+
+  .box-logs {
+    max-height: 100%;
+  }
+
   .box-adicional {
     width: 0;
   }
