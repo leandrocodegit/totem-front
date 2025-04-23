@@ -2,7 +2,7 @@
 
   <div class="box-configuracao" style="width: 97%;">
     <div style="margin: 20px 0; display: flex;">
-      <p-checkbox [disabled]="!isAutorizado(true)" (click)="habilitarSincronismo()" *ngIf="exibeSincronizar"
+      <p-checkbox [disabled]="!isAutorizado(true)" (click)="habilitarSincronismo()" *ngIf="dispositivo"
         [(ngModel)]="enviarConfiguracao.value" label="Habilitar tem real" [binary]="true" />
     </div>
     <div style="display: flex;margin-right: 10px;">
@@ -206,7 +206,7 @@
     <button mat-raised-button mat-dialog-close class="me-8 mb-8" color="basic" type="submit">Fechar</button>
     <button *ngIf="isAutorizado(true) && cor?.parametros.length < 4" mat-raised-button class="me-8 mb-8" color="accent"
       (click)="duplicar()" type="submit">Duplicar</button>
-    <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="sincronizar()"
+    <button *ngIf="isAutorizado(true) && dispositivo" mat-raised-button class="me-8 mb-8" color="primary" (click)="sincronizar()"
       type="submit">Sincronizar</button>
     <button *ngIf="isAutorizado(true)" mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()"
       type="submit">Salvar</button>

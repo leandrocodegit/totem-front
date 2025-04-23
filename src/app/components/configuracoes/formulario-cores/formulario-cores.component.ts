@@ -13,6 +13,7 @@ import { ParamentrosCoresComponent } from '../paramentros-cores/paramentros-core
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Parametro } from '../../models/parametro.model';
+import { Dispositivo } from '../../models/dispositivo.model';
 
 @Component({
   selector: 'app-formulario-cores',
@@ -40,6 +41,7 @@ export class FormularioCorComponent {
 
   protected cor?: Cor;
   protected parametro?: Parametro;
+  protected dispositivo?: Dispositivo
 
   constructor(
     private readonly corService: CorService,
@@ -50,6 +52,7 @@ export class FormularioCorComponent {
     if (data) {
       this.cor = data.cor;
       this.parametro = data.parametro;
+      this.dispositivo = data.dispositivo
     }
   }
 

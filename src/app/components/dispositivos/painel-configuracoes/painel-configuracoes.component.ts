@@ -61,7 +61,7 @@ import { ParametrosDispositivoComponent } from '../parametros-dispositivo/parame
 export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
 
   protected dispositivo!: Dispositivo;
-  protected tabSelect = 2;
+  protected tabSelect = 0;
   @Input() enviarConfiguracao = {
     value: false
   };

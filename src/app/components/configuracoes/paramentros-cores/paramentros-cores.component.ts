@@ -62,7 +62,7 @@ export class ParamentrosCoresComponent implements OnInit {
     value: false
   };
   @Input() exibeSincronizar = false;
-  @Input() exibirBotoes = {add: true, back: true};
+  @Input() exibirBotoes = { add: true, back: true };
   protected tipoComando = Tipoconfiguracao.LED;
 
   constructor(
@@ -117,7 +117,7 @@ export class ParamentrosCoresComponent implements OnInit {
   }
 
   contemPino(pino: number) {
-    if(!this.cor?.parametros || !this.cor?.parametros?.length)
+    if (!this.cor?.parametros || !this.cor?.parametros?.length)
       return false;
     return this.cor.parametros.find(param => param.pino == pino);
   }
@@ -204,20 +204,9 @@ export class ParamentrosCoresComponent implements OnInit {
   }
 
   onSliderChange() {
-    /*     if (this.enviarConfiguracao.value) {
-          this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.id}`, `{
-            "efeito": "${this.dispositivo.cor.efeito}",
-            "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
-            "leds": ${this.dispositivo.configuracao.leds},
-            "faixa": ${this.dispositivo.configuracao.faixa},
-            "intensidade": ${this.dispositivo.configuracao.intensidade},
-            "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
-            "velocidade":${this.dispositivo.cor.velocidade},
-            "host": "",
-            "responder": false }
-            `);
-        }
-        this.initCores(); */
+    if (this.dispositivo && this.enviarConfiguracao.value)
+      this.sincronizar(true);
+    this.initCores();
   }
 
   fechar() {
@@ -225,20 +214,25 @@ export class ParamentrosCoresComponent implements OnInit {
     this.router.navigate(['/dispositivos']);
   }
 
-  sincronizar() {
-    this.comandoService.sincronizarDispositivo(this.dispositivo.id, this.tipoComando).subscribe({
-      next: (data) => {
-      },
-      complete: () => {
-      },
-      error: (err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Falha',
-          detail: 'Erro ao enviar comando'
-        });
-      }
-    });
+  sincronizar(notificar?: boolean) {
+
+    if (notificar && this.dispositivo) {
+      this.comandoService.sincronizarOff(this.dispositivo?.id).subscribe(() => { })
+    } else {
+      this.comandoService.sincronizarDispositivo(this.dispositivo.id, Tipoconfiguracao.LED).subscribe({
+        next: (data) => {
+        },
+        complete: () => {
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Falha',
+            detail: 'Erro ao enviar comando'
+          });
+        }
+      });
+    }
   }
 
   salvar() {

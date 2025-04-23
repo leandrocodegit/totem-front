@@ -10,11 +10,11 @@
     </div>
   </div>
   <div style="margin: 15px;">
-    <p-checkbox [disabled]="cor.exclusiva || !isAutorizado(true)" [(ngModel)]="cor.rapida" label="Habilitar configuração rápida"
+    <p-checkbox [disabled]="cor.exclusiva || cor.vibracao || !isAutorizado(true)" [(ngModel)]="cor.rapida" label="Habilitar configuração rápida"
       [binary]="true" />
   </div>
   <div style="margin: 15px;">
-    <p-checkbox [disabled]="cor.exclusiva || !isAutorizado(true)" [(ngModel)]="cor.vibracao" label="Habilitar cor de vibração"
+    <p-checkbox [disabled]="cor.exclusiva || cor.rapida || !isAutorizado(true)" [(ngModel)]="cor.vibracao" label="Habilitar cor de vibração"
       [binary]="true" />
   </div>
   <div class="box-configuracao">

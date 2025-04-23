@@ -16,6 +16,7 @@ import { Efeito, EfeitoValue } from '../../models/constantes/Efeito';
 import { Role } from 'src/app/model/constantes/role.enum';
 import { IconsModule } from 'src/app/IconsModule';
 import { LabelCorComponent } from '../label-cor/label-cor.component';
+import { Dispositivo } from '../../models/dispositivo.model';
 
 @Component({
   selector: 'app-lista-parametros',
@@ -38,6 +39,7 @@ import { LabelCorComponent } from '../label-cor/label-cor.component';
 export class ListaParametrosComponent implements OnInit {
 
   @Input() cor?: Cor;
+  @Input() dispositivo?: Dispositivo
   @Input() exibirBotoes = {
     add: true,
     back: true
@@ -123,7 +125,8 @@ export class ListaParametrosComponent implements OnInit {
     let retorno = this.dialog.open(FormularioCorComponent, {
       data: {
         cor: this.cor,
-        parametro: parametro
+        parametro: parametro,
+        dispositivo: this.dispositivo
       },
       panelClass: 'box-dialog'
     });
