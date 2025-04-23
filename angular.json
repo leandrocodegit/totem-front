@@ -43,6 +43,7 @@
             "styles": [
               "src/assets/styles/style.scss",
               "src/assets/fonts/google.css",
+              "src/assets/fonts/google-icons.css",
               "src/styles.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
