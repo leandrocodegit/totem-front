@@ -24,6 +24,9 @@ import { Role } from 'src/app/model/constantes/role.enum';
 import { AtualizarFirmwareComponent } from '../atualizar-firmware/atualizar-firmware.component';
 import { ListaParametrosComponent } from '../../configuracoes/lista-parametros/lista-parametros.component';
 import { ParametrosDispositivoComponent } from '../parametros-dispositivo/parametros-dispositivo.component';
+import { Cor } from '../../models/cor.model';
+import { FormularioCorComponent } from '../../configuracoes/formulario-cores/formulario-cores.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-painel-configuracoes',
@@ -71,42 +74,43 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly mqttSevice: MqttService,
     private route: ActivatedRoute,
+    private readonly dialog: MatDialog,
     private readonly authService: AuthService,
     private router: Router
   ) {
-   // this.tabSelect = tabSelect;
+    // this.tabSelect = tabSelect;
   }
   ngOnInit(): void {
     this.route.params?.subscribe(params => {
       if (params['id'] != undefined) {
         this.dispositivoService.buscarDicpositivo(params['id']).subscribe(response => {
           this.dispositivo = response;
-          if (params['tab'] != undefined){
+          if (params['tab'] != undefined) {
             this.tabSelect = params['tab'];
             this.router.navigate([`/dispositivos/configuracoes/${this.dispositivo.id}`]);
           }
-          else if (!this.dispositivo.cor){
+          else if (!this.dispositivo.cor) {
             this.tabSelect = 1;
           }
         })
       }
     })
-   // this.mqttSevice.connect();
+    // this.mqttSevice.connect();
   }
 
   ngOnDestroy(): void {
     this.mqttSevice.disconnect();
   }
 
-  isAutorizado(admin?: boolean){
-    if(admin)
+  isAutorizado(admin?: boolean) {
+    if (admin)
       return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN])
     return this.authService.isAuthorizedRoles([Role.ROLE_ADMIN, Role.ROLE_AVANCADO]);
-   }
+  }
 
   habilitarSincronismo() {
     if (this.enviarConfiguracao.value) {
-       this.mqttSevice.observe(`device/send/${this.dispositivo.id}`).subscribe((message: any) => {
+      this.mqttSevice.observe(`device/send/${this.dispositivo.id}`).subscribe((message: any) => {
         const jsonString = String.fromCharCode(...message.payload);
         const payload = JSON.parse(jsonString);
         if (payload && payload.comando && payload.comando == 'ACEITO') {
@@ -120,24 +124,26 @@ export class PainelConfiguracoesComponent implements OnInit, OnDestroy {
     }
   }
 
+
+
   onSliderChange() {
-  /*   if (this.enviarConfiguracao.value) {
-      this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.id}`, `{
-        "efeito": "${this.dispositivo.cor.efeito}",
-        "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
-        "leds": ${this.dispositivo.configuracao.leds},
-        "faixa": ${this.dispositivo.configuracao.faixa},
-        "intensidade": ${this.dispositivo.configuracao.intensidade},
-        "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
-        "velocidade":${this.dispositivo.cor.velocidade},
-        "host": "",
-        "responder": false }
-        `);
-    } */
+    /*   if (this.enviarConfiguracao.value) {
+        this.mqttSevice.unsafePublish(`device/receive/${this.dispositivo.id}`, `{
+          "efeito": "${this.dispositivo.cor.efeito}",
+          "cor": [${this.dispositivoService.formatCor(this.dispositivo.cor.cor, this.dispositivo.configuracao.tipoCor)}],
+          "leds": ${this.dispositivo.configuracao.leds},
+          "faixa": ${this.dispositivo.configuracao.faixa},
+          "intensidade": ${this.dispositivo.configuracao.intensidade},
+          "correcao": [${this.dispositivoService.formatCorrecao(this.dispositivo.cor.correcao, this.dispositivo.configuracao.tipoCor)}],
+          "velocidade":${this.dispositivo.cor.velocidade},
+          "host": "",
+          "responder": false }
+          `);
+      } */
   }
 
 
-  salvarConfiguracao(dispositivo: Dispositivo){
+  salvarConfiguracao(dispositivo: Dispositivo) {
     this.dispositivoService.salvarConfiguracao(dispositivo).subscribe(() => {
       this.messageService.add({
         severity: 'success',

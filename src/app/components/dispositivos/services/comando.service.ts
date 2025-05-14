@@ -173,8 +173,11 @@ export class ComandoService {
     return this.http.post<any>(`${environment.url}/firmware/upload/${id}${this.getParaToken()}`, formData)
   }
 
-  public sincronizarOff(id: number): Observable<any> {
-    return this.http.get<any>(`${environment.urlbroker}/sincronismo/${id}${this.getParaToken()}`)
+  public sincronizarOff(dispositivo: Dispositivo): Observable<any> {
+    return this.http.post<any>(`${environment.urlbroker}/sincronismo/${dispositivo.id}${this.getParaToken()}`, {
+      id: dispositivo.id,
+      cor: dispositivo.cor
+    })
   }
 
   public updateFirmware(id: number): Observable<any> {

@@ -21,7 +21,7 @@
     <h6>Velocidade</h6>
     <div class="box-configuracao-item">
       <span class="material-symbols-outlined cor">speed</span>
-      <mat-slider [max]="255" [min]="1" [step]="1" (change)="onSliderChange()">
+      <mat-slider [max]="255" [min]="40"  [step]="1" (change)="onSliderChange()">
         <input matSliderThumb [(ngModel)]="cor.velocidade"> </mat-slider>
       <b>{{cor.velocidade}}</b>
     </div>

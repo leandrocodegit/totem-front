@@ -217,7 +217,7 @@ export class ParamentrosCoresComponent implements OnInit {
   sincronizar(notificar?: boolean) {
 
     if (notificar && this.dispositivo) {
-      this.comandoService.sincronizarOff(this.dispositivo?.id).subscribe(() => { })
+      this.comandoService.sincronizarOff(this.dispositivo).subscribe(() => { })
     } else {
       this.comandoService.sincronizarDispositivo(this.dispositivo.id, Tipoconfiguracao.LED).subscribe({
         next: (data) => {

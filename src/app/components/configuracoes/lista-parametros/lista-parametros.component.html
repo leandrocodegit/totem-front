@@ -27,6 +27,22 @@
     </div>
   </mat-card-content>
 </mat-card>
+<mat-card class="w-100">
+  <mat-card-content>
+    <div class="d-flex" style="justify-content: space-between;">
+    <div style="width: 70%;display: flex;align-items: center;">
+      <h6>Velocidade</h6>
+         <mat-slider [max]="255" [min]="40" [step]="1" [style]="{width: '70%'}">
+          <input matSliderThumb [(ngModel)]="cor.velocidade"> </mat-slider>
+        <b>{{cor.velocidade}}</b>
+     </div>
+    @if(exibirBotoes.edit){
+      <button [disabled]="cor?.parametros?.length == 4" mat-raised-button class="me-8 mb-8 mr-2" color="primary" (click)="salvar()"
+      type="submit">Salvar e sincronizar</button>
+    }
+  </div>
+  </mat-card-content>
+</mat-card>
 <div class="table-responsive-sm box-tabela-parametros">
   <table class="table table-striped table-hover">
     <thead>
@@ -62,3 +78,5 @@
     </tbody>
   </table>
 </div>
+<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
+  [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />
