@@ -179,7 +179,7 @@
       <button mat-raised-button class="me-8 mb-8" color="accent" (click)="enviarConfiguracoesLoraWanSend()"
         type="submit" [disabled]="!dispositivo?.conexao.habilitarLoraWan">Teste LoraWan</button>
         <button mat-raised-button class="me-8 mb-8" color="primary" (click)="enviarConfiguracoesLoraWanReset()"
-        type="submit" [disabled]="!dispositivo?.conexao.habilitarLoraWan">Reiniciar modulo</button>
+        type="submit">Reiniciar modulo</button>
         <button mat-raised-button class="me-8 mb-8" color="primary" (click)="abrirDebug()"
         type="submit" [disabled]="!isRoot()">Debug</button>
       <button mat-raised-button class="me-8 mb-8" color="primary" (click)="salvar()" type="submit">Salvar</button>
