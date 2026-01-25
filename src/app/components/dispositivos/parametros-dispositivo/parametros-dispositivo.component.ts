@@ -120,7 +120,7 @@ export class ParametrosDispositivoComponent implements OnInit {
   }
 
   enviarConfiguracoesLoraWanReset() {
-    this.enviarConfiguracoes(Tipoconfiguracao.LORA_WAN_RESET);
+    this.enviarConfiguracoes(Tipoconfiguracao.LED_RESTART);
   }
 
 abrirDebug(){
