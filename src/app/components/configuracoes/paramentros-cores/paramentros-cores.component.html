@@ -28,8 +28,10 @@
         <mat-form-field appearance="outline">
           <mat-label>Efeito</mat-label>
           <mat-select required (selectionChange)="onSliderChange()" [(ngModel)]="parametro.efeito">
+            <mat-option value="ALERTA">Alerta</mat-option>
             <mat-option value="AMANHECER">Amanhecer</mat-option>
             <mat-option value="BATIDA">Batida</mat-option>
+            <mat-option value="BATIMENTOS">Batida</mat-option>
             <mat-option value="CILONIO">Cilônio</mat-option>
             <mat-option value="COLORIDO">Colorido</mat-option>
             <mat-option value="CONSTELACAO">Constelação</mat-option>
@@ -40,6 +42,7 @@
             <mat-option value="GIROFLEX">Giroflex</mat-option>
             <mat-option value="GIRATORIO">Giratorio</mat-option>
             <mat-option value="GOTEIRA">Goteira</mat-option>
+            <mat-option value="NIVEL">Nível</mat-option>
             <mat-option value="SINALIZADOR">Sinalizador</mat-option>
             <mat-option value="PULSANTE">Pulsante</mat-option>
             <mat-option value="ONDA">Onda</mat-option>

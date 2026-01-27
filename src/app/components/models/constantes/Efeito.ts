@@ -1,20 +1,23 @@
 export enum Efeito {
-    COLORIDO = 'COLORIDO',
-    BATIDA = 'BATIDA',
-    CONTADOR = 'CONTADOR',
-    CILONIO = 'CILONIO',
-    GIROFLEX = 'GIROFLEX',
-    GIRATORIO = 'GIRATORIO',
-    SINALIZADOR = 'SINALIZADOR',
-    FAIXA = 'FAIXA',
-    GOTEIRA = 'GOTEIRA',
-    PULSANTE = 'PULSANTE',
-    AMANHECER = 'AMANHECER',
-    ONDA = 'ONDA',
-    QUEBRANDO = 'QUEBRANDO',
-    CONSTELACAO = 'CONSTELACAO',
-    GAME = 'GAME',
-    FAIXA_3 = 'FAIXA_3'
+  COLORIDO = 'COLORIDO',
+  BATIDA = 'BATIDA',
+  CONTADOR = 'CONTADOR',
+  CILONIO = 'CILONIO',
+  GIROFLEX = 'GIROFLEX',
+  GIRATORIO = 'GIRATORIO',
+  SINALIZADOR = 'SINALIZADOR',
+  FAIXA = 'FAIXA',
+  GOTEIRA = 'GOTEIRA',
+  PULSANTE = 'PULSANTE',
+  AMANHECER = 'AMANHECER',
+  ONDA = 'ONDA',
+  QUEBRANDO = 'QUEBRANDO',
+  CONSTELACAO = 'CONSTELACAO',
+  GAME = 'GAME',
+  FAIXA_3 = 'FAIXA_3',
+  NIVEL = 'NIVEL',
+  BATIMENTOS = 'BATIMENTOS',
+  ALERTA = 'ALERTA'
 
 }
 
@@ -35,7 +38,10 @@ export const EfeitoValue: Record<Efeito, string> = {
   [Efeito.QUEBRANDO]: 'Quebrando',
   [Efeito.CONSTELACAO]: 'Constelação',
   [Efeito.GAME]: 'Game',
-  [Efeito.FAIXA_3]: '3 faixas'
+  [Efeito.FAIXA_3]: '3 faixas',
+  [Efeito.NIVEL]: 'Nível',
+  [Efeito.BATIMENTOS]: 'Batimentos',
+  [Efeito.ALERTA]: 'Alerta'
 }
 
 
