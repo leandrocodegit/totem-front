@@ -17,7 +17,8 @@ export enum Efeito {
   FAIXA_3 = 'FAIXA_3',
   NIVEL = 'NIVEL',
   BATIMENTOS = 'BATIMENTOS',
-  ALERTA = 'ALERTA'
+  ALERTA = 'ALERTA',
+  SCANNER = 'SCANNER',
 
 }
 
@@ -41,7 +42,8 @@ export const EfeitoValue: Record<Efeito, string> = {
   [Efeito.FAIXA_3]: '3 faixas',
   [Efeito.NIVEL]: 'Nível',
   [Efeito.BATIMENTOS]: 'Batimentos',
-  [Efeito.ALERTA]: 'Alerta'
+  [Efeito.ALERTA]: 'Alerta',
+  [Efeito.SCANNER]: 'Scanner'
 }
 
 
