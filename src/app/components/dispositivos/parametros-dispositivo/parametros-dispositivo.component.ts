@@ -158,4 +158,23 @@ abrirDebug(){
   isRoot() {
     return this.authService.isAuthorizedRoles([Role.ROLE_ROOT]);
   }
+
+  gerarListaDecimal(): number[] {
+  const lista: number[] = [];
+  const inicio = 0.05;
+  const fim = 10.0;
+  const passo = 0.01;
+
+  // Usamos um loop baseado no número de iterações para evitar acúmulo de erro decimal
+  // (10.0 - 0.05) / 0.01 = 995 iterações
+  const totalIteracoes = Math.round((fim - inicio) / passo);
+
+  for (let i = 0; i <= totalIteracoes; i++) {
+    // Calculamos o valor multiplicando o índice para manter a precisão
+    const valor = parseFloat((inicio + i * passo).toFixed(2));
+    lista.push(valor);
+  }
+
+  return lista;
+}
 }
