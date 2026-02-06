@@ -19,12 +19,14 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { AuthService } from '../../auth/services/auth.service';
 import { Role } from 'src/app/model/constantes/role.enum';
 import { environment } from 'src/environments/environment.dev';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-parametros-dispositivo',
   standalone: true,
   imports: [
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
