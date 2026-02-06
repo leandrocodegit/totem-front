@@ -169,7 +169,7 @@ export class ListaRapidasComponent implements OnInit, OnDestroy {
         this.timer = `${diffHoras % 24}:${diffMinutos % 60}:${diffSegundos % 60}`;
         if(diffHoras <= 0 && diffMinutos <= 0 && diffSegundos <= 0){
           this.timer = '';
-          this.cancelar();
+         // this.cancelar();
           clearInterval(this.interval);
         }
       } else this.timer = '';
