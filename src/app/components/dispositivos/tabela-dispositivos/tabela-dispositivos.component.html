@@ -1,4 +1,5 @@
-  <table class="table table-striped table-hover">
+<div class="table-responsive">
+  <table class="table table-striped table-hover ">
     <thead matSort (matSortChange)="sortData($event)">
       <tr>
         <th *ngIf="!checkEmit"></th>
@@ -25,7 +26,7 @@
             style="color: #7003d7;cursor: pointer;"></div>
         </td>
         <td *ngIf="checkEmit" style="width: 20px;">
-          <p-checkbox  (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
+          <p-checkbox (onChange)="selecionarDispositivo(device)" [(ngModel)]="device.selecionado" [binary]="true" />
         </td>
         <td>{{device.nome}}</td>
         <td><app-label-cor [cor]="getCor(device)" [agrupar]="true"></app-label-cor></td>
@@ -43,31 +44,34 @@
           }@else if(device.conexao?.status == 'Offline'){
           <span class="badge badge-danger rounded-pill">Offline</span>
           }@else {
-            <span class="badge badge-warn rounded-pill">Espera</span>
-            }
+          <span class="badge badge-warn rounded-pill">Espera</span>
+          }
         </td>
         <td>{{device.conexao.tipoConexao}}</td>
         <td>{{getModoOperacao(device)}}</td>
         <td style="font-size: 11px;color: rgb(114, 139, 250); max-width: 220px;">{{device.enderecoCompleto}}</td>
         <td *ngIf="exibirAcoes">
-         <!--  <i-feather tooltipPosition="top" pTooltip="Enviar comando de teste"
+          <!--  <i-feather tooltipPosition="top" pTooltip="Enviar comando de teste"
             [style.color]="device.conexao.status == 'Online' ? '#beff00' : 'white'" (click)="testar(device)" name="play-circle"
             class="feather-base"></i-feather> -->
           <i-feather tooltipPosition="top" pTooltip="Ver informações do dispositivo" (click)="detalhes(device)"
             name="info" class="feather-base"></i-feather>
-          <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Editar dispositivo" (click)="editar(device)" name="edit"
-            class="feather-base"></i-feather>
-          <i-feather *ngIf="isAutorizado()" tooltipPosition="top" pTooltip="Configurar dispositivo" (click)="configurar(device)"
-            name="settings" class="feather-base"></i-feather>
-          <i-feather  *ngIf="isAutorizado()" tooltipPosition="top" pTooltip="Sincronizar cor dispositivo" (click)="sincronizar(device, false)"
-            name="refresh-ccw" class="feather-base"></i-feather>
-          <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Ativar ou inativar" (click)="mudarStatus(device)" name="power"
-            class="feather-base" [style.color]="device.ativo ? '#beff00' : 'white'"> </i-feather>
+          <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Editar dispositivo"
+            (click)="editar(device)" name="edit" class="feather-base"></i-feather>
+          <i-feather *ngIf="isAutorizado()" tooltipPosition="top" pTooltip="Configurar dispositivo"
+            (click)="configurar(device)" name="settings" class="feather-base"></i-feather>
+          <i-feather *ngIf="isAutorizado()" tooltipPosition="top" pTooltip="Sincronizar cor dispositivo"
+            (click)="sincronizar(device, false)" name="refresh-ccw" class="feather-base"></i-feather>
+          <i-feather *ngIf="isAutorizado(true)" tooltipPosition="top" pTooltip="Ativar ou inativar"
+            (click)="mudarStatus(device)" name="power" class="feather-base"
+            [style.color]="device.ativo ? '#beff00' : 'white'"> </i-feather>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
 <mat-paginator #paginator (page)="handlePageEvent($event)" [length]="page?.length" [pageSize]="page?.pageSize"
   [showFirstLastButtons]="true" [pageSizeOptions]="[15,20,50]" [pageIndex]="page?.pageIndex"></mat-paginator>
+
 <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'"
   [hideTransitionOptions]="'800ms'" [showTransformOptions]="'translateX(100%)'" />
