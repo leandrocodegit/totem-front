@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 
-const protocolo = 'http://';
-const host = 'localhost';
+const protocolo = 'https://';
+const host = 'painel.sincroled.com.br';
 const porta = ":9000"
 export const environment = {
   url: protocolo + host + porta,
