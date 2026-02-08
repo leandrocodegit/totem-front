@@ -10,6 +10,7 @@
 }
 
 .box-rapidas {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -29,7 +30,6 @@
 }
 
 .box-rapidas-item {
-  width: 100%;
   margin: 4px;
   border: solid #85a6c5 thin;
   background: rgba(4, 3, 26, 0.336);
@@ -97,10 +97,6 @@ h2 {
   .box-botoes-direta {
     display: flex !important;
     flex-direction: column !important;
-  }
-
-  .box-rapidas {
-    width: 100%;
   }
 
   .box-comandos-rapidos {
