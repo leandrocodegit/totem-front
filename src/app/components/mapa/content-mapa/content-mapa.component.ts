@@ -96,8 +96,7 @@ export class ContentMapaComponent implements OnInit, OnDestroy {
     console.log('Load', this.load);
 
 
-    if (!this.tag) {
-      console.log('MAPA');
+    if (!this.tag) { 
       this.mapa = Leaflet.map('map').setView(this.cordenadas, 13);
       Leaflet.tileLayer('https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}@2x.png', {
         maxZoom: 19,

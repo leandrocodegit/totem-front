@@ -1,3 +1,18 @@
 p-checkbox{
   margin: 7px 0;
 }
+
+.box-paramentros{
+  width: 40%;
+}
+
+.box-lora{
+  width: 50%;
+  margin-left: 40px;
+}
+
+@media(max-width: 700px) {
+ .box-paramentros{
+  width: 100%;
+}
+}

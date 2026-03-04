@@ -1,7 +1,7 @@
 <mat-card class="w-100">
   <mat-card-content>
     <div style="display: flex;margin-left: 10px;width: 100%;">
-      <div style="width: 40%;">
+      <div class="box-paramentros">
         <p-checkbox [(ngModel)]="dispositivo?.conexao.habilitarWifi" label="Habilitar wifi" style="margin-bottom: 12px;"
           [binary]="true" />
         @if(dispositivo?.conexao.habilitarWifi){
@@ -39,7 +39,7 @@
           <mat-select required [(ngModel)]="dispositivo.sensibilidadeVibracao">
 
             <mat-option [value]="0">Desabilitado</mat-option>
-            <mat-option *ngFor="let valor of gerarListaDecimal()" [value]="valor">{{valor}}</mat-option> 
+            <mat-option *ngFor="let valor of gerarListaDecimal()" [value]="valor">{{valor}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" style="margin-top: 15px;">
@@ -51,10 +51,10 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div style="width: 50%;margin-left: 40px;">
+      <div class="box-lora">
         <p-checkbox [(ngModel)]="dispositivo?.conexao.habilitarLoraWan" label="Habilitar LoraWan" [binary]="true" />
         <div style="display: flex;justify-content: space-between;">
-          <div>
+          <div class="box-lora-item">
             <mat-form-field appearance="outline" style="margin-top: 7px;">
               <mat-label>Tipo</mat-label>
               <mat-select required [(ngModel)]="dispositivo.conexao.modoLora">
