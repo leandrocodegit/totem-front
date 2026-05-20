@@ -1,0 +1,5 @@
+{
+  "name": "base-front",
+  "pages_build_output_dir": "dist/totem-front/browser",
+  "compatibility_date": "2025-05-10"
+}
