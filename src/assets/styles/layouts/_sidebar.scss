@@ -2,7 +2,7 @@
 // Sidebar
 // @=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@=@
 
-.sidenav { 
+.sidenav {
   box-shadow: 0px 7px 30px 0px $shadow;
   border: 0;
 
@@ -17,8 +17,8 @@
     font-size: 15px;
 
     &.activelink {
-      border-left: solid #fb9678 5px;
-      border-right: solid #fb9678 5px;
+      border-left: solid #003366  5px;
+      border-right: solid #003366  5px;
     }
   }
 

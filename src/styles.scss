@@ -1,6 +1,6 @@
 html {
-  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgba(10, 9, 10, 0.86) 100%) !important;
-  background: url(assets/images/fundo.jpg) !important;
+ /*  background: linear-gradient(90deg, rgb(0 0 0 / 62%) 1%, rgba(10, 9, 10, 0.86) 100%) !important;
+  background: url(assets/images/fundo.jpg) !important; */
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
@@ -10,16 +10,16 @@ body {
   height: -webkit-fill-available !important;
   color: #303030;
   letter-spacing: 0.1rem;
-  background: rgba(0, 0, 0, 0.92);
+ /*  background: rgba(0, 0, 0, 0.92); */
 }
 
 .pesquisar-input .mat-mdc-text-field-wrapper {
   background: rgba(0, 0, 0, 0.911) !important;
-  color: white;
+  /* color: white; */
 }
 
 .mat-drawer-inner-container {
-  background: rgba(0, 0, 0, 0.92);
+ /*  background: rgba(0, 0, 0, 0.92); */
 }
 
 .mat-sidenav-container {
@@ -229,7 +229,7 @@ legend {
 }
 
 .mat-mdc-tab .mdc-tab__text-label {
-  color: white !important;
+ /*  color: white !important; */
 }
 
 .mat-mdc-text-field-wrapper {
@@ -261,11 +261,11 @@ mat-paginator {
 .body-wrapper,
 .mat-toolbar,
 .mat-mdc-paginator-range-actions {
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 
 tr th {
-  color: rgb(178, 243, 255) !important;
+  /* color: rgb(178, 243, 255) !important; */
 }
 
 
@@ -274,13 +274,13 @@ tr td,
 .mat-mdc-paginator-icon,
 .mat-mdc-select-arrow svg,
 .mat-mdc-select-min-line {
-  color: white !important;
-  fill: white !important;
+  /* color: white !important;
+  fill: white !important; */
 }
 
 .mat-mdc-card {
-  background-color: transparent !important;
-  background: linear-gradient(90deg, rgba(43, 43, 43, 0.685) 1%, rgba(64, 64, 64, 0.788) 100%) !important;
+ /*  background-color: transparent !important;
+  background: linear-gradient(90deg, rgba(43, 43, 43, 0.685) 1%, rgba(64, 64, 64, 0.788) 100%) !important; */
 }
 
 .p-toast .p-toast-message.p-toast-message-success {
@@ -311,12 +311,12 @@ tr td,
 
 .box-configuracao-item b,
 .box-configuracao-item .material-symbols-outlined {
-  color: white;
+  /* color: white; */
 }
 
 .mat-mdc-text-field-wrapper {
   background: #e6e6e652 !important;
-  color: white !important;
+ /*  color: white !important; */
   border: solid rgb(107, 107, 107) thin !important;
 }
 
@@ -332,7 +332,7 @@ h3,
 h4,
 h6,
 .mdc-floating-label {
-  color: white !important;
+ /*  color: white !important; */
 }
 
 .mat-mdc-paginator-range-actions {
@@ -345,7 +345,7 @@ h6,
 
 .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input,
 .mat-mdc-select-min-line {
-  color: #ffffff !important;
+  /* color: #ffffff !important; */
 }
 
 input::-webkit-input-placeholder {
